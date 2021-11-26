@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "56ab64f0-28a5-4502-bced-414a4476ec77": {
+      "ProjectGuid": "56ab64f0-28a5-4502-bced-414a4476ec77",
+      "DisplayName": "The6Bits.BitOHealth.Logging",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

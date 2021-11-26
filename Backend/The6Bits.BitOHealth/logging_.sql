@@ -1,0 +1,1 @@
+INSERT INTO LogsTest (username, description, LogLevel, LogCategory, Date_Time) values ('{username}', '{description}', '{LogLevel}' , '{LogCategory}',CURRENT_TIMESTAMP   )
