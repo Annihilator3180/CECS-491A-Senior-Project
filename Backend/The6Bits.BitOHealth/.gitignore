@@ -30,3 +30,9 @@ Tt]est[Rr]esult*/
 *.suo
 *.user
 *.sln.docstates
+/.idea/*
+!/.idea/.idea.*
+/.idea/.idea.*/*
+!/.idea/.idea.*/.idea
+/.idea/.idea.*/.idea/*
+!/.idea/.idea.*/.idea/runConfigurations

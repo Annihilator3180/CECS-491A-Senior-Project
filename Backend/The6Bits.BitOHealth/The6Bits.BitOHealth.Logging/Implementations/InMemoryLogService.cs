@@ -1,15 +1,18 @@
-﻿namespace The6Bits.Logging.Implementations
+﻿using System;
+using System.Collections.Generic;
+
+namespace The6Bits.Logging.Implementations
 {
     public class InMemoryLogService : ILogService
     {
 
 
 
-        private IList<String> _logStore;
+        private readonly IList<string> _logStore;
 
         public InMemoryLogService() 
         {
-            _logStore = new List<String>();
+            _logStore = new List<string>();
         }
 
 
