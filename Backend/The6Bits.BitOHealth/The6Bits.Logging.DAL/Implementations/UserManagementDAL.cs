@@ -21,7 +21,7 @@ namespace The6Bits.BitOHealth.DAL
                     var bruh = connection.ExecuteScalar<string>(addUser);
                     Console.WriteLine(bruh);
                     var accs = connection.ExecuteScalar<string>("SELECT * from Accounts");
-                    Console.WriteLine(accs);
+                    Console.WriteLine(accs);//
                     connection.CloseAsync();
                 }
 
