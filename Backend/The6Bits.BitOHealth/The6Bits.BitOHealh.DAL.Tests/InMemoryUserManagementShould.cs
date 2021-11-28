@@ -1,19 +1,17 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using The6Bits.BitOHealth.DAL.Implementations;
 using The6Bits.BitOHealth.Models;
 
 namespace The6Bits.BitOHealh.DAL.Tests
 {
     [TestClass]
-    public class CreateAccountDALShould
+    public class InMemoryCreateAccountShould
     {
-
-        // TODO : GET RAMI FROM DB THEN DELETE FOR SUCCESS
         [TestMethod]
         public void TestMethod1()
         {
 
-            UserManagementDAL<User> userManagementDAL = new UserManagementDAL<User>();
+            InMemoryUserManagement<User> InMemoryUM = new InMemoryUserManagement<User>();
             User rami = new User();
             rami.FirstName = "Rami";
             rami.LastName = "Isder";
@@ -21,9 +19,10 @@ namespace The6Bits.BitOHealh.DAL.Tests
             rami.IsAdmin = 1;
             rami.Password = "Boof";
             rami.IsEnabled = 1;
-            userManagementDAL.Create(rami);
+            InMemoryUM.Create(rami);
             
 
         }
+        
     }
 }

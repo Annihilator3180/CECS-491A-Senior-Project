@@ -5,12 +5,16 @@ using The6Bits.BitOHealth.Models;
 
 
 
-namespace The6Bits.BitOHealth.DAL
+namespace The6Bits.BitOHealth.DAL.Implementations
 {
-    public class UserManagementDAL
+public class UserManagementDAL<T> : IRepository<User>
     {
+        public User Read()
+        {
+            throw new NotImplementedException();
+        }
 
-        public bool CreateAccount(User user)
+        public bool Create(User user)
         {
             try
             {
@@ -19,9 +23,7 @@ namespace The6Bits.BitOHealth.DAL
                     connection.Open();
                     string addUser = $"INSERT INTO Accounts (username, email, password, first_name, last_name, enabled, administrator) values('{user.Username}', '{user.Email}', '{user.Password}', '{user.FirstName}', '{user.LastName}', {user.IsEnabled}, {user.IsAdmin}); ";
                     var bruh = connection.ExecuteScalar<string>(addUser);
-                    Console.WriteLine(bruh);
-                    var accs = connection.ExecuteScalar<string>("SELECT * from Accounts");
-                    Console.WriteLine(accs);//
+                    //Console.WriteLine(bruh);
                     connection.CloseAsync();
                 }
 
@@ -31,8 +33,19 @@ namespace The6Bits.BitOHealth.DAL
             {
                 return false;
             }
-
+            
         }
+
+        public bool Update(User user)
+        {
+            return true;
+        }
+
+        public bool Delete(User user)
+        {
+            return true;
+        }
+        
 
     }
 }
