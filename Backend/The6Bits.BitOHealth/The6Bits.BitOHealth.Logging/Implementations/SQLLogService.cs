@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Data.SqlClient;
 using Dapper;
 
@@ -19,7 +19,7 @@ namespace The6Bits.Logging.Implementations
                 using (var connection = new SqlConnection(@"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;"))
                 {
                     connection.Open();
-                    string addLog = $"INSERT INTO LogsTest (username, description, LogLevel, LogCategory, Date_Time) values ('{username}', '{description}', '{LogLevel}' , '{LogCategory}', CURRENT_TIMESTAMP)";
+                    string addLog = $"INSERT INTO LogsTest (username, description, LogLevel, LogCategory, Date_Time) values ('{username}', '{description}', '{LogLevel}' , '{LogCategory}', {DateTime.UtcNow})";
                     var res = connection.ExecuteScalar<string>(addLog);
                     Console.WriteLine(res);
                     connection.CloseAsync();

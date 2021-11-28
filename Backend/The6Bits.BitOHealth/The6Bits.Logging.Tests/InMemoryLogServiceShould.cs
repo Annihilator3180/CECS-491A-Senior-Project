@@ -20,7 +20,7 @@ namespace The6Bits.Logging.Tests
             string logs = logService.getAllLogs();
 
             Assert.IsTrue(logs.Contains("Bussin"));
-
+            Console.WriteLine(logs);
 
         }
     }
