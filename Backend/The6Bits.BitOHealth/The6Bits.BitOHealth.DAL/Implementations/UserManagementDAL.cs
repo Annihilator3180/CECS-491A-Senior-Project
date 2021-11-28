@@ -9,10 +9,6 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 {
 public class UserManagementDAL<T> : IRepository<User>
     {
-        public User Read()
-        {
-            throw new NotImplementedException();
-        }
 
         public bool Create(User user)
         {
@@ -35,6 +31,28 @@ public class UserManagementDAL<T> : IRepository<User>
             }
             
         }
+
+        public User Read(User user)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(@"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;"))
+                {
+                    connection.Open();
+                    User u = new User();
+                    //TODO : ERROR CHECK EVERYTHING HERE
+                    u.Email = connection.ExecuteScalar<string>($"SELECT email FROM Accounts WHERE email = '{user.Email}'; ");
+                    return u;
+                }
+            }
+            catch { 
+      
+                return new User();
+            }
+        
+        }
+
+
 
         public bool Update(User user)
         {

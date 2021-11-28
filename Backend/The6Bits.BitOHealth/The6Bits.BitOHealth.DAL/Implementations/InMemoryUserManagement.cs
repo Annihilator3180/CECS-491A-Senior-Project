@@ -19,10 +19,6 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             _dataStore = new List<User>();
         }
 
-        public User Read()
-        {
-            throw new NotImplementedException();
-        }
 
         public bool Create(User user)
         {
@@ -38,23 +34,75 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             
         }
 
+        public User Read(User user)
+        {
+            try
+            {
+                var loc = 0;
+                foreach (User u in _dataStore)
+                {
+                    if (u.Username == user.Username)
+                    {
+                        return _dataStore[loc];
+                    }
+                }
+                //USER NOT FOUND IN LIST RETURN 
+
+                return new User();
+            }
+            catch
+            {
+                //error
+                return new User();
+            }
+        }
+
         public bool Update(User user)
         {
-            var loc = 0;
-            foreach (User u in _dataStore)
+            try
             {
-                if (u.Email == user.Email)
+                var loc = 0;
+                foreach (User u in _dataStore)
                 {
-                    _dataStore[loc] = user;
-                    return true;
+                    if (u.Username == user.Username)
+                    {
+                        _dataStore[loc] = user;
+                        return true;
+                    }
                 }
+                //USER NOT FOUND IN LIST
+                return false;
             }
-            return false;
+            catch
+            {
+                //error
+                return false;
+            }
         }
 
         public bool Delete(User user)
         {
-            return true;
+            try
+            {
+                var loc = 0;
+                foreach (User u in _dataStore)
+                {
+                    if (u.Username == user.Username)
+                    {
+                        _dataStore.Remove(u);
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch
+            {
+                return false;
+
+            }
+
+
+            //USER NOT FOUND IN LIST
         }
         
 

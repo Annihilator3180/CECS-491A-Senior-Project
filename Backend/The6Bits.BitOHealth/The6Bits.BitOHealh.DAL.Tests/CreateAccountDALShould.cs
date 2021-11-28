@@ -15,13 +15,14 @@ namespace The6Bits.BitOHealh.DAL.Tests
 
             UserManagementDAL<User> userManagementDAL = new UserManagementDAL<User>();
             User rami = new User();
-            rami.FirstName = "Rami";
-            rami.LastName = "Isder";
-            rami.Email = "b@gmail.com";
-            rami.IsAdmin = 1;
-            rami.Password = "Boof";
-            rami.IsEnabled = 1;
-            userManagementDAL.Create(rami);
+            //rami.FirstName = "Rami";
+            //rami.LastName = "Isder";
+            rami.Username = "boofman2";
+            //rami.Email = "b@gmail.com";
+            //rami.IsAdmin = 1;
+            //rami.Password = "Boof";
+            //rami.IsEnabled = 1;
+            userManagementDAL.Read(rami);
             
 
         }
