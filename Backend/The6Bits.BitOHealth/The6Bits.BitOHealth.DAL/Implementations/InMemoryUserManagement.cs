@@ -20,16 +20,17 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         }
 
 
-        public bool Create(User user)
+        //TODO:RENAME ERROR
+        public string Create(User user)
         {
             try
             {
                 _dataStore.Add(user);
-                return true;
+                return "account created";
             }
             catch
             {
-                return false;
+                return "error";
             }
             
         }

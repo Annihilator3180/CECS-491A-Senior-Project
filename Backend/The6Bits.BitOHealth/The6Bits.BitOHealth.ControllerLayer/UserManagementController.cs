@@ -11,13 +11,12 @@ namespace The6Bits.BitOHealth.ControllerLayer
     public class UserManagementController 
     {
 
-        UserManagementManager UMM = new UserManagementManager();
 
 
-        public bool CreateAccount(User user)
+        public string CreateAccount(User user)
         {
-            UMM.CreateAccount(user);
-            return true;
+            UserManagementManager UMM = new UserManagementManager();
+            return UMM.CreateAccount(user);
         }
 
     }

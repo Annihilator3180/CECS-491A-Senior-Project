@@ -10,7 +10,9 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 public class UserManagementDAL<T> : IRepository<User>
     {
 
-        public bool Create(User user)
+
+        //TODO:Rename error, fix SQL handling
+        public string Create(User user)
         {
             try
             {
@@ -23,16 +25,18 @@ public class UserManagementDAL<T> : IRepository<User>
                     connection.CloseAsync();
                 }
 
-                return true;
+                return "account created";
             }
             catch
             {
-                return false;
+                return "error";
             }
             
         }
 
-        public User Read(User user)
+        //TODO:Rename error, fix SQL handling
+
+        public User Read(string username)
         {
             try
             {
@@ -41,7 +45,7 @@ public class UserManagementDAL<T> : IRepository<User>
                     connection.Open();
                     User u = new User();
                     //TODO : ERROR CHECK EVERYTHING HERE
-                    u.Email = connection.ExecuteScalar<string>($"SELECT email FROM Accounts WHERE email = '{user.Email}'; ");
+                    u.Email = connection.ExecuteScalar<string>($"SELECT username FROM Accounts WHERE email = '{username}'; ");
                     return u;
                 }
             }

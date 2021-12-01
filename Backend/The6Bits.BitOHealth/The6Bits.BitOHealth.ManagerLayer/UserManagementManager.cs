@@ -7,12 +7,23 @@ namespace The6Bits.BitOHealth.ManagerLayer
 {
     public class UserManagementManager
     {
-        UserManagementService UMS = new UserManagementService();
 
-        public bool CreateAccount(User user)
+        public string CreateAccount(User user)
         {
-            UMS.CreateAccount(user);
-            return true;
+            UserManagementService UMS = new UserManagementService();
+            if (!UMS.ValidateEmail(user.Email))
+            {
+                return "Invalid Email";
+            }
+            else if (UMS.ValidatePassword(user.Password))
+            {
+                return "Invalid Password";
+            }
+            else if (UMS.ValidateUsername(user.Username) != "new username")
+            {
+                return UMS.ValidateUsername(user.Username);
+            }
+            return UMS.CreateAccount(user);
         }
 
     }
