@@ -31,6 +31,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.BitOHealth.Models"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.BitOHealth.DAL", "The6Bits.BitOHealth.DAL\The6Bits.BitOHealth.DAL.csproj", "{AF19AC61-C862-4A74-8CAF-B92CF6A99452}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "The6Bits.Logging.DAL", "The6Bits.Logging.DAL\The6Bits.Logging.DAL.csproj", "{10305673-FC2B-45CA-A4AB-4684EBE6AFB4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,10 @@ Global
 		{AF19AC61-C862-4A74-8CAF-B92CF6A99452}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF19AC61-C862-4A74-8CAF-B92CF6A99452}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF19AC61-C862-4A74-8CAF-B92CF6A99452}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10305673-FC2B-45CA-A4AB-4684EBE6AFB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10305673-FC2B-45CA-A4AB-4684EBE6AFB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10305673-FC2B-45CA-A4AB-4684EBE6AFB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10305673-FC2B-45CA-A4AB-4684EBE6AFB4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,6 +87,7 @@ Global
 		{56AB64F0-28A5-4502-BCED-414A4476EC77} = {D8459BE7-A930-4B65-B2BE-42A22BF68C8F}
 		{163B4ACA-FC98-4D80-A7B9-F61BF753CE90} = {D8459BE7-A930-4B65-B2BE-42A22BF68C8F}
 		{6D4E270E-A74B-4615-8A64-64DECB8865F1} = {D8459BE7-A930-4B65-B2BE-42A22BF68C8F}
+		{10305673-FC2B-45CA-A4AB-4684EBE6AFB4} = {D8459BE7-A930-4B65-B2BE-42A22BF68C8F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {68B84F46-5EA5-4F10-B710-F84F25054F70}

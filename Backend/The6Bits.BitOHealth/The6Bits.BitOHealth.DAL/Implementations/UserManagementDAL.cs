@@ -59,7 +59,7 @@ public class UserManagementDAL<T> : IRepository<User>
         }
 
 
-
+        //TODO: ASK better for generic update or specific methods for each change? which for SOLID
         public bool Update(User user)
         {
             try
@@ -67,7 +67,7 @@ public class UserManagementDAL<T> : IRepository<User>
                 using (var connection = new SqlConnection(@"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;"))
                 {
                     connection.Open();
-                    //TODO : ERROR CHECK EVERYTHING HERE
+                    //TODO : ERROR CHECK EVERYTHING HERE 
                     if (user.Email != null)
                     {
                         connection.ExecuteScalar<string>($"UPDATE Accounts SET email='{user.Email}' WHERE username = '{user.Username}'; ");
@@ -81,18 +81,16 @@ public class UserManagementDAL<T> : IRepository<User>
                         connection.ExecuteScalar<string>($"UPDATE Accounts SET first_name='{user.FirstName}' WHERE username = '{user.Username}'; ");
 
                     }
-
                     if (user.LastName != null)
                     {
                         connection.ExecuteScalar<string>($"UPDATE Accounts SET first_name='{user.FirstName}' WHERE username = '{user.Username}'; ");
                     }
 
-                        var email = connection.ExecuteScalar<string>($"UPDATE Accounts SET email={user.Email}, password = {user.Password}, WHERE username = '{user.Username}'; ");
                     if (user.Email != null)
                     {
-                        
+                        connection.ExecuteScalar<string>($"UPDATE Accounts SET email={user.Email}, password = {user.Password}, WHERE username = '{user.Username}'; ");
                     }
-                        User u = new User(email);
+                    User u = new User(email);
                     return true;
                 }
             }
