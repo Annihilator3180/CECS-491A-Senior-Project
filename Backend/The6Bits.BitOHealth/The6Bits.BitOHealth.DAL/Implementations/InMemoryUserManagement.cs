@@ -49,12 +49,12 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 }
                 //USER NOT FOUND IN LIST RETURN 
 
-                return new User();
+                return new User("");
             }
             catch
             {
                 //error
-                return new User();
+                return new User("");
             }
         }
 

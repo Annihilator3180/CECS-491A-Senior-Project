@@ -12,11 +12,10 @@ namespace The6Bits.BitOHealh.DAL.Tests
         {
             
             InMemoryUserManagement<User> InMemoryUM = new InMemoryUserManagement<User>();
-            User rami = new User();
+            User rami = new User("dababyyyy");
             rami.FirstName = "Rami";
             rami.LastName = "Isder";
             rami.Email = "b@gmail.com";
-            rami.Username = "boofman2";
             rami.IsAdmin = 1;
             rami.Password = "Boof";
             rami.IsEnabled = 1;

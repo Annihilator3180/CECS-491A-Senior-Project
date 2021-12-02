@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using The6Bits.BitOHealth.DAL.Implementations;
 using The6Bits.BitOHealth.Models;
 
@@ -40,16 +41,18 @@ namespace The6Bits.BitOHealth.ServiceLayer
         // catch db error
         public string ValidateUsername(string username)
         {
+            User user = new User(username);
             if (!username.Any(char.IsAscii) & username.Length < 15)
             {
                 return "Invalid Username";
             }
-            else if(UMD.Read(username) != null)
+            else if(UMD.Read(user).Username == username)
             {
                 return "Username Exists ";
             }
             return "new username";
         }
+        
 
 
         public string CreateAccount(User user) 

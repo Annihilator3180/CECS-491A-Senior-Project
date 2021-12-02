@@ -14,10 +14,9 @@ namespace The6Bits.BitOHealh.DAL.Tests
         {
 
             UserManagementDAL<User> userManagementDAL = new UserManagementDAL<User>();
-            User rami = new User();
+            User rami = new User("boofman2");
             //rami.FirstName = "Rami";
             //rami.LastName = "Isder";
-            rami.Username = "boofman2";
             //rami.Email = "b@gmail.com";
             //rami.IsAdmin = 1;
             //rami.Password = "Boof";

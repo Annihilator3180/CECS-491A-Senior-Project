@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.IO;
+using System.Net.Mail;
 using Dapper;
 using The6Bits.BitOHealth.Models;
 
@@ -36,22 +38,22 @@ public class UserManagementDAL<T> : IRepository<User>
 
         //TODO:Rename error, fix SQL handling
 
-        public User Read(string username)
+        public User Read(User user)
         {
             try
             {
                 using (var connection = new SqlConnection(@"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;"))
                 {
                     connection.Open();
-                    User u = new User();
                     //TODO : ERROR CHECK EVERYTHING HERE
-                    u.Email = connection.ExecuteScalar<string>($"SELECT username FROM Accounts WHERE email = '{username}'; ");
+                    var email = connection.ExecuteScalar<string>($"SELECT username FROM Accounts WHERE username = '{user.Username}'; ");
+                    User u = new User(email);
                     return u;
                 }
             }
-            catch { 
-      
-                return new User();
+            catch
+            {
+                return new User("");
             }
         
         }
@@ -60,7 +62,44 @@ public class UserManagementDAL<T> : IRepository<User>
 
         public bool Update(User user)
         {
-            return true;
+            try
+            {
+                using (var connection = new SqlConnection(@"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;"))
+                {
+                    connection.Open();
+                    //TODO : ERROR CHECK EVERYTHING HERE
+                    if (user.Email != null)
+                    {
+                        connection.ExecuteScalar<string>($"UPDATE Accounts SET email='{user.Email}' WHERE username = '{user.Username}'; ");
+                    }
+                    if (user.Password != null)
+                    {
+                        connection.ExecuteScalar<string>($"UPDATE Accounts SET password='{user.Password}' WHERE username = '{user.Username}'; ");
+                    }
+                    if (user.FirstName != null)
+                    {
+                        connection.ExecuteScalar<string>($"UPDATE Accounts SET first_name='{user.FirstName}' WHERE username = '{user.Username}'; ");
+
+                    }
+
+                    if (user.LastName != null)
+                    {
+                        connection.ExecuteScalar<string>($"UPDATE Accounts SET first_name='{user.FirstName}' WHERE username = '{user.Username}'; ");
+                    }
+
+                        var email = connection.ExecuteScalar<string>($"UPDATE Accounts SET email={user.Email}, password = {user.Password}, WHERE username = '{user.Username}'; ");
+                    if (user.Email != null)
+                    {
+                        
+                    }
+                        User u = new User(email);
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public bool Delete(User user)
