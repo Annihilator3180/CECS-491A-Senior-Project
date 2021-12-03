@@ -13,16 +13,20 @@ namespace The6Bits.BitOHealh.DAL.Tests
         public void TestMethod1()
         {
 
+
             UserManagementDAL<User> userManagementDAL = new UserManagementDAL<User>();
-            User rami = new User("boofman2");
-            //rami.FirstName = "Rami";
-            //rami.LastName = "Isder";
-            //rami.Email = "b@gmail.com";
-            //rami.IsAdmin = 1;
-            //rami.Password = "Boof";
-            //rami.IsEnabled = 1;
-            userManagementDAL.Read(rami);
+            User rami = new User();
+            rami.Username = "bruh2";
+            rami.LastName = "test";
+            rami.Email = "b@gmail.com";
+            rami.IsAdmin = 1;
+            rami.Password = "Boof";
+            rami.IsEnabled = 1;
+            userManagementDAL.Create(rami);
+            User ret = userManagementDAL.Read(rami);
             
+            Assert.AreEqual(rami.Username, ret.Username );
+
 
         }
     }

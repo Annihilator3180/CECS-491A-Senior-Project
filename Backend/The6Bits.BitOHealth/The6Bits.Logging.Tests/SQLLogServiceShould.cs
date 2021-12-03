@@ -16,8 +16,11 @@ namespace The6Bits.Logging.Tests
         {
             var logService = new SQLLogService();
 
-            logService.Log("user22", "New Acc Dis", LogLevel.Information, LogCategory.Datastore);
+            logService.Log("agazaaiiin", "Ne Dis", "Inftion", "ksajldsa");
+            string all = logService.getAllLogs();
+            Assert.IsTrue(all.Contains("agazaaiiin Ne Dis Inftion ksajldsa"));
 
         }
+
     }
 }

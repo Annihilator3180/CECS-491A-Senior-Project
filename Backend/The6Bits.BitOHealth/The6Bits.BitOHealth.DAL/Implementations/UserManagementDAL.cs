@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.IO;
+using System.Linq;
 using System.Net.Mail;
+using System.Web;
 using Dapper;
 using The6Bits.BitOHealth.Models;
 
@@ -12,20 +14,18 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 public class UserManagementDAL<T> : IRepository<User>
     {
 
-
+        private readonly string _connectString = @"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;";
         //TODO:Rename error, fix SQL handling
         public string Create(User user)
         {
             try
             {
-                using (var connection = new SqlConnection(@"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;"))
-                {
-                    connection.Open();
-                    string addUser = $"INSERT INTO Accounts (username, email, password, first_name, last_name, enabled, administrator) values('{user.Username}', '{user.Email}', '{user.Password}', '{user.FirstName}', '{user.LastName}', {user.IsEnabled}, {user.IsAdmin}); ";
-                    var bruh = connection.ExecuteScalar<string>(addUser);
-                    //Console.WriteLine(bruh);
-                    connection.CloseAsync();
-                }
+                string query = InsertQueryBuilder(user);
+                using var connection = new SqlConnection(_connectString);
+                connection.Open();
+                connection.ExecuteScalar<string>(query);
+                //Console.WriteLine(bruh);
+                connection.CloseAsync();
 
                 return "account created";
             }
@@ -37,60 +37,36 @@ public class UserManagementDAL<T> : IRepository<User>
         }
 
         //TODO:Rename error, fix SQL handling
-
         public User Read(User user)
         {
             try
             {
-                using (var connection = new SqlConnection(@"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;"))
+                using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
-                    //TODO : ERROR CHECK EVERYTHING HERE
-                    var email = connection.ExecuteScalar<string>($"SELECT username FROM Accounts WHERE username = '{user.Username}'; ");
-                    User u = new User(email);
-                    return u;
+                    IEnumerable<User> str = connection.Query<User>($"select username = '{user.Username}'; ");
+                    return str.First();
                 }
             }
             catch
             {
-                return new User("");
+                return new User();
             }
         
         }
 
 
         //TODO: ASK better for generic update or specific methods for each change? which for SOLID
+        //ex: DAL.UpdateEmail();
         public bool Update(User user)
         {
             try
             {
-                using (var connection = new SqlConnection(@"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;"))
+                string query = UpdateQueryBuilder(user);
+                using (var connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
-                    //TODO : ERROR CHECK EVERYTHING HERE 
-                    if (user.Email != null)
-                    {
-                        connection.ExecuteScalar<string>($"UPDATE Accounts SET email='{user.Email}' WHERE username = '{user.Username}'; ");
-                    }
-                    if (user.Password != null)
-                    {
-                        connection.ExecuteScalar<string>($"UPDATE Accounts SET password='{user.Password}' WHERE username = '{user.Username}'; ");
-                    }
-                    if (user.FirstName != null)
-                    {
-                        connection.ExecuteScalar<string>($"UPDATE Accounts SET first_name='{user.FirstName}' WHERE username = '{user.Username}'; ");
-
-                    }
-                    if (user.LastName != null)
-                    {
-                        connection.ExecuteScalar<string>($"UPDATE Accounts SET first_name='{user.FirstName}' WHERE username = '{user.Username}'; ");
-                    }
-
-                    if (user.Email != null)
-                    {
-                        connection.ExecuteScalar<string>($"UPDATE Accounts SET email={user.Email}, password = {user.Password}, WHERE username = '{user.Username}'; ");
-                    }
-                    User u = new User(email);
+                    connection.Execute(query);
                     return true;
                 }
             }
@@ -102,9 +78,69 @@ public class UserManagementDAL<T> : IRepository<User>
 
         public bool Delete(User user)
         {
-            return true;
+            try
+            {
+                string query = $"DELETE FROM Accounts WHERE Username = {user.Username}";
+                using (var connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    connection.Execute(query);
+
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
         }
-        
+
+
+        //Mayde add Enable/Disable account 
+        public string UpdateQueryBuilder(User user)
+        {
+            string query = "UPDATE Accounts SET ";
+            List<string> f = new List<string> { };
+            foreach(var prop in user.GetType().GetProperties())
+            {
+                if(prop.GetValue(user, null) != null && prop.PropertyType == typeof(string))
+                {
+                    f.Add($" {prop.Name} = '{prop.GetValue(user, null)}'");
+                }
+                if (prop.GetValue(user, null) != null && prop.PropertyType != typeof(string))
+                {
+                    f.Add($" {prop.Name} = {prop.GetValue(user, null)}");
+                }
+            }
+            query += string.Join(", ", f);
+            query += $" WHERE username = '{user.Username}' ";
+
+            return query;
+        }
+
+        public string InsertQueryBuilder(User user)
+        {
+            string query = "INSERT INTO Accounts (";
+            List<string> varnames = new List<string> { };
+            List<string> values = new List<string> { };
+            foreach (var prop in user.GetType().GetProperties())
+            {
+                if (prop.GetValue(user, null) != null && prop.PropertyType == typeof(string))
+                {
+                    varnames.Add($" {prop.Name} ");
+                    values.Add($"'{prop.GetValue(user, null)}'");
+                }
+                if (prop.GetValue(user, null) != null && prop.PropertyType != typeof(string))
+                {
+                    varnames.Add($" {prop.Name} ");
+                    values.Add($"{prop.GetValue(user, null)}");
+                }
+            }
+            query += $"{string.Join(", ", varnames)}) VALUES ( ";
+            query += $"{string.Join(", ", values)})";
+            return query;
+        }
+
 
     }
 }

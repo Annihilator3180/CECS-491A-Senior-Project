@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace The6Bits.Logging
 {
-    public enum LogCategory
+    public interface ILogDal
     {
 
-        View,
-        Business,
-        Server,
-        Data,
-        Datastore
+        bool Log(string username, string description, string LogLevel, string LogCategory);
+        String getAllLogs();
+
 
     }
 }

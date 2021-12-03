@@ -41,7 +41,8 @@ namespace The6Bits.BitOHealth.ServiceLayer
         // catch db error
         public string ValidateUsername(string username)
         {
-            User user = new User(username);
+            User user = new User();
+            user.Username = username;
             if (!username.Any(char.IsAscii) & username.Length < 15)
             {
                 return "Invalid Username";
@@ -58,6 +59,29 @@ namespace The6Bits.BitOHealth.ServiceLayer
         public string CreateAccount(User user) 
         {
             return UMD.Create(user);
+        }
+
+        //SOLID IF VALIDATEUSERNAME HERE?
+        public string DeleteAccount(string username)
+        {
+            ValidateUsername(username);
+            User u = new User();
+            u.Username = username;
+            return UMD.Delete(u) ? "account Deleted" : "Deletion failed";
+        }
+
+
+
+        //SOLID IF VALIDATEUSERNAME HERE?
+
+        public string EnableAccount(string username)
+        {
+
+            ValidateUsername(username);
+            User u = new User();
+            u.Username = username; 
+            return UMD.Delete(u) ? "account Deleted" : "Deletion failed";
+
         }
 
     }

@@ -1,12 +1,13 @@
 CREATE TABLE Accounts (
-  username VARCHAR(10) NOT NULL,
-  email VARCHAR(30) NOT NULL,
-  password VARCHAR(20) NOT NULL,
-  first_name VARCHAR(20),
-  last_name VARCHAR(20),
-  enabled BIT NOT NULL,
-  administrator BIT NOT NULL
+  Username VARCHAR(10) NOT NULL,
+  Email VARCHAR(30) ,
+  Password VARCHAR(20),
+  FirstName VARCHAR(20),
+  LastName VARCHAR(20),
+  IsEnabled BIT ,
+  IsAdmin BIT
 );
+
 
 
 INSERT INTO Accounts 

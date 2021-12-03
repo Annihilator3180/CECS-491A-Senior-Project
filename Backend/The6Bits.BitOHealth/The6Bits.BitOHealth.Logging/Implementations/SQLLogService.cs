@@ -1,36 +1,21 @@
 ﻿ using System;
 using System.Data.SqlClient;
 using Dapper;
+using The6Bits.Logging.DAL;
 
 namespace The6Bits.Logging.Implementations
 {
     public class SQLLogService : ILogService
     {
-
+        SQLLogDAO sqlDAO = new SQLLogDAO();
         public string getAllLogs()
         {
-            throw new NotImplementedException();
+            return sqlDAO.getAllLogs();
         }
 
-        public bool Log(string username, string description, Enum LogLevel, Enum LogCategory)
+        public bool Log(string username, string description, string LogLevel, string LogCategory)
         {
-            try
-            {
-                using (var connection = new SqlConnection(@"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;"))
-                {
-                    connection.Open();
-                    string addLog = $"INSERT INTO LogsTest (username, description, LogLevel, LogCategory, Date_Time) values ('{username}', '{description}', '{LogLevel}' , '{LogCategory}', {DateTime.UtcNow})";
-                    var res = connection.ExecuteScalar<string>(addLog);
-                    Console.WriteLine(res);
-                    connection.CloseAsync();
-                }
-                Console.WriteLine();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+            return sqlDAO.Log(username, description, LogLevel, LogCategory);
         }
     }
 }

@@ -6,8 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\The6Bits.BitOHealth.Logging\The6Bits.Logging.csproj" />
-  </ItemGroup>
-
 </Project>

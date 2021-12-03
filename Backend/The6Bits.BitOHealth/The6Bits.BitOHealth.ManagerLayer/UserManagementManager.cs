@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.Design;
 using The6Bits.BitOHealth.ServiceLayer;
 using The6Bits.BitOHealth.Models;
 
@@ -15,15 +16,49 @@ namespace The6Bits.BitOHealth.ManagerLayer
             {
                 return "Invalid Email";
             }
-            else if (UMS.ValidatePassword(user.Password))
+            if (UMS.ValidatePassword(user.Password))
             {
                 return "Invalid Password";
             }
-            else if (UMS.ValidateUsername(user.Username) != "new username")
+            string validation = UMS.ValidateUsername(user.Username);
+            return validation != "new username" ? validation : UMS.CreateAccount(user);
+        }
+
+        public string DeleteAccount(string username)
+        {
+            UserManagementService UMS = new UserManagementService();
+            string validation = UMS.ValidateUsername(username);
+            if (validation != "username exists")
             {
-                return UMS.ValidateUsername(user.Username);
+                return validation;
             }
-            return UMS.CreateAccount(user);
+            return UMS.DeleteAccount(username) ;
+            
+
+        }
+
+        public string EnableAccount(string username)
+        {
+            UserManagementService UMS = new UserManagementService();
+            string validation = UMS.ValidateUsername(username);
+            if (validation != "username exists")
+            {
+                return validation;
+            }
+            return UMS.EnableAccount(username);
+        }
+
+        public string UpdateAccount(string username)
+        {
+            UserManagementService UMS = new UserManagementService();
+            string validation = UMS.ValidateUsername(username);
+            if (validation != "username exists")
+            {
+                return validation;
+            }
+            return UMS.DeleteAccount(username);
+
+
         }
 
     }

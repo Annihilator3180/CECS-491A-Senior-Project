@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace The6Bits.Logging.Implementations
 {
-    public class InMemoryLogService : ILogService
+    public class InMemoryLogDAO : ILogDal
     {
 
 
 
         private readonly IList<string> _logStore;
 
-        public InMemoryLogService() 
+        public InMemoryLogDAO() 
         {
             _logStore = new List<string>();
         }
