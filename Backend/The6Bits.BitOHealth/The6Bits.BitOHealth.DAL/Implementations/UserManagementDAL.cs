@@ -140,6 +140,7 @@ public class UserManagementDAL<T> : IRepository<User>
             query += $"{string.Join(", ", values)})";
             return query;
         }
+        //TODO:EnableDisable
 
 
     }

@@ -110,7 +110,22 @@
       "ProjectGuid": "58570285-e2fc-4bda-9e85-f922b5071f3a",
       "DisplayName": "The6Bits.BitOHealth.API",
       "ColorIndex": 4
+    },
+    "4b581ca6-51c5-408a-9cbd-933e779412d6": {
+      "ProjectGuid": "4b581ca6-51c5-408a-9cbd-933e779412d6",
+      "DisplayName": "The6Bits.BitOHealth.WebAPI",
+      "ColorIndex": 5
+    },
+    "10305673-fc2b-45ca-a4ab-4684ebe6afb4": {
+      "ProjectGuid": "10305673-fc2b-45ca-a4ab-4684ebe6afb4",
+      "DisplayName": "The6Bits.Logging.DAL",
+      "ColorIndex": 6
+    },
+    "d79c8cd7-e325-41e1-bd71-5ffcefff0b6d": {
+      "ProjectGuid": "d79c8cd7-e325-41e1-bd71-5ffcefff0b6d",
+      "DisplayName": "The6Bits.Logging.Models",
+      "ColorIndex": 7
     }
   },
-  "NextColorIndex": 5
+  "NextColorIndex": 8
 }

@@ -10,7 +10,7 @@ namespace The6Bits.Logging.Tests
     public class SQLLogServiceShould
     {
         
-        //TODO:FIX TEST
+        //TODO:ADD MORE TESTS
         [TestMethod]
         public void GetLog()
         {

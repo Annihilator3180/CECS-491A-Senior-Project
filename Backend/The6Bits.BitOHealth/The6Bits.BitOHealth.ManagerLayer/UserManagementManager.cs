@@ -60,6 +60,7 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
 
         }
+        //TODO:Enable/Disable user
 
     }
 }

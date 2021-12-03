@@ -24,7 +24,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
             }
         }
 
-        //TODO: DOUBLE CHECK VALIDATIONS IN BRD
+        //TODO: DOUBLE CHECK VALIDATIONS
         public bool ValidatePassword(string password)
         {
             try
@@ -37,8 +37,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
             }
         }
 
-        //TODO: DOUBLE CHECK VALIDATIONS IN BRD
-        // catch db error
+        //TODO: DOUBLE CHECK VALIDATIONS
         public string ValidateUsername(string username)
         {
             User user = new User();

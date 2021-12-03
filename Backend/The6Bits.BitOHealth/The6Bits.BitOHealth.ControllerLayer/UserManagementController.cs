@@ -10,7 +10,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
     public class UserManagementController 
     {
-
+        //TODO : double check lines up
         UserManagementManager UMM = new UserManagementManager();
 
         public string CreateAccount(User user)
@@ -29,7 +29,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
         {
             return UMM.EnableAccount(username);
         }
-        
+        //TODO:Enable/Disable user
 
     }
 }
