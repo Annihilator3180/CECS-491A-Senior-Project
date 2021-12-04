@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
-using Dapper;
+using System.Text;
 using The6Bits.Logging.Models;
 
 namespace The6Bits.Logging.Implementations
@@ -11,21 +11,27 @@ namespace The6Bits.Logging.Implementations
 
         public string getAllLogs()
         {
+            string query = $"select * from LogsTest ;";
             try
             {
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
-                    connection.Open();
-                    IEnumerable<Log> str = connection.Query<Log>($"select * from LogsTest ;");
-                    string s = "";
-                    foreach (Log log in str)
-                    {
-                        s += $" {log.username} {log.description} {log.LogLevel} {log.LogCategory} {log.Date_Time} ";
-                        System.Diagnostics.Debug.WriteLine(log.username + "     "+ log.Date_Time);
 
+
+                    string logs = "";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        logs+=($" {reader["username"]}, {reader["description"]}, {reader["LogLevel"]}, {reader["LogCategory"]}, {reader["Date_Time"]} ");
+                        System.Diagnostics.Debug.WriteLine("\t{0}\t{1}\t{2}",
+                            reader["Username"], reader["description"], reader["LogLevel"]);
                     }
 
-                    return s;
+
+
+                    return logs;
                     
                 }
             }
@@ -41,9 +47,10 @@ namespace The6Bits.Logging.Implementations
             {
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
+                    string query = $"INSERT INTO LogsTest (username, description, LogLevel, LogCategory, Date_Time) values ('{username}', '{description}', '{LogLevel}' , '{LogCategory}', '{DateTime.UtcNow}')";
+                    SqlCommand command = new SqlCommand(query, connection);
                     connection.Open();
-                    string addLog = $"INSERT INTO LogsTest (username, description, LogLevel, LogCategory, Date_Time) values ('{username}', '{description}', '{LogLevel}' , '{LogCategory}', '{DateTime.UtcNow}')";
-                    int s = connection.Execute(addLog);
+                    SqlDataReader reader = command.ExecuteReader();
                     connection.CloseAsync();
                 }
                 return true;
@@ -53,6 +60,7 @@ namespace The6Bits.Logging.Implementations
                 return false;
             }
         }
+
 
     }
 }

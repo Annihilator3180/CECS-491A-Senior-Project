@@ -1,16 +1,14 @@
 using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using The6Bits.BitOHealth.DAL.Implementations;
 using The6Bits.BitOHealth.Models;
 
 namespace The6Bits.BitOHealth.DAL.Tests
 {
-    [TestClass]
     public class CreateAccountUMDaoShould
     {
-
-        // TODO : GET RAMI FROM DB THEN DELETE FOR SUCCESS
-        [TestMethod]
+        [System.Diagnostics.Conditional("DEBUG")]
         public void InsertTest()
         {
             
@@ -24,11 +22,12 @@ namespace The6Bits.BitOHealth.DAL.Tests
             rami.IsEnabled = 1;
             UmDAO.Create(rami);
             User ret = UmDAO.Read(rami);
-            UmDAO.Delete(rami);
-            Assert.AreEqual(rami.Username, ret.Username );
+            Debug.Assert( rami.Username == ret.Username );
         }
 
-        [TestMethod]
+
+        [System.Diagnostics.Conditional("DEBUG")]
+
         public void UpdateTest()
         {
             SqlUMDAO<User> UmDAO = new SqlUMDAO<User>();
@@ -46,10 +45,13 @@ namespace The6Bits.BitOHealth.DAL.Tests
             User updated = UmDAO.Read(rami);
             System.Diagnostics.Debug.WriteLine(updated.Email);
             UmDAO.Delete(rami);
-            Assert.AreNotEqual(original.Email, updated.Email);
+
+            Debug.Assert("test@gmail.com" == updated.Email);
         }
 
-        [TestMethod]
+
+
+        [System.Diagnostics.Conditional("DEBUG")]
         public void ReadTest()
         {
             SqlUMDAO<User> UmDAO = new SqlUMDAO<User>();
@@ -65,19 +67,35 @@ namespace The6Bits.BitOHealth.DAL.Tests
             User original = UmDAO.Read(rami);
             UmDAO.Delete(rami);
 
-            Assert.AreEqual(rami.Email,original.Email);
-            Assert.AreEqual(rami.LastName, original.LastName);
-            Assert.AreEqual(rami.IsAdmin, original.IsAdmin);
-            Assert.AreEqual(rami.Password, original.Password);
-            Assert.AreEqual(rami.IsEnabled, original.IsEnabled);
-            Assert.AreEqual(rami.FirstName, original.FirstName);
-            Assert.AreEqual(rami.Username, original.Username);
-
-
-
+            Debug.Assert(rami.Email==original.Email);
+           
         }
 
-        [TestMethod]
+        [System.Diagnostics.Conditional("DEBUG")]
+
+        public void ReadAfterDeleteTest()
+        {
+            SqlUMDAO<User> UmDAO = new SqlUMDAO<User>();
+            User rami = new User();
+            rami.Username = "testname";
+            rami.LastName = "test";
+            rami.FirstName = "test";
+            rami.Email = "test@gmail.com";
+            rami.IsAdmin = 0;
+            rami.Password = "testpass123";
+            rami.IsEnabled = 1;
+            UmDAO.Create(rami);
+            UmDAO.Delete(rami);
+            User original = UmDAO.Read(rami);
+
+            Debug.Assert(null== original.Email);
+        }
+
+
+
+
+
+        [System.Diagnostics.Conditional("DEBUG")]
         public void EnableTest()
         {
             SqlUMDAO<User> UmDAO = new SqlUMDAO<User>();
@@ -89,20 +107,46 @@ namespace The6Bits.BitOHealth.DAL.Tests
             rami.Password = "testpass123";
             rami.IsEnabled = 0;
             UmDAO.Create(rami);
-
             UmDAO.EnableAccount("testname");
 
-            rami.IsEnabled = 1;
             User updated = UmDAO.Read(rami);
+
             UmDAO.Delete(rami);
 
-            Assert.AreEqual(1, updated.IsEnabled);
+            System.Diagnostics.Debug.WriteLine(updated.IsEnabled);
+
+
+           Debug.Assert(1 == updated.IsEnabled);
+        }
+
+        [System.Diagnostics.Conditional("DEBUG")]
+
+        public void DisableTest()
+        {
+            SqlUMDAO<User> UmDAO = new SqlUMDAO<User>();
+            User rami = new User();
+            rami.Username = "testname";
+            rami.LastName = "test";
+            rami.Email = "test@gmail.com";
+            rami.IsAdmin = 1;
+            rami.Password = "testpass123";
+            rami.IsEnabled = 1;
+            UmDAO.Create(rami);
+
+            UmDAO.DisableAccount("testname");
+
+            User updated = UmDAO.Read(rami);
+            UmDAO.Delete(rami);
+           
+            Debug.Assert(0 == updated.IsEnabled);
         }
 
 
-        [TestMethod]
-        public void DisableTest()
+
+        [System.Diagnostics.Conditional("DEBUG")]
+        public void DeleteTest()
         {
+
             SqlUMDAO<User> UmDAO = new SqlUMDAO<User>();
             User rami = new User();
             rami.Username = "testname";
@@ -112,14 +156,9 @@ namespace The6Bits.BitOHealth.DAL.Tests
             rami.Password = "testpass123";
             rami.IsEnabled = 1;
             UmDAO.Create(rami);
-            rami.IsEnabled = 0;
-
-            UmDAO.DisableAccount("testname");
-
-            User updated = UmDAO.Read(rami);
             UmDAO.Delete(rami);
-
-            Assert.AreEqual(0, updated.IsEnabled);
+            User ret = UmDAO.Read(rami);
+            Debug.Assert(ret.Email==null);
         }
 
     }

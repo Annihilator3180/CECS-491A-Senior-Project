@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Web;
-using Dapper;
 using The6Bits.BitOHealth.Models;
 
 
@@ -22,10 +21,13 @@ public class SqlUMDAO<T> : IRepositoryUM<User>
             {
                 string query = InsertQueryBuilder(user);
                 using var connection = new SqlConnection(_connectString);
+                SqlCommand command = new SqlCommand(query, connection);
                 connection.Open();
-                connection.ExecuteScalar<string>(query);
+                command.ExecuteReader();
+                //connection.ExecuteScalar<string>(query);
                 //Console.WriteLine(bruh);
-                connection.CloseAsync();
+                connection.Close();
+
 
                 return true;
             }
@@ -39,13 +41,42 @@ public class SqlUMDAO<T> : IRepositoryUM<User>
         //TODO:Rename error, fix SQL handling
         public User Read(User user)
         {
+            string query = $"select * from Accounts where username = '{user.Username}'; ";
+
             try
             {
+
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
+                    SqlCommand command = new SqlCommand(query, connection);
                     connection.Open();
-                    IEnumerable<User> str = connection.Query<User>($"select * from Accounts where username = '{user.Username}'; ");
-                    return str.First();
+
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+
+                        user.Username = reader["Username"].ToString();
+                        user.Email = reader["Email"].ToString();
+                        user.Password = reader["Password"].ToString();
+                        user.FirstName = reader["FirstName"].ToString();
+                        user.LastName = reader["LastName"].ToString();
+
+                        user.IsEnabled = Convert.ToInt32(reader["IsEnabled"]);
+                        user.IsAdmin = Convert.ToInt32(reader["IsAdmin"]);
+
+
+                        reader.Close();
+                        connection.Close();
+                        return user;
+
+                    }
+                    reader.Close();
+                    connection.Close();
+                    return new User();
+
+
+                    //IEnumerable<User> str = connection.Query<User>($"select * from Accounts where username = '{user.Username}'; ");
                 }
             }
             catch
@@ -63,10 +94,12 @@ public class SqlUMDAO<T> : IRepositoryUM<User>
             try
             {
                 string query = UpdateQueryBuilder(user);
-                using (var connection = new SqlConnection(_connectString))
+                using (SqlConnection connection = new SqlConnection(_connectString))
                 {
+                    SqlCommand command = new SqlCommand(query, connection);
                     connection.Open();
-                    connection.Execute(query);
+                    command.ExecuteReader();
+                    connection.Close();
                     return true;
                 }
             }
@@ -81,10 +114,13 @@ public class SqlUMDAO<T> : IRepositoryUM<User>
             try
             {
                 string query = $"DELETE FROM Accounts WHERE Username = '{user.Username}';";
-                using (var connection = new SqlConnection(_connectString))
+                using (SqlConnection connection = new SqlConnection(_connectString))
                 {
+                    SqlCommand command = new SqlCommand(query, connection);
                     connection.Open();
-                    connection.Execute(query);
+                    command.ExecuteReader();
+
+                    connection.Close();
 
                     return true;
                 }
@@ -146,12 +182,17 @@ public class SqlUMDAO<T> : IRepositoryUM<User>
             try
             {
                 string query = $"UPDATE Accounts SET IsEnabled = 1 WHERE username = '{username}';";
-                using (var connection = new SqlConnection(_connectString))
+
+                using (SqlConnection connection = new SqlConnection(_connectString))
                 {
+                    SqlCommand command = new SqlCommand(query, connection);
                     connection.Open();
-                    connection.Execute(query);
+                    command.ExecuteReader();
+                    connection.Close();
+
                     return true;
                 }
+
             }
             catch
             {
@@ -164,11 +205,15 @@ public class SqlUMDAO<T> : IRepositoryUM<User>
         {
             try
             {
-                string query = $"UPDATE Accounts SET IsEnabled = 0 WHERE username = '{username}';";
-                using (var connection = new SqlConnection(_connectString))
+                string query = $"UPDATE Accounts SET IsEnabled = 0 WHERE Username = '{username}';";
+
+                using (SqlConnection connection = new SqlConnection(_connectString))
                 {
+                    SqlCommand command = new SqlCommand(query, connection);
                     connection.Open();
-                    connection.Execute(query);
+                    command.ExecuteReader();
+                    connection.Close();
+
                     return true;
                 }
             }

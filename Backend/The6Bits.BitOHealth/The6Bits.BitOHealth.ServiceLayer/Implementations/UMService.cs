@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text;
 using The6Bits.BitOHealth.DAL;
 using The6Bits.BitOHealth.Models;
 using The6Bits.BitOHealth.ServiceLayer.Contract;
@@ -21,7 +22,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
             try
             {
                 
-                return new EmailAddressAttribute().IsValid(email) && email.Length > 255;
+                return new EmailAddressAttribute().IsValid(email) && email.Length < 255;
             }
             catch
             {
@@ -54,9 +55,9 @@ namespace The6Bits.BitOHealth.ServiceLayer
             {
                 return "Invalid Username";
             }
-            else if (_dao.Read(user).Username == username)
+            if (_dao.Read(user).Username == username)
             {
-                return "Username Exists ";
+                return "username exists";
             }
 
             return "new username";
@@ -94,5 +95,60 @@ namespace The6Bits.BitOHealth.ServiceLayer
         {
             return _dao.DisableAccount(username) ? "account disabled" : "database error";
         }
+
+        public IList<string> BulkCreateRandom(int amount)
+        {
+            IList<string> usernames = new List<string>();
+            User user = new User();
+            if (amount < 9999)
+            {
+                user.Username = RandomString(9);
+                user.IsAdmin = 0;
+                foreach (int i in Enumerable.Range(0, amount))
+                {
+                    _dao.Create(user);
+                    usernames.Add(user.Username);
+                    user.Username = RandomString(9);
+                }
+
+                return usernames;
+            }
+            {
+                return new List<string>();
+            }
+        }
+
+
+        public bool BulkDelete(IList<string> usernames)
+        {
+            User u = new User();
+            foreach (string username in usernames)
+            {
+                u.Username = username;
+                _dao.Delete(u);
+            }
+
+            return true;
+        }
+
+
+        private string RandomString(int size)
+        {
+            Random random = new Random((int)DateTime.Now.Ticks);
+            StringBuilder builder = new StringBuilder();
+            char ch;
+            foreach (var i in Enumerable.Range(0,size))
+            {
+                ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
+                builder.Append(ch);
+            }
+
+            return builder.ToString();
+        }
+
+
+
+
+
     }
 }

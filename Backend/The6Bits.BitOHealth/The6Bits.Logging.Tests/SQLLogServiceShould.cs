@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text;
 using Dapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using The6Bits.Logging.Implementations;
@@ -18,11 +19,10 @@ namespace The6Bits.Logging.Tests
         public void InsertTest()
         {
             var logService = new SQLLogService(new SQLLogDAO());
-            string testusername = "testerr2r";
+            string testusername = RandomString(6);
             _ = logService.Log(testusername, "TEST", "Info", "Data");
             string all = logService.getAllLogs();
             Assert.IsTrue(all.Contains(testusername));
-
 
         }
 
@@ -31,18 +31,19 @@ namespace The6Bits.Logging.Tests
         {
 
         }
-
-        public string rand(int length)
+        private string RandomString(int size)
         {
-            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-            char[] arr = new char[8];
-            Random random = new Random();
-            foreach (int i in Enumerable.Range(1, arr.Length-1))
+            Random random = new Random((int)DateTime.Now.Ticks);
+            StringBuilder builder = new StringBuilder();
+            char ch;
+            foreach (var i in Enumerable.Range(0, size))
             {
-                arr[i] = chars[random.Next(chars.Length)];
+                ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
+                builder.Append(ch);
             }
-            return new String(arr);
 
+            return builder.ToString();
         }
+
     }
 }

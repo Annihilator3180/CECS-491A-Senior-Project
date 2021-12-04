@@ -19,10 +19,7 @@ namespace The6Bits.Logging.Implementations
         {
             return sqlDAO.getAllLogs();
         }
-        public bool SyncLog(string username, string description, string LogLevel, string LogCategory)
-        {
-            return sqlDAO.Log(username, description, LogLevel, LogCategory);
-        }
+        
         public async Task<bool> Log(string username, string description, string LogLevel, string LogCategory)
         {
             return sqlDAO.Log(username, description, LogLevel, LogCategory);

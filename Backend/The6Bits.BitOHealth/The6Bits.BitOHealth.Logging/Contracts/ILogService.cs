@@ -10,7 +10,6 @@ namespace The6Bits.Logging
     {
 
         Task<bool> Log(string username, string description, string LogLevel, string LogCategory);
-        bool SyncLog(string username, string description, string LogLevel, string LogCategory);
         String getAllLogs();
 
 

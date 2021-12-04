@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using The6Bits.Logging.Models;
-using Dapper;
 using The6Bits.BitOHealth.DAL.Contract;
 using System.Data.SqlClient;
 
@@ -32,8 +31,8 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     while (reader.Read())
                     {
                         logList.Add($" {reader["Username"]}, {reader["description"]}, {reader["LogLevel"]}, {reader["LogCategory"]}, {reader["Date_Time"]} ");
-                        System.Diagnostics.Debug.WriteLine("\t{0}\t{1}\t{2}",
-                            reader["Username"], reader["description"], reader["LogLevel"]);
+                        //System.Diagnostics.Debug.WriteLine("\t{0}\t{1}\t{2}",
+                        //    reader["Username"], reader["description"], reader["LogLevel"]);
                     }
                     //reader.Close();
                     //IEnumerable<Log> str = connection.Query<Log>(query);
@@ -41,7 +40,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     //{
                     //    logList.Add( $" {log.username}, {log.description}, {log.LogLevel}, {log.LogCategory}, {log.Date_Time} ");
                     //}
-
+                    connection.Close();
                     return logList;
 
                 }
@@ -54,14 +53,15 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 
         public bool Delete(DateTime datetime)
         {
+            string query = $"DELETE FROM LogsTest WHERE datediff(day, Date_Time, GETDATE() )>30;";
             try
             {
-                string query = $"DELETE FROM LogsTest WHERE datediff(day, Date_Time, GETDATE() )>30;";
                 using (var connection = new SqlConnection(_connectString))
                 {
+                    SqlCommand command = new SqlCommand(query, connection);
                     connection.Open();
-                    connection.Execute(query);
-
+                    command.ExecuteReader();
+                    connection.Close();
                     return true;
                 }
             }

@@ -96,5 +96,19 @@ namespace The6Bits.BitOHealth.ManagerLayer
             return response;
         }
 
+        public IList<string> BulkCreateRandom(int amount)
+        {
+            UMS = new UMService(new SqlUMDAO<User>());
+            return UMS.BulkCreateRandom(amount);
+
+
+        }
+
+        public bool BulkDelete(IList<string> usernames)
+        {
+            UMS = new UMService(new SqlUMDAO<User>());
+            return UMS.BulkDelete(usernames);
+        }
+
     }
 }

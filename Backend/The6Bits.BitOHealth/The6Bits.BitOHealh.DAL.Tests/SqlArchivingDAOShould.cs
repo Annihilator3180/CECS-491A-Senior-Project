@@ -16,7 +16,7 @@ namespace The6Bits.BitOHealth.DAL.Tests
 
             SqlArchivingDAO dao = new SqlArchivingDAO();
             IList<string> s = dao.GetLogsOlderThan30Days(DateTime.Now);
-            //dao.Delete(DateTime.Now);
+            dao.Delete(DateTime.Now);
             foreach (var v in s)
             {
                 System.Diagnostics.Debug.WriteLine(v);

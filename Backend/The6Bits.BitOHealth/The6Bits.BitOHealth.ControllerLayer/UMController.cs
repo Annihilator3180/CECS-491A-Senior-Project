@@ -8,7 +8,7 @@ using The6Bits.Logging.Implementations;
 namespace The6Bits.BitOHealth.ControllerLayer
 {
 
-    public class UMController 
+    public class UMController
     {
 
         public string CreateAccount(User user)
@@ -117,6 +117,21 @@ namespace The6Bits.BitOHealth.ControllerLayer
             }
             return res;
         }
+
+        public IList<string> BulkCreateRandom(int amount)
+        {
+            UMManager UMM = new UMManager();
+            return UMM.BulkCreateRandom(amount);
+
+
+        }
+
+        public bool BulkDelete(IList<string> usernames)
+        {
+            UMManager UMM = new UMManager();
+            return UMM.BulkDelete(usernames);
+        }
+
 
     }
 }
