@@ -2,6 +2,7 @@
 using The6Bits.BitOHealth.ManagerLayer;
 using The6Bits.BitOHealth.Models;
 using The6Bits.Logging;
+using The6Bits.Logging.DAL.Implementations;
 using The6Bits.Logging.Implementations;
 
 
@@ -22,11 +23,6 @@ namespace The6Bits.BitOHealth.ControllerLayer
             {
                 logService.Log(user.Username, "Username Already Used", "Info", "Data");
             }
-            else if (res == "database error")
-            {
-                logService.Log(user.Username, "Database Timeout", "Error", "Data Store");
-
-            }
             else
             {
                 logService.Log(user.Username, res, "Info", "Server");
@@ -42,12 +38,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
             if (res != "username exists")
             {
-                logService.Log(username, "Username Already Used", "Info", "Data");
-            }
-            else if (res == "database error")
-            {
-                logService.Log(username, "Database Timeout", "Error", "Data Store");
-
+                logService.Log(username, "Username Does Not Exist", "Info", "Data");
             }
             else
             {
@@ -64,12 +55,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
             if (res != "username exists")
             {
-                logService.Log(user.Username, "Username Already Used", "Info", "Data");
-            }
-            else if (res == "database error")
-            {
-                logService.Log(user.Username, "Database Timeout", "Error", "Data Store");
-
+                logService.Log(user.Username, "Username Does Not Exist", "Info", "Data");
             }
             else
             {
@@ -84,12 +70,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
             string res = UMM.EnableAccount(username);
             if (res != "username exists")
             {
-                logService.Log(username, "Username Already Used", "Info", "Data");
-            }
-            else if (res == "database error")
-            {
-                logService.Log(username, "Database Timeout", "Error", "Data Store");
-
+                logService.Log(username, "Username Does Not Exist", "Info", "Data");
             }
             else
             {
@@ -104,12 +85,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
             string res = UMM.DisableAccount(username);
             if (res != "username exists")
             {
-                logService.Log(username, "Username Already Used", "Info", "Data");
-            }
-            else if (res == "database error")
-            {
-                logService.Log(username, "Database Timeout", "Error", "Data Store");
-
+                logService.Log(username, "Username Does Not Exist", "Info", "Data");
             }
             else
             {

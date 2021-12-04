@@ -16,6 +16,7 @@ namespace The6Bits.BitOHealth.ManagerLayer
         public bool Archive()
         {
             _archivingService = new ArchivingService(new WindowsArchivingDAO(), new SqlArchivingDAO());
+            _archivingService.ArchiveScheduler(DateTime.UtcNow);
             return true;
         }
     }

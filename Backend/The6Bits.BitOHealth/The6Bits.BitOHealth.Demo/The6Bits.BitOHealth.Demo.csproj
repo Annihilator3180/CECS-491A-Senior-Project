@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -10,6 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="..\The6Bits.BitOHealh.DAL.Tests\The6Bits.BitOHealth.DAL.Tests.csproj" />
     <ProjectReference Include="..\The6Bits.BitOHealth.ControllerLayer\The6Bits.BitOHealth.ControllerLayer.csproj" />
+    <ProjectReference Include="..\The6Bits.BitOHealth.ServiceLayer.Tests\The6Bits.BitOHealth.ServiceLayer.Tests.csproj" />
     <ProjectReference Include="..\The6Bits.Logging.Models\The6Bits.Logging.Models.csproj" />
   </ItemGroup>
 
