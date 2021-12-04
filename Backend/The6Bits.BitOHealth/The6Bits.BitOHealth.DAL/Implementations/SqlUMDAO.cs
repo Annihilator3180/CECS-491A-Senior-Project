@@ -11,12 +11,12 @@ using The6Bits.BitOHealth.Models;
 
 namespace The6Bits.BitOHealth.DAL.Implementations
 {
-public class SqlUserManagementDAO<T> : IRepository<User>
+public class SqlUMDAO<T> : IRepository<User>
     {
 
         private readonly string _connectString = @"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;";
         //TODO:Rename error, fix SQL handling
-        public string Create(User user)
+        public bool Create(User user)
         {
             try
             {
@@ -27,11 +27,11 @@ public class SqlUserManagementDAO<T> : IRepository<User>
                 //Console.WriteLine(bruh);
                 connection.CloseAsync();
 
-                return "account created";
+                return true;
             }
             catch
             {
-                return "error";
+                return false;
             }
             
         }

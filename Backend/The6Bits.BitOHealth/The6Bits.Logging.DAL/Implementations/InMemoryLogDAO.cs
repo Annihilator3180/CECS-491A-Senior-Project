@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace The6Bits.Logging.Implementations
+namespace The6Bits.Logging.DAL.Implementations
 {
     public class InMemoryLogDAO : ILogDal
     {

@@ -8,7 +8,7 @@ namespace The6Bits.BitOHealth.DAL
 {
     public interface IRepository<T>
     {
-        string Create(T model);
+        bool Create(T model);
         T Read(T model);
         bool Update(T model);
         bool Delete(T model);

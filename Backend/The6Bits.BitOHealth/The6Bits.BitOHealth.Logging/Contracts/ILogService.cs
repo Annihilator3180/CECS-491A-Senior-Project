@@ -9,8 +9,8 @@ namespace The6Bits.Logging
     public interface ILogService
     {
 
-        async bool Log(string username, string description, string LogLevel, string LogCategory);
-
+        Task<bool> Log(string username, string description, string LogLevel, string LogCategory);
+        bool SyncLog(string username, string description, string LogLevel, string LogCategory);
         String getAllLogs();
 
 

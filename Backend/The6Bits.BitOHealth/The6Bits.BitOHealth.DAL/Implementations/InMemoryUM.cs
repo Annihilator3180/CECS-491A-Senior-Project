@@ -9,28 +9,28 @@ using The6Bits.BitOHealth.Models;
 
 namespace The6Bits.BitOHealth.DAL.Implementations
 {
-    public class InMemoryUserManagement<T> : IRepository<User>
+    public class InMemoryUM<T> : IRepository<User>
     {
         private readonly IList<User> _dataStore;
         
         
-        public InMemoryUserManagement() 
+        public InMemoryUM() 
         {
             _dataStore = new List<User>();
         }
 
 
         //TODO:RENAME ERROR
-        public string Create(User user)
+        public bool Create(User user)
         {
             try
             {
                 _dataStore.Add(user);
-                return "account created";
+                return true;
             }
             catch
             {
-                return "error";
+                return false;
             }
             
         }

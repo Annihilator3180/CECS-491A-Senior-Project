@@ -4,6 +4,8 @@ using The6Bits.BitOHealth.DAL.Implementations;
 using The6Bits.BitOHealth.ServiceLayer;
 using The6Bits.BitOHealth.Models;
 using The6Bits.BitOHealth.ServiceLayer.Contract;
+using The6Bits.Logging;
+using The6Bits.Logging.Implementations;
 
 
 namespace The6Bits.BitOHealth.ManagerLayer
@@ -46,6 +48,8 @@ namespace The6Bits.BitOHealth.ManagerLayer
             string validation = UMS.ValidateUsername(username);
             if (validation != "username exists")
             {
+                ILogService logService = new SQLLogService();
+                logService.Log(username, "username does not exist", "Informational", "Service");
                 return validation;
             }
             return UMS.EnableAccount(username);
@@ -57,6 +61,8 @@ namespace The6Bits.BitOHealth.ManagerLayer
             string validation = UMS.ValidateUsername(username);
             if (validation != "username exists")
             {
+                ILogService logService = new SQLLogService();
+                logService.Log(username, "username does not exist", "Informational", "Service");
                 return validation;
             }
             return UMS.DeleteAccount(username);
@@ -68,11 +74,16 @@ namespace The6Bits.BitOHealth.ManagerLayer
         {
             UMS = new UMService(new SqlUMDAO<User>());
             string validation = UMS.ValidateUsername(username);
+            ILogService logService = new SQLLogService();
             if (validation != "username exists")
             {
+                logService.Log(username, "username does not exist", "Informational", "Service");
                 return validation;
             }
-            return UMS.DisableAccount(username);
+
+            string disable = UMS.DisableAccount(username);
+            logService.Log(username, disable, "Informational", "Service");
+            return disable;
         }
 
     }

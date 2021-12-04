@@ -19,7 +19,7 @@ namespace The6Bits.Logging.Implementations
 
 
 
-        public bool Log(string username, string description, string LogLevel, string LogCategory)
+        public async Task<bool> Log(string username, string description, string LogLevel, string LogCategory)
         {
             try
             {
@@ -32,6 +32,12 @@ namespace The6Bits.Logging.Implementations
             }
             
         }
+
+        public bool SyncLog()
+        {
+            return false;
+        }
+
 
         public String getAllLogs()
         {
