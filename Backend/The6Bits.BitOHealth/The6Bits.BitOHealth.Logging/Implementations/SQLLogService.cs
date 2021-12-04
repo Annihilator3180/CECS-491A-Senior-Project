@@ -1,7 +1,8 @@
 ﻿ using System;
 using System.Data.SqlClient;
 using Dapper;
-using The6Bits.Logging.DAL.Implementations;
+ using The6Bits.Logging.DAL.Contracts;
+ using The6Bits.Logging.DAL.Implementations;
 
 namespace The6Bits.Logging.Implementations
 {

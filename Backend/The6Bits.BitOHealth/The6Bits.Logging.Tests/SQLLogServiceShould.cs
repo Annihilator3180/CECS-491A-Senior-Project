@@ -1,36 +1,32 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Dapper;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using The6Bits.Logging.Implementations;
 using The6Bits.Logging;
+using The6Bits.Logging.DAL.Implementations;
+using The6Bits.Logging.Implementations;
 
 namespace The6Bits.Logging.Tests
 {
-    [TestClass]
 
     public class SQLLogServiceShould
     {
 
         //TODO:ADD MORE TESTS
-        [TestMethod]
+        [System.Diagnostics.Conditional("DEBUG")]
+
         public void InsertTest()
         {
             var logService = new SQLLogService(new SQLLogDAO());
             string testusername = RandomString(6);
             _ = logService.Log(testusername, "TEST", "Info", "Data");
             string all = logService.getAllLogs();
-            Assert.IsTrue(all.Contains(testusername));
+            Debug.Assert(all.Contains(testusername));
 
         }
 
-        [TestMethod]
-        public void ReadTest()
-        {
-
-        }
         private string RandomString(int size)
         {
             Random random = new Random((int)DateTime.Now.Ticks);

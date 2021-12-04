@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using The6Bits.BitOHealth.DAL;
@@ -51,7 +52,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
             {
                 Username = username
             };
-            if (!username.Any(char.IsAscii) & username.Length < 15)
+            if (!username.Any(char.IsAscii) & username.Length < 16)
             {
                 return "Invalid Username";
             }
@@ -69,7 +70,6 @@ namespace The6Bits.BitOHealth.ServiceLayer
             return _dao.Create(user) ? "account created" : "database error";
         }
 
-        //SOLID IF VALIDATEUSERNAME HERE?
         public string DeleteAccount(string username)
         {
             User user = new User()
@@ -85,7 +85,6 @@ namespace The6Bits.BitOHealth.ServiceLayer
         }
 
 
-        //SOLID IF VALIDATEUSERNAME HERE?
         public string EnableAccount(string username)
         {
             return _dao.EnableAccount(username) ? "account enabled" : "database error";
@@ -100,7 +99,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
         {
             IList<string> usernames = new List<string>();
             User user = new User();
-            if (amount < 9999)
+            if (amount < 10001)
             {
                 user.Username = RandomString(9);
                 user.IsAdmin = 0;
@@ -146,6 +145,11 @@ namespace The6Bits.BitOHealth.ServiceLayer
             return builder.ToString();
         }
 
+        public string View(string username)
+        {
+            User u = _dao.Read(new User() { Username = username });
+            return $"{u.Username} {u.Password} {u.FirstName} {u.LastName} {u.IsAdmin} {u.IsEnabled}";
+        }
 
 
 
