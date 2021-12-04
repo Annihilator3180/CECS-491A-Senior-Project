@@ -1,3 +1,4 @@
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using The6Bits.BitOHealth.DAL.Implementations;
 using The6Bits.BitOHealth.Models;
@@ -12,8 +13,7 @@ namespace The6Bits.BitOHealh.DAL.Tests
         [TestMethod]
         public void InsertTest()
         {
-
-
+            
             SqlUMDAO<User> UmDAO = new SqlUMDAO<User>();
             User rami = new User();
             rami.Username = "testname";
@@ -89,12 +89,13 @@ namespace The6Bits.BitOHealh.DAL.Tests
             rami.Password = "testpass123";
             rami.IsEnabled = 0;
             UmDAO.Create(rami);
+
             UmDAO.EnableAccount("testname");
+
             rami.IsEnabled = 1;
             User updated = UmDAO.Read(rami);
-            System.Diagnostics.Debug.WriteLine(updated.IsEnabled);
-
             UmDAO.Delete(rami);
+
             Assert.AreEqual(1, updated.IsEnabled);
         }
 
@@ -114,9 +115,10 @@ namespace The6Bits.BitOHealh.DAL.Tests
             rami.IsEnabled = 0;
 
             UmDAO.DisableAccount("testname");
+
             User updated = UmDAO.Read(rami);
             UmDAO.Delete(rami);
-            System.Diagnostics.Debug.WriteLine(updated.IsEnabled);
+
             Assert.AreEqual(0, updated.IsEnabled);
         }
 
