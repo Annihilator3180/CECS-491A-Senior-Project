@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics;
 using The6Bits.BitOHealth.DAL.Implementations;
 using The6Bits.BitOHealth.Models;
 
 namespace The6Bits.BitOHealth.DAL.Tests
 {
-    [TestClass]
     public class WindowsArchivingDaoShould
     {
-        [TestMethod]
+        [System.Diagnostics.Conditional("DEBUG")]
         public void ArchiveTest()
         {
             WindowsArchivingDAO dao = new WindowsArchivingDAO();
@@ -17,19 +16,19 @@ namespace The6Bits.BitOHealth.DAL.Tests
             dao.Archive(sqldao.GetLogsOlderThan30Days(DateTime.Now));
             System.Environment.GetEnvironmentVariable("USERPROFILE");
 
-            Assert.AreEqual(1, 1);
+            Debug.Assert(1== 1);
 
 
         }
 
-        [TestMethod]
+        [System.Diagnostics.Conditional("DEBUG")]
         public void CompressTest()
         {
             WindowsArchivingDAO dao = new WindowsArchivingDAO();
             SqlArchivingDAO sqldao = new SqlArchivingDAO();
             dao.Archive(sqldao.GetLogsOlderThan30Days(DateTime.Now));
             dao.Compress();
-            Assert.AreEqual(1, 1);
+            Debug.Assert(1== 1);
 
         }
 
