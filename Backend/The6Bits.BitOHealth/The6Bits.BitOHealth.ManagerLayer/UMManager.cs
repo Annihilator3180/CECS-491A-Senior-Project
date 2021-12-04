@@ -1,17 +1,21 @@
 ﻿using System;
 using System.ComponentModel.Design;
+using The6Bits.BitOHealth.DAL.Implementations;
 using The6Bits.BitOHealth.ServiceLayer;
 using The6Bits.BitOHealth.Models;
+using The6Bits.BitOHealth.ServiceLayer.Contract;
 
 
 namespace The6Bits.BitOHealth.ManagerLayer
 {
-    public class UserManagementManager
+    public class UMManager
     {
+        private IUMService UMS;
+
 
         public string CreateAccount(User user)
         {
-            UserManagementService UMS = new UserManagementService();
+            UMS = new UMService(new SqlUMDAO<User>());
             if (!UMS.ValidateEmail(user.Email))
             {
                 return "Invalid Email";
@@ -26,20 +30,19 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
         public string DeleteAccount(string username)
         {
-            UserManagementService UMS = new UserManagementService();
+            UMS = new UMService(new SqlUMDAO<User>());
             string validation = UMS.ValidateUsername(username);
             if (validation != "username exists")
             {
                 return validation;
             }
-            return UMS.DeleteAccount(username) ;
-            
-
+            string ret = UMS.DeleteAccount(username);
+            return ret;
         }
 
         public string EnableAccount(string username)
         {
-            UserManagementService UMS = new UserManagementService();
+            UMS = new UMService(new SqlUMDAO<User>());
             string validation = UMS.ValidateUsername(username);
             if (validation != "username exists")
             {
@@ -50,7 +53,7 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
         public string UpdateAccount(string username)
         {
-            UserManagementService UMS = new UserManagementService();
+            UMS = new UMService(new SqlUMDAO<User>());
             string validation = UMS.ValidateUsername(username);
             if (validation != "username exists")
             {
@@ -60,7 +63,17 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
 
         }
-        //TODO:Enable/Disable user
+
+        public string DisableAccount(string username)
+        {
+            UMS = new UMService(new SqlUMDAO<User>());
+            string validation = UMS.ValidateUsername(username);
+            if (validation != "username exists")
+            {
+                return validation;
+            }
+            return UMS.DisableAccount(username);
+        }
 
     }
 }

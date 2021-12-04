@@ -1,13 +1,13 @@
 ﻿ using System;
 using System.Data.SqlClient;
 using Dapper;
-using The6Bits.Logging.DAL;
+using The6Bits.Logging.DAL.Implementations;
 
 namespace The6Bits.Logging.Implementations
 {
     public class SQLLogService : ILogService
     {
-        SQLLogDAO sqlDAO = new SQLLogDAO();
+        ILogDal sqlDAO = new SQLLogDAO();
         public string getAllLogs()
         {
             return sqlDAO.getAllLogs();

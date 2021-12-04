@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using The6Bits.Logging.DAL.Implementations;
 
 namespace The6Bits.Logging.Implementations
 {
     public class InMemoryLogService : ILogService
     {
 
+        ILogDal sqlDAO = new InMemoryLogDAO();
 
 
         private readonly IList<string> _logStore;

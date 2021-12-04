@@ -1,16 +1,21 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using The6Bits.BitOHealth.DAL.Implementations;
+using The6Bits.BitOHealth.DAL;
 using The6Bits.BitOHealth.Models;
+using The6Bits.BitOHealth.ServiceLayer.Contract;
 
 namespace The6Bits.BitOHealth.ServiceLayer
 {
-    public class UserManagementService
+    public class UMService<T> : IUMService<User>
     {
+        private IRepository<User> _dao;
 
-        UserManagementDAL<User> UMD = new UserManagementDAL<User>();
 
+        public UMService(IRepository<User> daoType)
+        {
+            _dao = daoType;
+        }
 
         public bool ValidateEmail(string email)
         {
@@ -29,7 +34,8 @@ namespace The6Bits.BitOHealth.ServiceLayer
         {
             try
             {
-                return password.Any(char.IsUpper) & password.Any(char.IsLower) & password.Any(char.IsDigit) & password.Length > 8;
+                return password.Any(char.IsUpper) & password.Any(char.IsLower) & password.Any(char.IsDigit) &
+                       password.Length > 8;
             }
             catch
             {
@@ -40,48 +46,49 @@ namespace The6Bits.BitOHealth.ServiceLayer
         //TODO: DOUBLE CHECK VALIDATIONS
         public string ValidateUsername(string username)
         {
-            User user = new User();
-            user.Username = username;
+            User user = new User()
+            {
+                Username = username
+            };
             if (!username.Any(char.IsAscii) & username.Length < 15)
             {
                 return "Invalid Username";
             }
-            else if(UMD.Read(user).Username == username)
+            else if (_dao.Read(user).Username == username)
             {
                 return "Username Exists ";
             }
+
             return "new username";
         }
-        
 
 
-        public string CreateAccount(User user) 
+        public string CreateAccount(User user)
         {
-            return UMD.Create(user);
+            return _dao.Create(user);
         }
 
         //SOLID IF VALIDATEUSERNAME HERE?
         public string DeleteAccount(string username)
         {
-            ValidateUsername(username);
-            User u = new User();
-            u.Username = username;
-            return UMD.Delete(u) ? "account Deleted" : "Deletion failed";
+            User user = new User()
+            {
+                Username = username
+            };
+            return _dao.Delete(user) ? "account Deleted" : "Deletion failed";
         }
-
 
 
         //SOLID IF VALIDATEUSERNAME HERE?
 
         public string EnableAccount(string username)
         {
-
-            ValidateUsername(username);
-            User u = new User();
-            u.Username = username; 
-            return UMD.Delete(u) ? "account Deleted" : "Deletion failed";
-
+            return _dao.EnableAccount(username) ? "account enabled" : "enable failed";
         }
 
+        public string DisableAccount(string username)
+        {
+            return _dao.DisableAccount(username) ? "account disabled" : "disable failed";
+        }
     }
 }

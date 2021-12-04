@@ -13,5 +13,8 @@ namespace The6Bits.BitOHealth.DAL
         bool Update(T model);
         bool Delete(T model);
 
+        bool EnableAccount(string username);
+        bool DisableAccount(string username);
+
     }
 }

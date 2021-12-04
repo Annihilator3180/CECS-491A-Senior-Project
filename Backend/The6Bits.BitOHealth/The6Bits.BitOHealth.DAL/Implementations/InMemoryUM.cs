@@ -105,7 +105,17 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 
             //USER NOT FOUND IN LIST
         }
-        
+
+        public bool EnableAccount(string username)
+        {
+            return true;
+        }
+        public bool DisableAccount(string username)
+        {
+            return true;
+        }
+
+
 
     }
 }

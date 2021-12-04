@@ -11,7 +11,7 @@ using The6Bits.BitOHealth.Models;
 
 namespace The6Bits.BitOHealth.DAL.Implementations
 {
-public class UserManagementDAL<T> : IRepository<User>
+public class SqlUserManagementDAO<T> : IRepository<User>
     {
 
         private readonly string _connectString = @"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;";
@@ -140,8 +140,45 @@ public class UserManagementDAL<T> : IRepository<User>
             query += $"{string.Join(", ", values)})";
             return query;
         }
-        //TODO:EnableDisable
+        //TODO:test
+        public bool EnableAccount(string username)
+        {
+            try
+            {
+                string query = $"UPDATE Accounts SET IsEnabled = 1 WHERE username = {username}";
+                using (var connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    connection.Execute(query);
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
 
+
+        }
+        public bool DisableAccount(string username)
+        {
+            try
+            {
+                string query = $"UPDATE Accounts SET IsEnabled = 0 WHERE username = {username}";
+                using (var connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    connection.Execute(query);
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+
+
+        }
 
     }
 }
