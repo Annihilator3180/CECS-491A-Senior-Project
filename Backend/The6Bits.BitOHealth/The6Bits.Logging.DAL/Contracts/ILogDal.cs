@@ -5,7 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace The6Bits.Logging.DAL.Contracts
+namespace The6Bits.Logging
 {
     public interface ILogDal
     {

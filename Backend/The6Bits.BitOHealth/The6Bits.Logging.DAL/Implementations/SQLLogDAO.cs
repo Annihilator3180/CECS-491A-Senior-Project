@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Text;
-using The6Bits.Logging.DAL.Contracts;
+using The6Bits.Logging.Models;
 
-namespace The6Bits.Logging.DAL.Implementations
+namespace The6Bits.Logging.Implementations
 {
     public class SQLLogDAO : ILogDal
     {
@@ -11,7 +11,7 @@ namespace The6Bits.Logging.DAL.Implementations
 
         public string getAllLogs()
         {
-            string query = $"select * from Logs ;";
+            string query = $"select * from LogsTest ;";
             try
             {
                 using (SqlConnection connection = new SqlConnection(_connectString))
@@ -47,7 +47,7 @@ namespace The6Bits.Logging.DAL.Implementations
             {
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
-                    string query = $"INSERT INTO Logs (username, description, LogLevel, LogCategory, Date_Time) values ('{username}', '{description}', '{LogLevel}' , '{LogCategory}', '{DateTime.UtcNow}')";
+                    string query = $"INSERT INTO LogsTest (username, description, LogLevel, LogCategory, Date_Time) values ('{username}', '{description}', '{LogLevel}' , '{LogCategory}', '{DateTime.UtcNow}')";
                     SqlCommand command = new SqlCommand(query, connection);
                     connection.Open();
                     SqlDataReader reader = command.ExecuteReader();

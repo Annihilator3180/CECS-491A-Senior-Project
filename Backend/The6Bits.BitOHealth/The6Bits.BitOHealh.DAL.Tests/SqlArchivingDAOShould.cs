@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO.Compression;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using The6Bits.BitOHealth.DAL.Implementations;
 using The6Bits.BitOHealth.Models;
 
 namespace The6Bits.BitOHealth.DAL.Tests
 {
+    [TestClass]
     public class SqlArchivingDaoShould
     {
-        [System.Diagnostics.Conditional("DEBUG")]
-
+        [TestMethod]
         public void TestMethod1()
         {
 
@@ -22,7 +22,7 @@ namespace The6Bits.BitOHealth.DAL.Tests
                 System.Diagnostics.Debug.WriteLine(v);
 
             }
-            Debug.Assert(1==1);
+            Assert.AreEqual(1,1);
 
 
         }

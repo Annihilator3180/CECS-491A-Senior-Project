@@ -21,7 +21,7 @@ namespace The6Bits.BitOHealth.ServiceLayer.Contract
         string ValidateUsername(string username);
         public bool BulkDelete(IList<string> usernames);
         public IList<string> BulkCreateRandom(int amount);
-        public string View(string username);
+
 
     }
 }

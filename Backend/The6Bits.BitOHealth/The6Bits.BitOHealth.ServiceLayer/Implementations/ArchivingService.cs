@@ -8,7 +8,6 @@ using The6Bits.Logging;
 using The6Bits.BitOHealth.ServiceLayer.Contracts;
 using The6Bits.Logging.Implementations;
 using The6Bits.BitOHealth.DAL.Contract;
-using The6Bits.Logging.DAL.Implementations;
 
 
 namespace The6Bits.BitOHealth.ServiceLayer.Implementations
