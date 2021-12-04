@@ -13,7 +13,7 @@ namespace The6Bits.Logging.Implementations
             return sqlDAO.getAllLogs();
         }
 
-        public bool Log(string username, string description, string LogLevel, string LogCategory)
+        public async bool Log(string username, string description, string LogLevel, string LogCategory)
         {
             return sqlDAO.Log(username, description, LogLevel, LogCategory);
         }
