@@ -125,7 +125,12 @@
       "ProjectGuid": "d79c8cd7-e325-41e1-bd71-5ffcefff0b6d",
       "DisplayName": "The6Bits.Logging.Models",
       "ColorIndex": 7
+    },
+    "9171b697-d496-4862-b25c-6201b348c7be": {
+      "ProjectGuid": "9171b697-d496-4862-b25c-6201b348c7be",
+      "DisplayName": "The6Bits.BitOHealth.Demo",
+      "ColorIndex": 8
     }
   },
-  "NextColorIndex": 8
+  "NextColorIndex": 9
 }

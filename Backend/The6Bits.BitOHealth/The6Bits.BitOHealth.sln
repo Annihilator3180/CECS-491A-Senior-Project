@@ -33,6 +33,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.Logging.DAL", "The
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.Logging.Models", "The6Bits.Logging.Models\The6Bits.Logging.Models.csproj", "{D79C8CD7-E325-41E1-BD71-5FFCEFFF0B6D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "The6Bits.BitOHealth.Demo", "The6Bits.BitOHealth.Demo\The6Bits.BitOHealth.Demo.csproj", "{1166BA7C-A3A8-4C86-B9B4-86591743597D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +81,10 @@ Global
 		{D79C8CD7-E325-41E1-BD71-5FFCEFFF0B6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D79C8CD7-E325-41E1-BD71-5FFCEFFF0B6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D79C8CD7-E325-41E1-BD71-5FFCEFFF0B6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1166BA7C-A3A8-4C86-B9B4-86591743597D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1166BA7C-A3A8-4C86-B9B4-86591743597D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1166BA7C-A3A8-4C86-B9B4-86591743597D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1166BA7C-A3A8-4C86-B9B4-86591743597D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
