@@ -8,28 +8,34 @@ using The6Bits.BitOHealth.Models;
 namespace The6Bits.BitOHealth.ControllerLayer
 {
 
-    public class UserManagementController 
+    public class UMController 
     {
-        //TODO : double check lines up
-        UserManagementManager UMM = new UserManagementManager();
 
         public string CreateAccount(User user)
         {
+            UMManager UMM = new UMManager();
             return UMM.CreateAccount(user);
         }
         public string DeleteAccount(string username)
         {
+            UMManager UMM = new UMManager();
             return UMM.DeleteAccount(username);
         }
-        public string UpdateAccount(string username)
+        public string UpdateAccount(User user)
         {
-            return UMM.UpdateAccount(username);
+            UMManager UMM = new UMManager();
+            return UMM.UpdateAccount(user);
         }
         public string EnableAccount(string username)
         {
+            UMManager UMM = new UMManager();
             return UMM.EnableAccount(username);
         }
-        //TODO:Enable/Disable user
+        public string DisableAccount(string username)
+        {
+            UMManager UMM = new UMManager();
+            return UMM.DisableAccount(username);
+        }
 
     }
 }

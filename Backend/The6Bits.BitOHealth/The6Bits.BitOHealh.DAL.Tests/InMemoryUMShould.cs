@@ -11,7 +11,7 @@ namespace The6Bits.BitOHealh.DAL.Tests
         public void TestMethod1()
         {
             
-            InMemoryUserManagement<User> InMemoryUM = new InMemoryUserManagement<User>();
+            InMemoryUM<User> InMemoryUM = new InMemoryUM<User>();
             User rami = new User();
             rami.FirstName = "Rami";
             rami.LastName = "Isder";
@@ -19,7 +19,7 @@ namespace The6Bits.BitOHealh.DAL.Tests
             rami.IsAdmin = 1;
             rami.Password = "Boof";
             rami.IsEnabled = 1;
-            InMemoryUM.Read(rami);
+            InMemoryUM.Create(rami);
             
 
         }

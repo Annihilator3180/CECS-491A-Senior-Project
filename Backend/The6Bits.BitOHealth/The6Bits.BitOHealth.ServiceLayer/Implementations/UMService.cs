@@ -7,12 +7,11 @@ using The6Bits.BitOHealth.ServiceLayer.Contract;
 
 namespace The6Bits.BitOHealth.ServiceLayer
 {
-    public class UMService<T> : IUMService<User>
+    public class UMService : IUMService
     {
-        private IRepository<User> _dao;
+        private IRepositoryUM<User> _dao;
 
-
-        public UMService(IRepository<User> daoType)
+        public UMService(IRepositoryUM<User> daoType)
         {
             _dao = daoType;
         }
@@ -65,7 +64,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
         public string CreateAccount(User user)
         {
-            return _dao.Create(user);
+            return _dao.Create(user) ? "account created" : "database error";
         }
 
         //SOLID IF VALIDATEUSERNAME HERE?
@@ -75,20 +74,24 @@ namespace The6Bits.BitOHealth.ServiceLayer
             {
                 Username = username
             };
-            return _dao.Delete(user) ? "account Deleted" : "Deletion failed";
+            return _dao.Delete(user) ? "account Deleted" : "database error";
+        }
+
+        public string UpdateAccount(User user)
+        {
+            return _dao.Update(user) ? "account update" : "database error";
         }
 
 
         //SOLID IF VALIDATEUSERNAME HERE?
-
         public string EnableAccount(string username)
         {
-            return _dao.EnableAccount(username) ? "account enabled" : "enable failed";
+            return _dao.EnableAccount(username) ? "account enabled" : "database error";
         }
 
         public string DisableAccount(string username)
         {
-            return _dao.DisableAccount(username) ? "account disabled" : "disable failed";
+            return _dao.DisableAccount(username) ? "account disabled" : "database error";
         }
     }
 }

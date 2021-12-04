@@ -9,7 +9,7 @@ using The6Bits.BitOHealth.Models;
 
 namespace The6Bits.BitOHealth.DAL.Implementations
 {
-    public class InMemoryUM<T> : IRepository<User>
+    public class InMemoryUM<T> : IRepositoryUM<User>
     {
         private readonly IList<User> _dataStore;
         

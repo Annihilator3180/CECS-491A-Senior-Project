@@ -33,7 +33,7 @@ namespace The6Bits.Logging.Implementations
             
         }
 
-        public bool SyncLog()
+        public bool SyncLog(string username, string description, string LogLevel, string LogCategory)
         {
             return false;
         }

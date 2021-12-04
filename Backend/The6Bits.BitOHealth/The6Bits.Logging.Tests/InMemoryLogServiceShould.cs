@@ -14,12 +14,9 @@ namespace The6Bits.Logging.Tests
         {
 
             var logService = new InMemoryLogService();
-
-            logService.Log("Bussin","bossbaby", "Information ", "Datastore");
-
+            logService.Log("test","test", "Info ", "Data");
             string logs = logService.getAllLogs();
-
-            Assert.IsTrue(logs.Contains("Bussin"));
+            Assert.IsTrue(logs.Contains("test"));
             Console.WriteLine(logs);
 
         }

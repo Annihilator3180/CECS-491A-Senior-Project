@@ -11,7 +11,7 @@ using The6Bits.BitOHealth.Models;
 
 namespace The6Bits.BitOHealth.DAL.Implementations
 {
-public class SqlUMDAO<T> : IRepository<User>
+public class SqlUMDAO<T> : IRepositoryUM<User>
     {
 
         private readonly string _connectString = @"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;";
@@ -44,7 +44,7 @@ public class SqlUMDAO<T> : IRepository<User>
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
-                    IEnumerable<User> str = connection.Query<User>($"select username = '{user.Username}'; ");
+                    IEnumerable<User> str = connection.Query<User>($"select * from Accounts where username = '{user.Username}'; ");
                     return str.First();
                 }
             }
@@ -80,7 +80,7 @@ public class SqlUMDAO<T> : IRepository<User>
         {
             try
             {
-                string query = $"DELETE FROM Accounts WHERE Username = {user.Username}";
+                string query = $"DELETE FROM Accounts WHERE Username = '{user.Username}';";
                 using (var connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
@@ -113,7 +113,7 @@ public class SqlUMDAO<T> : IRepository<User>
                 }
             }
             query += string.Join(", ", f);
-            query += $" WHERE username = '{user.Username}' ";
+            query += $" WHERE username = '{user.Username}';";
 
             return query;
         }
@@ -137,7 +137,7 @@ public class SqlUMDAO<T> : IRepository<User>
                 }
             }
             query += $"{string.Join(", ", varnames)}) VALUES ( ";
-            query += $"{string.Join(", ", values)})";
+            query += $"{string.Join(", ", values)});";
             return query;
         }
         //TODO:test
@@ -145,7 +145,7 @@ public class SqlUMDAO<T> : IRepository<User>
         {
             try
             {
-                string query = $"UPDATE Accounts SET IsEnabled = 1 WHERE username = {username}";
+                string query = $"UPDATE Accounts SET IsEnabled = 1 WHERE username = '{username}';";
                 using (var connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
@@ -164,7 +164,7 @@ public class SqlUMDAO<T> : IRepository<User>
         {
             try
             {
-                string query = $"UPDATE Accounts SET IsEnabled = 0 WHERE username = {username}";
+                string query = $"UPDATE Accounts SET IsEnabled = 0 WHERE username = '{username}';";
                 using (var connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
