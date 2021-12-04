@@ -1,6 +1,8 @@
 ﻿
 
 
+using System.Security;
+
 namespace The6Bits.BitOHealth.Models
 {
     public class User
@@ -16,6 +18,21 @@ namespace The6Bits.BitOHealth.Models
         public int IsEnabled { get; set; }
 
         public int IsAdmin { get; set; }
+
+        public User()
+        {
+        }
+
+        public User(string username, string email, string password, string first, string last, int isEnabled, int isAdmin)
+        {
+            FirstName = first;
+            LastName = last;
+            Username = username;
+            Email = email;
+            Password = password;
+            isAdmin = IsAdmin;
+            isEnabled = isEnabled;
+        }
 
     }
 }

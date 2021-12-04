@@ -1,25 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace The6Bits.BitOHealth.ControllerLayer
+﻿namespace The6Bits.BitOHealth.ControllerLayer
 {
     class Class1
     {
-        void CheckTime()
+        public async void ScheduleAction(Action action, DateTime ExecutionTime)
         {
-            var t = new Timer(TimerCallback);
-            DateTime utctime = DateTime.Now;
-            DateTime nine = DateTime.Today.AddHours(21.0); 
-
-            int ms = (int)((fourOClock - now).TotalMilliseconds);
-            if (utctime == nine)
+            while (true)
             {
-
-
+                await Task.Delay((int)ExecutionTime.Subtract(DateTime.Now).TotalMilliseconds);
+                action();
+                ExecutionTime.AddMonths(1);
             }
         }
+
+        void Archive()
+        {
+
+        }
+
+
     }
 }

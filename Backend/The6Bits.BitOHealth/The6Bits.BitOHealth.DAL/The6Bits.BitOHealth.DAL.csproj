@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Models\The6Bits.BitOHealth.Models.csproj" />
+    <ProjectReference Include="..\The6Bits.Logging.Models\The6Bits.Logging.Models.csproj" />
   </ItemGroup>
 
 </Project>

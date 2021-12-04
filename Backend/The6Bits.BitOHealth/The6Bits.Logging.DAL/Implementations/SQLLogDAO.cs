@@ -20,7 +20,9 @@ namespace The6Bits.Logging.Implementations
                     string s = "";
                     foreach (Log log in str)
                     {
-                        s += $" {log.username} {log.description} {log.LogLevel} {log.LogCategory} {log.DateTime} ";
+                        s += $" {log.username} {log.description} {log.LogLevel} {log.LogCategory} {log.Date_Time} ";
+                        System.Diagnostics.Debug.WriteLine(log.username + "     "+ log.Date_Time);
+
                     }
 
                     return s;
@@ -51,5 +53,6 @@ namespace The6Bits.Logging.Implementations
                 return false;
             }
         }
+
     }
 }

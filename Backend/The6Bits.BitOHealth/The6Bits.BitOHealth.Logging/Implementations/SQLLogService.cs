@@ -7,12 +7,18 @@ namespace The6Bits.Logging.Implementations
 {
     public class SQLLogService : ILogService
     {
-        ILogDal sqlDAO = new SQLLogDAO();
+        private ILogDal sqlDAO;
+
+        public SQLLogService(ILogDal loggerType)
+        {
+
+            sqlDAO = new SQLLogDAO();
+        }
+
         public string getAllLogs()
         {
             return sqlDAO.getAllLogs();
         }
-
         public bool SyncLog(string username, string description, string LogLevel, string LogCategory)
         {
             return sqlDAO.Log(username, description, LogLevel, LogCategory);

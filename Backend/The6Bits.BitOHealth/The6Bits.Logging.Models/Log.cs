@@ -9,7 +9,7 @@
 
         public string LogCategory { get; set; }
 
-        public DateTime DateTime { get; set; }
+        public DateTime Date_Time { get; set; }
 
     }
 }

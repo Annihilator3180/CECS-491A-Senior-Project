@@ -18,54 +18,33 @@ namespace The6Bits.BitOHealth.ManagerLayer
         {
             UMS = new UMService(new SqlUMDAO<User>());
             string validation = UMS.ValidateUsername(user.Username);
-            ILogService logService = new SQLLogService();
-            if (validation != "username exists")
+            bool emailval = UMS.ValidateEmail(user.Email);
+            bool passval = UMS.ValidatePassword(user.Password);
+            if (validation != "new username")
             {
-                logService.Log(user.Username, "username does not exist", "Informational", "Service");
                 return validation;
             }
-            if (!UMS.ValidateEmail(user.Email))
+            if (!emailval)
             {
-                logService.Log(user.Username, "email input incorrect", "Informational", "Service");
                 return "invalid email";
             }
-            if (!UMS.ValidatePassword(user.Password))
+            if (!passval)
             {
-                logService.Log(user.Username, "password input incorrect", "Informational", "Service");
-                return "invalid email";
+                return "invalid password";
             }
 
-            string response = UMS.CreateAccount(user);
-            if (response == "database error")
-            {
-                logService.Log(user.Username, response, "Error", "Data Store");
-            }
-            else
-            {
-                logService.Log(user.Username, response, "Informational", "Business");
-            }
-            return response;
+            return UMS.CreateAccount(user);
         }
 
         public string DeleteAccount(string username)
         {
             UMS = new UMService(new SqlUMDAO<User>());
             string validation = UMS.ValidateUsername(username);
-            ILogService logService = new SQLLogService();
             if (validation != "username exists")
             {
-                logService.Log(username, "username does not exist", "Informational", "Service");
                 return validation;
             }
             string response = UMS.DeleteAccount(username);
-            if (response == "database error")
-            {
-                logService.Log(username, response, "Error", "Data Store");
-            }
-            else
-            {
-                logService.Log(username, response, "Informational", "Business");
-            }
             return response;
         }
 
@@ -75,8 +54,6 @@ namespace The6Bits.BitOHealth.ManagerLayer
             string validation = UMS.ValidateUsername(username);
             if (validation != "username exists")
             {
-                ILogService logService = new SQLLogService();
-                logService.Log(username, "username does not exist", "Informational", "Service");
                 return validation;
             }
             return UMS.EnableAccount(username);
@@ -86,32 +63,21 @@ namespace The6Bits.BitOHealth.ManagerLayer
         {
             UMS = new UMService(new SqlUMDAO<User>());
             string validation = UMS.ValidateUsername(user.Username);
-            ILogService logService = new SQLLogService();
             if (validation != "username exists")
             {
-                logService.Log(user.Username, "username does not exist", "Informational", "Service");
                 return validation;
             }
             if (!UMS.ValidateEmail(user.Email))
             {
-                logService.Log(user.Username, "email input incorrect", "Informational", "Service");
                 return "invalid email";
             }
             if (!UMS.ValidatePassword(user.Password))
             {
-                logService.Log(user.Username, "password input incorrect", "Informational", "Service");
                 return "invalid email";
             }
 
             string response = UMS.UpdateAccount(user);
-            if (response == "database error")
-            {
-                logService.Log(user.Username, response, "Error", "Data Store");
-            }
-            else
-            {
-                logService.Log(user.Username, response, "Informational", "Business");
-            }
+            
             return response;
 
 
@@ -121,21 +87,12 @@ namespace The6Bits.BitOHealth.ManagerLayer
         {
             UMS = new UMService(new SqlUMDAO<User>());
             string validation = UMS.ValidateUsername(username);
-            ILogService logService = new SQLLogService();
             if (validation != "username exists")
             {
-                logService.Log(username, "username does not exist", "Informational", "Service");
                 return validation;
             }
             string response = UMS.DisableAccount(username);
-            if (response == "database error")
-            {
-                logService.Log(username, response, "Error", "Data Store");
-            }
-            else
-            {
-                logService.Log(username, response, "Informational", "Business");
-            }
+            
             return response;
         }
 

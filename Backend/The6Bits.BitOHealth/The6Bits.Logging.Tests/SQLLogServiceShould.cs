@@ -17,11 +17,10 @@ namespace The6Bits.Logging.Tests
         [TestMethod]
         public void InsertTest()
         {
-            var logService = new SQLLogService();
-            string testusername = "test " + rand(5);
+            var logService = new SQLLogService(new SQLLogDAO());
+            string testusername = "testerr2r";
             _ = logService.Log(testusername, "TEST", "Info", "Data");
             string all = logService.getAllLogs();
-            System.Diagnostics.Debug.WriteLine(all);
             Assert.IsTrue(all.Contains(testusername));
 
 

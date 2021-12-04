@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using The6Bits.BitOHealth.DAL.Implementations;
 using The6Bits.BitOHealth.Models;
 
-namespace The6Bits.BitOHealh.DAL.Tests
+namespace The6Bits.BitOHealth.DAL.Tests
 {
     [TestClass]
     public class CreateAccountUMDaoShould

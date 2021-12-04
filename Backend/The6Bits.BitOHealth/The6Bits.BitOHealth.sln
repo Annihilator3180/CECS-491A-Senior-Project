@@ -31,7 +31,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.BitOHealth.DAL", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.Logging.DAL", "The6Bits.Logging.DAL\The6Bits.Logging.DAL.csproj", "{10305673-FC2B-45CA-A4AB-4684EBE6AFB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "The6Bits.Logging.Models", "The6Bits.Logging.Models\The6Bits.Logging.Models.csproj", "{D79C8CD7-E325-41E1-BD71-5FFCEFFF0B6D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.Logging.Models", "The6Bits.Logging.Models\The6Bits.Logging.Models.csproj", "{D79C8CD7-E325-41E1-BD71-5FFCEFFF0B6D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

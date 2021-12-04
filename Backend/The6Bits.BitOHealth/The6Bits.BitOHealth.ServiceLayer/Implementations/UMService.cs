@@ -20,7 +20,8 @@ namespace The6Bits.BitOHealth.ServiceLayer
         {
             try
             {
-                return new EmailAddressAttribute().IsValid(email);
+                
+                return new EmailAddressAttribute().IsValid(email) && email.Length > 255;
             }
             catch
             {
@@ -34,7 +35,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
             try
             {
                 return password.Any(char.IsUpper) & password.Any(char.IsLower) & password.Any(char.IsDigit) &
-                       password.Length > 8;
+                       password.Length >= 8 & password.Length <= 30;
             }
             catch
             {
