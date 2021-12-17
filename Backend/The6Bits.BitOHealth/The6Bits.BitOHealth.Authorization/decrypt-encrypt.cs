@@ -3,103 +3,50 @@
     using System;
     using System.Security.Cryptography;
     using System.Text;
-    using System.IO;
-    using System.Drawing;
-    using System.Linq;
+   
 
-    class encryptionMethods
+    public class encryptionMethods
     {
+        //private key that will be later stored in persistant storage
         private static byte[] key = new byte[8] { 1, 2, 3, 4, 5, 6, 7, 8 };
-
-        public static byte[] encrypt(string input)
+        public static string encrypt(string data)
         {
-            try
-            {
-                // Create a MemoryStream.
-                MemoryStream mStream = new MemoryStream();
+            //Des encryption algorithm object created
+            SymmetricAlgorithm algo = DES.Create();
+     
+            //Actual object doing the encryption is instantiated using private key and generated iv
+            ICryptoTransform transform = algo.CreateEncryptor(key, algo.IV);
 
-                // Create a new DES object.
-                DES DESalg = DES.Create();
-                DESalg.GenerateIV();
-
-                // Create a CryptoStream using the MemoryStream
-                // and the passed key and initialization vector (IV).
-                CryptoStream cStream = new CryptoStream(mStream,
-                    DESalg.CreateEncryptor(key, DESalg.IV),
-                    CryptoStreamMode.Write);
-
-                // Convert the passed string to a byte array.
-                byte[] toEncrypt = new ASCIIEncoding().GetBytes(input);
-
-                // Write the byte array to the crypto stream and flush it.
-                cStream.Write(toEncrypt, 0, toEncrypt.Length);
-                cStream.FlushFinalBlock();
-
-                // Get an array of bytes from the
-                // MemoryStream that holds the
-                // encrypted data.
-                byte[] ret = mStream.ToArray();
-                String temp = Encoding.UTF8.GetString(ret) + ";" + Encoding.UTF8.GetString(DESalg.IV);
-               
-
-                // Close the streams.
-                cStream.Close();
-                mStream.Close();
-                //colon at end of encrpt string and append iv
-                //yeah i figured out how to change it to a string
-                //still pass in the key for now ?
-
-                // Return the encrypted buffer.
-                return ret;
-            }
-            catch (CryptographicException e)
-            {
-                Console.WriteLine("A Cryptographic error occurred: {0}", e.Message);
-                return null;
-            }
-
+            //Encrypt method string parameter converted to byte array
+            byte[] inputbuffer = Encoding.Unicode.GetBytes(data);
+            //data is encrypted using instantiated transform object at length of data byte array
+            byte[] outputBuffer = transform.TransformFinalBlock(inputbuffer, 0, inputbuffer.Length);
+            //encrypted byte array and iv byte array converted to a string. A semicolon is used to separate the two
+            //so iv can be accessed later on when decrypting
+            string ans = Convert.ToBase64String(outputBuffer) + ";" + Convert.ToBase64String(algo.IV);
+            return ans;
         }
-        public static string DecryptTextFromMemory(string Data)
+        public static string decrypt(string encryptedData)
         {
-            try
-            {
-                // Create a new MemoryStream using the passed
-                // array of encrypted data.
-                string[] semiColonSplit = Data.Split(";");
-                string iv = semiColonSplit[1];
-                string encryptedString = semiColonSplit[0];
+            //Des encryption algorith object created
+            SymmetricAlgorithm algo = DES.Create();
+            //spltting method parameters at the semicolon which was inserted in the encrypt method
+            string[] splitData = encryptedData.Split(';');
 
-                byte[] toDecrypt = Encoding.UTF8.GetBytes(encryptedString);
-                byte[] ivByte = Convert.FromBase64String(iv);   
-                MemoryStream msDecrypt = new MemoryStream(toDecrypt);
+            //data is the first half, iv is the second
+            string data = splitData[0];
+            string iv = splitData[1];
 
-                // Create a new DES object.
-                DES DESalg = DES.Create();
+            //both strings converted to byte arrays
+            byte[] datatoByte = Convert.FromBase64String(data);
+            byte[] ivToByte = Convert.FromBase64String(iv);
 
-
-                // Create a CryptoStream using the MemoryStream
-                // and the passed key and initialization vector (IV).
-                //get iv from encrypted string
-                CryptoStream csDecrypt = new CryptoStream(msDecrypt,
-                    DESalg.CreateDecryptor(key,ivByte ),
-                    CryptoStreamMode.Read);
-
-                // Create buffer to hold the decrypted data.
-                byte[] fromEncrypt = new byte[Data.Length];
-
-                // Read the decrypted data out of the crypto stream
-                // and place it into the temporary buffer.
-                csDecrypt.Read(fromEncrypt, 0, fromEncrypt.Length);
-
-                //Convert the buffer into a string and return it.
-                return new ASCIIEncoding().GetString(fromEncrypt);
-            }
-            catch (CryptographicException e)
-            {
-                Console.WriteLine("A Cryptographic error occurred: {0}", e.Message);
-                return null;
-            }
+            //actual decryptor object instantiated
+            ICryptoTransform transform = algo.CreateDecryptor(key, ivToByte);
+            //decryptor object writes the decrpyted bytes to ans byte array
+            byte[] ans = transform.TransformFinalBlock(datatoByte, 0, datatoByte.Length);
+            //byte array containing decrypted bytes converted to a string and returned
+            return Encoding.Unicode.GetString(ans);
         }
-
     }
 }

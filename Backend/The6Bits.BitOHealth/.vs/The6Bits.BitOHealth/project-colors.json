@@ -135,7 +135,22 @@
       "ProjectGuid": "53c24895-bc8a-4ab4-bef1-b0cd483fbe50",
       "DisplayName": "The6Bits.BitOHealth.Authorization",
       "ColorIndex": 9
+    },
+    "76154a5c-0843-4cf7-81a7-f7df3123fb64": {
+      "ProjectGuid": "76154a5c-0843-4cf7-81a7-f7df3123fb64",
+      "DisplayName": "The6BitsOHealth.Authorization.Tests",
+      "ColorIndex": 10
+    },
+    "1b83558a-43d4-422a-9ee9-9132fc3b581a": {
+      "ProjectGuid": "1b83558a-43d4-422a-9ee9-9132fc3b581a",
+      "DisplayName": "The6Bits.BitOHealth.Authorization.Tests",
+      "ColorIndex": 11
+    },
+    "69b5c933-77b8-46f5-9a28-217483f8032e": {
+      "ProjectGuid": "69b5c933-77b8-46f5-9a28-217483f8032e",
+      "DisplayName": "The6Bits.BitOHealth.ServiceLayer.Tests",
+      "ColorIndex": 12
     }
   },
-  "NextColorIndex": 10
+  "NextColorIndex": 13
 }
