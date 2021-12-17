@@ -130,7 +130,12 @@
       "ProjectGuid": "49d89a92-3a2d-486e-839f-e3327257b35a",
       "DisplayName": "The6Bits.BitOHealth.Archiving",
       "ColorIndex": 8
+    },
+    "53c24895-bc8a-4ab4-bef1-b0cd483fbe50": {
+      "ProjectGuid": "53c24895-bc8a-4ab4-bef1-b0cd483fbe50",
+      "DisplayName": "The6Bits.BitOHealth.Authorization",
+      "ColorIndex": 9
     }
   },
-  "NextColorIndex": 9
+  "NextColorIndex": 10
 }

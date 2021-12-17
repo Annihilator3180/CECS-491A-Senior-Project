@@ -35,7 +35,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.Logging.Models", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.BitOHealth.Demo", "The6Bits.BitOHealth.Demo\The6Bits.BitOHealth.Demo.csproj", "{1166BA7C-A3A8-4C86-B9B4-86591743597D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "The6Bits.BitOHealth.ServiceLayer.Tests", "The6Bits.BitOHealth.ServiceLayer.Tests\The6Bits.BitOHealth.ServiceLayer.Tests.csproj", "{69B5C933-77B8-46F5-9A28-217483F8032E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.BitOHealth.ServiceLayer.Tests", "The6Bits.BitOHealth.ServiceLayer.Tests\The6Bits.BitOHealth.ServiceLayer.Tests.csproj", "{69B5C933-77B8-46F5-9A28-217483F8032E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "The6Bits.BitOHealth.Authorization", "The6Bits.BitOHealth.Authorization\The6Bits.BitOHealth.Authorization.csproj", "{53C24895-BC8A-4AB4-BEF1-B0CD483FBE50}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,6 +93,10 @@ Global
 		{69B5C933-77B8-46F5-9A28-217483F8032E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69B5C933-77B8-46F5-9A28-217483F8032E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69B5C933-77B8-46F5-9A28-217483F8032E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53C24895-BC8A-4AB4-BEF1-B0CD483FBE50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53C24895-BC8A-4AB4-BEF1-B0CD483FBE50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53C24895-BC8A-4AB4-BEF1-B0CD483FBE50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53C24895-BC8A-4AB4-BEF1-B0CD483FBE50}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
