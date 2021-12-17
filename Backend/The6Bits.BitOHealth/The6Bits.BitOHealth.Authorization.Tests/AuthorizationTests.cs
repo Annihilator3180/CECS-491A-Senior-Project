@@ -9,9 +9,9 @@ namespace The6Bits.BitOHealth.Authorization.Tests
         public void Test1()
         {
             string expected = "test string";
-            string encryptedString = encryptionMethods.encrypt(expected);
-            string desired = encryptionMethods.decrypt(encryptedString);
-           Assert.Equal(expected, desired);
+            string encryptedString = encryptionMethods.generateToken(expected);
+            string desired = encryptionMethods.verifyClaims(encryptedString);
+            Assert.Equal(expected, desired);
         }
 
       

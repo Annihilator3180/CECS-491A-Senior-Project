@@ -1,7 +1,12 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Backend",
+    "\\Backend\\The6Bits.BitOHealth",
+    "\\Backend\\The6Bits.BitOHealth\\The6Bits.BitOHealth.Authorization",
+    "\\Backend\\The6Bits.BitOHealth\\The6Bits.BitOHealth.Authorization.Tests",
+    "\\Backend\\The6Bits.BitOHealth\\The6Bits.BitOHealth.ServiceLayer.Tests"
   ],
-  "SelectedNode": "\\The6Bits.BitOHealth.sln",
+  "SelectedNode": "\\Backend\\The6Bits.BitOHealth\\The6Bits.BitOHealth.ServiceLayer.Tests\\UMServiceLayerTests.cs",
   "PreviewInSolutionExplorer": false
 }
