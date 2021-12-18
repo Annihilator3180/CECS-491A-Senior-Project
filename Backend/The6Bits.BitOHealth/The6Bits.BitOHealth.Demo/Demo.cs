@@ -131,19 +131,12 @@ namespace The6Bits.BitOHealth.Demo
                 if (a[0] == "create")
                 {
                     userName = a[1];
-                    Console.WriteLine(userName);
                     email = a[2];
-                    Console.WriteLine(email); 
                     password = a[3];
-                    Console.WriteLine(password);
                     firstN = a[4];
-                    Console.WriteLine(firstN);
                     lastN = a[5];
-                    Console.WriteLine(lastN);
                     admin = Int32.Parse(a[6]);
-                    Console.WriteLine(admin);
                     enabled = Int32.Parse(a[7]);
-                    Console.WriteLine(enabled);
                     User user = new User(userName, email, password, firstN, lastN, admin, enabled);
                     String userCreate = um.CreateAccount(user);
                 }
