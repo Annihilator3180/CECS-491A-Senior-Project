@@ -15,9 +15,16 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
         public bool Archive()
         {
+            DateTime Now = DateTime.Now;
+            Now = Now.AddMonths(1);
+            DateTime date = new DateTime(Now.Year, Now.Month, 1, 0, 0, 0);
+            Console.WriteLine(date);
+
             _archivingService = new ArchivingService(new WindowsArchivingDAO(), new SqlArchivingDAO());
-            _archivingService.ArchiveScheduler(DateTime.UtcNow);
+            _archivingService.ArchiveScheduler(date);
             return true;
+
+
         }
     }
 }
