@@ -16,6 +16,7 @@ namespace The6Bits.BitOHealth.Logging.Test
             _ = logService.Log(testusername, "TEST", "Info", "Data");
             string all = logService.getAllLogs();
             Debug.Assert(all.Contains(testusername));
+
         }
     }
 }
