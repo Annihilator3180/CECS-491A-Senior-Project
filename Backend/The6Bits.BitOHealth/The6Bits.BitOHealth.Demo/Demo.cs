@@ -22,7 +22,7 @@ namespace The6Bits.BitOHealth.Demo
             string adminUsername = "bossman";
             string tokenn = "abcd";
             string connectstring = @"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;";
-            UMController um=new UMController(new SqlUMDAO<User>(connectstring) , new SQLLogDAO(), adminUsername, tokenn);
+            UMController um = new UMController(new SqlUMDAO<User>(connectstring) , new SQLLogDAO(), adminUsername, tokenn);
 
 
             
