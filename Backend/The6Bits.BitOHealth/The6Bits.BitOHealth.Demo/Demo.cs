@@ -8,7 +8,6 @@ using The6Bits.BitOHealth.DAL.Implementations;
 using The6Bits.BitOHealth.DAL.Tests;
 using The6Bits.BitOHealth.Models;
 using The6Bits.BitOHealth.ServiceLayer;
-using The6Bits.BitOHealth.ServiceLayer.Tests;
 using The6Bits.Logging;
 using The6Bits.Logging.Implementations;
 using The6Bits.BitOHealth.DAL.Implementations;
@@ -20,11 +19,6 @@ namespace The6Bits.BitOHealth.Demo
     {
         public static void Main(string[] args)
         {
-            UMServiceLayerTests tests = new UMServiceLayerTests();
-            tests.UpdateServiceTest();
-            ArchivingController _archivingController;
-            _archivingController = new ArchivingController();
-            _archivingController.Archive();
             string adminUsername = "bossman";
             string tokenn = "abcd";
             string connectstring = @"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;";
@@ -33,11 +27,11 @@ namespace The6Bits.BitOHealth.Demo
 
             
 
-            int choice = 9;
+            int choice = 0;
+            Console.WriteLine("1. Create 2. Update 3. Delete\n4. Enable 5. Disable 6. Bulk UM");
+            choice = Int32.Parse(Console.ReadLine());
             while (choice != 0)
             {
-                Console.WriteLine("1. Create 2. Update 3. Delete\n4. Enable 5. Disable 6. Bulk UM");
-                choice = Int32.Parse(Console.ReadLine());
                 while (choice < 0 || choice > 6)
                 {
                     Console.WriteLine("Incorrect Input\nTry again: ");
@@ -58,9 +52,10 @@ namespace The6Bits.BitOHealth.Demo
                     Console.WriteLine("1. email 2. password 3. firstN 4. lastN 5. admin 6. enabled");
                     String updateChoice = Console.ReadLine();
                     User newUser = new User();
+                    newUser.Username = adminUsername;
                     Console.WriteLine("Input new " + updateChoice + ": ");
                     String updater = Console.ReadLine();
-                    newUser.Username = adminUsername;
+                    
                     if (updateChoice == "email")
                     {
                         newUser.Email = updater;
@@ -89,16 +84,14 @@ namespace The6Bits.BitOHealth.Demo
                 }
                 else if(choice == 3)
                 {
+                    //delete
                     Console.WriteLine("Input userName of user to delete");
                     String userName = Console.ReadLine();
-                    String userDelete = um.DeleteAccount("userName");
-                    
+                    String userDelete = um.DeleteAccount(userName);
                 }
                 else if (choice == 4)
                 {
                     //enable
-                    //String RamiDisable = um.DisableAccount("Rami");
-                    //String RamiEnable = um.EnableAccount("Rami");
                     Console.WriteLine("Enter userName of user to enable");
                     String userName = Console.ReadLine();
                     String userEnable = um.EnableAccount(userName); 
@@ -116,6 +109,8 @@ namespace The6Bits.BitOHealth.Demo
                     //bulk um
                     BulkUM(um);
                 }
+                Console.WriteLine("1. Create 2. Update 3. Delete\n4. Enable 5. Disable 6. Bulk UM");
+                choice = Int32.Parse(Console.ReadLine());
             }
         }
 
@@ -126,7 +121,7 @@ namespace The6Bits.BitOHealth.Demo
             String userName = "", firstN = "", lastN = "", email = "", password;
             int admin = 0, enabled = 0;
 
-            //C:\Users\reals\OneDrive\Desktop\accounts
+            //C:\Users\reals\OneDrive\Desktop\accounts.txt
 
             Console.WriteLine("Input file location: ");
             String location = Console.ReadLine();
@@ -136,12 +131,19 @@ namespace The6Bits.BitOHealth.Demo
                 if (a[0] == "create")
                 {
                     userName = a[1];
+                    Console.WriteLine(userName);
                     email = a[2];
+                    Console.WriteLine(email); 
                     password = a[3];
+                    Console.WriteLine(password);
                     firstN = a[4];
+                    Console.WriteLine(firstN);
                     lastN = a[5];
+                    Console.WriteLine(lastN);
                     admin = Int32.Parse(a[6]);
+                    Console.WriteLine(admin);
                     enabled = Int32.Parse(a[7]);
+                    Console.WriteLine(enabled);
                     User user = new User(userName, email, password, firstN, lastN, admin, enabled);
                     String userCreate = um.CreateAccount(user);
                 }
@@ -182,6 +184,9 @@ namespace The6Bits.BitOHealth.Demo
                 }
                 else if(a[0] == "delete")
                 {
+                    userName = a[1];
+                    User newUser = new User();
+                    String userDelete = um.DeleteAccount(userName);
 
                 }
             }
