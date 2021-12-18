@@ -13,6 +13,7 @@ using The6Bits.Logging.Implementations;
 using The6Bits.BitOHealth.DAL.Implementations;
 using The6Bits.Logging.DAL.Implementations;
 using The6Bits.Authorization.Implementations;
+using System.Diagnostics;
 
 namespace The6Bits.BitOHealth.Demo
 {
@@ -20,19 +21,43 @@ namespace The6Bits.BitOHealth.Demo
     {
         public static void Main(string[] args)
         {
-            string adminUsername = "bossman";
-            string tokenn = "abcd";
             string connectstring = @"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;";
-            AuthenticationController AC = new AuthenticationController(new AuthMsSqlDao(), new DESAuthorizationService());
-            string token=  AC.AdminLogin("boofman2", "Password1!");
-            Console.WriteLine(token);
-            UMController um = new UMController(new SqlUMDAO<User>(connectstring), new DESAuthorizationService()  , new SQLLogDAO(), "boofman2", token);
+            bool loggedin = false;
+            string token ="";
+            while (!loggedin)
+            {
+                try
+                {
+                    AuthenticationController AC = new AuthenticationController(new AuthMsSqlDao(), new DESAuthorizationService());
+                    Console.WriteLine("Enter Admin Username : ");
+                    String adminUsername = Console.ReadLine();
+                    Console.WriteLine("Enter Account Password : ");
+                    String password = Console.ReadLine();
+                    token = AC.AdminLogin(adminUsername, password);
+                    if (token == "Member" || token == "username not found" || token == "incorrect user/pass" || token == "DB Error")
+                    {
+                        Console.WriteLine(token);
+                        Console.WriteLine("Failed To Login");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Logged In");
+                        loggedin = true;
+                    }
+                }
+                catch (Exception ex)
+                {
 
-
+                }
+            }
+           
             
+            UMController um = new UMController(new MsSqlUMDAO<User>(connectstring), new DESAuthorizationService()  , new SQLLogDAO(), "boofman2", token);
 
+
+    
             int choice = 0;
-            Console.WriteLine("1. Create 2. Update 3. Delete\n4. Enable 5. Disable 6. Bulk UM");
+            Console.WriteLine("1. Create 2. Update 3. Delete\n4. Enable 5. Disable 6. Bulk UM 0.Exit");
             choice = Int32.Parse(Console.ReadLine());
             while (choice != 0)
             {
@@ -53,13 +78,13 @@ namespace The6Bits.BitOHealth.Demo
                     Console.WriteLine("Input username of user to update");
                     String userName = Console.ReadLine();
                     //userName, email, password, firstN, lastN, admin, enabled
-                    Console.WriteLine("1. email 2. password 3. firstN 4. lastN 5. admin 6. enabled");
+                    Console.WriteLine("Pick something to update:  'email' , 'password' ,  'firstN' , 'lastN' , 'admin' , 'enabled' ");
                     String updateChoice = Console.ReadLine();
                     User newUser = new User();
-                    newUser.Username = adminUsername;
+                    newUser.Username = userName;
                     Console.WriteLine("Input new " + updateChoice + ": ");
                     String updater = Console.ReadLine();
-                    
+
                     if (updateChoice == "email")
                     {
                         newUser.Email = updater;
@@ -84,6 +109,7 @@ namespace The6Bits.BitOHealth.Demo
                     {
                         newUser.IsEnabled = Int32.Parse(updater);
                     }
+                    Console.WriteLine(um.UpdateAccount(newUser));
 
                 }
                 else if(choice == 3)
@@ -106,6 +132,7 @@ namespace The6Bits.BitOHealth.Demo
                     Console.WriteLine("Enter userName of user to disable");
                     String userName = Console.ReadLine();
                     String userDisable = um.DisableAccount(userName);
+                    Console.WriteLine(userDisable);
 
                 }
                 else if (choice == 6)
@@ -129,6 +156,8 @@ namespace The6Bits.BitOHealth.Demo
 
             Console.WriteLine("Input file location: ");
             String location = Console.ReadLine();
+            Stopwatch stopwatch = Stopwatch.StartNew();
+
             foreach (string line in File.ReadLines(@location, Encoding.UTF8))
             {
                 var a = line.Split(' ');
@@ -142,14 +171,14 @@ namespace The6Bits.BitOHealth.Demo
                     admin = Int32.Parse(a[6]);
                     enabled = Int32.Parse(a[7]);
                     User user = new User(userName, email, password, firstN, lastN, admin, enabled);
-                    String userCreate = um.CreateAccount(user);
+                    Task.Run(() => um.CreateAccount(user));
                 }
-                else if(a[0] == "update")
+                else if (a[0] == "update")
                 {
                     userName = a[1];
                     User newUser = new User();
                     newUser.Username = userName;
-                    foreach(string i in a.Skip(2))
+                    foreach (string i in a.Skip(2))
                     {
                         var x = i.Split(',');
                         if (x[0] == "email")
@@ -164,8 +193,8 @@ namespace The6Bits.BitOHealth.Demo
                         {
                             newUser.FirstName = x[1];
                         }
-                        else if (x[0] == "lastN") 
-                        { 
+                        else if (x[0] == "lastN")
+                        {
                             newUser.LastName = x[1];
                         }
                         else if (x[0] == "admin")
@@ -177,16 +206,33 @@ namespace The6Bits.BitOHealth.Demo
                             newUser.IsEnabled = Int32.Parse(x[1]);
                         }
                     }
-                    
+                    Task.Run(() => um.UpdateAccount(newUser));
+
                 }
-                else if(a[0] == "delete")
+                else if (a[0] == "delete")
                 {
                     userName = a[1];
                     User newUser = new User();
-                    String userDelete = um.DeleteAccount(userName);
+                    Task.Run(() => um.DeleteAccount(userName));
+
 
                 }
+                else if (a[0] == "enable")
+                {
+                    userName = a[1];
+                    User newUser = new User();
+                    Task.Run(() => um.EnableAccount(userName));
+                }
+                else if (a[0] == "disable") 
+                {
+                    userName = a[1];
+                    User newUser = new User();
+                    Task.Run(() => um.DisableAccount(userName));
+                }
+
             }
+            double stopwatchTime = stopwatch.ElapsedMilliseconds;
+            Console.WriteLine("Finished in : " + stopwatchTime.ToString() + " ms");
         }
 
 
@@ -209,7 +255,7 @@ namespace The6Bits.BitOHealth.Demo
             int enabled = Int32.Parse(Console.ReadLine());
 
             User user = new User(userName, email, password, firstN, lastN, admin, enabled);
-            String userCreate = um.CreateAccount(user);
+            Console.WriteLine( um.CreateAccount(user));
         }
 
 

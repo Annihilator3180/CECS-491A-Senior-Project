@@ -44,7 +44,7 @@ namespace The6Bits.Logging.DAL.Implementations
         {
             try
             {
-                string query =  $"INSERT INTO LogsTest (username, description, LogLevel, LogCategory, Date_Time) values ('{username}', '{description}', '{LogLevel}' , '{LogCategory}', '{DateTime.UtcNow}')";
+                string query =  $"INSERT INTO Logs (username, description, LogLevel, LogCategory, Date_Time) values ('{username}', '{description}', '{LogLevel}' , '{LogCategory}', '{DateTime.UtcNow}')";
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
