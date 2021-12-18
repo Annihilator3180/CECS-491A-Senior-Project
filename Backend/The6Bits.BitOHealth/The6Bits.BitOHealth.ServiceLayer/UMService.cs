@@ -45,14 +45,15 @@ namespace The6Bits.BitOHealth.ServiceLayer
             }
         }
 
-        //TODO: DOUBLE CHECK VALIDATIONS
+       
         public string ValidateUsername(string username)
         {
             User user = new User()
             {
                 Username = username
             };
-            if (!username.Any(char.IsAscii) & username.Length < 16)
+            username = username.Remove('.').Remove('@').Remove('!') ;
+            if (!username.Any(Char.IsLetterOrDigit) & username.Length < 16 & username.Length > 6)
             {
                 return "Invalid Username";
             }
@@ -95,62 +96,9 @@ namespace The6Bits.BitOHealth.ServiceLayer
             return _dao.DisableAccount(username) ? "account disabled" : "database error";
         }
 
-        public IList<string> BulkCreateRandom(int amount)
-        {
-            IList<string> usernames = new List<string>();
-            User user = new User();
-            if (amount < 10001)
-            {
-                user.Username = RandomString(9);
-                user.IsAdmin = 0;
-                foreach (int i in Enumerable.Range(0, amount))
-                {
-                    _dao.Create(user);
-                    usernames.Add(user.Username);
-                    user.Username = RandomString(9);
-                }
+       
 
-                return usernames;
-            }
-            {
-                return new List<string>();
-            }
-        }
-
-
-        public bool BulkDelete(IList<string> usernames)
-        {
-            User u = new User();
-            foreach (string username in usernames)
-            {
-                u.Username = username;
-                _dao.Delete(u);
-            }
-
-            return true;
-        }
-
-
-        private string RandomString(int size)
-        {
-            Random random = new Random((int)DateTime.Now.Ticks);
-            StringBuilder builder = new StringBuilder();
-            char ch;
-            foreach (var i in Enumerable.Range(0,size))
-            {
-                ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
-                builder.Append(ch);
-            }
-
-            return builder.ToString();
-        }
-
-        public string View(string username)
-        {
-            User u = _dao.Read(new User() { Username = username });
-            return $"{u.Username} {u.Password} {u.FirstName} {u.LastName} {u.IsAdmin} {u.IsEnabled}";
-        }
-
+       
 
 
 
