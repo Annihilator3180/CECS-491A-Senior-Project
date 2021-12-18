@@ -15,5 +15,7 @@ namespace The6Bits.BitOHealth.DAL
         bool EnableAccount(string username);
         bool DisableAccount(string username);
 
+        bool UsernameExists(string username);
+
     }
 }

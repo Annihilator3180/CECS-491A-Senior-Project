@@ -222,5 +222,29 @@ public class SqlUMDAO<T> : IRepositoryUM<User>
 
         }
 
+        public bool UsernameExists(string username)
+        {
+            try
+            {
+                string query = $"select count(username) from Accounts where username = {username}';";
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int count = connection.QueryFirst<int>(query);
+                    if (count != 0)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch
+            {
+                return true;
+            }
+
+
+        }
+
     }
 }
