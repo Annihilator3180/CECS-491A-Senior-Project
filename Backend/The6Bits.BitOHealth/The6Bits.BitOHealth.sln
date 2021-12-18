@@ -23,7 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.BitOHealth.ManagerLayer", "The6Bits.BitOHealth.ManagerLayer\The6Bits.BitOHealth.ManagerLayer.csproj", "{445216F7-730F-4498-9E75-FC687BEA775F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.BitOHealth.DAL.Tests", "The6Bits.BitOHealh.DAL.Tests\The6Bits.BitOHealth.DAL.Tests.csproj", "{2893112D-AF13-4E02-BC7C-041F6B8DF95B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.BitOHealth.DAL.IntegrationTests", "The6Bits.BitOHealh.DAL.Tests\The6Bits.BitOHealth.DAL.IntegrationTests.csproj", "{2893112D-AF13-4E02-BC7C-041F6B8DF95B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.BitOHealth.Models", "Models\The6Bits.BitOHealth.Models.csproj", "{341827C8-53AE-4F45-A74D-27E2EFCF1C73}"
 EndProject
@@ -39,7 +39,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.BitOHealth.Service
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.BitOHealth.Authorization", "The6Bits.BitOHealth.Authorization\The6Bits.BitOHealth.Authorization.csproj", "{53C24895-BC8A-4AB4-BEF1-B0CD483FBE50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "The6Bits.BitOHealth.Authorization.Tests", "The6Bits.BitOHealth.Authorization.Tests\The6Bits.BitOHealth.Authorization.Tests.csproj", "{1B83558A-43D4-422A-9EE9-9132FC3B581A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.BitOHealth.Authorization.Tests", "The6Bits.BitOHealth.Authorization.Tests\The6Bits.BitOHealth.Authorization.Tests.csproj", "{1B83558A-43D4-422A-9EE9-9132FC3B581A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

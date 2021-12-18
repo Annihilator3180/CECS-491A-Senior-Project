@@ -3,12 +3,13 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using The6Bits.BitOHealth.DAL.Implementations;
 using The6Bits.BitOHealth.Models;
+using Xunit;
 
 namespace The6Bits.BitOHealth.DAL.Tests
 {
     public class CreateAccountUMDaoShould
     {
-        [System.Diagnostics.Conditional("DEBUG")]
+        [Fact]
         public void InsertTest()
         {
             
@@ -22,7 +23,7 @@ namespace The6Bits.BitOHealth.DAL.Tests
             rami.IsEnabled = 1;
             UmDAO.Create(rami);
             User ret = UmDAO.Read(rami);
-            Debug.Assert( rami.Username == ret.Username );
+           Assert.Equal("testname", ret.Username);
         }
 
 

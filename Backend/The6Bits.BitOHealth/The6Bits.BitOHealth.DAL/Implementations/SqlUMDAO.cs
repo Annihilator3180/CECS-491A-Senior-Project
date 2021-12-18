@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Web;
 using The6Bits.BitOHealth.Models;
+using Dapper;
 
 
 
@@ -21,13 +22,13 @@ public class SqlUMDAO<T> : IRepositoryUM<User>
             {
                 string query = InsertQueryBuilder(user);
                 using var connection = new SqlConnection(_connectString);
-                SqlCommand command = new SqlCommand(query, connection);
-                connection.Open();
-                command.ExecuteReader();
-                //connection.ExecuteScalar<string>(query);
-                //Console.WriteLine(bruh);
+                int lines_modified = connection.Execute(query);
                 connection.Close();
 
+                if (lines_modified == 0)
+                {
+                    return false;
+                }
 
                 return true;
             }
