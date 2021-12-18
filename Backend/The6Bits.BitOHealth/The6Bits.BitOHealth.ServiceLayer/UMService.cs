@@ -55,8 +55,8 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
         public string ValidateUsername(string username)
         {
-
-            string usernametest = username.Remove('.').Remove('@').Remove('!').Remove(',');
+            List<char> charsToRemove = new List<char>() { '@', '!', ',', '.' };
+            string usernametest = username.Replace("@", string.Empty).Replace(",",String.Empty).Replace("!",String.Empty).Replace(".",String.Empty);
             if (!usernametest.All(Char.IsLetterOrDigit) & username.Length < 16 & username.Length > 6)
             {
                 return "Invalid Username";

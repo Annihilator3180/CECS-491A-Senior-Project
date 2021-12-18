@@ -31,7 +31,7 @@ namespace The6Bits.BitOHealth.ServiceLayer.Tests
         public void ValidPassword()
         {
             UMService Service = new UMService(new SqlUMDAO<User>());
-            String Password = "TestProperPassword@1";
+            string Password = "TestProperPassword@1";
             bool isValid = Service.ValidateEmail(Password);
             Assert.True(isValid);
         }
@@ -45,7 +45,7 @@ namespace The6Bits.BitOHealth.ServiceLayer.Tests
         [InlineData("AllLettersonly")]
         [InlineData("BadSpecialCharacter$$$@1")]
         [InlineData("*********************")]
-        public void InvalidPassword(String password)
+        public void InvalidPassword(string password)
         {
             UMService Service = new UMService(new SqlUMDAO<User>());
             bool isValid = Service.ValidatePassword(password);
@@ -61,18 +61,18 @@ namespace The6Bits.BitOHealth.ServiceLayer.Tests
         public void ValidUsername()
         {
             UMService Service = new UMService(new SqlUMDAO<User>());
-            String UserName = "UsernameGood@1";
-            String returnString = Service.ValidateUsername(UserName);
+            string UserName = "UsernameGood@1";
+            string returnString = Service.ValidateUsername(UserName);
             Assert.Equal("new username", returnString);
         }
         [Theory]
         [InlineData("Short1")]
         [InlineData("$$$$$$$$$$$$$$$$$$$$$")]
         [InlineData("LOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO0NG@23")]
-        public void InvalidUsername(String Username)
+        public void InvalidUsername(string Username)
         {
             UMService Service = new UMService(new SqlUMDAO<User>());
-            String returnString = Service.ValidateUsername(Username);
+            string returnString = Service.ValidateUsername(Username);
             Assert.Equal("Invalid Username", returnString);
         }
 
