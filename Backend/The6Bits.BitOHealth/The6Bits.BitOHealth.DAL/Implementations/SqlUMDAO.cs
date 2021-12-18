@@ -16,6 +16,7 @@ public class SqlUMDAO<T> : IRepositoryUM<User>
 
         private string _connectString = @"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;";
 
+
         public SqlUMDAO()
         {
         }
