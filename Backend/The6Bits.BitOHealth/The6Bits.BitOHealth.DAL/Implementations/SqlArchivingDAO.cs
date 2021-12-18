@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using The6Bits.Logging.Models;
 using The6Bits.BitOHealth.DAL.Contract;
 using System.Data.SqlClient;
+using Dapper;
 
 
 namespace The6Bits.BitOHealth.DAL.Implementations
@@ -28,18 +29,12 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     SqlCommand command = new SqlCommand(query,connection);
                     connection.Open();
                     SqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
+                    IEnumerable<Log> logs = connection.Query<Log>(query);
+                    foreach (Log l in logs)
                     {
-                        logList.Add($" {reader["Username"]}, {reader["description"]}, {reader["LogLevel"]}, {reader["LogCategory"]}, {reader["Date_Time"]} ");
-                        //System.Diagnostics.Debug.WriteLine("\t{0}\t{1}\t{2}",
-                        //    reader["Username"], reader["description"], reader["LogLevel"]);
+                        logList.Add($" {l.username}, {l.description}, {l.LogLevel}, {l.LogCategory}, {l.Date_Time} ");
                     }
-                    //reader.Close();
-                    //IEnumerable<Log> str = connection.Query<Log>(query);
-                    //foreach (Log log in str)
-                    //{
-                    //    logList.Add( $" {log.username}, {log.description}, {log.LogLevel}, {log.LogCategory}, {log.Date_Time} ");
-                    //}
+
                     connection.Close();
                     return logList;
 
@@ -58,9 +53,8 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             {
                 using (var connection = new SqlConnection(_connectString))
                 {
-                    SqlCommand command = new SqlCommand(query, connection);
                     connection.Open();
-                    command.ExecuteReader();
+                    connection.Execute(query);
                     connection.Close();
                     return true;
                 }

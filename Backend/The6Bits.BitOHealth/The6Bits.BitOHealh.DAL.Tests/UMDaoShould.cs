@@ -202,6 +202,7 @@ namespace The6Bits.BitOHealth.DAL.Tests
             Test.IsEnabled = 0;
             UmDAO.Create(Test);
             bool isValid = UmDAO.UsernameExists("duplicate");
+            UmDAO.Delete(Test);
             Assert.True(isValid);
         }
     }
