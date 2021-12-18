@@ -12,6 +12,7 @@ using The6Bits.Logging;
 using The6Bits.Logging.Implementations;
 using The6Bits.BitOHealth.DAL.Implementations;
 using The6Bits.Logging.DAL.Implementations;
+using The6Bits.Authorization.Implementations;
 
 namespace The6Bits.BitOHealth.Demo
 {
@@ -22,7 +23,10 @@ namespace The6Bits.BitOHealth.Demo
             string adminUsername = "bossman";
             string tokenn = "abcd";
             string connectstring = @"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;";
-            UMController um = new UMController(new SqlUMDAO<User>(connectstring) , new SQLLogDAO(), adminUsername, tokenn);
+            AuthenticationController AC = new AuthenticationController(new AuthMsSqlDao(), new DESAuthorizationService());
+            string token=  AC.AdminLogin("boofman2", "Password1!");
+            Console.WriteLine(token);
+            UMController um = new UMController(new SqlUMDAO<User>(connectstring), new DESAuthorizationService()  , new SQLLogDAO(), "boofman2", token);
 
 
             

@@ -9,6 +9,7 @@ using The6Bits.Logging;
 using The6Bits.Logging.DAL.Implementations;
 using The6Bits.Logging.Implementations;
 using The6Bits.BitOHealth.ManagerLayer;
+using The6Bits.Authorization.Contract;
 
 namespace The6Bits.BitOHealth.ControllerLayer
 {
@@ -16,9 +17,15 @@ namespace The6Bits.BitOHealth.ControllerLayer
     {
         private LogService _logService = new LogService(new SQLLogDAO());
         private AuthManager _AM;   
-        public AuthenticationController (IRepositoryAuth<string> daotype)
+        public AuthenticationController (IRepositoryAuth<string> daotype, IAuthorizationService authType)
         {
             _AM = new AuthManager(daotype);
+            _AM.Authorization =  authType;
+        }
+
+        public string AdminLogin(string username, string password) 
+        {
+            return _AM.AdminLogin(username,password);
         }
     }
 }
