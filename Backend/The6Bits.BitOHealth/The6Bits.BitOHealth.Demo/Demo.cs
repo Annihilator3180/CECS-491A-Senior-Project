@@ -56,7 +56,7 @@ namespace The6Bits.BitOHealth.Demo
             ac.Archive();
 
 
-            UMController um = new UMController(new MsSqlUMDAO<User>(connectstring), new DESAuthorizationService()  , new SQLLogDAO() { _connectString = co
+            UMController um = new UMController(new MsSqlUMDAO<User>(connectstring), new DESAuthorizationService()  , new SQLLogDAO() { _connectString = connectstring
             }, "boofman2", token);
             bool done = false;
             while (done != true)

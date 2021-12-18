@@ -21,7 +21,7 @@ namespace The6Bits.BitOHealth.ManagerLayer
             Console.WriteLine(date);
 
             _archivingService = new ArchivingService(new WindowsArchivingDAO(), new SqlArchivingDAO() { _connectString = conn});
-            _archivingService.ArchiveScheduler(date);
+            new Task(() => _archivingService.ArchiveScheduler(date)).Start();
             return true;
 
 
