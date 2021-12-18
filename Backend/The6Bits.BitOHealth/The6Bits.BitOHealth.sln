@@ -35,11 +35,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.Logging.Models", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.BitOHealth.Demo", "The6Bits.BitOHealth.Demo\The6Bits.BitOHealth.Demo.csproj", "{1166BA7C-A3A8-4C86-B9B4-86591743597D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.BitOHealth.Authorization", "The6Bits.BitOHealth.Authorization\The6Bits.BitOHealth.Authorization.csproj", "{53C24895-BC8A-4AB4-BEF1-B0CD483FBE50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.BitOHealth.ServiceLayer.Test", "The6Bits.BitOHealth.ServiceLayer.Test\The6Bits.BitOHealth.ServiceLayer.Test.csproj", "{FB9725E4-47DB-4A4E-8388-3098A22357CB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.BitOHealth.Authorization.Tests", "The6Bits.BitOHealth.Authorization.Tests\The6Bits.BitOHealth.Authorization.Tests.csproj", "{1B83558A-43D4-422A-9EE9-9132FC3B581A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.Authorization", "The6Bits.Authorization\The6Bits.Authorization.csproj", "{CC1E728B-E33D-45D5-999B-55ACD879391C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "The6Bits.BitOHealth.ServiceLayer.Test", "The6Bits.BitOHealth.ServiceLayer.Test\The6Bits.BitOHealth.ServiceLayer.Test.csproj", "{FB9725E4-47DB-4A4E-8388-3098A22357CB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "The6Bits.Authorization.Tests", "The6Bits.Authorization.Tests\The6Bits.Authorization.Tests.csproj", "{A5578DA2-0CF4-403E-9247-80ACE57EF89B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,18 +91,18 @@ Global
 		{1166BA7C-A3A8-4C86-B9B4-86591743597D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1166BA7C-A3A8-4C86-B9B4-86591743597D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1166BA7C-A3A8-4C86-B9B4-86591743597D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{53C24895-BC8A-4AB4-BEF1-B0CD483FBE50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{53C24895-BC8A-4AB4-BEF1-B0CD483FBE50}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{53C24895-BC8A-4AB4-BEF1-B0CD483FBE50}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{53C24895-BC8A-4AB4-BEF1-B0CD483FBE50}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1B83558A-43D4-422A-9EE9-9132FC3B581A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1B83558A-43D4-422A-9EE9-9132FC3B581A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1B83558A-43D4-422A-9EE9-9132FC3B581A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1B83558A-43D4-422A-9EE9-9132FC3B581A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FB9725E4-47DB-4A4E-8388-3098A22357CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FB9725E4-47DB-4A4E-8388-3098A22357CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB9725E4-47DB-4A4E-8388-3098A22357CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB9725E4-47DB-4A4E-8388-3098A22357CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC1E728B-E33D-45D5-999B-55ACD879391C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC1E728B-E33D-45D5-999B-55ACD879391C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC1E728B-E33D-45D5-999B-55ACD879391C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC1E728B-E33D-45D5-999B-55ACD879391C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5578DA2-0CF4-403E-9247-80ACE57EF89B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5578DA2-0CF4-403E-9247-80ACE57EF89B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5578DA2-0CF4-403E-9247-80ACE57EF89B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5578DA2-0CF4-403E-9247-80ACE57EF89B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

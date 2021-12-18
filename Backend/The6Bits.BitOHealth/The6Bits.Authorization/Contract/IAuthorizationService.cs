@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace The6Bits.BitOHealth.Authorization.Contract
+namespace The6Bits.Authorization.Contract
 {
     public interface IAuthorizationService
     {

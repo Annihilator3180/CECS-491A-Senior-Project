@@ -6,19 +6,21 @@ using The6Bits.Logging;
 using The6Bits.Logging.DAL.Implementations;
 using The6Bits.Logging.Implementations;
 using The6Bits.Logging.DAL.Contracts;
+using The6Bits.Authorization.Contract;
+
 
 
 namespace The6Bits.BitOHealth.ControllerLayer
 {
 
-    public class UMController
-    {
+    public class UMController {
         private UMManager _UMM;
         private LogService logService;
 
-        public UMController(IRepositoryUM<User> daoType, ILogDal logDao, string adminUsername , string token)
+        public UMController(IRepositoryUM<User> daoType , IAuthorizationService auth ,ILogDal logDao, string adminUsername , string token)
         {
             _UMM = new UMManager(daoType);
+            _UMM.authorizationService = auth;
             logService = new LogService(logDao);
         }
 

@@ -226,11 +226,11 @@ public class SqlUMDAO<T> : IRepositoryUM<User>
         {
             try
             {
-                string query = $"select count(username) from Accounts where username = {username}';";
+                string query = $"select count * from Accounts where Username = {username}';";
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
-                    int count = connection.QueryFirst<int>(query);
+                    int count = connection.ExecuteScalar<int>(query);
                     if (count != 0)
                     {
                         return true;

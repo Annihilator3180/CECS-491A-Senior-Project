@@ -6,12 +6,15 @@ using The6Bits.BitOHealth.ServiceLayer;
 using The6Bits.BitOHealth.Models;
 using The6Bits.Logging;
 using The6Bits.Logging.Implementations;
+using The6Bits.Authorization.Contract;
 
 
 namespace The6Bits.BitOHealth.ManagerLayer
 {
     public class UMManager
     {
+
+        public IAuthorizationService authorizationService;
         private UMService _UMS;
 
         public UMManager(IRepositoryUM<User> daoType)

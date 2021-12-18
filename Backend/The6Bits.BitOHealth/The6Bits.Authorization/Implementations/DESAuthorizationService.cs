@@ -1,10 +1,11 @@
-﻿namespace The6Bits.BitOHealth.Authorization
-{
+﻿
     using System;
     using System.Security.Cryptography;
     using System.Text;
-   
+    using The6Bits.Authorization.Contract;
 
+    namespace The6Bits.Authorization.Implementations
+    {
     public class DESAuthorizationService : IAuthorizationService
     {
         //private key that will be later stored in persistant storage
