@@ -226,7 +226,7 @@ public class SqlUMDAO<T> : IRepositoryUM<User>
         {
             try
             {
-                string query = $"select count(*) from Accounts where Username = {username}';";
+                string query = $"select count(*) from Accounts where Username = '{username}';";
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
