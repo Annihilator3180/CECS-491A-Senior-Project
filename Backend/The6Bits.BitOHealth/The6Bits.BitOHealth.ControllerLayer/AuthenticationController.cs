@@ -25,7 +25,13 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
         public string AdminLogin(string username, string password) 
         {
-            return _AM.AdminLogin(username,password);
+            string res = _AM.AdminLogin(username,password);
+            if(res == "DB Error")
+            {
+                _logService.Log(username, res, "Error", "Data Store");
+            }
+            _logService.Log(username,res,"Info","Business");
+            return res;
         }
     }
 }

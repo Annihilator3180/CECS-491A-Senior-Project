@@ -11,7 +11,7 @@ namespace The6Bits.BitOHealth.ServiceLayer.Tests
         [Fact]
         public void ValidEmail()
         {
-            UMService Service = new UMService(new SqlUMDAO<User>());
+            UMService Service = new UMService(new MsSqlUMDAO<User>());
             String Email = "testemail@email.com";
             bool isValid = Service.ValidateEmail(Email);
             Assert.True(isValid);
@@ -22,7 +22,7 @@ namespace The6Bits.BitOHealth.ServiceLayer.Tests
         [InlineData("testemail@")]
         public void InvalidEmail(string s)
         {
-            UMService Service = new UMService(new SqlUMDAO<User>());
+            UMService Service = new UMService(new MsSqlUMDAO<User>());
             bool isValid = Service.ValidateEmail(s);
             Assert.False(isValid);
         }
@@ -30,7 +30,7 @@ namespace The6Bits.BitOHealth.ServiceLayer.Tests
 
         public void ValidPassword()
         {
-            UMService Service = new UMService(new SqlUMDAO<User>());
+            UMService Service = new UMService(new MsSqlUMDAO<User>());
             string Password = "TestProperPassword@1";
             bool isValid = Service.ValidateEmail(Password);
             Assert.True(isValid);
@@ -47,7 +47,7 @@ namespace The6Bits.BitOHealth.ServiceLayer.Tests
         [InlineData("*********************")]
         public void InvalidPassword(string password)
         {
-            UMService Service = new UMService(new SqlUMDAO<User>());
+            UMService Service = new UMService(new MsSqlUMDAO<User>());
             bool isValid = Service.ValidatePassword(password);
             Assert.False(isValid);
         }
@@ -56,7 +56,7 @@ namespace The6Bits.BitOHealth.ServiceLayer.Tests
         [Fact]
         public void ValidUsername()
         {
-            UMService Service = new UMService(new SqlUMDAO<User>());
+            UMService Service = new UMService(new MsSqlUMDAO<User>());
             string UserName = "UsernameGood@1";
             string returnString = Service.ValidateUsername(UserName);
             Assert.Equal("new username", returnString);
@@ -67,7 +67,7 @@ namespace The6Bits.BitOHealth.ServiceLayer.Tests
         [InlineData("LOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO0NG@23")]
         public void InvalidUsername(string Username)
         {
-            UMService Service = new UMService(new SqlUMDAO<User>());
+            UMService Service = new UMService(new MsSqlUMDAO<User>());
             string returnString = Service.ValidateUsername(Username);
             Assert.Equal("Invalid Username", returnString);
         }

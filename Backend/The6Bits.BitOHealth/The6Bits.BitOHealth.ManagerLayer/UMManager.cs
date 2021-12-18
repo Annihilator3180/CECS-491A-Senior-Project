@@ -87,14 +87,22 @@ namespace The6Bits.BitOHealth.ManagerLayer
             {
                 return validation;
             }
-            if (!_UMS.ValidateEmail(user.Email))
+            if (user.Email != null)
             {
-                return "invalid email";
+                if (!_UMS.ValidateEmail(user.Email))
+                {
+                    return "invalid email";
+                }
             }
-            if (!_UMS.ValidatePassword(user.Password))
+
+            if (user.Password != null) 
             {
-                return "invalid email";
+                if (!_UMS.ValidatePassword(user.Password))
+                {
+                    return "invalid password";
+                }
             }
+
 
             string response = _UMS.UpdateAccount(user);
             
@@ -109,7 +117,7 @@ namespace The6Bits.BitOHealth.ManagerLayer
             {
                 return "invalid claims/token";
             }
-            _UMS = new UMService(new SqlUMDAO<User>());
+            _UMS = new UMService(new MsSqlUMDAO<User>());
             string validation = _UMS.ValidateUsername(username);
             if (validation != "username exists")
             {

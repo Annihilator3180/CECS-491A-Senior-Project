@@ -26,7 +26,7 @@ namespace The6Bits.BitOHealth.ManagerLayer
             string us = _AS.UsernameExists(username);
             if (us != "username exists")
             {
-                return "us";
+                return us;
             }
             string rl = _AS.UserRole(username);
             if (rl  != "Admin")

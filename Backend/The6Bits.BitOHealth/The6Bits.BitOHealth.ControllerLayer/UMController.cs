@@ -16,12 +16,14 @@ namespace The6Bits.BitOHealth.ControllerLayer
     public class UMController {
         private UMManager _UMM;
         private LogService logService;
+        private string adminUsername;
 
         public UMController(IRepositoryUM<User> daoType , IAuthorizationService auth ,ILogDal logDao, string adminUsername , string token)
         {
             _UMM = new UMManager(daoType);
             _UMM.auth = auth;
             _UMM.token = token;
+            adminUsername = adminUsername;
             logService = new LogService(logDao);
         }
 
@@ -31,11 +33,15 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
             if (res == "username exists")
             {
-                logService.Log(user.Username, "Username Already Used", "Info", "Data");
+                logService.Log(adminUsername, "Account creation-Username Exists", "Info", "Business");
+            }
+            else if (res == "database error")
+            {
+                logService.Log(adminUsername, "Create Account-Database Error", "Error", "Data Store");
             }
             else
             {
-                logService.Log(user.Username, res, "Info", "Server");
+                logService.Log(adminUsername, "Account Creation -"+res, "Info", "Business");
             }
 
             return res;
@@ -46,11 +52,15 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
             if (res != "username exists")
             {
-                logService.Log(username, "Username Does Not Exist", "Info", "Data");
+                logService.Log(adminUsername, "Delete Account- new username", "Info", "Business");
+            }
+            else if (res == "database error")
+            {
+                logService.Log(adminUsername, "Delete Account-Database Error", "Error", "Data Store");
             }
             else
             {
-                logService.Log(username, res, "Info", "Server");
+                logService.Log(adminUsername, "Delete Account -"+res, "Info", "Business");
             }
 
             return res;
@@ -61,11 +71,15 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
             if (res != "username exists")
             {
-                logService.Log(user.Username, "Username Does Not Exist", "Info", "Data");
+                logService.Log(adminUsername, "Update Account- new username", "Info", "Business");
+            }
+            else if (res == "database error")
+            {
+                logService.Log(adminUsername, "Update Account-Database Error", "Error", "Data Store");
             }
             else
             {
-                logService.Log(user.Username, res, "Info", "Server");
+                logService.Log(adminUsername, "Update Account -" + res, "Info", "Business");
             }
             return res;
         }
@@ -74,11 +88,15 @@ namespace The6Bits.BitOHealth.ControllerLayer
             string res = _UMM.EnableAccount(username);
             if (res != "username exists")
             {
-                logService.Log(username, "Username Does Not Exist", "Info", "Data");
+                logService.Log(adminUsername, "Enabel Account - new username", "Info", "Business");
+            }
+            else if (res == "database error")
+            {
+                logService.Log(adminUsername, "Enable Account-Database Error", "Error", "Data Store");
             }
             else
             {
-                logService.Log(username, res, "Info", "Server");
+                logService.Log(adminUsername, "Enable Account -" + res, "Info", "Business");
             }
             return res;
         }
@@ -87,11 +105,15 @@ namespace The6Bits.BitOHealth.ControllerLayer
             string res = _UMM.DisableAccount(username);
             if (res != "username exists")
             {
-                logService.Log(username, "Username Does Not Exist", "Info", "Data");
+                logService.Log(adminUsername, "Disable Account- new username", "Info", "Business");
+            }
+            else if (res == "database error")
+             {
+                logService.Log(adminUsername, "Disable Account-Database Error", "Error", "Data Store");
             }
             else
             {
-                logService.Log(username, res, "Info", "Server");
+                logService.Log(adminUsername, "Disable Account -" + res, "Info", "Business");
             }
             return res;
         }

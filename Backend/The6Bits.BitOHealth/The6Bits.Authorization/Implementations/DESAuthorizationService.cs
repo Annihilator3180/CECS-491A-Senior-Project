@@ -68,12 +68,20 @@
 
         public bool VerifyClaims(string token,string access)
         {
-            string decrypted = Decrypt(token);
-            if (decrypted.Contains(access)) 
+            try
             {
-                return true;
+                string decrypted = Decrypt(token);
+                if (decrypted.Contains(access))
+                {
+                    return true;
+                }
+                return false;
             }
-            return false;
+            catch (Exception e)
+            {
+                return false;
+             }
+            
 
         }
 

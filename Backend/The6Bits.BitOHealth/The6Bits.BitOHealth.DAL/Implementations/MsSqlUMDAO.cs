@@ -11,17 +11,17 @@ using Dapper;
 
 namespace The6Bits.BitOHealth.DAL.Implementations
 {
-public class SqlUMDAO<T> : IRepositoryUM<User>
+public class MsSqlUMDAO<T> : IRepositoryUM<User>
     {
 
         private string _connectString = @"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;";
 
 
-        public SqlUMDAO()
+        public MsSqlUMDAO()
         {
         }
 
-        public SqlUMDAO(string connectstring)
+        public MsSqlUMDAO(string connectstring)
         {
             _connectString = connectstring;
         }
@@ -74,7 +74,6 @@ public class SqlUMDAO<T> : IRepositoryUM<User>
         }
 
 
-        //TODO: ASK better for generic update or specific methods for each change? which for SOLID
         //ex: DAL.UpdateEmail();
         public bool Update(User user)
         {
