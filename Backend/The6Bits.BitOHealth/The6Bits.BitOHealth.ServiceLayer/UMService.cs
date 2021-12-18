@@ -38,7 +38,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
             {
                 if (password.Length >= 8 & password.Length <= 30 & (password.Contains('.') || password.Contains(',') || password.Contains('!') || password.Contains('@')))
                 {
-                    password = username.Replace("@", string.Empty).Replace(",", String.Empty).Replace("!", String.Empty).Replace(".", String.Empty);
+                    password = password.Replace("@", string.Empty).Replace(",", String.Empty).Replace("!", String.Empty).Replace(".", String.Empty);
                 }
                 else
                 {
