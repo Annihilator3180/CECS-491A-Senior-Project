@@ -28,12 +28,53 @@ namespace The6Bits.BitOHealth.ServiceLayer.Tests
         }
         [Fact]
 
-        public void validPassword()
+        public void ValidPassword()
         {
             UMService Service = new UMService(new SqlUMDAO<User>());
-            String Password = "TestProperPassword@";
+            String Password = "TestProperPassword@1";
             bool isValid = Service.ValidateEmail(Password);
-            Assert.False(false);
+            Assert.True(isValid);
         }
+        [Theory]
+        [InlineData("Short@1")]
+        [InlineData("LOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO0NG@23")]
+        [InlineData("nouppercase@1")]
+        [InlineData("NOLOWERCASE@1")]
+        [InlineData("NOsPECIAL1234")]
+        [InlineData("NONUMBERSSSSSSSSSSSSSSSSSS@@")]
+        [InlineData("AllLettersonly")]
+        [InlineData("BadSpecialCharacter$$$@1")]
+        [InlineData("*********************")]
+        public void InvalidPassword(String password)
+        {
+            UMService Service = new UMService(new SqlUMDAO<User>());
+            bool isValid = Service.ValidatePassword(password);
+            Assert.False(isValid);
+        }
+        [Fact]
+        public void fa()
+        {
+            Assert.True(false);
+        }
+
+        [Fact]
+        public void ValidUsername()
+        {
+            UMService Service = new UMService(new SqlUMDAO<User>());
+            String UserName = "UsernameGood@1";
+            String returnString = Service.ValidateUsername(UserName);
+            Assert.Equal("new username", returnString);
+        }
+        [Theory]
+        [InlineData("Short1")]
+        [InlineData("$$$$$$$$$$$$$$$$$$$$$")]
+        [InlineData("LOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO0NG@23")]
+        public void InvalidUsername(String Username)
+        {
+            UMService Service = new UMService(new SqlUMDAO<User>());
+            String returnString = Service.ValidateUsername(Username);
+            Assert.Equal("Invalid Username", returnString);
+        }
+
     }
 }
