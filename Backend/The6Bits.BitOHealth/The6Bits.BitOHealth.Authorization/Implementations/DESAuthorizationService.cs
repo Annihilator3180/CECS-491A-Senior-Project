@@ -5,7 +5,7 @@
     using System.Text;
    
 
-    public class encryptionMethods
+    public class DESAuthorizationService : IAuthorizationService
     {
         //private key that will be later stored in persistant storage
         private  byte[] key = new byte[8] { 1, 2, 3, 4, 5, 6, 7, 8 };
