@@ -21,7 +21,7 @@ namespace The6Bits.Logging.DAL.Implementations
 
 
                     connection.Open();
-                    IEnumerable<Log> str = connection.Query<Log>($"select * from LogsTest ;");
+                    IEnumerable<Log> str = connection.Query<Log>($"select * from Logs ;");
                     string s = "";
                     foreach (Log log in str)
                     {

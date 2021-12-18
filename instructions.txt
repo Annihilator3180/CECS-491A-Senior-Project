@@ -1,0 +1,8 @@
+1. make sure you have SQL Server Express Running
+2. change connection string in code to match inside Demo.cs in The6Bits.BitOHealth.Demo
+3. if you would like you can run the sql queries to create a database from scratch. They are in SQL files in the Backend folder.
+4. Or you can use our database backup in DBBACKUP
+You will need both Accounts and Logs tables.
+5. open sln file in The6Bits.BitOHealth in VisualStudio 2022
+6. run demo.cs and log in with username 'bossadmin12' password: 'Password!1'
+7. Enjoy! Bulk file is called bulk.txt in case you want to use it

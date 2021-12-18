@@ -7,5 +7,3 @@ CREATE TABLE Logs (
 
 );
 
-
-INSERT INTO Logs (username, description, LogLevel, LogCategory, Date_Time) values ('{username}', '{description}', '{LogLevel}' , '{LogCategory}',CURRENT_TIMESTAMP   )

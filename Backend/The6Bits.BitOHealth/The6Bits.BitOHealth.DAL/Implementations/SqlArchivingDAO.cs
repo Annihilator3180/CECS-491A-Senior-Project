@@ -20,7 +20,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 
         public IList<string> GetLogsOlderThan30Days(DateTime datetime)
         {
-            string query = $"select * from LogsTest WHERE datediff(day, Date_Time, GETDATE() )>30;";
+            string query = $"select * from Logs WHERE datediff(day, Date_Time, GETDATE() )>30;";
             IList<string> logList = new List<string>();
             try
             {
@@ -48,7 +48,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 
         public bool Delete(DateTime datetime)
         {
-            string query = $"DELETE FROM LogsTest WHERE datediff(day, Date_Time, GETDATE() )>30;";
+            string query = $"DELETE FROM Logs WHERE datediff(day, Date_Time, GETDATE() )>30;";
             try
             {
                 using (var connection = new SqlConnection(_connectString))
