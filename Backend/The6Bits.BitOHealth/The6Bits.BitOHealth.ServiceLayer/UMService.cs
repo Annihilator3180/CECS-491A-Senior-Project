@@ -36,8 +36,11 @@ namespace The6Bits.BitOHealth.ServiceLayer
         {
             try
             {
-                return password.Any(char.IsUpper) & password.Any(char.IsLower) & password.Any(char.IsDigit) &
-                       password.Length >= 8 & password.Length <= 30;
+                if (password.Length >= 8 & password.Length <= 30 & (password.Contains('.') || password.Contains(',') || password.Contains('!') || password.Contains('@')))
+                {
+                    password = password.Remove('.').Remove(',').Remove('!').Remove('@');
+                }
+                return !password.Any(char.IsLetterOrDigit) ;
             }
             catch
             {
@@ -57,7 +60,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
             {
                 return "Invalid Username";
             }
-            if (_dao.Read(user).Username == username)
+            if (_dao.UsernameExists(username))
             {
                 return "username exists";
             }

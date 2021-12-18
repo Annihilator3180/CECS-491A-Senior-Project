@@ -2,6 +2,8 @@
 using System.Data.SqlClient;
 using System.Text;
 using The6Bits.Logging.DAL.Contracts;
+using Dapper;
+using The6Bits.Logging.Models;
 
 namespace The6Bits.Logging.DAL.Implementations
 {
@@ -18,21 +20,18 @@ namespace The6Bits.Logging.DAL.Implementations
                 {
 
 
-                    string logs = "";
-                    SqlCommand command = new SqlCommand(query, connection);
                     connection.Open();
-                    SqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
+                    IEnumerable<Log> str = connection.Query<Log>($"select * from LogsTest ;");
+                    string s = "";
+                    foreach (Log log in str)
                     {
-                        logs+=($" {reader["username"]}, {reader["description"]}, {reader["LogLevel"]}, {reader["LogCategory"]}, {reader["Date_Time"]} ");
-                        System.Diagnostics.Debug.WriteLine("\t{0}\t{1}\t{2}",
-                            reader["Username"], reader["description"], reader["LogLevel"]);
+                        s += $" {log.username} {log.description} {log.LogLevel} {log.LogCategory} {log.Date_Time} ";
+                        System.Diagnostics.Debug.WriteLine(log.username + "     " + log.Date_Time);
+
                     }
 
+                    return s;
 
-
-                    return logs;
-                    
                 }
             }
             catch
@@ -45,15 +44,18 @@ namespace The6Bits.Logging.DAL.Implementations
         {
             try
             {
+                string query =  $"INSERT INTO LogsTest (username, description, LogLevel, LogCategory, Date_Time) values ('{username}', '{description}', '{LogLevel}' , '{LogCategory}', '{DateTime.UtcNow}')";
+
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
-                    string query = $"INSERT INTO Logs (username, description, LogLevel, LogCategory, Date_Time) values ('{username}', '{description}', '{LogLevel}' , '{LogCategory}', '{DateTime.UtcNow}')";
-                    SqlCommand command = new SqlCommand(query, connection);
                     connection.Open();
-                    SqlDataReader reader = command.ExecuteReader();
-                    connection.CloseAsync();
+                    int s = connection.Execute(query);
+                    if (s == 1) 
+                    {
+                        return true;
+                    }
                 }
-                return true;
+                return false;
             }
             catch
             {
