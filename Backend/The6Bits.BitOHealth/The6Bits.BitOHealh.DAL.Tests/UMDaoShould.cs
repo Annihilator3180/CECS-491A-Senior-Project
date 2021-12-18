@@ -1,4 +1,6 @@
+
 using System;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using The6Bits.BitOHealth.DAL.Implementations;
@@ -7,153 +9,179 @@ using Xunit;
 
 namespace The6Bits.BitOHealth.DAL.Tests
 {
+
     public class UMDaoShould
     {
-        [Fact]
-        public void InsertTest()
-        {
-
-            SqlUMDAO<User> UmDAO = new SqlUMDAO<User>();
-            User rami = new User();
-            rami.Username = "inserttest";
-            rami.LastName = "test";
-            rami.Email = "test@gmail.com";
-            rami.IsAdmin = 0;
-            rami.Password = "testpass123";
-            rami.IsEnabled = 1;
-            UmDAO.Delete(rami);
-            bool s = UmDAO.Create(rami);
-            UmDAO.Delete(rami);
-            Assert.True(s);
-
-        }
-
-
 
         [Fact]
-        public void UpdateTest()
+        public void CreateTest()
         {
-            SqlUMDAO<User> UmDAO = new SqlUMDAO<User>();
-            User rami = new User();
-            rami.Username = "updatest";
-            rami.LastName = "test";
-            rami.Email = "test@gmail.com";
-            rami.IsAdmin = 0;
-            rami.Password = "testpass123";
-            rami.IsEnabled = 1;
+                SqlUMDAO<User> UmDAO = new SqlUMDAO<User>();
+                User Test = new User();
+                Test.Username = "createname";
+                Test.LastName = "test";
+                Test.FirstName = "test2";
+                Test.Email = "test@gmail.com";
+                Test.IsAdmin = 0;
+                Test.Password = "testPass123!";
+                Test.IsEnabled = 1;
+                Stopwatch stopwatch = Stopwatch.StartNew();
+                bool valid = UmDAO.Create(Test);
+                stopwatch.Stop();
+                double stopwatchTime = stopwatch.ElapsedMilliseconds;
+                UmDAO.Delete(Test);
+                Assert.True(valid);
+                Assert.True(3000 > stopwatchTime);
+    }
 
-            UmDAO.Create(rami);
-            User original = UmDAO.Read(rami);
-            rami.Email = "test2@gmail.com";
-            UmDAO.Update(rami);
-            User updated = UmDAO.Read(rami);
-            UmDAO.Delete(rami);
-            Assert.Equal("test2@gmail.com" , updated.Email);
-
+    [Fact]
+    public void testDelete()
+    {
+        SqlUMDAO<User> UmDAO = new SqlUMDAO<User>();
+        User Test = new User();
+        Test.Username = "deletetest";
+        Test.LastName = "test";
+        Test.FirstName = "test2";
+        Test.Email = "test@gmail.com";
+        Test.IsAdmin = 0;
+        Test.Password = "testpass123";
+        Test.IsEnabled = 1;
+        Test.Email = "test2@gmail.com";
+        UmDAO.Create(Test);
+        Stopwatch stopwatch = Stopwatch.StartNew();
+        bool valid = UmDAO.Delete(Test);
+        stopwatch.Stop();
+        double stopwatchTime = stopwatch.ElapsedMilliseconds;
+        Assert.True(valid);
+        Assert.True(3000 > stopwatchTime);
         }
 
+    [Fact]
+    public void UpdateDaoTest()
+    {
 
-
-        [Fact]
-        public void ReadTest()
-        {
-            SqlUMDAO<User> UmDAO = new SqlUMDAO<User>();
-            User rami = new User();
-            rami.Username = "readtest";
-            rami.LastName = "test";
-            rami.FirstName = "test";
-            rami.Email = "test@gmail.com";
-            rami.IsAdmin = 0;
-            rami.Password = "testpass123";
-            rami.IsEnabled = 1;
-
-            UmDAO.Delete(rami);
-            UmDAO.Create(rami);
-            User original = UmDAO.Read(rami);
-            UmDAO.Delete(rami);
-
-            Assert.Equal(rami.Email,original.Email);
-           
-        }
-
-        [Fact]
-        public void ReadAfterDeleteTest()
-        {
-            SqlUMDAO<User> UmDAO = new SqlUMDAO<User>();
-            User rami = new User();
-            rami.Username = "rafterdtest";
-            rami.LastName = "test";
-            rami.FirstName = "test";
-            rami.Email = "test@gmail.com";
-            rami.IsAdmin = 0;
-            rami.Password = "testpass123";
-            rami.IsEnabled = 1;
-            UmDAO.Create(rami);
-            UmDAO.Delete(rami);
-            User original = UmDAO.Read(rami);
-            Assert.Null(original.Email);
-        }
-
-
-
-
-
-        [Fact]
-        public void EnableTest()
-        {
-            SqlUMDAO<User> UmDAO = new SqlUMDAO<User>();
-            User rami = new User();
-            rami.Username = "enabletest";
-            rami.LastName = "test";
-            rami.Email = "test@gmail.com";
-            rami.IsAdmin = 0;
-            rami.Password = "testpass123";
-            rami.IsEnabled = 0;
-            UmDAO.Create(rami);
-            UmDAO.EnableAccount("enabletest");
-            User updated = UmDAO.Read(rami);
-            UmDAO.Delete(rami);
-            Assert.Equal(1, updated.IsEnabled);
-        }
-
-        [Fact]
-        public void DisableTest()
-        {
-            SqlUMDAO<User> UmDAO = new SqlUMDAO<User>();
-            User rami = new User();
-            rami.Username = "disabletest";
-            rami.LastName = "test";
-            rami.Email = "test@gmail.com";
-            rami.IsAdmin = 1;
-            rami.Password = "testpass123";
-            rami.IsEnabled = 1;
-            UmDAO.Create(rami);
-            UmDAO.DisableAccount("disabletest");
-            User updated = UmDAO.Read(rami);
-            UmDAO.Delete(rami);
-           
-            Assert.Equal(0 , updated.IsEnabled);
-        }
-
-
-
-        [Fact]
-        public void DeleteTest()
-        {
-
-            SqlUMDAO<User> UmDAO = new SqlUMDAO<User>();
-            User rami = new User();
-            rami.Username = "deletetest";
-            rami.LastName = "test";
-            rami.Email = "test@gmail.com";
-            rami.IsAdmin = 0;
-            rami.Password = "testpass123";
-            rami.IsEnabled = 1;
-            UmDAO.Create(rami);
-            UmDAO.Delete(rami);
-            User ret = UmDAO.Read(rami);
-            Assert.Null(ret.Email);
-        }
+        SqlUMDAO<User> UmDAO = new SqlUMDAO<User>();
+        User Test = new User();
+        Test.Username = "updatest";
+        Test.LastName = "test";
+        Test.Email = "test@gmail.com";
+        Test.IsAdmin = 0;
+        Test.Password = "testPass123!";
+        Test.IsEnabled = 1;
+        UmDAO.Create(Test);
+        Test.Email = "test2@gmail.com";
+        Stopwatch stopwatch = Stopwatch.StartNew();
+        bool valid = UmDAO.Update(Test);
+        stopwatch.Stop();
+        UmDAO.Delete(Test);
+        double stopwatchTime = stopwatch.ElapsedMilliseconds;
+        Assert.True(valid);
+        Assert.True(3000 > stopwatchTime);
 
     }
+
+
+
+
+    [Fact]
+    public void ReadTest()
+    {
+        SqlUMDAO<User> UmDAO = new SqlUMDAO<User>();
+        User Test=new User();
+        Test.Username = "readtest";
+        Test.LastName = "test";
+        Test.FirstName = "test";
+        Test.Email = "test@gmail.com";
+        Test.IsAdmin = 0;
+        Test.Password = "testpass123";
+        Test.IsEnabled = 1;
+        UmDAO.Create(Test);
+        Stopwatch stopwatch = Stopwatch.StartNew();
+        User original = UmDAO.Read(Test);
+        stopwatch.Stop();
+        UmDAO.Delete(Test);
+        double stopwatchTime = stopwatch.ElapsedMilliseconds;
+        Assert.Equal("readtest", original.Username);
+        Assert.True(3000 > stopwatchTime);
+
+    }
+
+
+
+    [Fact]
+    public void ReadAfterDeleteTest()
+    {
+        SqlUMDAO<User> UmDAO = new SqlUMDAO<User>();
+        User Test = new User();
+        Test.Username = "rafterdtest";
+        Test.LastName = "test";
+        Test.FirstName = "test";
+        Test.Email = "test@gmail.com";
+        Test.IsAdmin = 0;
+        Test.Password = "testpass123";
+        Test.IsEnabled = 1;
+        UmDAO.Create(Test);
+        UmDAO.Delete(Test);
+        Stopwatch stopwatch = Stopwatch.StartNew();
+        User original = UmDAO.Read(Test);
+        stopwatch.Stop();
+        double stopwatchTime = stopwatch.ElapsedMilliseconds;
+        Assert.Null(original.Email);
+        Assert.True(3000 > stopwatchTime);
+
+    }
+
+
+
+
+
+    [Fact]
+    public void EnableTest()
+    {
+        SqlUMDAO<User> UmDAO = new SqlUMDAO<User>();
+        User Test = new User();
+        Test.Username = "enabletest";
+        Test.LastName = "test";
+        Test.Email = "test@gmail.com";
+        Test.IsAdmin = 0;
+        Test.Password = "testpass123";
+        Test.IsEnabled = 0;
+        UmDAO.Create(Test);
+        Stopwatch stopwatch = Stopwatch.StartNew();
+        bool valid =UmDAO.EnableAccount("enabletest");
+        UmDAO.Delete(Test);
+        stopwatch.Stop();
+        double stopwatchTime = stopwatch.ElapsedMilliseconds;
+        Assert.True(valid);
+        Assert.True(3000 > stopwatchTime);
+
+    }
+
+
+    [Fact]
+    public void DisableTest()
+    {
+        SqlUMDAO<User> UmDAO = new SqlUMDAO<User>();
+        User Test = new User();
+        Test.Username = "disabletest";
+        Test.LastName = "test";
+        Test.Email = "test@gmail.com";
+        Test.IsAdmin = 0;
+        Test.Password = "testpass123";
+        Test.IsEnabled = 0;
+        UmDAO.Create(Test);
+        Stopwatch stopwatch = Stopwatch.StartNew();
+        bool valid = UmDAO.EnableAccount("disabletest");
+        UmDAO.Delete(Test);
+        stopwatch.Stop();
+        double stopwatchTime = stopwatch.ElapsedMilliseconds;
+        Assert.True(valid);
+        Assert.True(3000 > stopwatchTime);
+        }
+
+
+
+
+
+}
 }

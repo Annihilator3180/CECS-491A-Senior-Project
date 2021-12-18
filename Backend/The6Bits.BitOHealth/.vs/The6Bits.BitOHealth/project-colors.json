@@ -150,7 +150,12 @@
       "ProjectGuid": "69b5c933-77b8-46f5-9a28-217483f8032e",
       "DisplayName": "The6Bits.BitOHealth.ServiceLayer.Tests",
       "ColorIndex": 12
+    },
+    "1166ba7c-a3a8-4c86-b9b4-86591743597d": {
+      "ProjectGuid": "1166ba7c-a3a8-4c86-b9b4-86591743597d",
+      "DisplayName": "The6Bits.BitOHealth.Demo",
+      "ColorIndex": 13
     }
   },
-  "NextColorIndex": 13
+  "NextColorIndex": 14
 }
