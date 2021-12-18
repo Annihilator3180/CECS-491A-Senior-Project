@@ -40,7 +40,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
                 {
                     password = password.Remove('.').Remove(',').Remove('!').Remove('@');
                 }
-                return !password.Any(char.IsLetterOrDigit) ;
+                return !password.All(char.IsLetterOrDigit) ;
             }
             catch
             {
