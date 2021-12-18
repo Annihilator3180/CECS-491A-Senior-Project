@@ -16,7 +16,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
     public class SqlArchivingDAO : IArchivingDatabase
     {
 
-        private readonly string _connectString = @"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;";
+        public string _connectString = @"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;";
 
         public IList<string> GetLogsOlderThan30Days(DateTime datetime)
         {

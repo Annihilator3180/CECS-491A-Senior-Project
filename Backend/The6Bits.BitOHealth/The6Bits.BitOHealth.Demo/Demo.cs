@@ -26,6 +26,8 @@ namespace The6Bits.BitOHealth.Demo
             string token ="";
             while (!loggedin)
             {
+                
+               
                 try
                 {
                     AuthenticationController AC = new AuthenticationController(new AuthMsSqlDao(), new DESAuthorizationService());
@@ -50,9 +52,12 @@ namespace The6Bits.BitOHealth.Demo
 
                 }
             }
-           
-            
-            UMController um = new UMController(new MsSqlUMDAO<User>(connectstring), new DESAuthorizationService()  , new SQLLogDAO(), "boofman2", token);
+            ArchivingController ac = new ArchivingController() { connectionstring = connectstring };
+            ac.Archive();
+
+
+            UMController um = new UMController(new MsSqlUMDAO<User>(connectstring), new DESAuthorizationService()  , new SQLLogDAO() { _connectString = co
+            }, "boofman2", token);
             bool done = false;
             while (done != true)
             {

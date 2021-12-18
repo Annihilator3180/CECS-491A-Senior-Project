@@ -11,10 +11,10 @@ namespace The6Bits.BitOHealth.ControllerLayer
     public class ArchivingController
     {
 
-
+        public string connectionstring;
         public bool Archive()
         {
-            ArchivingManager AM = new ArchivingManager();
+            ArchivingManager AM = new ArchivingManager() {conn = connectionstring };
             return AM.Archive();
         }
     }

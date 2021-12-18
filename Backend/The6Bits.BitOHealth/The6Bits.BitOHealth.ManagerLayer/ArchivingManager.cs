@@ -11,6 +11,7 @@ namespace The6Bits.BitOHealth.ManagerLayer
     public class ArchivingManager
     {
         private ArchivingService _archivingService;
+        public string conn;
 
         public bool Archive()
         {
@@ -19,7 +20,7 @@ namespace The6Bits.BitOHealth.ManagerLayer
             DateTime date = new DateTime(Now.Year, Now.Month, 1, 0, 0, 0);
             Console.WriteLine(date);
 
-            _archivingService = new ArchivingService(new WindowsArchivingDAO(), new SqlArchivingDAO());
+            _archivingService = new ArchivingService(new WindowsArchivingDAO(), new SqlArchivingDAO() { _connectString = conn});
             _archivingService.ArchiveScheduler(date);
             return true;
 

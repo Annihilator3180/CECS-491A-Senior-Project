@@ -9,7 +9,7 @@ namespace The6Bits.Logging.DAL.Implementations
 {
     public class SQLLogDAO : ILogDal
     {
-        private readonly string _connectString = @"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;";
+        public string _connectString = @"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;";
 
         public string getAllLogs()
         {
