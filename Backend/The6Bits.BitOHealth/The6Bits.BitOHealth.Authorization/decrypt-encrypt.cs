@@ -8,8 +8,8 @@
     public class encryptionMethods
     {
         //private key that will be later stored in persistant storage
-        private static byte[] key = new byte[8] { 1, 2, 3, 4, 5, 6, 7, 8 };
-        public static string generateToken(string data)
+        private  byte[] key = new byte[8] { 1, 2, 3, 4, 5, 6, 7, 8 };
+        public  string generateToken(string data)
         {
             try
             {
@@ -34,7 +34,7 @@
                 return null;
             }
         }
-        public static string verifyClaims(string encryptedData)
+        public string Decrypt(string encryptedData)
         {
             try
             {
@@ -64,5 +64,17 @@
                 return null;
             }
         }
+
+        public bool VerifyClaims(string token,string access)
+        {
+            string decrypted = Decrypt(token);
+            if (decrypted.Contains(access)) 
+            {
+                return true;
+            }
+            return false;
+
+        }
+
     }
 }
