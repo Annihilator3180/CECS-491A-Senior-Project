@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using The6Bits.BitOHealth.DAL.Implementations;
-using The6Bits.BitOHealth.ServiceLayer.Contracts;
-using The6Bits.BitOHealth.ServiceLayer.Implementations;
+using The6Bits.BitOHealth.ServiceLayer;
 
 namespace The6Bits.BitOHealth.ManagerLayer
 {
     public class ArchivingManager
     {
-        private IArchivingService _archivingService;
+        private ArchivingService _archivingService;
 
         public bool Archive()
         {

@@ -6,24 +6,24 @@ using Dapper;
 
 namespace The6Bits.Logging.Implementations
 {
-    public class SQLLogService : ILogService
+    public class LogService 
     {
-        private ILogDal sqlDAO;
+        private ILogDal _dao;
 
-        public SQLLogService(ILogDal loggerType)
+        public LogService(ILogDal loggerType)
         {
 
-            sqlDAO = new SQLLogDAO();
+            _dao = loggerType;
         }
 
         public string getAllLogs()
         {
-            return sqlDAO.getAllLogs();
+            return _dao.getAllLogs();
         }
         
         public async Task<bool> Log(string username, string description, string LogLevel, string LogCategory)
         {
-            return sqlDAO.Log(username, description, LogLevel, LogCategory);
+            return _dao.Log(username, description, LogLevel, LogCategory);
         }
     }
 }

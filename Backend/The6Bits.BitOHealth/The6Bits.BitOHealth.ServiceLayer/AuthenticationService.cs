@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using The6Bits.BitOHealth.DAL.Contract;
 
-namespace The6Bits.BitOHealth.ServiceLayer.Implementations
+namespace The6Bits.BitOHealth.ServiceLayer
 {
     public class AuthenticationService
     {

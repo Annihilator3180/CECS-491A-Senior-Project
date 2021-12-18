@@ -1,9 +1,11 @@
 ﻿using System;
+using The6Bits.BitOHealth.DAL;
 using The6Bits.BitOHealth.ManagerLayer;
 using The6Bits.BitOHealth.Models;
 using The6Bits.Logging;
 using The6Bits.Logging.DAL.Implementations;
 using The6Bits.Logging.Implementations;
+using The6Bits.Logging.DAL.Contracts;
 
 
 namespace The6Bits.BitOHealth.ControllerLayer
@@ -11,13 +13,18 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
     public class UMController
     {
+        private UMManager _UMM;
+        private LogService logService;
+
+        public UMController(IRepositoryUM<User> daoType, ILogDal logDao, string adminUsername , string token)
+        {
+            _UMM = new UMManager(daoType);
+            logService = new LogService(logDao);
+        }
 
         public string CreateAccount(User user)
         {
-            UMManager UMM = new UMManager();
-            string res =  UMM.CreateAccount(user);
-
-            ILogService logService = new SQLLogService(new SQLLogDAO());
+            string res = _UMM.CreateAccount(user);
 
             if (res == "username exists")
             {
@@ -32,9 +39,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
         }
         public string DeleteAccount(string username)
         {
-            UMManager UMM = new UMManager();
-            string res = UMM.DeleteAccount(username);
-            ILogService logService = new SQLLogService(new SQLLogDAO());
+            string res = _UMM.DeleteAccount(username);
 
             if (res != "username exists")
             {
@@ -45,13 +50,11 @@ namespace The6Bits.BitOHealth.ControllerLayer
                 logService.Log(username, res, "Info", "Server");
             }
 
-            return UMM.DeleteAccount(username);
+            return res;
         }
         public string UpdateAccount(User user)
         {
-            UMManager UMM = new UMManager();
-            string res = UMM.UpdateAccount(user);
-            ILogService logService = new SQLLogService(new SQLLogDAO());
+            string res = _UMM.UpdateAccount(user);
 
             if (res != "username exists")
             {
@@ -65,9 +68,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
         }
         public string EnableAccount(string username)
         {
-            UMManager UMM = new UMManager();
-            ILogService logService = new SQLLogService(new SQLLogDAO());
-            string res = UMM.EnableAccount(username);
+            string res = _UMM.EnableAccount(username);
             if (res != "username exists")
             {
                 logService.Log(username, "Username Does Not Exist", "Info", "Data");
@@ -80,9 +81,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
         }
         public string DisableAccount(string username)
         {
-            UMManager UMM = new UMManager();
-            ILogService logService = new SQLLogService(new SQLLogDAO());
-            string res = UMM.DisableAccount(username);
+            string res = _UMM.DisableAccount(username);
             if (res != "username exists")
             {
                 logService.Log(username, "Username Does Not Exist", "Info", "Data");
@@ -92,20 +91,6 @@ namespace The6Bits.BitOHealth.ControllerLayer
                 logService.Log(username, res, "Info", "Server");
             }
             return res;
-        }
-
-        public IList<string> BulkCreateRandom(int amount)
-        {
-            UMManager UMM = new UMManager();
-            return UMM.BulkCreateRandom(amount);
-
-
-        }
-
-        public bool BulkDelete(IList<string> usernames)
-        {
-            UMManager UMM = new UMManager();
-            return UMM.BulkDelete(usernames);
         }
 
 

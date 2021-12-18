@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using The6Bits.BitOHealth.DAL.Contract;
-using The6Bits.BitOHealth.ServiceLayer.Implementations;
+using The6Bits.BitOHealth.ServiceLayer;
 
 namespace The6Bits.BitOHealth.ManagerLayer
 {

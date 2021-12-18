@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using The6Bits.BitOHealth.DAL;
 using The6Bits.BitOHealth.Models;
-using The6Bits.BitOHealth.ServiceLayer.Contract;
+using The6Bits.BitOHealth.ServiceLayer;
 
 namespace The6Bits.BitOHealth.ServiceLayer
 {
-    public class UMService : IUMService
+    public class UMService 
     {
         private IRepositoryUM<User> _dao;
 

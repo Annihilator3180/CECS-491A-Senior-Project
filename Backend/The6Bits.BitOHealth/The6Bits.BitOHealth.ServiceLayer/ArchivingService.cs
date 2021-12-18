@@ -5,25 +5,25 @@ using System.Text;
 using System.Threading.Tasks;
 using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.Logging;
-using The6Bits.BitOHealth.ServiceLayer.Contracts;
+using The6Bits.BitOHealth.ServiceLayer;
 using The6Bits.Logging.Implementations;
 using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.Logging.DAL.Implementations;
 
 
-namespace The6Bits.BitOHealth.ServiceLayer.Implementations
+namespace The6Bits.BitOHealth.ServiceLayer
 {
-    public class ArchivingService : IArchivingService
+    public class ArchivingService
     {
         private readonly IArchivingPC _pc;
         private readonly IArchivingDatabase _db;
-        private readonly ILogService _logService;
+        private readonly LogService _logService;
 
         public ArchivingService(IArchivingPC archivetype, IArchivingDatabase logger)
         {
             _pc = archivetype;
             _db = logger;
-            _logService = new SQLLogService(new SQLLogDAO());
+            _logService = new LogService(new SQLLogDAO());
         }
 
         public async void ArchiveScheduler(DateTime executionTime)

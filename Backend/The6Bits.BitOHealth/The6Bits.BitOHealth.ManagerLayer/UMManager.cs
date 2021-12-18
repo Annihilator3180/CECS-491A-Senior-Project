@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel.Design;
+using The6Bits.BitOHealth.DAL;
 using The6Bits.BitOHealth.DAL.Implementations;
 using The6Bits.BitOHealth.ServiceLayer;
 using The6Bits.BitOHealth.Models;
-using The6Bits.BitOHealth.ServiceLayer.Contract;
 using The6Bits.Logging;
 using The6Bits.Logging.Implementations;
 
@@ -12,14 +12,18 @@ namespace The6Bits.BitOHealth.ManagerLayer
 {
     public class UMManager
     {
-        private IUMService UMS;
+        private UMService _UMS;
+
+        public UMManager(IRepositoryUM<User> daoType)
+        {
+            _UMS = new UMService(daoType);
+        }
 
         public string CreateAccount(User user)
         {
-            UMS = new UMService(new SqlUMDAO<User>());
-            string validation = UMS.ValidateUsername(user.Username);
-            bool emailval = UMS.ValidateEmail(user.Email);
-            bool passval = UMS.ValidatePassword(user.Password);
+            string validation = _UMS.ValidateUsername(user.Username);
+            bool emailval = _UMS.ValidateEmail(user.Email);
+            bool passval = _UMS.ValidatePassword(user.Password);
             if (validation != "new username")
             {
                 return validation;
@@ -33,50 +37,47 @@ namespace The6Bits.BitOHealth.ManagerLayer
                 return "invalid password";
             }
 
-            return UMS.CreateAccount(user);
+            return _UMS.CreateAccount(user);
         }
 
         public string DeleteAccount(string username)
         {
-            UMS = new UMService(new SqlUMDAO<User>());
-            string validation = UMS.ValidateUsername(username);
+            string validation = _UMS.ValidateUsername(username);
             if (validation != "username exists")
             {
                 return validation;
             }
-            string response = UMS.DeleteAccount(username);
+            string response = _UMS.DeleteAccount(username);
             return response;
         }
 
         public string EnableAccount(string username)
         {
-            UMS = new UMService(new SqlUMDAO<User>());
-            string validation = UMS.ValidateUsername(username);
+            string validation = _UMS.ValidateUsername(username);
             if (validation != "username exists")
             {
                 return validation;
             }
-            return UMS.EnableAccount(username);
+            return _UMS.EnableAccount(username);
         }
 
         public string UpdateAccount(User user)
         {
-            UMS = new UMService(new SqlUMDAO<User>());
-            string validation = UMS.ValidateUsername(user.Username);
+            string validation = _UMS.ValidateUsername(user.Username);
             if (validation != "username exists")
             {
                 return validation;
             }
-            if (!UMS.ValidateEmail(user.Email))
+            if (!_UMS.ValidateEmail(user.Email))
             {
                 return "invalid email";
             }
-            if (!UMS.ValidatePassword(user.Password))
+            if (!_UMS.ValidatePassword(user.Password))
             {
                 return "invalid email";
             }
 
-            string response = UMS.UpdateAccount(user);
+            string response = _UMS.UpdateAccount(user);
             
             return response;
 
@@ -85,29 +86,15 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
         public string DisableAccount(string username)
         {
-            UMS = new UMService(new SqlUMDAO<User>());
-            string validation = UMS.ValidateUsername(username);
+            _UMS = new UMService(new SqlUMDAO<User>());
+            string validation = _UMS.ValidateUsername(username);
             if (validation != "username exists")
             {
                 return validation;
             }
-            string response = UMS.DisableAccount(username);
+            string response = _UMS.DisableAccount(username);
             
             return response;
-        }
-
-        public IList<string> BulkCreateRandom(int amount)
-        {
-            UMS = new UMService(new SqlUMDAO<User>());
-            return UMS.BulkCreateRandom(amount);
-
-
-        }
-
-        public bool BulkDelete(IList<string> usernames)
-        {
-            UMS = new UMService(new SqlUMDAO<User>());
-            return UMS.BulkDelete(usernames);
         }
 
     }

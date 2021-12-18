@@ -14,7 +14,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
 {
     public class AuthenticationController
     {
-        private ILogService _logService = new SQLLogService(new SQLLogDAO());
+        private LogService _logService = new LogService(new SQLLogDAO());
         private AuthManager _AM;   
         public AuthenticationController (IRepositoryAuth<string> daotype)
         {

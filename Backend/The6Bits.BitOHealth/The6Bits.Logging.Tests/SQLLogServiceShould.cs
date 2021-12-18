@@ -19,7 +19,7 @@ namespace The6Bits.Logging.Tests
 
         public void InsertTest()
         {
-            var logService = new SQLLogService(new SQLLogDAO());
+            var logService = new LogService(new SQLLogDAO());
             string testusername = RandomString(6);
             _ = logService.Log(testusername, "TEST", "Info", "Data");
             string all = logService.getAllLogs();

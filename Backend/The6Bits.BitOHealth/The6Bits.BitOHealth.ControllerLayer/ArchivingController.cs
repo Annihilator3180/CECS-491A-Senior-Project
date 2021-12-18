@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using The6Bits.BitOHealth.ManagerLayer;
 using The6Bits.BitOHealth.ServiceLayer;
-using The6Bits.BitOHealth.ServiceLayer.Contracts;
 
 namespace The6Bits.BitOHealth.ControllerLayer
 {
