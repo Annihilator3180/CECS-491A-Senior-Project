@@ -51,11 +51,7 @@ namespace The6Bits.BitOHealth.ServiceLayer.Tests
             bool isValid = Service.ValidatePassword(password);
             Assert.False(isValid);
         }
-        [Fact]
-        public void fa()
-        {
-            Assert.True(false);
-        }
+
 
         [Fact]
         public void ValidUsername()

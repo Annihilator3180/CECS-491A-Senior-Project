@@ -20,7 +20,8 @@ namespace The6Bits.BitOHealth.ControllerLayer
         public UMController(IRepositoryUM<User> daoType , IAuthorizationService auth ,ILogDal logDao, string adminUsername , string token)
         {
             _UMM = new UMManager(daoType);
-            _UMM.authorizationService = auth;
+            _UMM.auth = auth;
+            _UMM.token = token;
             logService = new LogService(logDao);
         }
 

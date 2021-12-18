@@ -14,7 +14,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 public class SqlUMDAO<T> : IRepositoryUM<User>
     {
 
-        private string _connectString = @"Server=localhost\SQLEXPRESS02;Database=master;Trusted_Connection=True;";
+        private string _connectString = @"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;";
 
 
         public SqlUMDAO()

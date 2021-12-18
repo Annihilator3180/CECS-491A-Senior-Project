@@ -36,7 +36,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
         {
             try
             {
-                if (password.Length >= 8 & password.Length <= 30 & (password.Contains('.') || password.Contains(',') || password.Contains('!') || password.Contains('@')))
+                if ((password.Length >= 8 & password.Length <= 30) & (password.Contains('.') || password.Contains(',') || password.Contains('!') || password.Contains('@')))
                 {
                     password = password.Replace("@", string.Empty).Replace(",", String.Empty).Replace("!", String.Empty).Replace(".", String.Empty);
                 }
@@ -44,7 +44,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
                 {
                     return false;
                 }
-                return password.Any(char.IsLetterOrDigit) && password.Any(char.IsUpper) && password.Any(char.IsLower) && password.Any(char.IsDigit);
+                return password.All(char.IsLetterOrDigit) && password.Any(char.IsUpper) && password.Any(char.IsLower) && password.Any(char.IsDigit);
             }
             catch
             {
@@ -57,7 +57,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
         {
             List<char> charsToRemove = new List<char>() { '@', '!', ',', '.' };
             string usernametest = username.Replace("@", string.Empty).Replace(",",String.Empty).Replace("!",String.Empty).Replace(".",String.Empty);
-            if (!usernametest.All(Char.IsLetterOrDigit) & username.Length > 16 & username.Length < 6)
+            if (!usernametest.All(Char.IsLetterOrDigit) || username.Length > 16 || username.Length <= 6)
             {
                 return "Invalid Username";
             }
