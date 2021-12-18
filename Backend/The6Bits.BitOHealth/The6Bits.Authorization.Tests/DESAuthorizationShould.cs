@@ -8,12 +8,22 @@ namespace The6Bits.Authorization.Tests
     public class DESAuthorizationShould
     {
         [Fact]
-        public void Test1()
+        public void encryptThenDecrypt()
         {
+            DESAuthorizationService service = new DESAuthorizationService();
             string expected = "test string";
-            string encryptedString = encryptionMethods.generateToken(expected);
-            string desired = encryptionMethods.verifyClaims(encryptedString);
+            string encryptedString = service.generateToken(expected);
+            string desired = service.Decrypt(encryptedString);
             Assert.Equal(expected, desired);
+        }
+        [Fact]
+        public void veriflyClaims()
+        {
+            DESAuthorizationService service = new DESAuthorizationService();
+            string access = "Admin";
+            string data = "this is a test" + access;
+            string encryptedString = service.generateToken(data);
+            Assert.True(service.VerifyClaims(encryptedString, access));
         }
     }
 }
