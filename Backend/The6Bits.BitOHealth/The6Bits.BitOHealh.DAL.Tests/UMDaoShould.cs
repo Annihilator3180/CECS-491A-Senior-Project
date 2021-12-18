@@ -182,6 +182,27 @@ namespace The6Bits.BitOHealth.DAL.Tests
 
 
 
-
-}
+        [Fact]
+        public void ValidZero()
+        {
+            SqlUMDAO<User> UmDAO = new SqlUMDAO<User>();
+            bool isValid = UmDAO.UsernameExists("countcheck");
+            Assert.False(isValid);
+        }
+        [Fact]
+        public void TestDuplicateExists()
+        {
+            SqlUMDAO<User> UmDAO = new SqlUMDAO<User>();
+            User Test = new User();
+            Test.Username = "duplicate";
+            Test.LastName = "test";
+            Test.Email = "test@gmail.com";
+            Test.IsAdmin = 0;
+            Test.Password = "testpass123";
+            Test.IsEnabled = 0;
+            UmDAO.Create(Test);
+            bool isValid = UmDAO.UsernameExists("duplicate");
+            Assert.True(isValid);
+        }
+    }
 }
