@@ -24,10 +24,7 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
         public string CreateAccount(User user)
         {
-            if (!auth.VerifyClaims(token, "Admin"))
-            {
-                return "invalid claims/token";
-            }
+            
             string validation = _UMS.ValidateUsername(user.Username);
             bool emailval = _UMS.ValidateEmail(user.Email);
             bool passval = _UMS.ValidatePassword(user.Password);

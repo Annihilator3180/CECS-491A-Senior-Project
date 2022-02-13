@@ -7,29 +7,45 @@ using The6Bits.Logging.DAL.Implementations;
 using The6Bits.Logging.Implementations;
 using The6Bits.Logging.DAL.Contracts;
 using The6Bits.Authorization.Contract;
+using Microsoft.AspNetCore.Mvc;
+using System.Text.Encodings.Web;
+using System.Diagnostics;
+
 
 
 
 namespace The6Bits.BitOHealth.ControllerLayer
 {
-
-    public class UMController {
+    [ApiController]
+    [Route("[controller]")]
+    public class UMController : ControllerBase
+    {
         private UMManager _UMM;
         private LogService logService;
         private string adminUsername;
 
-        public UMController(IRepositoryUM<User> daoType , IAuthorizationService auth ,ILogDal logDao, string adminUsername , string token)
+        public UMController(IRepositoryUM<User> daoType , IAuthorizationService auth ,ILogDal logDao)
         {
             _UMM = new UMManager(daoType);
             _UMM.auth = auth;
-            _UMM.token = token;
-            adminUsername = adminUsername;
+            adminUsername = "buhss";
             logService = new LogService(logDao);
         }
 
-        public string CreateAccount(User user)
+        [HttpGet]
+        public string Index()
         {
-            string res = _UMM.CreateAccount(user);
+            return "This is my default action...";
+        }
+
+        [HttpPost("Create")]
+        [Consumes("application/json")]
+        //specify form body
+        public string CreateAccount(User u)
+        {
+
+
+            string res = _UMM.CreateAccount(u);
 
             if (res == "username exists")
             {
