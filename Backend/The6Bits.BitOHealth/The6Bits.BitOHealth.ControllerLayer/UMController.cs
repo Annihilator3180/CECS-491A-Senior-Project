@@ -10,8 +10,8 @@ using The6Bits.Authorization.Contract;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Encodings.Web;
 using System.Diagnostics;
-
-
+using System.Web;
+using Microsoft.AspNetCore.Http;
 
 
 namespace The6Bits.BitOHealth.ControllerLayer
@@ -59,7 +59,15 @@ namespace The6Bits.BitOHealth.ControllerLayer
             {
                 logService.Log(adminUsername, "Account Creation -"+res, "Info", "Business");
             }
-
+            var cookieOptions = new CookieOptions()
+            {
+                Path = "/",
+                Expires = DateTimeOffset.UtcNow.AddHours(1),
+                IsEssential = true,
+                HttpOnly = false,
+                Secure = false,
+            };
+            Response.Cookies.Append("MyCookie", "TheValue", cookieOptions);
             return res;
         }
         public string DeleteAccount(string username)

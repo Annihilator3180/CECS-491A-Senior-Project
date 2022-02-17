@@ -6,7 +6,7 @@
 
     namespace The6Bits.Authorization.Implementations
     {
-    public class DESAuthorizationService : IAuthorizationService
+    public class DESAuthorizationService 
     {
         //private key that will be later stored in persistant storage
         private  byte[] key = new byte[8] { 1, 2, 3, 4, 5, 6, 7, 8 };

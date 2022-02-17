@@ -14,14 +14,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 //JSON Config
-builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Configuration.GetConnectionString("cbassMac");
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IRepositoryUM<User>, MsSqlUMDAO<User>>();
-builder.Services.AddTransient<IAuthorizationService, DESAuthorizationService>();
+
+//pass in conn string . IS there a better way to do this?
+builder.Services.AddScoped<IRepositoryUM<User>>(provider => new MsSqlUMDAO<User>(builder.Configuration.GetConnectionString("cbassMac")));
+
+builder.Services.AddTransient<IAuthorizationService, JWT>();
 builder.Services.AddScoped<ILogDal, SQLLogDAO>();
 
 var app = builder.Build();
@@ -30,7 +33,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     var b = new dbBuilder();
-    b.buildDB(builder.Configuration.GetConnectionString("DefaultConnection"));
+    b.buildDB(builder.Configuration.GetConnectionString("cbassMac"));
     //app.UseSwagger();
     //app.UseSwaggerUI();
 }

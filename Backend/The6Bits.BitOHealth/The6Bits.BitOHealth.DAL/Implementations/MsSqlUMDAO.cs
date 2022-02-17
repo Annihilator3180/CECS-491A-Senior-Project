@@ -12,9 +12,9 @@ using Dapper;
 namespace The6Bits.BitOHealth.DAL.Implementations
 {
 public class MsSqlUMDAO<T> : IRepositoryUM<User>
-    {
+{
 
-        private string _connectString = @"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;";
+    private string _connectString;
 
 
         public MsSqlUMDAO()

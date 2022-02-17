@@ -15,9 +15,29 @@ namespace The6Bits.BitOHealth.ManagerLayer
         private AuthenticationService _AS;
         public IAuthorizationService Authorization;
 
-        public AuthManager(IRepositoryAuth<string> daotype)
+
+        
+        public AuthManager(IRepositoryAuth<string> daotype, IAuthorizationService authService)
         {
             _AS = new AuthenticationService(daotype);
+            Authorization = authService;
+
+        }
+
+        public string Login(string username, string password)
+        {
+            string us = _AS.UsernameExists(username);
+            if (us != "username exists")
+            {
+                return us;
+            }
+            string cp = _AS.CheckPassword(username, password);
+            if (cp != "credentials found")
+            {
+                return cp;
+            }
+
+            return Authorization.generateToken($"{username};Admin");
 
         }
 
@@ -40,7 +60,7 @@ namespace The6Bits.BitOHealth.ManagerLayer
                 return cp;
             }
 
-            return Authorization.generateToken($"{username};Admin");
+            return Authorization.generateToken($"{username}");
 
         }
     }

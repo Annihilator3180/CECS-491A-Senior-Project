@@ -1,0 +1,104 @@
+using System.Diagnostics;
+using System.Security.Cryptography;
+using System.Text;
+using System.Text.Json;
+using System.Text.Json.Nodes;
+using The6Bits.Authorization.Contract;
+
+
+
+
+namespace The6Bits.Authorization.Implementations;
+
+public class JWT : IAuthorizationService
+{
+    
+    private static string Base64UrlEncode(byte[] input)
+    {
+        var output = Convert.ToBase64String(input);
+        output = output.Split('=')[0]; // Remove any trailing '='s
+        output = output.Replace('+', '-'); // 62nd char of encoding
+        output = output.Replace('/', '_'); // 63rd char of encoding
+        return output;
+    }
+    
+    public string generateToken(string data)
+    {
+        DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
+        string p = di.Parent.ToString();
+        string mySecret = File.ReadAllText(Path.GetFullPath(p + @"/Keys/private-key.pem"));
+        string publicKey = File.ReadAllText(Path.GetFullPath(p + @"/Keys/public-key.pem"));
+        //var mySecret = "asdv234234^&%&^%&^hjsdfb2%%%";
+        byte[] keyBytes = Encoding.UTF8.GetBytes(mySecret);
+        var segments = new List<string>();
+
+        
+        var header = new { alg ="HS256", typ = "JWT" };
+
+        byte[] headerBytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(header));
+        byte[] payloadBytes = Encoding.UTF8.GetBytes(@"hello");
+        
+        segments.Add(Base64UrlEncode(headerBytes));
+        segments.Add(Base64UrlEncode(payloadBytes));
+
+        var stringToSign = string.Join(".", segments.ToArray());
+
+        var bytesToSign = Encoding.UTF8.GetBytes(stringToSign);
+
+        var sha = new HMACSHA256(keyBytes);
+        byte[] signature = sha.ComputeHash(bytesToSign);
+        segments.Add(Base64UrlEncode(signature));
+
+        return string.Join(".", segments.ToArray());
+    }
+    
+    public bool VerifyClaims(string token, string key)
+    {
+        var parts = token.Split('.');
+        var header = parts[0];
+        var payload = parts[1];
+        byte[] crypto = Base64UrlDecode(parts[2]);
+
+        
+
+        var bytesToSign = Encoding.UTF8.GetBytes(string.Concat(header, ".", payload));
+        var keyBytes = Encoding.UTF8.GetBytes(key);
+        
+        var sha = new HMACSHA256(keyBytes);
+        byte[] signature = sha.ComputeHash(bytesToSign);
+        var decodedCrypto = Convert.ToBase64String(crypto);
+        var decodedSignature = Convert.ToBase64String(signature);
+
+        if (decodedCrypto != decodedSignature)
+        {
+            return false;
+        }
+    
+
+        return true;
+    }
+
+
+    //TODO: FIX
+    public string Decrypt(string token)
+    {
+
+        return "";
+    }
+
+    private static byte[] Base64UrlDecode(string input)
+    {
+        var output = input;
+        output = output.Replace('-', '+'); // 62nd char of encoding
+        output = output.Replace('_', '/'); // 63rd char of encoding
+        switch (output.Length % 4) // Pad with trailing '='s
+        {
+            case 0: break; // No pad chars in this case
+            case 2: output += "=="; break; // Two pad chars
+            case 3: output += "="; break; // One pad char
+            default: throw new System.Exception("Illegal base64url string!");
+        }
+        var converted = Convert.FromBase64String(output); // Standard base64 decoder
+        return converted;
+    }
+}
