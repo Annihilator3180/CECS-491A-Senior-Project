@@ -10,15 +10,13 @@ using Dapper;
 
 namespace The6Bits.BitOHealth.DAL.Implementations
 {
-    public class AuthMsSqlDao : IRepositoryAuth<string>
+    public class AccountMsSqlDao : IRepositoryAuth<string>
     {
-        private string _connectString = @"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;";
+        private string _connectString;
 
-        public AuthMsSqlDao()
-        {
-        }
+        
 
-        public AuthMsSqlDao(string connectstring)
+        public AccountMsSqlDao(string connectstring)
         {
             _connectString = connectstring;
         }
@@ -41,7 +39,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
             catch
             {
-                return "DB Error";
+                return "DB Error Username Exists";
             }
 
 
@@ -72,7 +70,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = $"select & from Accounts where Username = '{username}' , Password = '{password}';";
+                string query = $"select Count(*) from Accounts where Username = '{username}' AND Password = '{password}';";
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
@@ -86,7 +84,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
             catch
             {
-                return "DB Error";
+                return "DB Error Check Pass";
             }
         }
     }

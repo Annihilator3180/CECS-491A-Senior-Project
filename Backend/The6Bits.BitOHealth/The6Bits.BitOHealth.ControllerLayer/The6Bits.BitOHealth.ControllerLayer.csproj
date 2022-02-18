@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Models\The6Bits.BitOHealth.Models.csproj" />
+    <ProjectReference Include="..\The6Bits.Authentication\The6Bits.Authentication.csproj" />
     <ProjectReference Include="..\The6Bits.Authorization\The6Bits.Authorization.csproj" />
     <ProjectReference Include="..\The6Bits.BitOHealth.DAL\The6Bits.BitOHealth.DAL.csproj" />
     <ProjectReference Include="..\The6Bits.BitOHealth.ManagerLayer\The6Bits.BitOHealth.ManagerLayer.csproj" />

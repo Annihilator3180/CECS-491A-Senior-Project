@@ -7,10 +7,10 @@ using The6Bits.BitOHealth.DAL.Contract;
 
 namespace The6Bits.BitOHealth.ServiceLayer
 {
-    public class AuthenticationService
+    public class AccountService
     {
         private IRepositoryAuth<string> _AD;
-        public AuthenticationService(IRepositoryAuth<string> daotype)
+        public AccountService(IRepositoryAuth<string> daotype)
         {
             _AD = daotype;
 

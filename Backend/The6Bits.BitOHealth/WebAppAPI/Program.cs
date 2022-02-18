@@ -1,6 +1,7 @@
-using The6Bits.Authorization.Contract;
-using The6Bits.Authorization.Implementations;
+using The6Bits.Authentication.Contract;
+using The6Bits.Authentication.Implementations;
 using The6Bits.BitOHealth.DAL;
+using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.BitOHealth.DAL.Implementations;
 using The6Bits.BitOHealth.Models;
 using The6Bits.Logging.DAL.Contracts;
@@ -23,8 +24,9 @@ builder.Services.AddSwaggerGen();
 
 //pass in conn string . IS there a better way to do this?
 builder.Services.AddScoped<IRepositoryUM<User>>(provider => new MsSqlUMDAO<User>(builder.Configuration.GetConnectionString("cbassMac")));
-
-builder.Services.AddTransient<IAuthorizationService, JWT>();
+builder.Services.AddScoped<IRepositoryAuth<string>>(provider =>
+    new AccountMsSqlDao(builder.Configuration.GetConnectionString("cbassMac"))); 
+builder.Services.AddTransient<IAuthenticationService, JWTAuthenticationService>();
 builder.Services.AddScoped<ILogDal, SQLLogDAO>();
 
 var app = builder.Build();

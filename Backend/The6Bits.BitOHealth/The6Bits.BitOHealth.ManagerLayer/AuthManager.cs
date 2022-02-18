@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using The6Bits.BitOHealth.DAL.Contract;
+﻿using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.BitOHealth.ServiceLayer;
 using The6Bits.Authorization.Contract;
 
@@ -12,14 +7,14 @@ namespace The6Bits.BitOHealth.ManagerLayer
     public class AuthManager
     {
 
-        private AuthenticationService _AS;
+        private AccountService _AS;
         public IAuthorizationService Authorization;
 
 
         
         public AuthManager(IRepositoryAuth<string> daotype, IAuthorizationService authService)
         {
-            _AS = new AuthenticationService(daotype);
+            _AS = new AccountService(daotype);
             Authorization = authService;
 
         }

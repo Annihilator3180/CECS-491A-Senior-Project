@@ -3,14 +3,14 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
-using The6Bits.Authorization.Contract;
+using The6Bits.Authentication.Contract;
 
 
 
 
-namespace The6Bits.Authorization.Implementations;
+namespace The6Bits.Authentication.Implementations;
 
-public class JWT : IAuthorizationService
+public class JWTAuthenticationService : IAuthenticationService
 {
     
     private static string Base64UrlEncode(byte[] input)
@@ -27,16 +27,15 @@ public class JWT : IAuthorizationService
         DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
         string p = di.Parent.ToString();
         string mySecret = File.ReadAllText(Path.GetFullPath(p + @"/Keys/private-key.pem"));
-        string publicKey = File.ReadAllText(Path.GetFullPath(p + @"/Keys/public-key.pem"));
         //var mySecret = "asdv234234^&%&^%&^hjsdfb2%%%";
         byte[] keyBytes = Encoding.UTF8.GetBytes(mySecret);
         var segments = new List<string>();
 
         
         var header = new { alg ="HS256", typ = "JWT" };
-
+        var payload = new {username = data, iat = DateTimeOffset.Now.ToUnixTimeSeconds().ToString()};
         byte[] headerBytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(header));
-        byte[] payloadBytes = Encoding.UTF8.GetBytes(@"hello");
+        byte[] payloadBytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(payload));
         
         segments.Add(Base64UrlEncode(headerBytes));
         segments.Add(Base64UrlEncode(payloadBytes));
@@ -52,8 +51,12 @@ public class JWT : IAuthorizationService
         return string.Join(".", segments.ToArray());
     }
     
-    public bool VerifyClaims(string token, string key)
+    public bool ValidateToken(string token)
     {
+        DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
+        string p = di.Parent.ToString();
+        string key = File.ReadAllText(Path.GetFullPath(p + @"/Keys/private-key.pem"));
+
         var parts = token.Split('.');
         var header = parts[0];
         var payload = parts[1];

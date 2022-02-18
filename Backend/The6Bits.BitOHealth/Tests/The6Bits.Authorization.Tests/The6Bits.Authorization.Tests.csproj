@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -21,9 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Models\The6Bits.BitOHealth.Models.csproj" />
-    <ProjectReference Include="..\The6Bits.BitOHealth.DAL\The6Bits.BitOHealth.DAL.csproj" />
-    <ProjectReference Include="..\The6Bits.BitOHealth.ServiceLayer\The6Bits.BitOHealth.ServiceLayer.csproj" />
+    <ProjectReference Include="..\..\The6Bits.Authorization\The6Bits.Authorization.csproj" />
+    <ProjectReference Include="..\The6Bits.Authentication\The6Bits.Authentication.csproj" />
+    <ProjectReference Include="..\The6Bits.Authorization\The6Bits.Authorization.csproj" />
   </ItemGroup>
 
 </Project>
