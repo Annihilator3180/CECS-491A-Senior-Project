@@ -93,6 +93,83 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
         }
         
+        public bool Create(User user)
+        {
+            try
+            {
+                string query = "INSERT ACCOUNTS(Username,Email,Password,FirstName,LastName,IsEnabled,IsAdmin) " +
+                               " values (@Username, @Email, @Password, @FirstName,@LastName, 0,0) ";
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    int lines_modified = connection.Execute(query,
+                        new
+                        {
+                            Email = user.Email,
+                            Username = user.Username,
+                            Password = user.Password,
+                            FirstName = user.FirstName,
+                            LastName = user.LastName
+                        });
+                    connection.Close();
+                    if (lines_modified == 0)
+                    {
+                        return false;
+                    }
+                }
+
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            
+        }
+        
+        public User Read(User user)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    IEnumerable<User> str = connection.Query<User>($"select * from Accounts where Username = @Username", new{ Username = user.Username});
+                    return str.First();
+                }
+            }
+            catch
+            {
+                return new User();
+            }
+        
+        }
+        
+        
+        public bool Delete(User user)
+        {
+            try
+            {
+                string query = $"DELETE FROM Accounts WHERE Username = @Username";
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int linesEdited = connection.Execute(query, new {Username = user.Username});
+                    connection.Close();
+                    if (linesEdited == 0)
+                    {
+                        return false;
+                    }
+                    connection.Close();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        
         
         
         

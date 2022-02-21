@@ -35,7 +35,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     var b = new dbBuilder();
-    b.buildDB(builder.Configuration.GetConnectionString("DefaultConnection"));
+    b.builAccountdDB(builder.Configuration.GetConnectionString("DefaultConnection"));
     //app.UseSwagger();
     //app.UseSwaggerUI();
 }
