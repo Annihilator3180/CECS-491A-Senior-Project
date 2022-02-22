@@ -43,6 +43,31 @@ public class AccountController : ControllerBase
         return jwt;
 
     }
+    
+    [HttpPost("Login")]
+    public string (LoginModel acc)
+    {
+        
+
+        var jwt =  _AM.Login(acc);
+        var parts = jwt.Split('.');
+        
+        //TODO:FIX IF STATMENT TO SOMETHING BETTER
+        //TODO:ADD LOGS
+        //TODO:2FA 
+        if (parts.Length==3)
+        {
+            
+            Response.Cookies.Append(
+                "token",
+                jwt);
+        }
+
+        return jwt;
+
+    }
+    
+    
 
 
 }
