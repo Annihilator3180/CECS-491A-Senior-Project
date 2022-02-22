@@ -169,11 +169,134 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 return false;
             }
         }
+
+        //TODO:CHANGE TO ERRORS
+        public string DeletePastOTP(string username, string codetype)
+        {
+            try
+            {
+                string query = "DELETE from VerifyCodes where Username = @Username AND  CodeType = @codetype";
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int lines = connection.Execute(query, new{ Username = username, CodeType=  codetype});
+                    return lines.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+            
+        }
         
-        
-        
-        
-        
-        
+        public string SaveActivationCode( string username , DateTime time, string code, string codeType)
+        {
+            try
+            {
+                string query = "INSERT VerifyCodes(username,time,code,codeType) VALUES (@username,@time,@code,@codetype) ";
+                
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int lines = connection.Execute(query, new{ Username = username, time = time, code = code , codetype =  codeType});
+                    return lines.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+            
+        }
+
+        public string ValidateOTP(string username, string code)
+        {
+            
+            try
+            {
+                string query = "select count(username) from VerifyCodes where username = @Username AND code = @Code ";
+                
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int lines = connection.ExecuteScalar<int>(query, new{ Username = username, Code = code });
+
+                    return lines.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+            
+        }
+
+        public string CheckFailedAttempts(string username)
+        {
+            try
+            {
+                string query = "SELECT Attempts FROM FailedAttempts WHERE Username = @Username";
+                
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int attempts = connection.ExecuteScalar<int>(query, new{ Username = username});
+                    return attempts.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+        public string InsertFailedAttempts(string username)
+        {
+            try
+            {
+                string query = "INSERT FailedAttempts(Username, Attempts,Date_Time) VALUES (@Username,1,@Date_Time)";
+                
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int lines = connection.Execute(query, new{ Username = username, @Date_Time = DateTime.UtcNow});
+                    return lines.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+            
+        }
+
+        public string UpdateFailedAttempts(string username, int updatedValue)
+        {
+            try
+            {
+                string query = "UPDATE FailedAttempts SET Attempts = @Attempts WHERE Username = @Username";
+                
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int lines = connection.Execute(query, new{ Username = username, Attempts = updatedValue});
+                    return lines.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+
+
+
+
+
+
+
     }
 }

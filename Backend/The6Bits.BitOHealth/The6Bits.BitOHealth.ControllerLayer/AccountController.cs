@@ -44,27 +44,12 @@ public class AccountController : ControllerBase
 
     }
     
-    [HttpPost("Login")]
-    public string (LoginModel acc)
+    [HttpPost("OTP")]
+    public string SendOTP(string username)
     {
         
-
-        var jwt =  _AM.Login(acc);
-        var parts = jwt.Split('.');
-        
-        //TODO:FIX IF STATMENT TO SOMETHING BETTER
-        //TODO:ADD LOGS
-        //TODO:2FA 
-        if (parts.Length==3)
-        {
-            
-            Response.Cookies.Append(
-                "token",
-                jwt);
-        }
-
-        return jwt;
-
+        var otp =  _AM.SendOTP(username);
+        return otp;
     }
     
     
