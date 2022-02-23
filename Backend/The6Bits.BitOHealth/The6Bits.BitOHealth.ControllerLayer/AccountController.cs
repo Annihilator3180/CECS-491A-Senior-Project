@@ -72,4 +72,12 @@ public class AccountController : ControllerBase
     {
         return null;
     }
+
+    public void DeleteCookie(object sender, EventsArgs e)
+    {
+        HttpCookie httpCookie = new HttpCookie();
+        httpCookie.Expires = DateTime
+    }
+
+
 }
