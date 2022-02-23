@@ -43,4 +43,15 @@ public class AccountController : ControllerBase
         return jwt;
         
     }
+
+    //TODO: Finish up
+    [HttpPost("Logout")]
+
+    public string Logout()
+    {
+        return null;
+    }
+
+
+
 }
