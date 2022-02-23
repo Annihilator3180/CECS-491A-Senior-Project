@@ -52,6 +52,24 @@ public class AccountController : ControllerBase
         return null;
     }
 
+    //Checks to see if the account has a Token or not
+    public bool HasToken(LoginModel acc) //FIX
+    {
+        if(acc.token != "" || acc.token != " ") //If there is a value in jwtToken return true
 
+        {
+            return true;
+        }
+        if(acc.token == "" || acc.token == " ") //If token is blank
+        {
+            return false;
+        }
+       
+    }
 
+    //FIX
+    public string Logout(string token)
+    {
+        return null;
+    }
 }
