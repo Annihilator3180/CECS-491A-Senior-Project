@@ -48,37 +48,18 @@ public class AccountController : ControllerBase
     [HttpPost("Logout")]
     public string Logout()
     {
+        Response.Cookies.Delete("token");
         return null;
     }
 
-    //FIX
-    public string Logout(string token)
-    {
-        return null;
-    }
 
-    //Checks to see if the account has a Token or not
-    public bool HasToken(string token) //FIX
-    {
-        if(token != "" || token != " ") //If there is a value in jwtToken return true
-        {
-            return true;
-        }
-        if(token == "" || token == " ") //If token is blank
-        {
-            return false;
-        }
-        return true;
-    }
-
-    
-    public void DeleteCookie(object sender, EventArgs e)
-    {
-        //HttpCookie httpCookie = new HttpCookie();
-        HttpCookie httpCookie = Request.Cookies.Get("Cookie");
-        httpCookie.Expires = DateTime.Now.AddDays(-1d);
-        Response.Cookies.Append("cookie",httpCookie);
-    }
+ //   public void DeleteCookie(object sender, EventArgs e)
+ //   {
+ //       //HttpCookie httpCookie = new HttpCookie();
+  //      HttpCookie httpCookie = Request.Cookies.Get("Cookie");
+  //      httpCookie.Expires = DateTime.Now.AddDays(-1d);
+  //      Response.Cookies.Append("cookie",httpCookie);
+ //   }
     
     //Sets the JWT string to ""
     public string DeleteToken(LoginModel acc)
