@@ -53,18 +53,17 @@ public class AccountController : ControllerBase
     }
 
     //Checks to see if the account has a Token or not
-    public bool HasToken(LoginModel acc) //FIX
+    public bool HasToken(string token) //FIX
     {
-        if(acc.token != "" || acc.token != " ") //If there is a value in jwtToken return true
-
+        if(token != "" || token != " ") //If there is a value in jwtToken return true
         {
             return true;
         }
-        if(acc.token == "" || acc.token == " ") //If token is blank
+        if(token == "" || token == " ") //If token is blank
         {
             return false;
         }
-       
+        return true;
     }
 
     //FIX
@@ -73,10 +72,19 @@ public class AccountController : ControllerBase
         return null;
     }
 
-    public void DeleteCookie(object sender, EventsArgs e)
+    public void DeleteCookie(object sender, EventArgs e)
     {
         HttpCookie httpCookie = new HttpCookie();
-        httpCookie.Expires = DateTime
+        httpCookie.Expires = DateTime.Now.AddDays(-1d);
+        Response.Cookies.Add(httpCookie);
+    }
+    
+    //Sets the JWT string to ""
+    public string DeleteToken(LoginModel acc)
+    {
+        var jwt = _AM.Login(acc);
+        return jwt = "";
+
     }
 
 
