@@ -46,8 +46,13 @@ public class AccountController : ControllerBase
 
     //TODO: Finish up
     [HttpPost("Logout")]
-
     public string Logout()
+    {
+        return null;
+    }
+
+    //FIX
+    public string Logout(string token)
     {
         return null;
     }
@@ -66,17 +71,13 @@ public class AccountController : ControllerBase
         return true;
     }
 
-    //FIX
-    public string Logout(string token)
-    {
-        return null;
-    }
-
+    
     public void DeleteCookie(object sender, EventArgs e)
     {
-        HttpCookie httpCookie = new HttpCookie();
+        //HttpCookie httpCookie = new HttpCookie();
+        HttpCookie httpCookie = Request.Cookies.Get("Cookie");
         httpCookie.Expires = DateTime.Now.AddDays(-1d);
-        Response.Cookies.Add(httpCookie);
+        Response.Cookies.Append("cookie",httpCookie);
     }
     
     //Sets the JWT string to ""
