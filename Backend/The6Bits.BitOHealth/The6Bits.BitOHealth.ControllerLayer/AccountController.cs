@@ -68,6 +68,17 @@ public class AccountController : ControllerBase
         return jwt = "";
 
     }
+    [HttpPost("Recovery")]
+    [Consumes("application/json")]
+
+    public string AccountRecovery(AccountRecoveryModel arm)
+    {
+
+        return _AM.recoverAccount(arm);
+
+
+    }
+
 
 
 }

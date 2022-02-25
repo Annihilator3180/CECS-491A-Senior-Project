@@ -30,5 +30,13 @@ namespace The6Bits.BitOHealth.ServiceLayer
         {
             return _AD.CheckPassword(username, password);
         }
+        public string UsernameAndEmailExists(string username, string email)
+        {
+            return _AD.UsernameAndEmailExists(username, email);
+        }
+        public string IsEnabled(string username)
+        {
+            return _AD.IsEnabled(username);
+        }
     }
 }

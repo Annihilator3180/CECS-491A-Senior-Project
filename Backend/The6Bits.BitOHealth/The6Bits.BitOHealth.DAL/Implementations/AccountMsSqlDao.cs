@@ -87,5 +87,48 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 return "DB Error Check Pass";
             }
         }
+        public string UsernameAndEmailExists(string username, string email)
+        {
+            try
+            {
+                string query = $"select Count(*) from Accounts where Username = '{username}' AND Email = '{email}';";
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int count = connection.ExecuteScalar<int>(query);
+                    if (count == 1)
+                    {
+                        return "Email and Username found";
+                    }
+                    return "incorrect";
+                }
+
+            }
+            catch
+            {
+                return "Db error";
+            }
+        }
+        public string IsEnabled(string username)
+        {
+            try
+            {
+                string query = $"select isenabled from Accounts where username = '{username}';";
+                using (SqlConnection conn = new SqlConnection(_connectString))
+                {
+                    conn.Open();
+                    int isEnabled = conn.ExecuteScalar<int>(query);
+                    if (isEnabled == 1)
+                    {
+                        return "isEnabled";
+                    }
+                    return "isDisabled";
+                }
+            }
+            catch
+            {
+                return "DB Error";
+            }
+        }
     }
 }

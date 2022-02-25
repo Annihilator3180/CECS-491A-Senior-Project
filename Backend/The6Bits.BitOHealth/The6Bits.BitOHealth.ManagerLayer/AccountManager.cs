@@ -10,9 +10,9 @@ public class AccountManager
 {
     private IAuthenticationService _authentication;
     private AccountService _AS;
-    
 
-    public AccountManager( IRepositoryAuth<string> authdao, IAuthenticationService authenticationService)
+
+    public AccountManager(IRepositoryAuth<string> authdao, IAuthenticationService authenticationService)
     {
         _authentication = authenticationService;
         _AS = new AccountService(authdao);
@@ -37,6 +37,23 @@ public class AccountManager
     {
         return _authentication.ValidateToken(token);
     }
+    public string recoverAccount(AccountRecoveryModel arm)
+    {
+        string ra = _AS.UsernameAndEmailExists(arm.Username, arm.Email);
+        if (ra != "Email and Username found")
+        {
+            return string.Empty;
+        }
+
+        string enabled = _AS.IsEnabled(arm.Username);
+        if(enabled != "isEnabled")
+        {
+            return "disabled account";
+        }
+        return enabled;
+    }
+
+    /*
 
     //Checks to see if the account has a Token or not
     public string HasToken(string token) //FIX
@@ -61,4 +78,5 @@ public class AccountManager
         //}
         //return true;
     }
+    */
 }
