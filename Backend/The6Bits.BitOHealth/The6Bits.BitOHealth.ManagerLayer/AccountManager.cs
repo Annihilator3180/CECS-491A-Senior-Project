@@ -123,28 +123,7 @@ public class AccountManager
         return _authentication.ValidateToken(token);
     }
 
-    //Checks to see if the account has a Token or not
-    public string HasToken(string token) //FIX
-    {
-        HttpCookie httpCookie = new HttpCookie("aCookie");
-        httpCookie = HttpRequestException.Cookies["aCookie"];
 
-        if (httpCookie != null)
-            return "<p>" + httpCookie.Name + "<p>" + httpCookie.Value;
-        else
-            return "Cookie Not Found :(";
-
-
-
-        //if (token != "" || token != " ") //If there is a value in jwtToken return true
-        //{
-            //return true;
-        //}
-        //if (token == "" || token == " ") //If token is blank
-        //{
-            //return false;
-        //}
-        //return true;
     public string SendOTP(string username)
     {
         string usernameExists = _AS.UsernameExists(username);
