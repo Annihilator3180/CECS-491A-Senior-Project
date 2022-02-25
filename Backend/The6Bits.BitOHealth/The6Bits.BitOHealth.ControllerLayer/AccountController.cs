@@ -7,6 +7,7 @@ using The6Bits.BitOHealth.ManagerLayer;
 using The6Bits.BitOHealth.Models;
 using The6Bits.Logging.DAL.Contracts;
 using The6Bits.Logging.Implementations;
+using The6Bits.DBErrors;
 
 namespace The6Bits.BitOHealth.ControllerLayer;
 [ApiController]
@@ -15,10 +16,12 @@ public class AccountController : ControllerBase
 {
     private AccountManager _AM;
     private LogService logService;
-    public AccountController(IRepositoryAuth<string> authdao ,ILogDal logDao, IAuthenticationService authenticationService)
+    private IDBErrors _dbErrors;
+    public AccountController(IRepositoryAuth<string> authdao ,ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors)
     {
         _AM = new AccountManager(authdao,authenticationService);
         logService = new LogService(logDao);
+        dbErrors = _dbErrors;
     }
 
     [HttpPost("Login")]

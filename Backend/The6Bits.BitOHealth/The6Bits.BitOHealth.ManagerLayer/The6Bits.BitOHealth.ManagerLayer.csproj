@@ -12,6 +12,7 @@
     <ProjectReference Include="..\The6Bits.Authorization\The6Bits.Authorization.csproj" />
     <ProjectReference Include="..\The6Bits.BitOHealth.Logging\The6Bits.Logging.csproj" />
     <ProjectReference Include="..\The6Bits.BitOHealth.ServiceLayer\The6Bits.BitOHealth.ServiceLayer.csproj" />
+    <ProjectReference Include="..\The6Bits.DBErrors\The6Bits.DBErrors.csproj" />
   </ItemGroup>
 
 </Project>

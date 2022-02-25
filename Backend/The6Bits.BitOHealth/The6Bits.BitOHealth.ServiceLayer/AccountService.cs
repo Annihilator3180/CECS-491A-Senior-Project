@@ -7,12 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.BitOHealth.Models;
+using The6Bits.DBErrors;
 
 namespace The6Bits.BitOHealth.ServiceLayer
 {
     public class AccountService
     {
         private IRepositoryAuth<string> _AD;
+        private IDBErrors _DBErrors;
         public AccountService(IRepositoryAuth<string> daotype)
         {
             _AD = daotype;
@@ -106,13 +108,18 @@ namespace The6Bits.BitOHealth.ServiceLayer
         {
             List<char> charsToRemove = new List<char>() { '@', '!', ',', '.' };
             string usernametest = username.Replace("@", string.Empty).Replace(",", String.Empty).Replace("!", String.Empty).Replace(".", String.Empty);
+            String daoResult = _AD.UsernameExists(username);
             if (!usernametest.All(Char.IsLetterOrDigit) || username.Length > 16 || username.Length <= 6)
             {
                 return "Invalid Username";
             }
-            if (_AD.UsernameExists(username)== "username exists")
+            if (daoResult == "username exists")
             {
                 return "username exists";
+            }
+            else if(daoResult !="new username")
+            {
+                return _DBErrors.DBErrorCheck(int.Parse(daoResult));
             }
 
             return "new username";
@@ -166,6 +173,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
         public string SaveUnActivatedAccount(User user)
         {
             String unactivated = _AD.UnactivatedSave(user);
+            return "";
         }
 
         public string UpdateIsEnabled(string username, int updateValue)

@@ -2,6 +2,7 @@ using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.BitOHealth.Models;
 using The6Bits.BitOHealth.ServiceLayer;
 using The6Bits.Authentication.Contract;
+using The6Bits.DBErrors;
 
 
 namespace The6Bits.BitOHealth.ManagerLayer;
@@ -10,6 +11,7 @@ public class AccountManager
 {
     private IAuthenticationService _authentication;
     private AccountService _AS;
+    private IDBErrors _iDBErrors;
     
 
     public AccountManager( IRepositoryAuth<string> authdao, IAuthenticationService authenticationService)

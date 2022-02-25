@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace The6Bits.BitOHealth.ServiceLayer
+namespace The6Bits.DBErrors
 {
-    public class MsSqlDerrorService
+    public class MsSqlDerrorService : IDBErrors
     {
         public string DBErrorCheck(int ErrorNumber)
         {
@@ -18,7 +18,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
             {
                 return "Database Full";
             }
-            else if(ErrorNumber == 4060)
+            else if (ErrorNumber == 4060)
             {
                 return "Database Offline";
             }

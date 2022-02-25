@@ -38,9 +38,9 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     return "username not found";
                 }
             }
-            catch
+            catch(SqlException ex)
             {
-                return "DB Error Username Exists";
+                return ex.Number.ToString();               
             }
 
 
@@ -195,7 +195,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             try
             {
                 string query = "INSERT INTO Accounts (Username, Email, Password, FirstName, LastName, IsEnabled, IsAdmin) " +
-                    "values(@, 'cbass@gmail.com', 'Password!1', 'admin', 'boss', 1, 1);
+                    "values(@, 'cbass@gmail.com', 'Password!1', 'admin', 'boss', 1, 1)";
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {

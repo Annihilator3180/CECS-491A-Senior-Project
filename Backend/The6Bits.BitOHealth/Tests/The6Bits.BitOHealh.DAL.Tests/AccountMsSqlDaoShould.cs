@@ -20,7 +20,7 @@ public class AccountMsSqlDaoShould : TestsBase
     //TODO:ADD ACCOUNTS AT TEST START
     public AccountMsSqlDaoShould()
     {
-        _connect = "Server=localhost\\SQLEXPRESS;Database=master;Trusted_Connection=True;";
+        _connect = "Server=localhost\\SQLEXPRESS;Database=Boofed;Trusted_Connection=True;";
 
     }
 
