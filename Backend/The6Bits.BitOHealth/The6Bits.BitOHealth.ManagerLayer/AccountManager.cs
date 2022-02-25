@@ -38,18 +38,11 @@ public class AccountManager
         return _authentication.ValidateToken(token);
     }
 
-
-    //Checks to see if the account has a Token or not
     public string HasToken(string token) //FIX
-    {
-        //var httpCookie = new HttpCookie("aCookie");
-        
-
+    {     
         if (token != null)
-            //return "<p>" + httpCookie.Key + "<p>" + httpCookie.Value;
             return "Token exists";
         else
             return "Token Not Found";
     }
-
 }
