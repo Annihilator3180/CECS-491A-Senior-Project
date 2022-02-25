@@ -49,7 +49,7 @@ public class AccountManager
             //return "<p>" + httpCookie.Key + "<p>" + httpCookie.Value;
             return "Token exists";
         else
-            return "Cookie Not Found";
+            return "Token Not Found";
     }
 
 }
