@@ -38,7 +38,7 @@ public class AccountManager
         return _authentication.ValidateToken(token);
     }
 
-    public string HasToken(string token) //FIX
+    public string HasToken(string token)
     {     
         if (token != null)
             return "Token exists";

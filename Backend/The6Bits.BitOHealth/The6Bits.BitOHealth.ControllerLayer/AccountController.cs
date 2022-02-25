@@ -44,7 +44,6 @@ public class AccountController : ControllerBase
         
     }
 
-    //TODO: Finish up
     [HttpPost("Logout")]
     public string Logout()
     {
