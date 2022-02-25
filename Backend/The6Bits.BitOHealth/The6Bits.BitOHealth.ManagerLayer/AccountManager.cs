@@ -131,14 +131,19 @@ public class AccountManager
         }
 
         string enabled = _AS.IsEnabled(arm.Username);
-        if(enabled != "isEnabled")
+        if(enabled != "enabled")
         {
             return "disabled account";
         }
-        return enabled;
+        string recoveryValidation = _AS.ValidateRecoveryAttempts(arm.Username);
+        if(recoveryValidation != "under")
+        {
+            return string.Empty;
+        }
+        return _AS.SendEmail("angelcueva47@gmail.com", "hello", "test");
     }
 
-    /*
+    
 
 
     public string SendOTP(string username)
@@ -170,5 +175,5 @@ public class AccountManager
     {
         return _AS.DeleteFailedAttempts(username);
     }
-    */
+  
 }

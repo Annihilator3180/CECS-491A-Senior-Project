@@ -125,10 +125,40 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     int isEnabled = conn.ExecuteScalar<int>(query);
                     if (isEnabled == 1)
                     {
-                        return "isEnabled";
+                        return "enabled";
                     }
-                    return "isDisabled";
-        
+                    return "disabled";
+                }
+            }
+            catch
+            {
+                return "DB Error";
+            }
+        }
+        public string ValidateRecoveryAttempts(string username)
+        {
+            try
+            {
+                string query = $"select RecoveryAttempts from Recovery where username = '{username}';";
+                using (SqlConnection conn = new SqlConnection(_connectString))
+                {
+                    conn.Open();
+                    int recoveryAttempts = conn.ExecuteScalar<int>(query);
+                    if (recoveryAttempts < 5)
+                    {
+                        return "under";
+                    }
+                    return "over";
+                }
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+
+        }
+
         public bool Create(User user)
         {
             try
@@ -200,11 +230,8 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     return true;
                 }
             }
-            catch
-            {
-                return "DB Error";
-            }
-        }
+            catch { 
+          
                 return false;
             }
         }

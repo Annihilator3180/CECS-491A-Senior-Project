@@ -52,6 +52,20 @@ namespace WebAppMVC.Development
             }
             return false;
         }
+        public bool buildRecoveryDB(string connStr)
+        {
+            var RecoveryStr = "If not exists (select name from sysobjects where name = 'Recovery') CREATE TABLE Recovery ( Username VARCHAR(30) NOT NULL, Email VARCHAR(255) NOT NULL, RecoveryAttempts int)";
+            var conn = new SqlConnection(connStr);
+            using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
+            {
+                conn.Open();
+                command.ExecuteNonQuery();
+            }
+            return false;
+
+
+
+        }
         
         
     }

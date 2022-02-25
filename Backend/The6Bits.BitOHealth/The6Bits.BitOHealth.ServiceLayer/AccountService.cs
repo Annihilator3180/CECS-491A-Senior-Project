@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using The6Bits.BitOHealth.DAL.Contract;
@@ -40,6 +41,10 @@ namespace The6Bits.BitOHealth.ServiceLayer
         {
             return _AD.IsEnabled(username);
         }
+        public string ValidateRecoveryAttempts(string username)
+        {
+            return _AD.ValidateRecoveryAttempts(username);
+        }
 
         public string GetEmail(string username)
         {
@@ -55,7 +60,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
         {
             return _AD.SaveActivationCode(username,time,code,codeType);
         }
-
+        /*
         public string IsEnabled(string username)
         {
             try
@@ -75,6 +80,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
             }
 
         }
+        */
 
         public string ValidateOTP(string username, string code)
         {
@@ -135,6 +141,29 @@ namespace The6Bits.BitOHealth.ServiceLayer
         {
             return _AD.DeleteFailedAttempts(username);
         }
+        public string SendEmail(string email, string subject, string body)
+        {
+            string sender = "test@bitohealth.com";
+            try
+            {
+                SmtpClient smtp = new SmtpClient
+                {
+                    Host = "bitohealth.com",
+                    Port = 25,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    Credentials = new System.Net.NetworkCredential("username", "password"),
+                    Timeout = 30000,
+                };
+                MailMessage message = new MailMessage(sender, email, subject, body);
+                smtp.Send(message);
+            }
+            catch (Exception ex)
+            {
+                return "email failed to send";
+            }
+            return "email sent";
+        }
+
 
 
     }

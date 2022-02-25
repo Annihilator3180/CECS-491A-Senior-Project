@@ -14,6 +14,8 @@ namespace The6Bits.BitOHealth.DAL.Contract
         string CheckPassword(string username,string password);
         string UsernameAndEmailExists(string username, string email);
         public string IsEnabled(string username);
+        public string ValidateRecoveryAttempts(string username);
+
 
 
 
