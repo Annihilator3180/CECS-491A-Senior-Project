@@ -12,7 +12,7 @@ namespace The6Bits.BitOHealth.DAL.Tests;
 
 
 
-public class AccountMsSqlDaoShould : IDisposable
+public class AccountMsSqlDaoShould : TestsBase
 {
     private string _connect;
 
@@ -91,7 +91,6 @@ public class AccountMsSqlDaoShould : IDisposable
         
         //CLEANUP
         
-        Ac.Delete(readuser);
 
 
     }
@@ -102,10 +101,7 @@ public class AccountMsSqlDaoShould : IDisposable
 //DELETE TESTING ITEMS FROM DB
     //TODO:DELETE ACCOUNTS AT TEST END
 
-    public void Dispose()
-    {
-        
-    }
+    
     
     public static IEnumerable<object[]> LoadUsersJson()
     {
