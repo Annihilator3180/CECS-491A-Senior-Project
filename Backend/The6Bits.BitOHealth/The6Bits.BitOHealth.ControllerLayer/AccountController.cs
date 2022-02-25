@@ -22,17 +22,16 @@ public class AccountController : ControllerBase
     }
 
     [HttpPost("Login")]
-    [Consumes("application/json")]
-    //Token
     public string Login(LoginModel acc)
     {
         
-        
+
         var jwt =  _AM.Login(acc);
         var parts = jwt.Split('.');
         
         //TODO:FIX IF STATMENT TO SOMETHING BETTER
         //TODO:ADD LOGS
+        //TODO:2FA 
         if (parts.Length==3)
         {
             
@@ -40,8 +39,17 @@ public class AccountController : ControllerBase
                 "token",
                 jwt);
         }
+
         return jwt;
+
+    }
+    
+    [HttpPost("OTP")]
+    public string SendOTP(string username)
+    {
         
+        var otp =  _AM.SendOTP(username);
+        return otp;
     }
 
     //TODO: Finish up
