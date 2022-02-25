@@ -51,8 +51,19 @@ public class AccountController : ControllerBase
         var otp =  _AM.SendOTP(username);
         return otp;
     }
-    
-    
+
+
+
+    [HttpPost("Register")]
+    public string CreateAccount(User user)
+    {
+
+        String emailStatus = _AM.CreateAccount(user);
+        return otp;
+    }
 
 
 }
+
+
+

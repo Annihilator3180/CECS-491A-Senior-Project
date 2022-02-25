@@ -194,8 +194,9 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = "INSERT VerifyCodes(username,time,code,codeType) VALUES (@username,@time,@code,@codetype) ";
-                
+                string query = "INSERT INTO Accounts (Username, Email, Password, FirstName, LastName, IsEnabled, IsAdmin) " +
+                    "values(@, 'cbass@gmail.com', 'Password!1', 'admin', 'boss', 1, 1);
+
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
@@ -321,17 +322,54 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             try
             {
                 string query = "UPDATE Accounts SET IsEnabled = @IsEnabled WHERE Username = @Username";
-                
+
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
-                    int lines = connection.Execute(query, new{ Username = username, IsEnabled = updateValue});
+                    int lines = connection.Execute(query, new { Username = username, IsEnabled = updateValue });
                     return lines.ToString();
                 }
             }
             catch (Exception ex)
             {
                 return ex.Message;
+            }
+        }
+        public string UnactivatedSave(User user)
+            {
+                user.IsEnabled = 0;
+                user.IsAdmin = 0;
+            {
+                try
+                {
+                    string query = "INSERT into ACCOUNTS(Username,Email,Password,FirstName,LastName,IsEnabled,IsAdmin) " +
+                                   " values (@Username, @Email, @Password, @FirstName,@LastName, 0,0) ";
+                    using (SqlConnection connection = new SqlConnection(_connectString))
+                    {
+                        int lines_modified = connection.Execute(query,
+                            new
+                            {
+                                Email = user.Email,
+                                Username = user.Username,
+                                Password = user.Password,
+                                FirstName = user.FirstName,
+                                LastName = user.LastName
+                            });
+                        connection.Close();
+                        if (lines_modified == 0)
+                        {
+                            return "DB error";
+                        }
+                    }
+
+
+                    return "Saved";
+                }
+                catch(SqlException ex)
+                {
+                    return "dberror";
+                }
+
             }
         }
 
@@ -356,6 +394,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
             
         }
+
 
 
 

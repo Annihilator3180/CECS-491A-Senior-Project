@@ -160,22 +160,7 @@
       "ProjectGuid": "a5578da2-0cf4-403e-9247-80ace57ef89b",
       "DisplayName": "The6Bits.Authorization.Tests",
       "ColorIndex": 14
-    },
-    "bf653376-9d16-43fe-a31b-e3de453d90fe": {
-      "ProjectGuid": "bf653376-9d16-43fe-a31b-e3de453d90fe",
-      "DisplayName": "WebApp",
-      "ColorIndex": 15
-    },
-    "613a88a6-9405-40c1-a013-dcdb4b19dd80": {
-      "ProjectGuid": "613a88a6-9405-40c1-a013-dcdb4b19dd80",
-      "DisplayName": "WebAppAPI",
-      "ColorIndex": 0
-    },
-    "132f4ef6-f6af-4a9b-8c30-ba5a0e912648": {
-      "ProjectGuid": "132f4ef6-f6af-4a9b-8c30-ba5a0e912648",
-      "DisplayName": "WebAppAPI",
-      "ColorIndex": 1
     }
   },
-  "NextColorIndex": 2
+  "NextColorIndex": 15
 }

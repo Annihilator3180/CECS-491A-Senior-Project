@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -67,6 +68,56 @@ namespace The6Bits.BitOHealth.ServiceLayer
             }
 
         }
+        public bool ValidateEmail(string email)
+        {
+            try
+            {
+
+                return new EmailAddressAttribute().IsValid(email) && email.Length < 255;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool ValidatePassword(string password)
+        {
+            try
+            {
+                if ((password.Length >= 8 & password.Length <= 30) & (password.Contains('.') || password.Contains(',') || password.Contains('!') || password.Contains('@')))
+                {
+                    password = password.Replace("@", string.Empty).Replace(",", String.Empty).Replace("!", String.Empty).Replace(".", String.Empty);
+                }
+                else
+                {
+                    return false;
+                }
+                return password.All(char.IsLetterOrDigit) && password.Any(char.IsUpper) && password.Any(char.IsLower) && password.Any(char.IsDigit);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
+        public string ValidateUsername(string username)
+        {
+            List<char> charsToRemove = new List<char>() { '@', '!', ',', '.' };
+            string usernametest = username.Replace("@", string.Empty).Replace(",", String.Empty).Replace("!", String.Empty).Replace(".", String.Empty);
+            if (!usernametest.All(Char.IsLetterOrDigit) || username.Length > 16 || username.Length <= 6)
+            {
+                return "Invalid Username";
+            }
+            if (_AD.UsernameExists(username)== "username exists")
+            {
+                return "username exists";
+            }
+
+            return "new username";
+        }
+
 
         public string ValidateOTP(string username, string code)
         {
@@ -110,6 +161,11 @@ namespace The6Bits.BitOHealth.ServiceLayer
             {
                 return lineschanged;
             }
+        }
+
+        public string SaveUnActivatedAccount(User user)
+        {
+            String unactivated = _AD.UnactivatedSave(user);
         }
 
         public string UpdateIsEnabled(string username, int updateValue)

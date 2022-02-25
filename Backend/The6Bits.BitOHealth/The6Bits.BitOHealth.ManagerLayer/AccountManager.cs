@@ -152,4 +152,23 @@ public class AccountManager
     {
         return _AS.DeleteFailedAttempts(username);
     }
+    public string CreateAccount(User user)
+    {
+
+        if (_AS.ValidateEmail(user.Email) == false)
+        {
+            return "Invalid Email";
+        }
+        else if (_AS.ValidatePassword(user.Password)==false)
+        {
+            return "Invalid Password";
+        }
+        String isValidUsername = _AS.ValidateUsername(user.Username);
+        if (isValidUsername !="new username")
+        {
+            return isValidUsername; 
+        }
+        String unactivated = _AS.SaveUnActivatedAccount(user);
+
+    }
 }

@@ -11,7 +11,8 @@ namespace The6Bits.BitOHealth.DAL.Contract
     {
         string UsernameExists(string username);
         string UserRole(string username);
-        string CheckPassword(string username,string password);
+        string CheckPassword(string username, string password);
+
 
         public bool Create(User user);
         public User Read(User user);
@@ -32,8 +33,6 @@ namespace The6Bits.BitOHealth.DAL.Contract
         public string UpdateIsEnabled(string username, int updateValue);
 
         public string DeleteFailedAttempts(string username);
-
-
-
+        
     }
 }
