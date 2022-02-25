@@ -143,25 +143,8 @@ namespace The6Bits.BitOHealth.ServiceLayer
         }
         public string SendEmail(string email, string subject, string body)
         {
-            string sender = "test@bitohealth.com";
-            try
-            {
-                SmtpClient smtp = new SmtpClient
-                {
-                    Host = "bitohealth.com",
-                    Port = 25,
-                    DeliveryMethod = SmtpDeliveryMethod.Network,
-                    Credentials = new System.Net.NetworkCredential("username", "password"),
-                    Timeout = 30000,
-                };
-                MailMessage message = new MailMessage(sender, email, subject, body);
-                smtp.Send(message);
-            }
-            catch (Exception ex)
-            {
-                return "email failed to send";
-            }
-            return "email sent";
+            EmailService em = new EmailService(email, subject, body);
+            return em.SendEmail();
         }
 
 
