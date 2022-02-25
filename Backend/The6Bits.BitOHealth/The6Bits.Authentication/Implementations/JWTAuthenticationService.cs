@@ -39,6 +39,7 @@ public class JWTAuthenticationService : IAuthenticationService
         
         segments.Add(Base64UrlEncode(headerBytes));
         segments.Add(Base64UrlEncode(payloadBytes));
+        //segments.Add(Encoding.UTF8.GetString(Base64UrlDecode(BYTE ARRAY OF THE DATA STRING HERE)));
 
         var stringToSign = string.Join(".", segments.ToArray());
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using The6Bits.BitOHealth.Models;
 
 namespace The6Bits.BitOHealth.DAL.Contract
 {
@@ -13,6 +14,28 @@ namespace The6Bits.BitOHealth.DAL.Contract
         string CheckPassword(string username,string password);
         string UsernameAndEmailExists(string username, string email);
         public string IsEnabled(string username);
+
+
+
+        public bool Create(User user);
+        public User Read(User user);
+
+        public string DeletePastOTP(string username, string codetype);
+
+        public string SaveActivationCode(string username, DateTime time, string code, string codeType);
+
+        public string ValidateOTP(string username, string code);
+
+        public string CheckFailedAttempts(string username);
+
+        public string InsertFailedAttempts(string username);
+        public string UpdateFailedAttempts(string username, int updatedValue);
+
+        public string CheckFailDate(string username);
+
+        public string UpdateIsEnabled(string username, int updateValue);
+
+        public string DeleteFailedAttempts(string username);
 
 
 

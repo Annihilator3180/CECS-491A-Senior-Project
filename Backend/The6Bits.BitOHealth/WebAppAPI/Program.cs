@@ -17,15 +17,17 @@ builder.Services.AddControllers();
 //JSON Config
 builder.Configuration.GetConnectionString("DefaultConnection");
 
+var connstring  = builder.Configuration.GetConnectionString("DefaultConnection");
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //pass in conn string . IS there a better way to do this?
-builder.Services.AddScoped<IRepositoryUM<User>>(provider => new MsSqlUMDAO<User>(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddScoped<IRepositoryUM<User>>(provider => new MsSqlUMDAO<User>(connstring));
 builder.Services.AddScoped<IRepositoryAuth<string>>(provider =>
-    new AccountMsSqlDao(builder.Configuration.GetConnectionString("DefaultConnection"))); 
+    new AccountMsSqlDao(connstring)); 
 builder.Services.AddTransient<IAuthenticationService, JWTAuthenticationService>();
 builder.Services.AddScoped<ILogDal, SQLLogDAO>();
 
@@ -35,7 +37,10 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     var b = new dbBuilder();
-    b.buildDB(builder.Configuration.GetConnectionString("DefaultConnection"));
+    b.builAccountdDB(connstring);
+    b.buildVerifyCodes(connstring);
+    b.buildFailedAttempts(connstring);
+
     //app.UseSwagger();
     //app.UseSwaggerUI();
 }

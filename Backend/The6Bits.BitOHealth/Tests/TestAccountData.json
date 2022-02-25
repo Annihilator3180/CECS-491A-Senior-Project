@@ -1,0 +1,22 @@
+﻿{
+  "accounts" : [
+    { 
+      "Username" : "bbhAsxaz1a",
+      "FirstName" : "MacTest",
+      "LastName" : "Lasts",
+      "Email" : "boof@gmail.com",
+      "Password" : "dakmM!1sss",
+      "IsAdmin" : 1,
+      "IsEnabled" : 1
+    },
+    {
+      "Username" : "bbhAsxaz1a",
+      "FirstName" : "MacTest",
+      "LastName" : "Lasts",
+      "Email" : "boof@gmail.com",
+      "Password" : "dakmM!1sss",
+      "IsAdmin" : 1,
+      "IsEnabled" : 1
+    }
+  ]
+}
