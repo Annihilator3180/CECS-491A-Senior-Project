@@ -1,5 +1,6 @@
 using The6Bits.Authentication.Contract;
 using The6Bits.Authentication.Implementations;
+using The6Bits.BitOHealth.ControllerLayer;
 using The6Bits.BitOHealth.DAL;
 using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.BitOHealth.DAL.Implementations;
@@ -33,6 +34,14 @@ builder.Services.AddScoped<ILogDal, SQLLogDAO>();
 
 var app = builder.Build();
 
+
+//START ARCHIVER
+
+var archive = new ArchivingController();
+archive.Archive();
+
+
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -44,6 +53,8 @@ if (app.Environment.IsDevelopment())
     //app.UseSwagger();
     //app.UseSwaggerUI();
 }
+
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

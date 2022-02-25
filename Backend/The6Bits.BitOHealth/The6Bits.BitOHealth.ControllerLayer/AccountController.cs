@@ -31,7 +31,6 @@ public class AccountController : ControllerBase
         
         //TODO:FIX IF STATMENT TO SOMETHING BETTER
         //TODO:ADD LOGS
-        //TODO:2FA 
         if (parts.Length==3)
         {
             

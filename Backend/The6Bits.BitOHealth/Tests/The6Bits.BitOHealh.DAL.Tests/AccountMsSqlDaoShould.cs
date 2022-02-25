@@ -6,6 +6,8 @@ using The6Bits.BitOHealth.DAL.Implementations;
 using The6Bits.BitOHealth.Models;
 using Xunit;
 using System.Text.Json;
+using The6Bits.BitOHealth.DAL.Contract;
+
 //using Microsoft.Extensions.Configuration;
 
 namespace The6Bits.BitOHealth.DAL.Tests;
@@ -14,14 +16,14 @@ namespace The6Bits.BitOHealth.DAL.Tests;
 
 public class AccountMsSqlDaoShould : TestsBase
 {
-    private string _connect;
-
+    private IRepositoryAuth<string> Ac;
+    
+    
     //INITIALIZATION STUFF
     //TODO:ADD ACCOUNTS AT TEST START
     public AccountMsSqlDaoShould()
     {
-        _connect = "Server=localhost\\SQLEXPRESS;Database=master;Trusted_Connection=True;";
-
+        Ac = new AccountMsSqlDao(conn);
     }
 
 
@@ -35,7 +37,6 @@ public class AccountMsSqlDaoShould : TestsBase
 
 
 
-        AccountMsSqlDao Ac = new AccountMsSqlDao(_connect);
         var ans = Ac.CheckPassword(username, password);
         Assert.Equal("not found", ans);
 
@@ -49,7 +50,6 @@ public class AccountMsSqlDaoShould : TestsBase
         //TEMP CONNSTRING
 
 
-        AccountMsSqlDao Ac = new AccountMsSqlDao(_connect);
         var ans = Ac.CheckPassword(username, password);
         Assert.Equal("credentials found", ans);
 
@@ -61,7 +61,6 @@ public class AccountMsSqlDaoShould : TestsBase
     [InlineData("raoaa1!eq")]
     public void UsernameExistsValid(string username)
     {
-        AccountMsSqlDao Ac = new AccountMsSqlDao(_connect);
         var ans = Ac.UsernameExists(username);
         Assert.Equal("username exists", ans);
     }
@@ -71,16 +70,15 @@ public class AccountMsSqlDaoShould : TestsBase
     [InlineData("dasdsadassddasdsa")]
     public void UsernameExistsInvalid(string username)
     {
-        AccountMsSqlDao Ac = new AccountMsSqlDao(_connect);
         var ans = Ac.UsernameExists(username);
         Assert.Equal("username not found", ans);
 
     }
+    
     [Theory]
     [MemberData(nameof(LoadUsersJson))]
     public void CreateValid(User u)
     {
-        AccountMsSqlDao Ac = new AccountMsSqlDao(_connect);
         
         
         Ac.Create(u);
@@ -91,7 +89,6 @@ public class AccountMsSqlDaoShould : TestsBase
         
         //CLEANUP
         
-
 
     }
 

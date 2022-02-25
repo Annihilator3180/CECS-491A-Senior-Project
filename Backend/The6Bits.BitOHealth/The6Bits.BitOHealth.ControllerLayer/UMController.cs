@@ -12,6 +12,8 @@ using System.Text.Encodings.Web;
 using System.Diagnostics;
 using System.Web;
 using Microsoft.AspNetCore.Http;
+using The6Bits.Authentication.Contract;
+using The6Bits.BitOHealth.DAL.Contract;
 
 
 namespace The6Bits.BitOHealth.ControllerLayer
@@ -24,10 +26,10 @@ namespace The6Bits.BitOHealth.ControllerLayer
         private LogService logService;
         private string adminUsername;
 
-        public UMController(IRepositoryUM<User> daoType , IAuthorizationService auth ,ILogDal logDao)
+        public UMController(IRepositoryUM<User> daoType , IAuthenticationService authentication ,ILogDal logDao)
         {
             _UMM = new UMManager(daoType);
-            _UMM.auth = auth;
+            authentication.ValidateToken(Request.Headers["Authorization"]);
             adminUsername = "buhss";
             logService = new LogService(logDao);
         }
