@@ -261,7 +261,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
-                    int lines = connection.Execute(query, new{ Username = username, @Date_Time = DateTime.UtcNow});
+                    int lines = connection.ExecuteScalar<int>(query, new{ Username = username, @Date_Time = DateTime.UtcNow});
                     return lines.ToString();
                 }
             }
@@ -281,7 +281,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
-                    int lines = connection.Execute(query, new{ Username = username, Attempts = updatedValue});
+                    int lines = connection.ExecuteScalar<int>(query, new{ Username = username, Attempts = updatedValue});
                     return lines.ToString();
                 }
             }
@@ -290,6 +290,73 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 return ex.Message;
             }
         }
+        
+        
+        public string CheckFailDate(string username)
+        {
+            try
+            {
+                string query = "SELECT Date_Time FROM FailedAttempts WHERE Username = @Username";
+                
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    IEnumerable<DateTime> dt = connection.Query<DateTime>(query, new{ Username = username});
+                    if (dt == null || !dt.Any())
+                    {
+                        return "none";
+                    }
+                    return dt.First().ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+        public string UpdateIsEnabled(string username, int updateValue)
+        {
+            try
+            {
+                string query = "UPDATE Accounts SET IsEnabled = @IsEnabled WHERE Username = @Username";
+                
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int lines = connection.Execute(query, new{ Username = username, IsEnabled = updateValue});
+                    return lines.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        public string DeleteFailedAttempts(string username)
+        {
+            {
+                try
+                {
+                    string query = "DELETE FROM FailedAttempts WHERE Username = @Username ";
+                
+                    using (SqlConnection connection = new SqlConnection(_connectString))
+                    {
+                        connection.Open();
+                        int lines = connection.Execute(query, new{ Username = username});
+                        return lines.ToString();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return ex.Message;
+                }
+            }
+            
+        }
+
 
 
 

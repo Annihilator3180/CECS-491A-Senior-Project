@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.Http;
 namespace The6Bits.BitOHealth.ControllerLayer
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("UM")]
     public class UMController : ControllerBase
     {
         private UMManager _UMM;

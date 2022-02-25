@@ -22,48 +22,69 @@ public class AccountManager
     //TODO:Safer parse int
     public string Login(LoginModel acc)
     {
+        bool failedAttemptsNeedsDelete = false;
+        
+        //CHECK IF USERNAME EXISTS
         string us = _AS.UsernameExists(acc.Username);
         if (us != "username exists")
         {
             return us;
         }
+        
+        //CHECK IF ACCOUNT IS ENABLED
 
         string isenabled = _AS.IsEnabled(acc.Username);
+        
+        string firstfaildate = _AS.CheckFailDate(acc.Username);
+        
+        if (firstfaildate != "none")
+        {
+            
+            failedAttemptsNeedsDelete = DateTime.Parse(firstfaildate).AddDays(1) < DateTime.UtcNow;
+
+        }
+
+
+
+        if (failedAttemptsNeedsDelete)
+        {
+            string del = _AS.DeleteFailedAttempts(acc.Username);
+
+        }
 
         if (isenabled != "enabled")
         {
-            return isenabled;
-        }
 
-        string otp = _AS.ValidateOTP(acc.Username, acc.Code);
-
-        if (otp != "valid")
-        {
-            string attempts = _AS.CheckFailedAttempts(acc.Username);
-            if (attempts == "0")
+            //CHECK IF HAS BEEN 24 HRS
+            if (failedAttemptsNeedsDelete)
             {
-                _AS.InsertFailedAttempts(acc.Username);
+                //ENABLE ACCOUNT
+                string res = _AS.UpdateIsEnabled(acc.Username, 1);
+                if ( res!= "account updated")
+                {
+                    return res;
+                }
+
+
             }
             else
             {
-                int z = Int32.Parse(attempts);
-                z = z + 1;
-                _AS.UpdateFailedAttempts(acc.Username,z );
+                //still disabled
+                return isenabled;
             }
-            return otp;
+
         }
         
-        
-        
-        
-        
-        
-        
+        //VALIDATE OTP
+
+        string otp = _AS.ValidateOTP(acc.Username, acc.Code);
         
         
         string cp = _AS.CheckPassword(acc.Username, acc.Password);
-        if (cp != "credentials found")
+        
+        if (otp != "valid" || cp != "credentials found")
         {
+            //UPDATE FAILED ATTEMPT
             string attempts = _AS.CheckFailedAttempts(acc.Username);
             if (attempts == "0")
             {
@@ -71,10 +92,29 @@ public class AccountManager
             }
             else
             {
-                _AS.UpdateFailedAttempts(acc.Username,Int32.Parse(attempts)+1 );
+                int newFailedAttempts = Int32.Parse(attempts);
+                newFailedAttempts += 1;
+                _AS.UpdateFailedAttempts(acc.Username, newFailedAttempts);
+
+                if (newFailedAttempts >= 5)
+                {
+                    string disabled = _AS.UpdateIsEnabled(acc.Username, 0);
+                    if (disabled == "account updated")
+                    {
+                        return "account disabled";
+                    }
+                    //db error 
+                    return disabled;
+
+
+                }
             }
-            return cp;
+            
+            
+            return otp != "valid" ? otp : cp;
         }
+
+        
         return _authentication.generateToken(acc.Username);
     }
 
@@ -106,5 +146,10 @@ public class AccountManager
         return code;
 
 
+    }
+
+    public string DeleteFailedAttempts(string username)
+    {
+        return _AS.DeleteFailedAttempts(username);
     }
 }

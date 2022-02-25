@@ -27,6 +27,12 @@ namespace The6Bits.BitOHealth.DAL.Contract
         public string InsertFailedAttempts(string username);
         public string UpdateFailedAttempts(string username, int updatedValue);
 
+        public string CheckFailDate(string username);
+
+        public string UpdateIsEnabled(string username, int updateValue);
+
+        public string DeleteFailedAttempts(string username);
+
 
 
     }

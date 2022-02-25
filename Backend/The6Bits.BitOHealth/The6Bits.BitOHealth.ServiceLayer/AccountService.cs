@@ -87,7 +87,12 @@ namespace The6Bits.BitOHealth.ServiceLayer
         {
             return _AD.CheckFailedAttempts(username);
         }
-        
+
+        public string CheckFailDate(string username)
+        {
+            return _AD.CheckFailDate(username);
+        }
+
         public string InsertFailedAttempts(string username)
         {
             return _AD.InsertFailedAttempts(username);
@@ -106,6 +111,23 @@ namespace The6Bits.BitOHealth.ServiceLayer
                 return lineschanged;
             }
         }
+
+        public string UpdateIsEnabled(string username, int updateValue)
+        {
+            string res = _AD.UpdateIsEnabled(username, updateValue);
+            if (res == "1")
+            {
+                return "account updated";
+            }
+
+            return res;
+        }
+
+        public string DeleteFailedAttempts(string username)
+        {
+            return _AD.DeleteFailedAttempts(username);
+        }
+
 
     }
 }
