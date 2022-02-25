@@ -123,6 +123,13 @@ public class AccountManager
         return _authentication.ValidateToken(token);
     }
 
+    public string HasToken(string token)
+    {
+        if (token != null)
+            return "Token exists";
+        else
+            return "Token Not Found";
+    }
 
     public string SendOTP(string username)
     {

@@ -52,30 +52,20 @@ public class AccountController : ControllerBase
         return otp;
     }
 
-    //TODO: Finish up
     [HttpPost("Logout")]
     public string Logout()
     {
         Response.Cookies.Delete("token");
-        return null;
+        return "Account logged out";
     }
 
 
- //   public void DeleteCookie(object sender, EventArgs e)
+ //   public void deletecookie(object sender, eventargs e)
  //   {
- //       //HttpCookie httpCookie = new HttpCookie();
-  //      HttpCookie httpCookie = Request.Cookies.Get("Cookie");
-  //      httpCookie.Expires = DateTime.Now.AddDays(-1d);
-  //      Response.Cookies.Append("cookie",httpCookie);
+ //       //httpcookie httpcookie = new httpcookie();
+  //      httpcookie httpcookie = request.cookies.get("cookie");
+  //      httpcookie.expires = datetime.now.adddays(-1d);
+  //      response.cookies.append("cookie",httpcookie);
  //   }
     
-    //Sets the JWT string to ""
-    public string DeleteToken(LoginModel acc)
-    {
-        var jwt = _AM.Login(acc);
-        return jwt = "";
-
-    }
-
-
 }
