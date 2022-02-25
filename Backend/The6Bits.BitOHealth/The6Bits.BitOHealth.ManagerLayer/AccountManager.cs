@@ -38,27 +38,18 @@ public class AccountManager
         return _authentication.ValidateToken(token);
     }
 
+
     //Checks to see if the account has a Token or not
     public string HasToken(string token) //FIX
     {
-        HttpCookie httpCookie = new HttpCookie("aCookie");
-        httpCookie = HttpRequestException.Cookies["aCookie"];
+        //var httpCookie = new HttpCookie("aCookie");
+        
 
-        if (httpCookie != null)
-            return "<p>" + httpCookie.Name + "<p>" + httpCookie.Value;
+        if (token != null)
+            //return "<p>" + httpCookie.Key + "<p>" + httpCookie.Value;
+            return "Token exists";
         else
-            return "Cookie Not Found :(";
-
-
-
-        //if (token != "" || token != " ") //If there is a value in jwtToken return true
-        //{
-            //return true;
-        //}
-        //if (token == "" || token == " ") //If token is blank
-        //{
-            //return false;
-        //}
-        //return true;
+            return "Cookie Not Found";
     }
+
 }

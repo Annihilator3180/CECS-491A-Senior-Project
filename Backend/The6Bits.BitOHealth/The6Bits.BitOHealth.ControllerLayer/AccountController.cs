@@ -49,25 +49,6 @@ public class AccountController : ControllerBase
     public string Logout()
     {
         Response.Cookies.Delete("token");
-        return null;
+        return "Account logged out";
     }
-
-
- //   public void DeleteCookie(object sender, EventArgs e)
- //   {
- //       //HttpCookie httpCookie = new HttpCookie();
-  //      HttpCookie httpCookie = Request.Cookies.Get("Cookie");
-  //      httpCookie.Expires = DateTime.Now.AddDays(-1d);
-  //      Response.Cookies.Append("cookie",httpCookie);
- //   }
-    
-    //Sets the JWT string to ""
-    public string DeleteToken(LoginModel acc)
-    {
-        var jwt = _AM.Login(acc);
-        return jwt = "";
-
-    }
-
-
 }
