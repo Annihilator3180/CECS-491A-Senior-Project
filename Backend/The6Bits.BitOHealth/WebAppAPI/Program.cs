@@ -15,9 +15,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 //JSON Config
-builder.Configuration.GetConnectionString("cbassMac");
+builder.Configuration.GetConnectionString("DefaultConnection");
 
-var connstring  = builder.Configuration.GetConnectionString("cbassMac");
+var connstring  = builder.Configuration.GetConnectionString("DefaultConnection");
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
