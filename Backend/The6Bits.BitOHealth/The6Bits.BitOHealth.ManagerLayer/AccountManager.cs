@@ -169,6 +169,7 @@ public class AccountManager
             return isValidUsername; 
         }
         String unactivated = _AS.SaveUnActivatedAccount(user);
+        return "0";
 
     }
 }

@@ -59,7 +59,7 @@ public class AccountController : ControllerBase
     {
 
         String emailStatus = _AM.CreateAccount(user);
-        return otp;
+        return "0";
     }
 
 
