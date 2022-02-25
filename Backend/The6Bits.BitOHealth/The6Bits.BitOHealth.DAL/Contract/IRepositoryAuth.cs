@@ -33,6 +33,8 @@ namespace The6Bits.BitOHealth.DAL.Contract
         public string UpdateIsEnabled(string username, int updateValue);
 
         public string DeleteFailedAttempts(string username);
-        
+        public string UnactivatedSave(User user);
+
+
     }
 }
