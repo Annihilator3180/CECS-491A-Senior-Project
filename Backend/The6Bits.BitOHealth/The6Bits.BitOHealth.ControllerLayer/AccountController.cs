@@ -86,7 +86,11 @@ public class AccountController : ControllerBase
 
 
     }
-
+    [HttpPost("ResetPassword")]
+    public string ResetPassword(string r, string u, string p)
+    {
+        return _AM.ResetPassword(u, r, p);
+    }
 
 
 }

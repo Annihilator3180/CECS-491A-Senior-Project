@@ -18,6 +18,11 @@ namespace The6Bits.BitOHealth.DAL.Contract
 
         public string UpdateRecoveryAttempts(string username);
 
+        public string VerifySameDay(string username, string code);
+
+        public string ResetPassword(string password, string username);
+
+
 
 
 

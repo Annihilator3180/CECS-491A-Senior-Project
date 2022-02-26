@@ -164,7 +164,24 @@ namespace The6Bits.BitOHealth.ServiceLayer
             }
             return builder.ToString();
         }
+        public string VerifySameDay(string username, string code)
+        {
+            string sd = _AD.VerifySameDay(username, code);
+            if (sd != "1")
+            {
+                return "expired link";
+            }
+            return sd;
+
+        }
+        public string ResetPassword(string password, string username)
+        {
+            return _AD.ResetPassword(password,username);
+
+        }
+       
     }
+   
 
 
 
