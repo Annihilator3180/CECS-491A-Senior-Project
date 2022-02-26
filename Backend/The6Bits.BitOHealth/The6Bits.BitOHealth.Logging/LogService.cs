@@ -25,5 +25,23 @@ namespace The6Bits.Logging.Implementations
         {
             return _dao.Log(username, description, LogLevel, LogCategory);
         }
+
+        public async Task<bool> RegistrationLog(string username, string description, string LogLevel, string LogCategory)
+        {
+            bool daoLog =  _dao.Log(username, description, LogLevel, LogCategory);
+
+            if(daoLog == true)
+            {
+                bool checker1= _dao.RegistrationChecker(username, description, LogLevel, LogCategory);
+
+            }
+
+            else
+            {
+                //handle not being able to log
+            }
+
+            return daoLog;
+        }
     }
 }

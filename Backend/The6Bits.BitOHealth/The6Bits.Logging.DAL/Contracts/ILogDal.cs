@@ -12,6 +12,6 @@ namespace The6Bits.Logging.DAL.Contracts
 
         bool Log(string username, string description, string LogLevel, string LogCategory);
         string getAllLogs();
-
+        bool RegistrationChecker(string username, string description, string logLevel, string logCategory);
     }
 }

@@ -63,6 +63,30 @@ namespace The6Bits.Logging.DAL.Implementations
             }
         }
 
+        public bool RegistrationChecker(string username, string description, string LogLevel, string LogCategory)
+        {
+            try
+            {
+                string query = $"INSERT INTO Logs (username, description, LogLevel, LogCategory, Date_Time) values ('{username}', '{description}', '{LogLevel}' , '{LogCategory}', '{DateTime.UtcNow}')";
+
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int s = connection.Execute(query);
+                    if (s == 1)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
+
 
     }
 }
