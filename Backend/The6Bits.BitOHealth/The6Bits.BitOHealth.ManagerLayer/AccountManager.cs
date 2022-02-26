@@ -273,14 +273,80 @@ public class AccountManager
         {
             return unactivated;
         }
-            String SentCode = _AS.VerifyEmail(user.Username, user.Email, DateTime.Now);
-            if (SentCode != "True")
-            {
-                _AS.EmailFailed(user);
-                return SentCode;
-            }
-            return "Email Pending Confirmation";
+        String SentCode = _AS.VerifyEmail(user.Username, user.Email, DateTime.Now);
+        if (SentCode != "True")
+        {
+            _AS.EmailFailed(user);
+            return SentCode;
+        }
+        return "Email Pending Confirmation";
 
         
     }
+
+    public string recoverAccount(AccountRecoveryModel arm)
+    {
+        string ra = _AS.UsernameAndEmailExists(arm.Username, arm.Email);
+        if (ra != "Email and Username found")
+        {
+            return ra;
+        }
+
+        string enabled = _AS.IsEnabled(arm.Username);
+        if (enabled != "enabled")
+        {
+            return "disabled account";
+        }
+        string recoveryValidation = _AS.ValidateRecoveryAttempts(arm.Username);
+        if (recoveryValidation != "under")
+        {
+            return recoveryValidation;
+        }
+        string r = _AS.GenerateRandomString();
+        string email = _AS.SendEmail(arm.Email, "Bit O Health Recovery", "Please click URL within 24 hours to recover your account" +
+            "\n https://localhost:7011/Account/ResetPassword?r=" + r + "&u=" + arm.Username);
+        DateTime dateTime = DateTime.Now;
+
+        if (email != "email sent")
+        {
+            return email;
+        }
+        string updateRecoveryAttempts = _AS.UpdateRecoveryAttempts(arm.Username);
+
+        if (updateRecoveryAttempts != "1")
+        {
+            return updateRecoveryAttempts;
+        }
+
+        string saveCode = _AS.SaveActivationCode(arm.Username, dateTime, r, "Recovery");
+        if (saveCode != "saved")
+        {
+            _AS.DeletePastOTP(arm.Username, "Recovery");
+            _AS.SaveActivationCode(arm.Username, dateTime, r, "Recovery");
+        }
+        return "Recovery Link Sent To Email: " + arm.Email;
+    }
+    public string ResetPassword(string u, string r, string p)
+    {
+        string validateOTP = _AS.ValidateOTP(u, r);
+        if (validateOTP != "valid")
+        {
+            return validateOTP;
+        }
+        string sameDay = _AS.VerifySameDay(u, r);
+        if (sameDay != "1")
+        {
+            return "failed";
+        }
+        string reset = _AS.ResetPassword(p, u);
+        if (reset != "1")
+        {
+            return "password failed to reset";
+        }
+        return "Account Recovered Successfully";
+
+    }
+
+
+
 }
