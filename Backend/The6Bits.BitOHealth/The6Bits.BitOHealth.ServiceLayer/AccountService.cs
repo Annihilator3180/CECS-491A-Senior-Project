@@ -179,6 +179,19 @@ namespace The6Bits.BitOHealth.ServiceLayer
             return _AD.ResetPassword(password,username);
 
         }
+        public string RemoveRecoveryAttempts(string username)
+        {
+            return _AD.RemoveRecoveryAttempts(username);
+        }
+
+        public string GetRecoveryOTP(string username)
+        {
+            return _AD.GetRecoveryOTP(username);
+        }
+        public string GetPassword(string username)
+        {
+            return _AD.GetPassword(username);
+        }
        
     }
    
