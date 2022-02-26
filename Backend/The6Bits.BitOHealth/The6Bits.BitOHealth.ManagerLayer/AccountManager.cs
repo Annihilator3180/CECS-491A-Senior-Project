@@ -2,6 +2,8 @@ using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.BitOHealth.Models;
 using The6Bits.BitOHealth.ServiceLayer;
 using The6Bits.Authentication.Contract;
+using The6Bits.DBErrors;
+using The6Bits.EmailService;
 
 
 namespace The6Bits.BitOHealth.ManagerLayer;
@@ -10,12 +12,17 @@ public class AccountManager
 {
     private IAuthenticationService _authentication;
     private AccountService _AS;
-    
+    private IDBErrors _iDBErrors;
+    private ISMTPEmailServiceShould _EmailService;
 
-    public AccountManager( IRepositoryAuth<string> authdao, IAuthenticationService authenticationService)
+
+
+    public AccountManager(IRepositoryAuth<string> authdao, IAuthenticationService authenticationService, IDBErrors dbError, ISMTPEmailServiceShould email)
     {
+        _iDBErrors = dbError;
+        _EmailService = email;
         _authentication = authenticationService;
-        _AS = new AccountService(authdao);
+        _AS = new AccountService(authdao, dbError, email);
     }
 
     
@@ -24,18 +31,18 @@ public class AccountManager
     public string Login(LoginModel acc)
     {
         bool failedAttemptsNeedsDelete = false;
-        
+
         //CHECK IF USERNAME EXISTS
         string us = _AS.UsernameExists(acc.Username);
         if (us != "username exists")
         {
             return us;
         }
-        
+
         //CHECK IF ACCOUNT IS ENABLED
 
         string isenabled = _AS.IsEnabled(acc.Username);
-        
+
         string firstfaildate = _AS.CheckFailDate(acc.Username);
         
         DateTime temp;
@@ -71,7 +78,7 @@ public class AccountManager
             {
                 //ENABLE ACCOUNT
                 string res = _AS.UpdateIsEnabled(acc.Username, 1);
-                if ( res!= "account updated")
+                if (res != "account updated")
                 {
                     return res;
                 }
@@ -85,7 +92,7 @@ public class AccountManager
             }
 
         }
-        
+
         //VALIDATE OTP
 
         string otp = _AS.ValidateOTP(acc.Username, acc.Code);
@@ -147,9 +154,32 @@ public class AccountManager
             return otp != "valid" ? otp : checkPassword;
         }
 
-        
+
         return _authentication.generateToken(acc.Username);
     }
+
+    public string VerifyAccount(string code, string username)
+    {
+        String StoredCode = _AS.VerifyAccount(username);
+        if (StoredCode.Contains("Database"))
+        {
+            return _iDBErrors.DBErrorCheck(int.Parse(StoredCode));
+        }
+        if (code != StoredCode)
+        {
+            _AS.DeleteCode(username, "Registration");
+            return "Invalid Code";
+        }
+        String DateCheck = _AS.VerifySameDay(code, username, DateTime.Now);
+        _AS.DeleteCode(username, "Registration");
+        if (DateCheck == "True")
+        {
+            return "Account Verified";
+        }
+        return "Code Expired";
+    }
+
+
 
     public bool isTokenValid(string token)
     {
@@ -211,5 +241,35 @@ public class AccountManager
     public string DeleteFailedAttempts(string username)
     {
         return _AS.DeleteFailedAttempts(username);
+    }
+    public string CreateAccount(User user)
+    {
+        if (_AS.ValidateEmail(user.Email) == false)
+        {
+            return "Invalid Email";
+        }
+        else if (_AS.ValidatePassword(user.Password) == false)
+        {
+            return "Invalid Password";
+        }
+        String isValidUsername = _AS.ValidateUsername(user.Username);
+        if (isValidUsername != "new username")
+        {
+            return isValidUsername;
+        }
+        String unactivated = _AS.SaveUnActivatedAccount(user);
+        if (unactivated != "Saved")
+        {
+            return unactivated;
+        }
+            String SentCode = _AS.VerifyEmail(user.Username, user.Email, DateTime.Now);
+            if (SentCode != "True")
+            {
+                _AS.EmailFailed(user);
+                return SentCode;
+            }
+            return "Email Pending Confirmation";
+
+        
     }
 }
