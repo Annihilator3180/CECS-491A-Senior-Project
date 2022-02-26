@@ -46,13 +46,15 @@ public class AccountMsSqlDaoShould : TestsBase
     public void CheckPasswordValid(User u)
     {
         //TEMP CONNSTRING
+
         Ac.Create(u);
 
         var ans = Ac.CheckPassword(u.Username, u.Password);
+
         Assert.Equal("credentials found", ans);
 
-
         Ac.Delete(u);
+
 
     }
 
@@ -183,14 +185,13 @@ public class AccountMsSqlDaoShould : TestsBase
     public void AcceptEULA(User u)
     {
         // Arrange
-        AccountMsSqlDao Ac = new AccountMsSqlDao(_connect);
         Ac.Delete(u);  
         Ac.Create(u);
         // Act
         var ans = Ac.AcceptEULA(u.Username);
         User readuser = Ac.Read(u);
         // Assert
-        Assert.Equal("accepted", readuser.privOption);
+        Assert.Equal(1, readuser.privOption);
     }
 
     [Theory]
@@ -198,14 +199,13 @@ public class AccountMsSqlDaoShould : TestsBase
     public void DeclineEULA(User u)
     {
         // Arrange
-        AccountMsSqlDao Ac = new AccountMsSqlDao(_connect);
         Ac.Delete(u);
         Ac.Create(u);
         // Act
         var ans = Ac.DeclineEULA(u.Username);
         User readuser = Ac.Read(u);
         // Assert
-        Assert.Equal("declined", readuser.privOption);
+        Assert.Equal(0, readuser.privOption);
     }
 
 

@@ -97,8 +97,8 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = "INSERT ACCOUNTS(Username,Email,Password,FirstName,LastName,IsEnabled,IsAdmin,privOption) " +
-                               " values (@Username, @Email, @Password, @FirstName,@LastName, 0,0) ";
+                string query = "INSERT ACCOUNTS (Username,Email,Password,FirstName,LastName,IsEnabled,IsAdmin,privOption) " +
+                               " values (@Username, @Email, @Password, @FirstName,@LastName, 1,0,0) ";
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     int lines_modified = connection.Execute(query,
@@ -109,7 +109,6 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                             Password = user.Password,
                             FirstName = user.FirstName,
                             LastName = user.LastName,
-                            privOption=user.privOption
                         });;
                     connection.Close();
                     if (lines_modified == 0)
@@ -139,9 +138,10 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     return str.First();
                 }
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
-                return new User("100", "100", "100", "100", "100", 100,100);
+                
+                return new User("100", "100", "100", "100", "100", 100,100, 100);
             }
         
         }
@@ -195,8 +195,8 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = "INSERT INTO VerifyCodes (username, CodeDate, code, codetype) " +
-                    "values(@username, @time, @code, @codeType)";
+                string query = "INSERT INTO VerifyCodes (username, time, code, codetype) " +
+                    "values(@username, @codeDate, @code, @codeType)";
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
@@ -205,7 +205,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     new{ 
                         Username = username,
                         codeDate = codeDate,
-                        time = code,
+                        code = code,
                         codetype =  codeType
                     }
                     );
@@ -351,7 +351,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 try
                 {
                     string query = "INSERT into ACCOUNTS(Username,Email,Password,FirstName,LastName,IsEnabled,IsAdmin,privOption) " +
-                                   " values (@Username, @Email, @Password, @FirstName,@LastName, 0,0) ";
+                                   " values (@Username, @Email, @Password, @FirstName,@LastName, 0,0,0) ";
                     using (SqlConnection connection = new SqlConnection(_connectString))
                     {
                         int lines_modified = connection.Execute(query,
@@ -362,7 +362,6 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                                 Password = user.Password,
                                 FirstName = user.FirstName,
                                 LastName = user.LastName,
-                                privOption=user.privOption
                             });
                         connection.Close();
 
@@ -382,7 +381,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = "Select codeDate FROM VerifyCodes WHERE Username = @Username and code =@code ";
+                string query = "Select time FROM VerifyCodes WHERE Username = @Username and code =@code ";
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
@@ -521,11 +520,11 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = $"update Accounts where select count(username) from Accounts where username = '{username}' set privOption = True;";
+                string query = $"update Accounts  set privOption = 1 where username = @Username";
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
-                    int count = connection.ExecuteScalar<int>(query);
+                    int count = connection.ExecuteScalar<int>(query, new { Username = username});
                     return "accepted";
                     // return count.ToString();
                         

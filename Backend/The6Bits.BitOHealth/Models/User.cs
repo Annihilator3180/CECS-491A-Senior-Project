@@ -20,7 +20,6 @@ namespace The6Bits.BitOHealth.Models
         public int IsAdmin { get; set; }
         public int privOption { get; set; }
 
-        public int privOption { get; set; }
 
         public User()
         {
