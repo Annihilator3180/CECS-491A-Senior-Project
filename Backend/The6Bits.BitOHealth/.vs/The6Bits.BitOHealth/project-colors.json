@@ -175,7 +175,17 @@
       "ProjectGuid": "132f4ef6-f6af-4a9b-8c30-ba5a0e912648",
       "DisplayName": "WebAppAPI",
       "ColorIndex": 1
+    },
+    "2f46774b-4c38-4202-9ff8-522280b27b7a": {
+      "ProjectGuid": "2f46774b-4c38-4202-9ff8-522280b27b7a",
+      "DisplayName": "The6Bits.BitOHealth.DAL.Tests",
+      "ColorIndex": 2
+    },
+    "119ce180-1661-4091-91e6-acbe39d37091": {
+      "ProjectGuid": "119ce180-1661-4091-91e6-acbe39d37091",
+      "DisplayName": "The6Bits.BitOHealth.ServiceLayer.Test",
+      "ColorIndex": 3
     }
   },
-  "NextColorIndex": 2
+  "NextColorIndex": 4
 }

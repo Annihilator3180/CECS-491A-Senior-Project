@@ -128,6 +128,12 @@ namespace The6Bits.BitOHealth.ServiceLayer
             return _AD.DeleteFailedAttempts(username);
         }
 
+        public string DeleteAccount(string username)
+        {
+
+            return _AD.DeleteAccount(username) ? "Account Deleted" : "Database Error";
+
+        }
 
     }
 }

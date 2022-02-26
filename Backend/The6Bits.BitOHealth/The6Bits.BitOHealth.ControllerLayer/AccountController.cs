@@ -15,10 +15,12 @@ public class AccountController : ControllerBase
 {
     private AccountManager _AM;
     private LogService logService;
+    private JWTAuthenticationService _JWTAuthenticationService;
     public AccountController(IRepositoryAuth<string> authdao ,ILogDal logDao, IAuthenticationService authenticationService)
     {
         _AM = new AccountManager(authdao,authenticationService);
         logService = new LogService(logDao);
+        _JWTAuthenticationService = new JWTAuthenticationService();
     }
 
     [HttpPost("Login")]
@@ -57,6 +59,14 @@ public class AccountController : ControllerBase
     {
         Response.Cookies.Delete("token");
         return "Account logged out";
+    }
+    // JSON 
+    [HttpPost("Delete")]
+    public string DeleteAccount(string token)
+    {
+
+        return _AM.DeleteAccount(token);
+        //call to terminate token
     }
 
 

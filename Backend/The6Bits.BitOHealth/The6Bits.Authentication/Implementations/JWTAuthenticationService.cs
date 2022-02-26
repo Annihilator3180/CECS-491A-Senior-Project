@@ -1,18 +1,17 @@
 using System.Diagnostics;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using The6Bits.Authentication.Contract;
-
-
-
+using The6Bits.BitOHealth.Models;
 
 namespace The6Bits.Authentication.Implementations;
 
 public class JWTAuthenticationService : IAuthenticationService
 {
-    
+
     private static string Base64UrlEncode(byte[] input)
     {
         var output = Convert.ToBase64String(input);
@@ -21,7 +20,7 @@ public class JWTAuthenticationService : IAuthenticationService
         output = output.Replace('/', '_'); // 63rd char of encoding
         return output;
     }
-    
+
     public string generateToken(string data)
     {
         DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
@@ -31,12 +30,12 @@ public class JWTAuthenticationService : IAuthenticationService
         byte[] keyBytes = Encoding.UTF8.GetBytes(mySecret);
         var segments = new List<string>();
 
-        
-        var header = new { alg ="HS256", typ = "JWT" };
-        var payload = new {username = data, iat = DateTimeOffset.Now.ToUnixTimeSeconds().ToString()};
+
+        var header = new { alg = "HS256", typ = "JWT" };
+        var payload = new { username = data, iat = DateTimeOffset.Now.ToUnixTimeSeconds().ToString() };
         byte[] headerBytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(header));
         byte[] payloadBytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(payload));
-        
+
         segments.Add(Base64UrlEncode(headerBytes));
         segments.Add(Base64UrlEncode(payloadBytes));
         //segments.Add(Encoding.UTF8.GetString(Base64UrlDecode(BYTE ARRAY OF THE DATA STRING HERE)));
@@ -51,7 +50,7 @@ public class JWTAuthenticationService : IAuthenticationService
 
         return string.Join(".", segments.ToArray());
     }
-    
+
     public bool ValidateToken(string token)
     {
         DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
@@ -63,11 +62,11 @@ public class JWTAuthenticationService : IAuthenticationService
         var payload = parts[1];
         byte[] crypto = Base64UrlDecode(parts[2]);
 
-        
+
 
         var bytesToSign = Encoding.UTF8.GetBytes(string.Concat(header, ".", payload));
         var keyBytes = Encoding.UTF8.GetBytes(key);
-        
+
         var sha = new HMACSHA256(keyBytes);
         byte[] signature = sha.ComputeHash(bytesToSign);
         var decodedCrypto = Convert.ToBase64String(crypto);
@@ -77,7 +76,7 @@ public class JWTAuthenticationService : IAuthenticationService
         {
             return false;
         }
-    
+
 
         return true;
     }
@@ -104,5 +103,26 @@ public class JWTAuthenticationService : IAuthenticationService
         }
         var converted = Convert.FromBase64String(output); // Standard base64 decoder
         return converted;
+    }
+
+
+    public string getUsername(string token)
+    {
+    
+        DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
+        string p = di.Parent.ToString();
+        string key = File.ReadAllText(Path.GetFullPath(p + @"/Keys/private-key.pem"));
+
+        var parts = token.Split('.');
+        var header = parts[0];
+        var payload = parts[1];
+
+        var data = Convert.FromBase64String((string)payload);
+
+        var dataString = Encoding.UTF8.GetString(data);
+
+        var user = JsonSerializer.Deserialize<JwtPayloadModel>(dataString);
+
+       return user.username;
     }
 }
