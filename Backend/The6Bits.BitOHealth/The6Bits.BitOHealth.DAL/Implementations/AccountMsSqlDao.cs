@@ -97,7 +97,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = "INSERT ACCOUNTS(Username,Email,Password,FirstName,LastName,IsEnabled,IsAdmin) " +
+                string query = "INSERT ACCOUNTS(Username,Email,Password,FirstName,LastName,IsEnabled,IsAdmin,privOption) " +
                                " values (@Username, @Email, @Password, @FirstName,@LastName, 0,0) ";
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
@@ -108,8 +108,9 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                             Username = user.Username,
                             Password = user.Password,
                             FirstName = user.FirstName,
-                            LastName = user.LastName
-                        });
+                            LastName = user.LastName,
+                            privOption=user.privOption
+                        });;
                     connection.Close();
                     if (lines_modified == 0)
                     {
@@ -194,7 +195,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = "INSERT INTO verification (username, CodeDate, code, codetype) " +
+                string query = "INSERT INTO VerifyCodes (username, CodeDate, code, codetype) " +
                     "values(@username, @codeDate, @code, @codeType)";
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
@@ -349,7 +350,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             {
                 try
                 {
-                    string query = "INSERT into ACCOUNTS(Username,Email,Password,FirstName,LastName,IsEnabled,IsAdmin) " +
+                    string query = "INSERT into ACCOUNTS(Username,Email,Password,FirstName,LastName,IsEnabled,IsAdmin,privOption) " +
                                    " values (@Username, @Email, @Password, @FirstName,@LastName, 0,0) ";
                     using (SqlConnection connection = new SqlConnection(_connectString))
                     {
@@ -360,7 +361,8 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                                 Username = user.Username,
                                 Password = user.Password,
                                 FirstName = user.FirstName,
-                                LastName = user.LastName
+                                LastName = user.LastName,
+                                privOption=user.privOption
                             });
                         connection.Close();
 
@@ -380,7 +382,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = "Select codeDate FROM Verification WHERE Username = @Username and code =@code ";
+                string query = "Select codeDate FROM VerifyCodes WHERE Username = @Username and code =@code ";
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
@@ -403,7 +405,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = "Delete FROM Verification WHERE Username = @Username amd codeType =@codeType ";
+                string query = "Delete FROM VerifyCodes WHERE Username = @Username amd codeType =@codeType ";
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
@@ -427,15 +429,15 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 
             try
             {
-                string query = "Select code FROM Verification WHERE Username = @Username and codeType =@codeType ";
+                string query = "Select code FROM VerifyCodes WHERE Username = @username and codeType =@codetype ";
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
                     var lines = connection.QuerySingle<string>(query, new
                     {
-                        Username = username,
-                        codeType = codeType
+                        username = username,
+                        codetype = codeType
                     }
                     );
                     return lines.ToString();

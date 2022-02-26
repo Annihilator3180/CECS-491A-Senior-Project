@@ -70,7 +70,19 @@ public class AccountMsSqlDaoShould : TestsBase
 
 
     }
-
+    [Theory]
+    [InlineData("Test1","CodeTest","Test")]
+    public void SaveActivationCodeInsert(string username, string code, string codeType)
+    {
+        //arrange
+        DateTime time=DateTime.Now;
+        //act
+        Ac.SaveActivationCode(username,time, code, codeType);
+        String codeResult=Ac.getCode(username, codeType); 
+        //Assert
+        Assert.Equal(code, codeResult);
+        
+    }
     [Theory]
     [InlineData("zz")]
     [InlineData("dasdsadassddasdsa")]
@@ -110,9 +122,49 @@ public class AccountMsSqlDaoShould : TestsBase
         Ac.Delete(u);
 
     }
-    
-    
-    
+    [Theory]
+    [MemberData(nameof(LoadUsersJson))]
+    public void UnactivatedSaveTest(User u)
+    {
+        //arrange
+        Ac.Delete(u);
+        //act
+        String userExist = Ac.UnactivatedSave(u);
+        User result=Ac.Read(u);
+        //Assert
+        Assert.Equal(u.Username, result.Username);
+        Assert.Equal(0, result.IsEnabled);
+        //Cleanup
+        Ac.Delete(u);
+    }
+    [Theory]
+    [MemberData(nameof(LoadUsersJson))]
+    public void UsernameExistsTest(User u)
+    {
+        //arrange
+        Ac.Delete(u);
+        Ac.Create(u);
+        //act
+        String userExist= Ac.UsernameExists(u.Username);
+        //Assert
+        Assert.Equal("username exists", userExist);
+        //Cleanup
+        Ac.Delete(u);
+    }
+
+    [Theory]
+    [MemberData(nameof(LoadUsersJson))]
+    public void UsernameDoesntExistsTest(User u)
+    {
+        //arrange
+        Ac.Delete(u);
+        //act
+        String userExist = Ac.UsernameExists(u.Username);
+        //Assert
+        Assert.Equal("username not found", userExist);
+        //Cleanup
+        Ac.Delete(u);
+    }
     [Theory]
     [MemberData(nameof(LoadUsersJson))]
     public void DeleteTest(User u)
@@ -151,7 +203,7 @@ public class AccountMsSqlDaoShould : TestsBase
     //TODO:DELETE ACCOUNTS AT TEST END
 
     
-    
+    //use when User type needs to be used
     public static IEnumerable<object[]> LoadUsersJson()
     {
         
