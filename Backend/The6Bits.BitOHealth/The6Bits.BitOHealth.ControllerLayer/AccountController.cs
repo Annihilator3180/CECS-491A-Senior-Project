@@ -57,21 +57,46 @@ public class AccountController : ControllerBase
 
 
 
-    [HttpGet("Register")]
+    [HttpPost("Register")]
     public string CreateAccount(User user)
     {
 
-        String emailStatus = _AM.CreateAccount(user);
-        return "0";
+        String CreationStatus = _AM.CreateAccount(user);
+        if (CreationStatus.Contains("Database"))
+        {
+            logService.Log(user.Username, "Registration- " + CreationStatus, "Data Store", "Error");
+            return "Database Error";
+        }
+        else if (CreationStatus == "Email Failed To Send")
+        {
+            logService.Log(user.Username, "Registration- Email Failed To Send", "Business", "Error");
+            return "Email Failed To Send";
+        }
+        else if (CreationStatus != "Email Pending Confirmation") {
+            logService.Log(user.Username, "Registration- "+CreationStatus, "Business", "Information");
+                }
+        else
+        {
+            logService.Log(user.Username, "Verfication Email Sent", "Business", "Information");
+        }
+        return CreationStatus;
     }
     [HttpGet("VerifyAccount")]
     public string VerifyAccount(String Code, String Username)
     {
-        if (Code == "0")
+        String verfied = _AM.VerifyAccount(Code, Username);
+        if (verfied.Contains("Database"))
         {
-            return "Input";
+            logService.Log(Username, "Registration- " + verfied, "Data Store", "Error");
+            return "Database Error";
         }
-        return "no";
+        if(verfied == "Account Verified")
+        {
+            logService.Log(Username, "Registration- Email Verified ", "Business", "Information");
+            return verfied;
+        }
+        logService.Log(Username, "Registration- Email Verified ", "Data Store", "Verified");
+        return verfied;
     }
 
 

@@ -206,10 +206,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                         codeDate = codeDate,
                         code = code , 
                         codetype =  codeType});
-                    if (lines == 1)
-                    {
                         return "True";
-                    };
                 }
             }
             catch (SqlException ex)
@@ -374,6 +371,77 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 
             
         }
+        public string GetTime(string code, string username)
+        {
+            try
+            {
+                string query = "Select codeDate FROM Verification WHERE Username = @Username amd code =@code ";
+
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int lines = connection.Execute(query, new
+                    {
+                        Username = username,
+                        code = code
+                    }
+                    );
+                    return lines.ToString();
+                }
+            }
+            catch (SqlException ex)
+            {
+                return ex.Number.ToString();
+            }
+        }
+        public string DeleteCode(string username, string codeType)
+        {
+            try
+            {
+                string query = "Delete FROM Verification WHERE Username = @Username amd codeType =@codeType ";
+
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int lines = connection.Execute(query, new
+                    {
+                        Username = username,
+                        codeType = codeType
+                    }
+                    );
+                    return "Deleted";
+                }
+            }
+            catch (SqlException ex)
+            {
+                return ex.Number.ToString();
+            }
+        }
+        public string getCode(string username, string codeType)
+        {
+
+            try
+            {
+                string query = "Select code FROM Verification WHERE Username = @Username amd codeType =@codeType ";
+
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int lines = connection.Execute(query, new
+                    {
+                        Username = username,
+                        codeType = codeType
+                    }
+                    );
+                    return lines.ToString();
+                }
+            }
+            catch (SqlException ex)
+            {
+                return ex.Number.ToString();
+            }
+        }
+
         public string DeleteUnActivated(User user)
         {
             try
@@ -394,10 +462,14 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 return ex.Number.ToString();
             }
         }
-    }
+      
+        
+
+    
 
 
-        public string DeleteFailedAttempts(string username)
+
+    public string DeleteFailedAttempts(string username)
         {
             {
                 try

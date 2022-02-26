@@ -125,6 +125,41 @@ namespace The6Bits.BitOHealth.ServiceLayer
             return "new username";
         }
 
+        public string VerifySameDay(string code, string username, DateTime now)
+        {
+            String CreationTime=_AD.GetTime(code,username);
+            try
+            {
+                DateTime ExpirationDate = DateTime.Parse(CreationTime);
+                ExpirationDate.AddDays(1);
+                if (now > ExpirationDate)
+                {
+                    return "True";
+                }
+                return "Code Expired";
+                    }
+            catch(Exception)
+            {
+                return _DBErrors.DBErrorCheck(int.Parse(CreationTime));
+            }
+            
+        }
+
+        public async Task<String> DeleteCode(string username,string codeType)
+        {
+            return _AD.DeleteCode(username,codeType);
+        }
+
+        public string VerifyAccount(string username)
+        {
+
+           string codeinDB = _AD.getCode(username, "Registration");
+            if (codeinDB.Length > 10)
+            {
+                return _DBErrors.DBErrorCheck(int.Parse(codeinDB));
+            }
+            return codeinDB;
+        }
 
         public string ValidateOTP(string username, string code)
         {
