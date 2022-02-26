@@ -5,6 +5,7 @@ using The6Bits.BitOHealth.DAL;
 using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.BitOHealth.ManagerLayer;
 using The6Bits.BitOHealth.Models;
+using The6Bits.BitOHealth.ServiceLayer;
 using The6Bits.Logging.DAL.Contracts;
 using The6Bits.Logging.Implementations;
 
@@ -16,7 +17,9 @@ public class AccountController : ControllerBase
     private AccountManager _AM;
     private LogService logService;
     private JWTAuthenticationService _JWTAuthenticationService;
-    public AccountController(IRepositoryAuth<string> authdao ,ILogDal logDao, IAuthenticationService authenticationService)
+    public AccountController(IRepositoryAuth<string> authdao,
+        ILogDal logDao, 
+        IAuthenticationService authenticationService)
     {
         _AM = new AccountManager(authdao,authenticationService);
         logService = new LogService(logDao);

@@ -12,7 +12,9 @@ public class AccountManager
     private AccountService _AS;
     
 
-    public AccountManager( IRepositoryAuth<string> authdao, IAuthenticationService authenticationService)
+    public AccountManager( IRepositoryAuth<string> authdao, 
+        IAuthenticationService authenticationService
+    )
     {
         _authentication = authenticationService;
         _AS = new AccountService(authdao);

@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
@@ -53,9 +54,11 @@ public class JWTAuthenticationService : IAuthenticationService
 
     public bool ValidateToken(string token)
     {
-        DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
-        string p = di.Parent.ToString();
-        string key = File.ReadAllText(Path.GetFullPath(p + @"/Keys/private-key.pem"));
+        //DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
+        //string p = di.Parent.ToString();
+        var code = Assembly.GetExecutingAssembly().CodeBase;
+        var root = Path.GetDirectoryName(Uri.UnescapeDataString((new UriBuilder(code)).Path));
+        string key = File.ReadAllText(Path.GetFullPath(root + @"/Keys/private-key.pem"));
 
         var parts = token.Split('.');
         var header = parts[0];
@@ -108,10 +111,14 @@ public class JWTAuthenticationService : IAuthenticationService
 
     public string getUsername(string token)
     {
-    
+
         DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
-        string p = di.Parent.ToString();
-        string key = File.ReadAllText(Path.GetFullPath(p + @"/Keys/private-key.pem"));
+        //string p = di.Parent.ToString();
+        //string key = File.ReadAllText(Path.GetFullPath(p + @"/Keys/private-key.pem"));
+
+        var code= Assembly.GetExecutingAssembly().CodeBase;
+        var root = Path.GetDirectoryName(Uri.UnescapeDataString((new UriBuilder(code)).Path));
+        string key = File.ReadAllText(Path.GetFullPath(root + @"/Keys/private-key.pem"));
 
         var parts = token.Split('.');
         var header = parts[0];

@@ -6,6 +6,8 @@ using The6Bits.BitOHealth.DAL.Implementations;
 using The6Bits.BitOHealth.Models;
 using Xunit;
 using System.Text.Json;
+using The6Bits.Authentication.Implementations;
+using The6Bits.BitOHealth.ManagerLayer;
 //using Microsoft.Extensions.Configuration;
 
 namespace The6Bits.BitOHealth.DAL.Tests;
@@ -98,11 +100,26 @@ public class AccountMsSqlDaoShould : TestsBase
 
 
 
-//DELETE TESTING ITEMS FROM DB
+    //DELETE TESTING ITEMS FROM DB
     //TODO:DELETE ACCOUNTS AT TEST END
 
-    
-    
+    [Theory]
+    [InlineData("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZpcnN0dXNlcjI5IiwiaWF0IjoiMTY0NTg3ODY5MCJ9.Mc4sn8bISBBYySLC2e39eadmlL8QusR2OSibNrkAH7M")]
+
+    public void DeleteAccountShouldSuccessful(string userName)
+    {
+        var repoAuth = new AccountMsSqlDao(_connect);
+        var authService = new JWTAuthenticationService();
+
+        var accountManager = new AccountManager(repoAuth, authService);
+
+        var result = accountManager.DeleteAccount(userName);
+
+        Assert.True(result == "Account Deleted");
+    }
+
+
+
     public static IEnumerable<object[]> LoadUsersJson()
     {
         

@@ -185,7 +185,17 @@
       "ProjectGuid": "119ce180-1661-4091-91e6-acbe39d37091",
       "DisplayName": "The6Bits.BitOHealth.ServiceLayer.Test",
       "ColorIndex": 3
+    },
+    "cc1e728b-e33d-45d5-999b-55acd879391c": {
+      "ProjectGuid": "cc1e728b-e33d-45d5-999b-55acd879391c",
+      "DisplayName": "The6Bits.Authentication",
+      "ColorIndex": 4
+    },
+    "b9e84952-e4b2-48bb-a7cd-89197f6b5a77": {
+      "ProjectGuid": "b9e84952-e4b2-48bb-a7cd-89197f6b5a77",
+      "DisplayName": "The6Bits.Authorization.Tests",
+      "ColorIndex": 5
     }
   },
-  "NextColorIndex": 4
+  "NextColorIndex": 6
 }

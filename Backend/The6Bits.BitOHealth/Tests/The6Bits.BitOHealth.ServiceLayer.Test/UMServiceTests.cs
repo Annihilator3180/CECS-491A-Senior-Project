@@ -3,6 +3,10 @@ using The6Bits.BitOHealth.ServiceLayer;
 using The6Bits.BitOHealth.Models;
 using Xunit;
 using The6Bits.BitOHealth.DAL.Implementations;
+using The6Bits.BitOHealth.DAL.Contract;
+using Moq;
+using The6Bits.Authentication.Contract;
+using The6Bits.BitOHealth.ManagerLayer;
 
 namespace The6Bits.BitOHealth.ServiceLayer.Tests
 {
@@ -53,14 +57,16 @@ namespace The6Bits.BitOHealth.ServiceLayer.Tests
         }
 
 
-        [Fact]
-        public void ValidUsername()
-        {
-            UMService Service = new UMService(new MsSqlUMDAO<User>());
-            string UserName = "UsernameGood@1";
-            string returnString = Service.ValidateUsername(UserName);
-            Assert.Equal("new username", returnString);
-        }
+        //[Fact]
+        //public void ValidUsername()
+        //{
+        //    UMService Service = new UMService(new MsSqlUMDAO<User>());
+        //    string UserName = "UsernameGood@1";
+        //    string returnString = Service.ValidateUsername(UserName);
+        //    Assert.Equal("new username", returnString);
+        //}
+
+
         [Theory]
         [InlineData("Short1")]
         [InlineData("$$$$$$$$$$$$$$$$$$$$$")]
@@ -72,5 +78,26 @@ namespace The6Bits.BitOHealth.ServiceLayer.Tests
             Assert.Equal("Invalid Username", returnString);
         }
 
+        //[Fact]
+        //public void DeleteAccountShouldSuccessfull()
+        //{
+        //    var repoAuth = new Mock<IRepositoryAuth<string>>();
+        //    var authService = new Mock<IAuthenticationService>();
+        //    var accountService = new Mock<IAccountService>();
+
+        //    var accountManager = new AccountManager(repoAuth.Object, authService.Object, accountService.Object);
+
+        //    authService.Setup(_ => _.ValidateToken(It.IsAny<string>())).Returns(true);
+
+        //    authService.Setup(_ => _.getUsername(It.IsAny<string>())).Returns("test username");
+
+        //    accountService.Setup(_ => _.UsernameExists(It.IsAny<string>())).Returns("username exists");
+
+        //    accountService.Setup(_ => _.DeleteAccount(It.IsAny<string>())).Returns("Account Deleted");
+
+        //    var result = accountManager.DeleteAccount("");
+
+        //    Assert.True(result == "Account Deleted");
+        //}
     }
 }

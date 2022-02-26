@@ -23,11 +23,11 @@ namespace The6Bits.BitOHealth.Demo
         {
             string connectstring = @"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;";
             bool loggedin = false;
-            string token ="";
+            string token = "";
             while (!loggedin)
             {
-                
-               
+
+
                 try
                 {
                     AuthenticationController AC = new AuthenticationController(new AuthMsSqlDao(), new DESAuthorizationService());
@@ -56,7 +56,9 @@ namespace The6Bits.BitOHealth.Demo
             ac.Archive();
 
 
-            UMController um = new UMController(new MsSqlUMDAO<User>(connectstring), new DESAuthorizationService()  , new SQLLogDAO() { _connectString = connectstring
+            UMController um = new UMController(new MsSqlUMDAO<User>(connectstring), new DESAuthorizationService(), new SQLLogDAO()
+            {
+                _connectString = connectstring
             }, "boofman2", token);
             bool done = false;
             while (done != true)
@@ -235,7 +237,7 @@ namespace The6Bits.BitOHealth.Demo
                     User newUser = new User();
                     Task.Run(() => um.EnableAccount(userName));
                 }
-                else if (a[0] == "disable") 
+                else if (a[0] == "disable")
                 {
                     userName = a[1];
                     User newUser = new User();
@@ -267,7 +269,7 @@ namespace The6Bits.BitOHealth.Demo
             int enabled = Int32.Parse(Console.ReadLine());
 
             User user = new User(userName, email, password, firstN, lastN, admin, enabled);
-            Console.WriteLine( um.CreateAccount(user));
+            Console.WriteLine(um.CreateAccount(user));
         }
 
     }

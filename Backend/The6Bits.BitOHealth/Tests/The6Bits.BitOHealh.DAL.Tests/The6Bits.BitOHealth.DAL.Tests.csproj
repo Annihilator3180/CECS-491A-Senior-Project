@@ -18,8 +18,25 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\The6Bits.Authentication\The6Bits.Authentication.csproj" />
     <ProjectReference Include="..\..\The6Bits.BitOHealth.DAL\The6Bits.BitOHealth.DAL.csproj" />
     <ProjectReference Include="..\..\Models\The6Bits.BitOHealth.Models.csproj" />
+    <ProjectReference Include="..\..\The6Bits.BitOHealth.ManagerLayer\The6Bits.BitOHealth.ManagerLayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Keys\.DS_Store">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Keys\private-key.pem">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Keys\public-key.pem">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Keys\publicKey.pem">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

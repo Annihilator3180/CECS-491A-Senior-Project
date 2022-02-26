@@ -9,7 +9,7 @@ using The6Bits.BitOHealth.Models;
 
 namespace The6Bits.BitOHealth.ServiceLayer
 {
-    public class AccountService
+    public class AccountService 
     {
         private IRepositoryAuth<string> _AD;
         public AccountService(IRepositoryAuth<string> daotype)
