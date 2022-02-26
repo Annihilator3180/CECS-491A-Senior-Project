@@ -11,7 +11,15 @@ namespace The6Bits.BitOHealth.DAL.Contract
     {
         string UsernameExists(string username);
         string UserRole(string username);
-        string CheckPassword(string username,string password);
+        string CheckPassword(string username, string password);
+        //string UsernameAndEmailExists(string username, string email);
+        //public string IsEnabled(string username);
+        //public string ValidateRecoveryAttempts(string username);
+
+        public string UpdateRecoveryAttempts(string username);
+
+
+
 
         public bool Create(User user);
         public User Read(User user);
@@ -34,5 +42,10 @@ namespace The6Bits.BitOHealth.DAL.Contract
         public string DeleteFailedAttempts(string username);
         public string AcceptEULA(string username);
         public string DeclineEula(string username);
+        public string UnactivatedSave(User user);
+        public string DeleteUnActivated(User user);
+        public string getCode(string username, string codeType);
+        public String DeleteCode(string username, string codeType);
+        public string GetTime(string code, string username);
     }
 }

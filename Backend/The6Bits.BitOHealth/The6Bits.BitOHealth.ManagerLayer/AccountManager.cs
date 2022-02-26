@@ -2,6 +2,8 @@ using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.BitOHealth.Models;
 using The6Bits.BitOHealth.ServiceLayer;
 using The6Bits.Authentication.Contract;
+using The6Bits.DBErrors;
+using The6Bits.EmailService;
 
 
 namespace The6Bits.BitOHealth.ManagerLayer;
@@ -10,36 +12,41 @@ public class AccountManager
 {
     private IAuthenticationService _authentication;
     private AccountService _AS;
-    
+    private IDBErrors _iDBErrors;
+    private ISMTPEmailServiceShould _EmailService;
 
-    public AccountManager( IRepositoryAuth<string> authdao, IAuthenticationService authenticationService)
+
+
+    public AccountManager(IRepositoryAuth<string> authdao, IAuthenticationService authenticationService, IDBErrors dbError, ISMTPEmailServiceShould email)
     {
+        _iDBErrors = dbError;
+        _EmailService = email;
         _authentication = authenticationService;
-        _AS = new AccountService(authdao);
+        _AS = new AccountService(authdao, dbError, email);
     }
 
-    
+
     //TODO:Safer parse int
     public string Login(LoginModel acc)
     {
         bool failedAttemptsNeedsDelete = false;
-        
+
         //CHECK IF USERNAME EXISTS
         string us = _AS.UsernameExists(acc.Username);
         if (us != "username exists")
         {
             return us;
         }
-        
+
         //CHECK IF ACCOUNT IS ENABLED
 
         string isenabled = _AS.IsEnabled(acc.Username);
-        
+
         string firstfaildate = _AS.CheckFailDate(acc.Username);
-        
+
         if (firstfaildate != "none")
         {
-            
+
             failedAttemptsNeedsDelete = DateTime.Parse(firstfaildate).AddDays(1) < DateTime.UtcNow;
 
         }
@@ -60,7 +67,7 @@ public class AccountManager
             {
                 //ENABLE ACCOUNT
                 string res = _AS.UpdateIsEnabled(acc.Username, 1);
-                if ( res!= "account updated")
+                if (res != "account updated")
                 {
                     return res;
                 }
@@ -74,14 +81,14 @@ public class AccountManager
             }
 
         }
-        
+
         //VALIDATE OTP
 
         string otp = _AS.ValidateOTP(acc.Username, acc.Code);
-        
-        
+
+
         string cp = _AS.CheckPassword(acc.Username, acc.Password);
-        
+
         if (otp != "valid" || cp != "credentials found")
         {
             //UPDATE FAILED ATTEMPT
@@ -109,14 +116,37 @@ public class AccountManager
 
                 }
             }
-            
-            
+
+
             return otp != "valid" ? otp : cp;
         }
 
-        
+
         return _authentication.generateToken(acc.Username);
     }
+
+    public string VerifyAccount(string code, string username)
+    {
+        String StoredCode = _AS.VerifyAccount(username);
+        if (StoredCode.Contains("Database"))
+        {
+            return _iDBErrors.DBErrorCheck(int.Parse(StoredCode));
+        }
+        if (code != StoredCode)
+        {
+            _AS.DeleteCode(username, "Registration");
+            return "Invalid Code";
+        }
+        String DateCheck = _AS.VerifySameDay(code, username, DateTime.Now);
+        _AS.DeleteCode(username, "Registration");
+        if (DateCheck == "True")
+        {
+            return "Account Verified";
+        }
+        return "Code Expired";
+    }
+
+
 
     public bool isTokenValid(string token)
     {
@@ -143,14 +173,14 @@ public class AccountManager
         string email = _AS.GetEmail(username);
         //TODO:SEND CODE
         Random rnd = new Random();
-        string code  = rnd.Next(1000, 9999).ToString();
-        
+        string code = rnd.Next(1000, 9999).ToString();
+
         //SEND CODE
 
-        string del = _AS.DeletePastOTP(username,"OTP");
+        string del = _AS.DeletePastOTP(username, "OTP");
 
         string save = _AS.SaveActivationCode(username, DateTime.UtcNow, code, "OTP");
-        
+
         return code;
 
 
@@ -166,4 +196,34 @@ public class AccountManager
         return _AS.AcceptEULA(username);
     }
 
+    public string CreateAccount(User user)
+    {
+        if (_AS.ValidateEmail(user.Email) == false)
+        {
+            return "Invalid Email";
+        }
+        else if (_AS.ValidatePassword(user.Password) == false)
+        {
+            return "Invalid Password";
+        }
+        String isValidUsername = _AS.ValidateUsername(user.Username);
+        if (isValidUsername != "new username")
+        {
+            return isValidUsername;
+        }
+        String unactivated = _AS.SaveUnActivatedAccount(user);
+        if (unactivated != "Saved")
+        {
+            return unactivated;
+        }
+            String SentCode = _AS.VerifyEmail(user.Username, user.Email, DateTime.Now);
+            if (SentCode != "True")
+            {
+                _AS.EmailFailed(user);
+                return SentCode;
+            }
+            return "Email Pending Confirmation";
+
+        
+    }
 }
