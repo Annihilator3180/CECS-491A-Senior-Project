@@ -65,6 +65,7 @@ namespace The6Bits.Logging.DAL.Implementations
 
         public bool RegistrationChecker(string username, string description, string LogLevel, string LogCategory)
         {
+            //select date count, check if table has instance for given date
             try
             {
                 string query = $"INSERT INTO Logs (username, description, LogLevel, LogCategory, Date_Time) values ('{username}', '{description}', '{LogLevel}' , '{LogCategory}', '{DateTime.UtcNow}')";
@@ -85,6 +86,18 @@ namespace The6Bits.Logging.DAL.Implementations
                 return false;
             }
 
+        }
+
+        public bool RegistrationLog(string username, string description, string LogLevel, string LogCategory)
+        {
+            //update table and add plus one to given date
+            return false;
+        }
+
+        public bool RegistrationInsert(string username, string description, string LogLevel, string LogCategory)
+        {
+            //insert to table new row for given date
+            return false;
         }
 
 
