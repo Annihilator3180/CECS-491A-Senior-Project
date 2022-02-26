@@ -54,32 +54,40 @@ public class JWTAuthenticationService : IAuthenticationService
     
     public bool ValidateToken(string token)
     {
-        DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
-        string p = di.Parent.ToString();
-        string key = File.ReadAllText(Path.GetFullPath(p + @"/Keys/private-key.pem"));
+        try
+        {
+            DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
+            string p = di.Parent.ToString();
+            string key = File.ReadAllText(Path.GetFullPath(p + @"/Keys/private-key.pem"));
 
-        var parts = token.Split('.');
-        var header = parts[0];
-        var payload = parts[1];
-        byte[] crypto = Base64UrlDecode(parts[2]);
+            var parts = token.Split('.');
+            var header = parts[0];
+            var payload = parts[1];
+            byte[] crypto = Base64UrlDecode(parts[2]);
 
-        
 
-        var bytesToSign = Encoding.UTF8.GetBytes(string.Concat(header, ".", payload));
-        var keyBytes = Encoding.UTF8.GetBytes(key);
-        
-        var sha = new HMACSHA256(keyBytes);
-        byte[] signature = sha.ComputeHash(bytesToSign);
-        var decodedCrypto = Convert.ToBase64String(crypto);
-        var decodedSignature = Convert.ToBase64String(signature);
 
-        if (decodedCrypto != decodedSignature)
+            var bytesToSign = Encoding.UTF8.GetBytes(string.Concat(header, ".", payload));
+            var keyBytes = Encoding.UTF8.GetBytes(key);
+
+            var sha = new HMACSHA256(keyBytes);
+            byte[] signature = sha.ComputeHash(bytesToSign);
+            var decodedCrypto = Convert.ToBase64String(crypto);
+            var decodedSignature = Convert.ToBase64String(signature);
+
+            if (decodedCrypto != decodedSignature)
+            {
+                return false;
+            }
+
+
+            return true;
+        }
+        catch
         {
             return false;
         }
-    
 
-        return true;
     }
 
 

@@ -31,7 +31,7 @@ namespace WebAppMVC.Development
         
         public bool buildVerifyCodes(string connStr)
         {
-            var AccountsStr = "If not exists (select name from sysobjects where name = 'VerifyCodes')CREATE TABLE VerifyCodes ( username VARCHAR(30),time DateTime,code VARCHAR(30),codeType VARCHAR(30),primary key(username, codeType)); ";
+            var AccountsStr = "If not exists (select name from sysobjects where name = 'VerifyCodes') CREATE TABLE VerifyCodes ( username VARCHAR(30) NOT NULL primary key, time DateTime, code VARCHAR(30), codeType VARCHAR(30))";
             var conn = new SqlConnection(connStr);
             using (SqlCommand command = new SqlCommand(AccountsStr, conn))
             {
