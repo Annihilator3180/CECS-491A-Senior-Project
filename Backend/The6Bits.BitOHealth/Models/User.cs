@@ -19,13 +19,13 @@ namespace The6Bits.BitOHealth.Models
 
         public int IsAdmin { get; set; }
 
-        public bool privOption { get; set; }
+        public int privOption { get; set; }
 
         public User()
         {
         }
 
-        public User(string username, string email, string password, string first, string last, int isEnabled, int isAdmin, bool privOption)
+        public User(string username, string email, string password, string first, string last, int isEnabled, int isAdmin, int privOption)
         {
             FirstName = first;
             LastName = last;
