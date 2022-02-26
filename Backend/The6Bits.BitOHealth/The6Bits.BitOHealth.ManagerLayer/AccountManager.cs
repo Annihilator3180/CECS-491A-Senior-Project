@@ -123,30 +123,8 @@ public class AccountManager
     public string VerifyAccount(string code, string username)
     {
         String StoredCode = _AS.VerifyAccount(username);
-        if (StoredCode.Contains("Database"))
-        {
+        if (StoredCode.Contains("Database"))        {
             return _iDBErrors.DBErrorCheck(int.Parse(StoredCode));
-        }
-        if (code != StoredCode)
-        {
-            _AS.DeleteCode(username, "Registration");
-            return "Invalid Code";
-        }
-        String DateCheck = _AS.VerifySameDay(code, username, DateTime.Now);
-        _AS.DeleteCode(username, "Registration");
-        if (DateCheck == "True")
-        {
-            return "Account Verified";
-        }
-        return DateCheck;
-    }
-
-    public string recoverAccount(AccountRecoveryModel arm)
-    {
-        string ra = _AS.UsernameAndEmailExists(arm.Username, arm.Email);
-        if (ra != "Email and Username found")
-        {
-            return ra;
         }
         if (code != StoredCode)
         {

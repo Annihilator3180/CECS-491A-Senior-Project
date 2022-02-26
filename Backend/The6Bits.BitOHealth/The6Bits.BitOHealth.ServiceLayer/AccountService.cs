@@ -9,7 +9,6 @@ using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.BitOHealth.Models;
 using The6Bits.DBErrors;
 
-using The6Bits.EmailService;
 namespace The6Bits.BitOHealth.ServiceLayer
 {
     public class AccountService
@@ -263,23 +262,8 @@ namespace The6Bits.BitOHealth.ServiceLayer
             return _AD.DeleteFailedAttempts(username);
         }
 
-        public string GenerateRandomString()
-        {
-            Random random = new Random();
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefhijklmnopqrstuvwxyz0123456789";
-            var builder = new StringBuilder();
-            for (int i = 0; i < 10; i++)
-            {
-                char c = chars[random.Next(chars.Length)];
-                builder.Append(c);
 
-            }
-            return builder.ToString();
-        }
+
+
     }
-
-
-
-
 }
-
