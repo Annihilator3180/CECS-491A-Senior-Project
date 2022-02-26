@@ -104,9 +104,11 @@ public class AccountMsSqlDaoShould : TestsBase
     //TODO:DELETE ACCOUNTS AT TEST END
 
     [Theory]
-    [InlineData("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZpcnN0dXNlcjI5IiwiaWF0IjoiMTY0NTg3ODY5MCJ9.Mc4sn8bISBBYySLC2e39eadmlL8QusR2OSibNrkAH7M")]
+    [InlineData("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZpcnN0dXNlcjI5IiwiaWF0IjoiMTY0NTg4NDk1MSJ9.cmJd7MeZA625rGOAbZa8VX-rqCzSzoGLzT6UDTH9J1U")]
+    [InlineData("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZpcnN0dXNlcjI5IiwiaWF0IjoiMTY0NTg4NDgyMCJ9.FJ1qz-IooxUXtesazX36FaVDqT-XImRdwpAqd81Pg5A")]
 
-    public void DeleteAccountShouldSuccessful(string userName)
+
+    public void DeleteAccountValid(string userName)
     {
         var repoAuth = new AccountMsSqlDao(_connect);
         var authService = new JWTAuthenticationService();
