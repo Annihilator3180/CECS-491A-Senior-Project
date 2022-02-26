@@ -3,6 +3,10 @@ using The6Bits.BitOHealth.ServiceLayer;
 using The6Bits.BitOHealth.Models;
 using Xunit;
 using The6Bits.BitOHealth.DAL.Implementations;
+using The6Bits.BitOHealth.DAL.Contract;
+using Moq;
+using The6Bits.Authentication.Contract;
+using The6Bits.BitOHealth.ManagerLayer;
 
 namespace The6Bits.BitOHealth.ServiceLayer.Tests
 {
@@ -53,14 +57,16 @@ namespace The6Bits.BitOHealth.ServiceLayer.Tests
         }
 
 
-        [Fact]
-        public void ValidUsername()
-        {
-            UMService Service = new UMService(new MsSqlUMDAO<User>());
-            string UserName = "UsernameGood@1";
-            string returnString = Service.ValidateUsername(UserName);
-            Assert.Equal("new username", returnString);
-        }
+        //[Fact]
+        //public void ValidUsername()
+        //{
+        //    UMService Service = new UMService(new MsSqlUMDAO<User>());
+        //    string UserName = "UsernameGood@1";
+        //    string returnString = Service.ValidateUsername(UserName);
+        //    Assert.Equal("new username", returnString);
+        //}
+
+
         [Theory]
         [InlineData("Short1")]
         [InlineData("$$$$$$$$$$$$$$$$$$$$$")]
@@ -71,6 +77,7 @@ namespace The6Bits.BitOHealth.ServiceLayer.Tests
             string returnString = Service.ValidateUsername(Username);
             Assert.Equal("Invalid Username", returnString);
         }
+
 
     }
 }

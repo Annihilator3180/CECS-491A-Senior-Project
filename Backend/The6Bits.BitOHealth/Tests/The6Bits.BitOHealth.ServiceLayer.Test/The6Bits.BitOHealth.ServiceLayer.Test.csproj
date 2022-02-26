@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
+    <PackageReference Include="Moq" Version="4.16.1" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -29,6 +30,22 @@
     <ProjectReference Include="..\Models\The6Bits.BitOHealth.Models.csproj" />
     <ProjectReference Include="..\The6Bits.BitOHealth.DAL\The6Bits.BitOHealth.DAL.csproj" />
     <ProjectReference Include="..\The6Bits.BitOHealth.ServiceLayer\The6Bits.BitOHealth.ServiceLayer.csproj" />
+    <ProjectReference Include="..\..\The6Bits.Authentication\The6Bits.Authentication.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Keys\.DS_Store">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Keys\private-key.pem">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Keys\public-key.pem">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Keys\publicKey.pem">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

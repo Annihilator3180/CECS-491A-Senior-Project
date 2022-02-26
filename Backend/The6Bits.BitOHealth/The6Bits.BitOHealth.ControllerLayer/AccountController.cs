@@ -5,6 +5,7 @@ using The6Bits.BitOHealth.DAL;
 using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.BitOHealth.ManagerLayer;
 using The6Bits.BitOHealth.Models;
+using The6Bits.BitOHealth.ServiceLayer;
 using The6Bits.Logging.DAL.Contracts;
 using The6Bits.Logging.Implementations;
 using The6Bits.DBErrors;
@@ -81,6 +82,15 @@ public class AccountController : ControllerBase
     {
         Response.Cookies.Delete("token");
         return "Account logged out";
+    }
+    // JSON 
+    [HttpPost("Delete")]
+    public string DeleteAccount(string token)
+    {
+
+        string del =  _AM.DeleteAccount(token);
+        Response.Cookies.Delete(token);
+        return del;
     }
 
 

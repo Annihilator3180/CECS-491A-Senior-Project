@@ -16,7 +16,7 @@ using The6Bits.BitOHealth.DAL.Implementations;
 
 namespace The6Bits.BitOHealth.ServiceLayer
 {
-    public class AccountService
+    public class AccountService 
     {
         private IRepositoryAuth<string> _AD;
         private IDBErrors _DBErrors;
@@ -441,6 +441,12 @@ namespace The6Bits.BitOHealth.ServiceLayer
             return _AD.GetPassword(username);
         }
 
+        public string DeleteAccount(string username)
+        {
+
+            return _AD.DeleteAccount(username) ? "Account Deleted" : "Database Error";
+
+        }
 
     }
 

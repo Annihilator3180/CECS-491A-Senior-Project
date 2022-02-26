@@ -8,6 +8,8 @@ using Xunit;
 using System.Text.Json;
 using The6Bits.BitOHealth.DAL.Contract;
 
+using The6Bits.Authentication.Implementations;
+using The6Bits.BitOHealth.ManagerLayer;
 //using Microsoft.Extensions.Configuration;
 
 namespace The6Bits.BitOHealth.DAL.Tests;
@@ -211,17 +213,28 @@ public class AccountMsSqlDaoShould : TestsBase
 
 
 
-
-
-
-
-
-
-//DELETE TESTING ITEMS FROM DB
+    //DELETE TESTING ITEMS FROM DB
     //TODO:DELETE ACCOUNTS AT TEST END
 
-    
-    //use when User type needs to be used
+    [Theory]
+    [InlineData("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZpcnN0dXNlcjI5IiwiaWF0IjoiMTY0NTg4NTY1NCJ9.lDE7wMZHk3bAxj6dYd2V6fSl5OddworGmB6mw5zn5bw")]
+    [InlineData("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZpcnN0dXNlcjI5IiwiaWF0IjoiMTY0NTg4NDgyMCJ9.FJ1qz-IooxUXtesazX36FaVDqT-XImRdwpAqd81Pg5A")]
+
+
+    public void DeleteAccountValid(string userName)
+    {
+        var AC = new AccountMsSqlDao(_connect);
+        var AS = new JWTAuthenticationService();
+
+        var AM = new AccountManager(AC, AS);
+
+        var result = AM.DeleteAccount(userName);
+
+        Assert.True(result == "Account Deleted");
+    }
+
+
+
     public static IEnumerable<object[]> LoadUsersJson()
     {
         

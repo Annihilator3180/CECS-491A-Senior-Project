@@ -5,6 +5,7 @@ using The6Bits.BitOHealth.DAL;
 using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.BitOHealth.DAL.Implementations;
 using The6Bits.BitOHealth.Models;
+using The6Bits.BitOHealth.ServiceLayer;
 using The6Bits.Logging.DAL.Contracts;
 using The6Bits.Logging.DAL.Implementations;
 using The6Bits.DBErrors;
@@ -35,6 +36,7 @@ builder.Services.AddTransient<IAuthenticationService, JWTAuthenticationService>(
 builder.Services.AddTransient<IDBErrors, MsSqlDerrorService>();
 builder.Services.AddTransient<ISMTPEmailServiceShould, SMTPEmailService>();
 builder.Services.AddScoped<ILogDal, SQLLogDAO>();
+//builder.Services.AddTransient<IAccountService, AccountService>();
 
 var app = builder.Build();
 

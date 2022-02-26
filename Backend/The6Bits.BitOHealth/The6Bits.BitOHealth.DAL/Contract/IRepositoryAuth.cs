@@ -58,5 +58,9 @@ namespace The6Bits.BitOHealth.DAL.Contract
 
         public string RemoveRecoveryAttempts(string username);
 
+        public bool DeleteAccount(string username);
+
+
+
     }
 }

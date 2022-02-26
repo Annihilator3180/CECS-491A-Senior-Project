@@ -17,4 +17,19 @@
     <ProjectReference Include="..\The6Bits.EmailService\The6Bits.SMTPEmailService.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Keys\.DS_Store">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Keys\private-key.pem">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Keys\public-key.pem">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Keys\publicKey.pem">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

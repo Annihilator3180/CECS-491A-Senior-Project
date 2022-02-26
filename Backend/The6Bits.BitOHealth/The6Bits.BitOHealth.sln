@@ -38,6 +38,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.Authorization", "The6Bits.Authorization\The6Bits.Authorization.csproj", "{5C85CA0C-9442-4807-B053-5A7825CD83EB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{FA5BFC28-6E48-4A14-8698-79CA6508D73A}"
+	ProjectSection(SolutionItems) = preProject
+		Tests\.DS_Store = Tests\.DS_Store
+		Tests\TestAccountData.json = Tests\TestAccountData.json
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.Authorization.Tests", "Tests\The6Bits.Authorization.Tests\The6Bits.Authorization.Tests.csproj", "{B9E84952-E4B2-48BB-A7CD-89197F6B5A77}"
 EndProject
