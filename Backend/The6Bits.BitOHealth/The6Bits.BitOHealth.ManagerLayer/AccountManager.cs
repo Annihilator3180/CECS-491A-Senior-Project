@@ -242,6 +242,17 @@ public class AccountManager
     {
         return _AS.DeleteFailedAttempts(username);
     }
+
+    public string AcceptEULA(string username)
+    {
+        return _AS.AcceptEULA(username);
+    }
+
+    public string DeclineEULA(string username)
+    {
+        return _AS.DeclineEULA(username);
+    }
+
     public string CreateAccount(User user)
     {
         if (_AS.ValidateEmail(user.Email) == false)

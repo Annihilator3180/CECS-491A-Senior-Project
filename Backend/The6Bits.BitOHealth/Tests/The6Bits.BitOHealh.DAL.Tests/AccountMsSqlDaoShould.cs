@@ -178,6 +178,35 @@ public class AccountMsSqlDaoShould : TestsBase
         Assert.Equal(0,Ac.Read(u).IsEnabled);
 
     }
+    [Theory]
+    [MemberData(nameof(LoadUsersJson))]
+    public void AcceptEULA(User u)
+    {
+        // Arrange
+        AccountMsSqlDao Ac = new AccountMsSqlDao(_connect);
+        Ac.Delete(u);  
+        Ac.Create(u);
+        // Act
+        var ans = Ac.AcceptEULA(u.Username);
+        User readuser = Ac.Read(u);
+        // Assert
+        Assert.Equal("accepted", readuser.privOption);
+    }
+
+    [Theory]
+    [MemberData(nameof(LoadUsersJson))]
+    public void DeclineEULA(User u)
+    {
+        // Arrange
+        AccountMsSqlDao Ac = new AccountMsSqlDao(_connect);
+        Ac.Delete(u);
+        Ac.Create(u);
+        // Act
+        var ans = Ac.DeclineEULA(u.Username);
+        User readuser = Ac.Read(u);
+        // Assert
+        Assert.Equal("declined", readuser.privOption);
+    }
 
 
 
