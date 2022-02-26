@@ -161,36 +161,51 @@
       "DisplayName": "The6Bits.Authorization.Tests",
       "ColorIndex": 14
     },
-    "5a8cc4c0-a900-478c-8320-a3565336a2ce": {
-      "ProjectGuid": "5a8cc4c0-a900-478c-8320-a3565336a2ce",
-      "DisplayName": "The6Bits.DBErrors",
+    "bf653376-9d16-43fe-a31b-e3de453d90fe": {
+      "ProjectGuid": "bf653376-9d16-43fe-a31b-e3de453d90fe",
+      "DisplayName": "WebApp",
       "ColorIndex": 15
     },
-    "dd54b656-0f37-4227-8469-f21c9d44dd52": {
-      "ProjectGuid": "dd54b656-0f37-4227-8469-f21c9d44dd52",
-      "DisplayName": "The6Bits.DBErrors",
+    "613a88a6-9405-40c1-a013-dcdb4b19dd80": {
+      "ProjectGuid": "613a88a6-9405-40c1-a013-dcdb4b19dd80",
+      "DisplayName": "WebAppAPI",
       "ColorIndex": 0
-    },
-    "2f46774b-4c38-4202-9ff8-522280b27b7a": {
-      "ProjectGuid": "2f46774b-4c38-4202-9ff8-522280b27b7a",
-      "DisplayName": "The6Bits.BitOHealth.DAL.Tests",
-      "ColorIndex": 1
-    },
-    "119ce180-1661-4091-91e6-acbe39d37091": {
-      "ProjectGuid": "119ce180-1661-4091-91e6-acbe39d37091",
-      "DisplayName": "The6Bits.BitOHealth.ServiceLayer.Test",
-      "ColorIndex": 2
-    },
-    "b9e84952-e4b2-48bb-a7cd-89197f6b5a77": {
-      "ProjectGuid": "b9e84952-e4b2-48bb-a7cd-89197f6b5a77",
-      "DisplayName": "The6Bits.Authorization.Tests",
-      "ColorIndex": 3
     },
     "132f4ef6-f6af-4a9b-8c30-ba5a0e912648": {
       "ProjectGuid": "132f4ef6-f6af-4a9b-8c30-ba5a0e912648",
       "DisplayName": "WebAppAPI",
+      "ColorIndex": 1
+    },
+    "2aa2ffcb-096e-48f8-a272-c611ec9a39e1": {
+      "ProjectGuid": "2aa2ffcb-096e-48f8-a272-c611ec9a39e1",
+      "DisplayName": "The6Bits.SMTPEmailService",
+      "ColorIndex": 2
+    },
+    "119ce180-1661-4091-91e6-acbe39d37091": {
+      "ProjectGuid": "119ce180-1661-4091-91e6-acbe39d37091",
+      "DisplayName": "The6Bits.BitOHealth.ServiceLayer.Test",
+      "ColorIndex": 3
+    },
+    "2f46774b-4c38-4202-9ff8-522280b27b7a": {
+      "ProjectGuid": "2f46774b-4c38-4202-9ff8-522280b27b7a",
+      "DisplayName": "The6Bits.BitOHealth.DAL.Tests",
       "ColorIndex": 4
+    },
+    "b9e84952-e4b2-48bb-a7cd-89197f6b5a77": {
+      "ProjectGuid": "b9e84952-e4b2-48bb-a7cd-89197f6b5a77",
+      "DisplayName": "The6Bits.Authorization.Tests",
+      "ColorIndex": 5
+    },
+    "bf503c23-cc56-4482-8b3c-d5d8e731e4b8": {
+      "ProjectGuid": "bf503c23-cc56-4482-8b3c-d5d8e731e4b8",
+      "DisplayName": "THe6Bits.BitOHealth.AccountRecovery.Tests",
+      "ColorIndex": 6
+    },
+    "633ef664-ec57-4a44-accc-f6cdf62934d2": {
+      "ProjectGuid": "633ef664-ec57-4a44-accc-f6cdf62934d2",
+      "DisplayName": "The6Bits.BitOHealth.AccountRecovery.Test",
+      "ColorIndex": 7
     }
   },
-  "NextColorIndex": 5
+  "NextColorIndex": 8
 }

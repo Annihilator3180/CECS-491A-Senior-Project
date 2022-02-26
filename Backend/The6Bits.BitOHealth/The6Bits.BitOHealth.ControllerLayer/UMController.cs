@@ -12,8 +12,6 @@ using System.Text.Encodings.Web;
 using System.Diagnostics;
 using System.Web;
 using Microsoft.AspNetCore.Http;
-using The6Bits.Authentication.Contract;
-using The6Bits.BitOHealth.DAL.Contract;
 
 
 namespace The6Bits.BitOHealth.ControllerLayer
@@ -25,15 +23,11 @@ namespace The6Bits.BitOHealth.ControllerLayer
         private UMManager _UMM;
         private LogService logService;
         private string adminUsername;
-        private bool isValid;
-        private IAuthenticationService _authentication;
-        
 
-        
-        public UMController(IRepositoryUM<User> daoType , IAuthenticationService authentication ,ILogDal logDao)
+        public UMController(IRepositoryUM<User> daoType , IAuthorizationService auth ,ILogDal logDao)
         {
             _UMM = new UMManager(daoType);
-            _authentication = authentication;
+            _UMM.auth = auth;
             adminUsername = "buhss";
             logService = new LogService(logDao);
         }
@@ -44,157 +38,108 @@ namespace The6Bits.BitOHealth.ControllerLayer
             return "This is my default action...";
         }
 
-        [HttpPost("CreateAccount")]
+        [HttpPost("Create")]
+        [Consumes("application/json")]
         //specify form body
         public string CreateAccount(User u)
         {
-            isValid = _authentication.ValidateToken(Request.Headers["Authorization"]);
-            
-            if (isValid)
+
+
+            string res = _UMM.CreateAccount(u);
+
+            if (res == "username exists")
             {
-                
-                
-                
-                string res = _UMM.CreateAccount(u);
-
-                if (res == "username exists")
-                {
-                    logService.Log(adminUsername, "Account creation-Username Exists", "Info", "Business");
-                }
-                else if (res == "database error")
-                {
-                    logService.Log(adminUsername, "Create Account-Database Error", "Error", "Data Store");
-                }
-                else
-                {
-                    logService.Log(adminUsername, "Account Creation -"+res, "Info", "Business");
-                }
-
-                return res;
+                logService.Log(adminUsername, "Account creation-Username Exists", "Info", "Business");
             }
-
-
-                logService.Log("None", "Account Creation -"+"InvalidToken", "Info", "Business");
-            
-            
-            return "InvalidToken";
+            else if (res == "database error")
+            {
+                logService.Log(adminUsername, "Create Account-Database Error", "Error", "Data Store");
+            }
+            else
+            {
+                logService.Log(adminUsername, "Account Creation -"+res, "Info", "Business");
+            }
+            var cookieOptions = new CookieOptions()
+            {
+                Path = "/",
+                Expires = DateTimeOffset.UtcNow.AddHours(1),
+                IsEssential = true,
+                HttpOnly = false,
+                Secure = false,
+            };
+            Response.Cookies.Append("MyCookie", "TheValue", cookieOptions);
+            return res;
         }
-        
-        [HttpPost("DeleteAccount")]
         public string DeleteAccount(string username)
         {
-            if (isValid)
+            string res = _UMM.DeleteAccount(username);
+
+            if (res != "username exists")
             {
-
-
-                string res = _UMM.DeleteAccount(username);
-
-                if (res != "username exists")
-                {
-                    logService.Log(adminUsername, "Delete Account- new username", "Info", "Business");
-                }
-                else if (res == "database error")
-                {
-                    logService.Log(adminUsername, "Delete Account-Database Error", "Error", "Data Store");
-                }
-                else
-                {
-                    logService.Log(adminUsername, "Delete Account -" + res, "Info", "Business");
-                }
-                return res;
-
+                logService.Log(adminUsername, "Delete Account- new username", "Info", "Business");
             }
-            
-            logService.Log("None", "DeleteAccount -"+"InvalidToken", "Info", "Business");
-            
-            
-            return "InvalidToken";
-        }
-        
-        [HttpPost("UpdateAccount")]
+            else if (res == "database error")
+            {
+                logService.Log(adminUsername, "Delete Account-Database Error", "Error", "Data Store");
+            }
+            else
+            {
+                logService.Log(adminUsername, "Delete Account -"+res, "Info", "Business");
+            }
 
+            return res;
+        }
         public string UpdateAccount(User user)
         {
-            if (isValid)
+            string res = _UMM.UpdateAccount(user);
+
+            if (res != "username exists")
             {
-                
-                string res = _UMM.UpdateAccount(user);
-
-                if (res != "username exists")
-                {
-                    logService.Log(adminUsername, "Update Account- new username", "Info", "Business");
-                }
-                else if (res == "database error")
-                {
-                    logService.Log(adminUsername, "Update Account-Database Error", "Error", "Data Store");
-                }
-                else
-                {
-                    logService.Log(adminUsername, "Update Account -" + res, "Info", "Business");
-                }
-                return res;
-
+                logService.Log(adminUsername, "Update Account- new username", "Info", "Business");
             }
-            logService.Log("None", "UpdateAccount -"+"InvalidToken", "Info", "Business");
-            
-            
-            return "InvalidToken";
+            else if (res == "database error")
+            {
+                logService.Log(adminUsername, "Update Account-Database Error", "Error", "Data Store");
+            }
+            else
+            {
+                logService.Log(adminUsername, "Update Account -" + res, "Info", "Business");
+            }
+            return res;
         }
-        [HttpPost("EnableAccount")]
         public string EnableAccount(string username)
         {
-            if (isValid)
+            string res = _UMM.EnableAccount(username);
+            if (res != "username exists")
             {
-                string res = _UMM.EnableAccount(username);
-                if (res != "username exists")
-                {
-                    logService.Log(adminUsername, "Enabel Account - new username", "Info", "Business");
-                }
-                else if (res == "database error")
-                {
-                    logService.Log(adminUsername, "Enable Account-Database Error", "Error", "Data Store");
-                }
-                else
-                {
-                    logService.Log(adminUsername, "Enable Account -" + res, "Info", "Business");
-                }
-                return res;
-
+                logService.Log(adminUsername, "Enabel Account - new username", "Info", "Business");
             }
-            logService.Log("None", "EnableAccount -"+"InvalidToken", "Info", "Business");
-            
-            
-            return "InvalidToken";
+            else if (res == "database error")
+            {
+                logService.Log(adminUsername, "Enable Account-Database Error", "Error", "Data Store");
+            }
+            else
+            {
+                logService.Log(adminUsername, "Enable Account -" + res, "Info", "Business");
+            }
+            return res;
         }
-        
-        
-        [HttpPost("DisableAccount")]
-
         public string DisableAccount(string username)
         {
-            if (isValid)
+            string res = _UMM.DisableAccount(username);
+            if (res != "username exists")
             {
-                string res = _UMM.DisableAccount(username);
-                if (res != "username exists")
-                {
-                    logService.Log(adminUsername, "Disable Account- new username", "Info", "Business");
-                }
-                else if (res == "database error")
-                {
-                    logService.Log(adminUsername, "Disable Account-Database Error", "Error", "Data Store");
-                }
-                else
-                {
-                    logService.Log(adminUsername, "Disable Account -" + res, "Info", "Business");
-                }
-                return res;
-
+                logService.Log(adminUsername, "Disable Account- new username", "Info", "Business");
             }
-
-            logService.Log("None", "DisableAccount -"+"InvalidToken", "Info", "Business");
-            
-            
-            return "InvalidToken";
+            else if (res == "database error")
+             {
+                logService.Log(adminUsername, "Disable Account-Database Error", "Error", "Data Store");
+            }
+            else
+            {
+                logService.Log(adminUsername, "Disable Account -" + res, "Info", "Business");
+            }
+            return res;
         }
 
 
