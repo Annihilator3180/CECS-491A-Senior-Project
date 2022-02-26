@@ -30,6 +30,7 @@ namespace The6Bits.BitOHealth.DAL.Tests
                 Test.IsAdmin = 0;
                 Test.Password = "testPass123!";
                 Test.IsEnabled = 1;
+            Test.privOption = 1;
                 Stopwatch stopwatch = Stopwatch.StartNew();
                 bool valid = UmDAO.Create(Test);
                 stopwatch.Stop();
@@ -50,6 +51,7 @@ namespace The6Bits.BitOHealth.DAL.Tests
         Test.IsAdmin = 0;
         Test.Password = "testpass123";
         Test.IsEnabled = 1;
+        Test.privOption = 1;
         Test.Email = "test2@gmail.com";
         UmDAO.Create(Test);
         Stopwatch stopwatch = Stopwatch.StartNew();
@@ -71,6 +73,7 @@ namespace The6Bits.BitOHealth.DAL.Tests
         Test.IsAdmin = 0;
         Test.Password = "testPass123!";
         Test.IsEnabled = 1;
+        Test.privOption = 1;
         UmDAO.Create(Test);
         Test.Email = "test2@gmail.com";
         Stopwatch stopwatch = Stopwatch.StartNew();
@@ -97,6 +100,7 @@ namespace The6Bits.BitOHealth.DAL.Tests
         Test.IsAdmin = 0;
         Test.Password = "testpass123";
         Test.IsEnabled = 1;
+        Test.privOption = 1;
         UmDAO.Create(Test);
         Stopwatch stopwatch = Stopwatch.StartNew();
         User original = UmDAO.Read(Test);
@@ -121,6 +125,7 @@ namespace The6Bits.BitOHealth.DAL.Tests
         Test.IsAdmin = 0;
         Test.Password = "testpass123";
         Test.IsEnabled = 1;
+        Test.privOption = 1;
         UmDAO.Create(Test);
         UmDAO.Delete(Test);
         Stopwatch stopwatch = Stopwatch.StartNew();
@@ -146,6 +151,7 @@ namespace The6Bits.BitOHealth.DAL.Tests
         Test.IsAdmin = 0;
         Test.Password = "testpass123";
         Test.IsEnabled = 0;
+        Test.privOption = 1;
         UmDAO.Create(Test);
         Stopwatch stopwatch = Stopwatch.StartNew();
         bool valid =UmDAO.EnableAccount("enabletest");
@@ -168,6 +174,7 @@ namespace The6Bits.BitOHealth.DAL.Tests
         Test.IsAdmin = 0;
         Test.Password = "testpass123";
         Test.IsEnabled = 0;
+        Test.privOption = 1;
         UmDAO.Create(Test);
         Stopwatch stopwatch = Stopwatch.StartNew();
         bool valid = UmDAO.EnableAccount("disabletest");
@@ -197,6 +204,7 @@ namespace The6Bits.BitOHealth.DAL.Tests
             Test.IsAdmin = 0;
             Test.Password = "testpass123";
             Test.IsEnabled = 0;
+            Test.privOption = 1;
             UmDAO.Create(Test);
             bool isValid = UmDAO.UsernameExists("duplicate");
             UmDAO.Delete(Test);
