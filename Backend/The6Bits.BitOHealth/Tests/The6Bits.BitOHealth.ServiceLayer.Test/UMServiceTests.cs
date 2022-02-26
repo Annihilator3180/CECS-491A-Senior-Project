@@ -78,26 +78,6 @@ namespace The6Bits.BitOHealth.ServiceLayer.Tests
             Assert.Equal("Invalid Username", returnString);
         }
 
-        //[Fact]
-        //public void DeleteAccountShouldSuccessfull()
-        //{
-        //    var repoAuth = new Mock<IRepositoryAuth<string>>();
-        //    var authService = new Mock<IAuthenticationService>();
-        //    var accountService = new Mock<IAccountService>();
 
-        //    var accountManager = new AccountManager(repoAuth.Object, authService.Object, accountService.Object);
-
-        //    authService.Setup(_ => _.ValidateToken(It.IsAny<string>())).Returns(true);
-
-        //    authService.Setup(_ => _.getUsername(It.IsAny<string>())).Returns("test username");
-
-        //    accountService.Setup(_ => _.UsernameExists(It.IsAny<string>())).Returns("username exists");
-
-        //    accountService.Setup(_ => _.DeleteAccount(It.IsAny<string>())).Returns("Account Deleted");
-
-        //    var result = accountManager.DeleteAccount("");
-
-        //    Assert.True(result == "Account Deleted");
-        //}
     }
 }
