@@ -95,21 +95,33 @@ public class AccountMsSqlDaoShould : TestsBase
 
     }
     [Theory]
-    [InlineData("bobi")]
-    public void AcceptEULA(string username)
+    [MemberData(nameof(LoadUsersJson))]
+    public void AcceptEULA(User u)
     {
+        // Arrange
         AccountMsSqlDao Ac = new AccountMsSqlDao(_connect);
-        var ans = Ac.AcceptEULA(username);
-        Assert.Equal("accepted", ans);
+        Ac.Delete(u);  
+        Ac.Create(u);
+        // Act
+        var ans = Ac.AcceptEULA(u.Username);
+        User readuser = Ac.Read(u);
+        // Assert
+        Assert.Equal("accepted", readuser.privOption);
     }
 
     [Theory]
-    [InlineData("bobi2")]
-    public void DeclineEULA(string username)
+    [MemberData(nameof(LoadUsersJson))]
+    public void DeclineEULA(User u)
     {
+        // Arrange
         AccountMsSqlDao Ac = new AccountMsSqlDao(_connect);
-        var ans = Ac.DeclineEULA(username);
-        Assert.Equal("declined", ans);
+        Ac.Delete(u);
+        Ac.Create(u);
+        // Act
+        var ans = Ac.DeclineEULA(u.Username);
+        User readuser = Ac.Read(u);
+        // Assert
+        Assert.Equal("declined", readuser.privOption);
     }
 
 
