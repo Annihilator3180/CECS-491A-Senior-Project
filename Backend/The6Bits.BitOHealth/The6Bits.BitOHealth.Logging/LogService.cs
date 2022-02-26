@@ -36,10 +36,10 @@ namespace The6Bits.Logging.Implementations
         public async Task<bool> RegistrationLog(string username, string description, string LogLevel, string LogCategory)
         {
             bool daoLog =  _dao.Log(username, description, LogLevel, LogCategory);
-            
+            bool checker = false;
             if(daoLog == true)
             {
-                bool checker = _dao.RegistrationChecker(username, description, LogLevel, LogCategory);
+                checker = _dao.RegistrationChecker(username, description, LogLevel, LogCategory);
 
                 //if false then table doe not have something for the given
                 //date, so we insert a new row to the table
@@ -57,16 +57,16 @@ namespace The6Bits.Logging.Implementations
                 }
             }
 
-            return daoLog;
+            return checker;
         }
 
         public async Task<bool> LoginLog(string username, string description, string LogLevel, string LogCategory)
         {
             bool daoLog = _dao.Log(username, description, LogLevel, LogCategory);
-
+            bool checker = false;
             if (daoLog == true)
             {
-                bool checker = _dao.LoginChecker(username, description, LogLevel, LogCategory);
+                checker = _dao.LoginChecker(username, description, LogLevel, LogCategory);
 
                 //if false then table doe not have something for the given
                 //date, so we insert a new row to the table
@@ -85,7 +85,7 @@ namespace The6Bits.Logging.Implementations
                 }
             }
 
-            return daoLog;
+            return checker;
         }
 
     }

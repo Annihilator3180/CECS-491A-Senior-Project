@@ -104,12 +104,12 @@ namespace The6Bits.Logging.DAL.Implementations
                 {
                     connection.Open();
                     int s = connection.Execute(query);
-                    if (s > 0)
+                    if (s == 0)
                     {
-                        return true;
+                        return false;
                     }
                 }
-                return false;
+                return true;
             }
             catch
             {
@@ -131,7 +131,7 @@ namespace The6Bits.Logging.DAL.Implementations
                 {
                     connection.Open();
                     int s = connection.Execute(query);
-                    if (s == 1)
+                    if (s == 0)
                     {
                         return true;
                     }
@@ -185,12 +185,12 @@ namespace The6Bits.Logging.DAL.Implementations
                 {
                     connection.Open();
                     int s = connection.Execute(query);
-                    if (s > 0)
+                    if (s == 0)
                     {
-                        return true;
+                        return false;
                     }
                 }
-                return false;
+                return true;
             }
             catch
             {

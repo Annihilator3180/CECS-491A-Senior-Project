@@ -14,7 +14,7 @@ namespace The6Bits.Logging.DAL.Contracts
         string getAllLogs();
         bool RegistrationChecker(string username, string description, string logLevel, string logCategory);
         bool RegistrationLog(string username, string description, string logLevel, string logCategory);
-        string getAllTrackerLogs();
+        String getAllTrackerLogs();
         bool RegistrationInsert(string username, string description, string logLevel, string logCategory);
         bool LoginChecker(string username, string description, string logLevel, string logCategory);
         bool LoginLog(string username, string description, string logLevel, string logCategory);
