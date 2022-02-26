@@ -123,6 +123,19 @@ public class AccountController : ControllerBase
         logService.Log(Username, "Registration- Email Verified ", "Data Store", "Verified");
         return verfied;
     }
+    [HttpPost("Recovery")]
+    public string AccountRecovery(AccountRecoveryModel arm)
+    {
+
+        return _AM.recoverAccount(arm);
+
+
+    }
+    [HttpPost("ResetPassword")]
+    public string ResetPassword(string r, string u, string p)
+    {
+        return _AM.ResetPassword(u, r, p);
+    }
 
 
 }

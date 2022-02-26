@@ -46,5 +46,18 @@ namespace The6Bits.BitOHealth.DAL.Contract
         public string getCode(string username, string codeType);
         public String DeleteCode(string username, string codeType);
         public string GetTime(string code, string username);
+        string UsernameAndEmailExists(string username, string email);
+        public string IsEnabled(string username);
+        public string ValidateRecoveryAttempts(string username);
+
+        public string VerifySameDay(string username, string code);
+
+        public string ResetPassword(string password, string username);
+
+        public string RemoveRecoveryAttempts(string username);
+
+        public string GetRecoveryOTP(string username);
+
+        public string GetPassword(string username);
     }
 }

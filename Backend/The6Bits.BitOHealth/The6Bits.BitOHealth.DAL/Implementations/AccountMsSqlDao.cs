@@ -513,6 +513,162 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 return e.Message;
             }
         }
+        public string UsernameAndEmailExists(string username, string email)
+        {
+            try
+            {
+                string query = $"select Count(*) from Accounts where Username = '{username}' AND Email = '{email}';";
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int count = connection.ExecuteScalar<int>(query);
+                    if (count == 1)
+                    {
+                        return "Email and Username found";
+                    }
+                    return "incorrect";
+                }
+
+            }
+            catch
+            {
+                return "Db error";
+            }
+        }
+        public string IsEnabled(string username)
+        {
+            try
+            {
+                string query = $"select isenabled from Accounts where username = '{username}';";
+                using (SqlConnection conn = new SqlConnection(_connectString))
+                {
+                    conn.Open();
+                    int isEnabled = conn.ExecuteScalar<int>(query);
+                    if (isEnabled == 1)
+                    {
+                        return "enabled";
+                    }
+                    return "disabled";
+                }
+            }
+            catch
+            {
+                return "DB Error";
+            }
+        }
+        public string ValidateRecoveryAttempts(string username)
+        {
+            try
+            {
+                string query = $"select RecoveryAttempts from Recovery where username = '{username}';";
+                using (SqlConnection conn = new SqlConnection(_connectString))
+                {
+                    conn.Open();
+                    int recoveryAttempts = conn.ExecuteScalar<int>(query);
+                    if (recoveryAttempts < 5)
+                    {
+                        return "under";
+                    }
+                    return "over";
+                }
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+
+        }
+       
+        public string RemoveRecoveryAttempts(string username)
+        {
+            try
+            {
+                string query = "update Recovery set RecoveryAttempts = RecoveryAttempts - 1 where Username =  @Username";
+
+                using (SqlConnection conn = new SqlConnection(_connectString))
+                {
+                    conn.Open();
+                    int lines = conn.Execute(query, new { Username = username });
+                    return lines.ToString();
+                }
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
+        public string VerifySameDay(string username, string code)
+        {
+            try
+            {
+                string query = "select count(time) from VerifyCodes where Username = @Username and Code = @Code and time >= DATEADD(day, -1, GETDATE())";
+                using (SqlConnection conn = new SqlConnection(_connectString))
+                {
+                    conn.Open();
+                    int time = conn.ExecuteScalar<int>(query, new { Username = username, Code = code });
+                    return time.ToString();
+                }
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
+
+        public string ResetPassword(string password, string username)
+        {
+            try
+            {
+                string query = "update Accounts set Password = @Password where Username = @Username";
+                using (SqlConnection conn = new SqlConnection(_connectString))
+                {
+                    conn.Open();
+                    int reset = conn.Execute(query, new { Password = password, Username = username });
+                    return reset.ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+        public string GetRecoveryOTP(string username)
+        {
+            try
+            {
+                string query = "select code from VerifyCodes where username = @username and codeType = 'Recovery'";
+                using (SqlConnection conn = new SqlConnection(_connectString))
+                {
+                    conn.Open();
+                    string otp = conn.ExecuteScalar<string>(query, new { Username = username });
+                    return otp;
+                }
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+        public string GetPassword(string username)
+        {
+            try
+            {
+                string query = "select password from Accounts where username = @username";
+                using (SqlConnection conn = new SqlConnection(_connectString))
+                {
+                    conn.Open();
+                    string p = conn.ExecuteScalar<string>(query, new { Username = username });
+                    return p;
+                }
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
 
 
 
