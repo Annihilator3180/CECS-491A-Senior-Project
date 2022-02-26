@@ -38,9 +38,9 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     return "username not found";
                 }
             }
-            catch(SqlException ex)
+            catch (SqlException ex)
             {
-                return ex.Number.ToString();               
+                return ex.Number.ToString();
             }
 
 
@@ -62,7 +62,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     return "Member";
                 }
             }
-            catch(SqlException ex)
+            catch (SqlException ex)
             {
                 return ex.Number.ToString();
             }
@@ -88,7 +88,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     return "not found";
                 }
             }
-            catch(SqlException ex)
+            catch (SqlException ex)
             {
                 return ex.Number.ToString();
             }
@@ -110,7 +110,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                             Password = user.Password,
                             FirstName = user.FirstName,
                             LastName = user.LastName,
-                        });;
+                        }); ;
                     connection.Close();
                     if (lines_modified == 0)
                     {
@@ -141,8 +141,8 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
             catch (Exception ex)
             {
-                
-                return new User("100", "100", "100", "100", "100", 100,100, 100);
+
+                return new User("100", "100", "100", "100", "100", 100, 100, 100);
             }
 
         }
@@ -181,8 +181,8 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
-                    int lines = connection.Execute(query, new{ Username = username, CodeType=  codetype});
-                    return lines.ToString()+" deleted";
+                    int lines = connection.Execute(query, new { Username = username, CodeType = codetype });
+                    return lines.ToString() + " deleted";
                 }
             }
             catch (SqlException ex)
@@ -191,8 +191,8 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
 
         }
-        
-        public string  SaveActivationCode( string username , DateTime codeDate, string code, string codeType)
+
+        public string SaveActivationCode(string username, DateTime codeDate, string code, string codeType)
         {
             try
             {
@@ -202,15 +202,16 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
-                    int lines = connection.Execute(query, 
-                    new{ 
+                    int lines = connection.Execute(query,
+                    new
+                    {
                         Username = username,
                         time = codeDate,
                         code = code,
-                        codetype =  codeType
+                        codetype = codeType
                     }
                     );
-                        return "Saved";
+                    return "Saved";
                 }
             }
             catch (SqlException ex)
@@ -257,7 +258,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
             catch (SqlException ex)
             {
-                return ex.Number.ToString()+"Z";
+                return ex.Number.ToString() + "Z";
             }
 
         }
@@ -271,7 +272,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
-                    int lines = connection.Execute(query, new{ Username = username, @Date_Time = DateTime.UtcNow});
+                    int lines = connection.Execute(query, new { Username = username, @Date_Time = DateTime.UtcNow });
                     return lines.ToString();
                 }
             }
@@ -291,7 +292,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
-                    int lines = connection.Execute(query, new{ Username = username, Attempts = updatedValue});
+                    int lines = connection.Execute(query, new { Username = username, Attempts = updatedValue });
                     return lines.ToString();
                 }
             }
@@ -344,17 +345,17 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 return ex.Message;
             }
         }
-        
-        
-        
+
+
+
         public string UnactivatedSave(User user)
+        {
+            try
             {
-                try
+                string query = "INSERT into ACCOUNTS(Username,Email,Password,FirstName,LastName,IsEnabled,IsAdmin,privOption) " +
+                               " values (@Username, @Email, @Password, @FirstName,@LastName, 0,0,0) ";
+                using (SqlConnection connection = new SqlConnection(_connectString))
                 {
-                    string query = "INSERT into ACCOUNTS(Username,Email,Password,FirstName,LastName,IsEnabled,IsAdmin,privOption) " +
-                                   " values (@Username, @Email, @Password, @FirstName,@LastName, 0,0,0) ";
-                    using (SqlConnection connection = new SqlConnection(_connectString))
-                    {
                     int lines_modified = connection.Execute(query,
                         new
                         {
@@ -364,20 +365,20 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                             FirstName = user.FirstName,
                             LastName = user.LastName,
                             privOption = user.privOption
-                        }) ;
-                        connection.Close();
+                        });
+                    connection.Close();
 
-                    }
-
-
-                    return "Saved";
-                }
-                catch(SqlException ex)
-                {
-                    return ex.Number.ToString();
                 }
 
-            
+
+                return "Saved";
+            }
+            catch (SqlException ex)
+            {
+                return ex.Number.ToString();
+            }
+
+
         }
         public string GetTime(string code, string username)
         {
@@ -465,19 +466,19 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     return "1";
                 }
             }
-            catch(SqlException ex)
+            catch (SqlException ex)
             {
                 return ex.Number.ToString();
             }
         }
-      
-        
-
-    
 
 
 
-    public string DeleteFailedAttempts(string username)
+
+
+
+
+        public string DeleteFailedAttempts(string username)
         {
             {
                 try
@@ -548,10 +549,10 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
-                    int count = connection.ExecuteScalar<int>(query, new { Username = username});
+                    int count = connection.ExecuteScalar<int>(query, new { Username = username });
                     return "accepted";
                     // return count.ToString();
-                        
+
                 }
             }
             catch (SqlException ex)
@@ -720,6 +721,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         }
 
 
+    }
 }
 
 

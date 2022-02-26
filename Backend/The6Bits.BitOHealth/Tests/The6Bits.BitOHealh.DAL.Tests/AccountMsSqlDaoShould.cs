@@ -7,7 +7,7 @@ using The6Bits.BitOHealth.Models;
 using Xunit;
 using System.Text.Json;
 using The6Bits.BitOHealth.DAL.Contract;
-
+using The6Bits.BitOHealth.ManagerLayer;
 using The6Bits.Authentication.Implementations;
 using The6Bits.BitOHealth.ManagerLayer;
 //using Microsoft.Extensions.Configuration;
@@ -223,14 +223,12 @@ public class AccountMsSqlDaoShould : TestsBase
 
     public void DeleteAccountValid(string userName)
     {
-        var AC = new AccountMsSqlDao(_connect);
+        var AC = new AccountMsSqlDao(conn);
         var AS = new JWTAuthenticationService();
 
-        var AM = new AccountManager(AC, AS);
+        var result = AS.getUsername(userName);
 
-        var result = AM.DeleteAccount(userName);
-
-        Assert.True(result == "Account Deleted");
+        Assert.Equal("firstuser29", result);
     }
 
 

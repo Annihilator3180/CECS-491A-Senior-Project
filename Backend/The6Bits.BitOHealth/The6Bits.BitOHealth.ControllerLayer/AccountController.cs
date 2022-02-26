@@ -74,6 +74,14 @@ public class AccountController : ControllerBase
     {
         
         var otp =  _AM.SendOTP(username);
+        if (otp.Contains("Database"))
+        {
+            logService.Log(username, otp , "OTP Error " + "Error", "Data Store");
+        }
+        else
+        {
+            logService.Log(username, "OTP " + otp, "Info", "Business");
+        }
         return otp;
     }
 
@@ -112,23 +120,24 @@ public class AccountController : ControllerBase
         String CreationStatus = _AM.CreateAccount(user);
         if (CreationStatus.Contains("Database"))
         {
-            logService.Log(user.Username, "Registration- " + CreationStatus, "Data Store", "Error");
+            logService.RegistrationLog(user.Username, "Registration- " + CreationStatus, "Data Store", "Error");
             return "Database Error";
         }
         else if (CreationStatus == "Email Failed To Send")
         {
-            logService.Log(user.Username, "Registration- Email Failed To Send", "Business", "Error");
+            logService.RegistrationLog(user.Username, "Registration- Email Failed To Send", "Business", "Error");
             return "Email Failed To Send";
         }
         else if (CreationStatus != "Email Pending Confirmation") {
-            logService.Log(user.Username, "Registration- "+CreationStatus, "Business", "Information");
+            logService.RegistrationLog(user.Username, "Registration- "+CreationStatus, "Business", "Information");
                 }
         else
         {
-            logService.Log(user.Username, "Verfication Email Sent", "Business", "Information");
+            logService.RegistrationLog(user.Username, "Verfication Email Sent", "Business", "Information");
         }
         return CreationStatus;
     }
+
     [HttpGet("VerifyAccount")]
     public string VerifyAccount(String Code, String Username)
     {
@@ -150,6 +159,8 @@ public class AccountController : ControllerBase
     public string AcceptEULA(string username)
     {
         bool isValid = authenticationService1.ValidateToken(Request.Headers["Authorization"]);
+        username = authenticationService1.getUsername(Request.Headers["Authorization"]);
+
         if (isValid)
         {
             // if usernameExists(username) { return _AM.AcceptEULA(username) } return "invalid username";
@@ -161,6 +172,8 @@ public class AccountController : ControllerBase
     public string DeclineEULA(string username)
     {
         bool isValid = authenticationService1.ValidateToken(Request.Headers["Authorization"]);
+        username = authenticationService1.getUsername(Request.Headers["Authorization"]);
+
         if (isValid)
         {
             //check username
