@@ -65,8 +65,9 @@ public class AccountController : ControllerBase
     public string DeleteAccount(string token)
     {
 
-        return _AM.DeleteAccount(token);
-        //call to terminate token
+        string del =  _AM.DeleteAccount(token);
+        Response.Cookies.Delete(token);
+        return del;
     }
 
 
