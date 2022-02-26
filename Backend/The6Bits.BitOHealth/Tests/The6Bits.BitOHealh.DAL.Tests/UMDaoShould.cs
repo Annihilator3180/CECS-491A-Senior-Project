@@ -10,18 +10,13 @@ using Xunit;
 namespace The6Bits.BitOHealth.DAL.Tests
 {
 
-    public class UMDaoShould : TestsBase
+    public class UMDaoShould
     {
-        private MsSqlUMDAO<User> UmDAO;
-
-        public UMDaoShould()
-        {
-            UmDAO = new MsSqlUMDAO<User>(conn);
-        }
 
         [Fact]
         public void CreateTest()
         {
+                MsSqlUMDAO<User> UmDAO = new MsSqlUMDAO<User>();
                 User Test = new User();
                 Test.Username = "createname";
                 Test.LastName = "test";
@@ -43,6 +38,7 @@ namespace The6Bits.BitOHealth.DAL.Tests
     [Fact]
     public void testDelete()
     {
+        MsSqlUMDAO<User> UmDAO = new MsSqlUMDAO<User>();
         User Test = new User();
         Test.Username = "deletetest";
         Test.LastName = "test";
@@ -66,6 +62,7 @@ namespace The6Bits.BitOHealth.DAL.Tests
     public void UpdateDaoTest()
     {
 
+        MsSqlUMDAO<User> UmDAO = new MsSqlUMDAO<User>();
         User Test = new User();
         Test.Username = "updatest";
         Test.LastName = "test";
@@ -92,6 +89,7 @@ namespace The6Bits.BitOHealth.DAL.Tests
     [Fact]
     public void ReadTest()
     {
+        MsSqlUMDAO<User> UmDAO = new MsSqlUMDAO<User>();
         User Test=new User();
         Test.Username = "readtest";
         Test.LastName = "test";
@@ -117,6 +115,7 @@ namespace The6Bits.BitOHealth.DAL.Tests
     [Fact]
     public void ReadAfterDeleteTest()
     {
+        MsSqlUMDAO<User> UmDAO = new MsSqlUMDAO<User>();
         User Test = new User();
         Test.Username = "rafterdtest";
         Test.LastName = "test";
@@ -144,6 +143,7 @@ namespace The6Bits.BitOHealth.DAL.Tests
     [Fact]
     public void EnableTest()
     {
+        MsSqlUMDAO<User> UmDAO = new MsSqlUMDAO<User>();
         User Test = new User();
         Test.Username = "enabletest";
         Test.LastName = "test";
@@ -167,6 +167,7 @@ namespace The6Bits.BitOHealth.DAL.Tests
     [Fact]
     public void DisableTest()
     {
+        MsSqlUMDAO<User> UmDAO = new MsSqlUMDAO<User>();
         User Test = new User();
         Test.Username = "disabletest";
         Test.LastName = "test";
@@ -191,12 +192,14 @@ namespace The6Bits.BitOHealth.DAL.Tests
         [Fact]
         public void ValidZero()
         {
+            MsSqlUMDAO<User> UmDAO = new MsSqlUMDAO<User>();
             bool isValid = UmDAO.UsernameExists("countcheck");
             Assert.False(isValid);
         }
         [Fact]
         public void TestDuplicateExists()
         {
+            MsSqlUMDAO<User> UmDAO = new MsSqlUMDAO<User>();
             User Test = new User();
             Test.Username = "duplicate";
             Test.LastName = "test";

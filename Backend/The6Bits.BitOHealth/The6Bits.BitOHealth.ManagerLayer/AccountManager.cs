@@ -2,8 +2,6 @@ using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.BitOHealth.Models;
 using The6Bits.BitOHealth.ServiceLayer;
 using The6Bits.Authentication.Contract;
-using The6Bits.DBErrors;
-using The6Bits.EmailService;
 
 
 namespace The6Bits.BitOHealth.ManagerLayer;
@@ -12,50 +10,38 @@ public class AccountManager
 {
     private IAuthenticationService _authentication;
     private AccountService _AS;
-    private IDBErrors _iDBErrors;
-    private ISMTPEmailServiceShould _EmailService;
 
 
-
-    public AccountManager(IRepositoryAuth<string> authdao, IAuthenticationService authenticationService, IDBErrors dbError, ISMTPEmailServiceShould email)
+    public AccountManager(IRepositoryAuth<string> authdao, IAuthenticationService authenticationService)
     {
-        _iDBErrors = dbError;
-        _EmailService = email;
         _authentication = authenticationService;
-        _AS = new AccountService(authdao, dbError, email);
+        _AS = new AccountService(authdao);
     }
 
     
-    //TODO:DELETE  OTP AFTER SUCCESS 
-    //DO AFTER EVERONE DONE
+    //TODO:Safer parse int
     public string Login(LoginModel acc)
     {
         bool failedAttemptsNeedsDelete = false;
-
+        
         //CHECK IF USERNAME EXISTS
         string us = _AS.UsernameExists(acc.Username);
         if (us != "username exists")
         {
             return us;
         }
-
+        
         //CHECK IF ACCOUNT IS ENABLED
 
         string isenabled = _AS.IsEnabled(acc.Username);
-
+        
         string firstfaildate = _AS.CheckFailDate(acc.Username);
         
-        DateTime temp;
-        if (DateTime.TryParse(firstfaildate, out temp))
+        if (firstfaildate != "none")
         {
-            //IF HAS DATE IN DB THEN CHECK IF NEEDS TO BE DELETED
-            failedAttemptsNeedsDelete = temp.AddDays(1) < DateTime.UtcNow;
+            
+            failedAttemptsNeedsDelete = DateTime.Parse(firstfaildate).AddDays(1) < DateTime.UtcNow;
 
-        }
-        else if (firstfaildate != "none")
-        {
-            //DB ERROR
-            return firstfaildate;
         }
 
 
@@ -63,22 +49,18 @@ public class AccountManager
         if (failedAttemptsNeedsDelete)
         {
             string del = _AS.DeleteFailedAttempts(acc.Username);
-            //ERROR CASE RETURN ERROR
-            if (del != "1")
-            {
-                return del;
-            }
+
         }
 
         if (isenabled != "enabled")
         {
 
-            //IF SHOULD BE DELETED THEN UPDATE
-            if (failedAttemptsNeedsDelete || firstfaildate == "none")
+            //CHECK IF HAS BEEN 24 HRS
+            if (failedAttemptsNeedsDelete)
             {
                 //ENABLE ACCOUNT
                 string res = _AS.UpdateIsEnabled(acc.Username, 1);
-                if (res != "account updated")
+                if ( res!= "account updated")
                 {
                     return res;
                 }
@@ -92,107 +74,99 @@ public class AccountManager
             }
 
         }
-
+        
         //VALIDATE OTP
 
         string otp = _AS.ValidateOTP(acc.Username, acc.Code);
         
         
-        string checkPassword = _AS.CheckPassword(acc.Username, acc.Password);
+        string cp = _AS.CheckPassword(acc.Username, acc.Password);
         
-        if (otp != "valid" || checkPassword != "credentials found")
+        if (otp != "valid" || cp != "credentials found")
         {
             //UPDATE FAILED ATTEMPT
             string attempts = _AS.CheckFailedAttempts(acc.Username);
-            int attemptInt;
-            
-            //CHECK FOR ERROR
-            if (Int32.TryParse(attempts, out attemptInt))
+            if (attempts == "0")
             {
-                if (attemptInt == 0)
-                {
-                    string insertFail = _AS.InsertFailedAttempts(acc.Username);
-                    if (insertFail != "1")
-                    {
-                        return insertFail;
-                    }
-                }
-                else
-                {
-                    attemptInt += 1;
-                    string updateFail =_AS.UpdateFailedAttempts(acc.Username, attemptInt);
-                    if (updateFail != "updated attempts")
-                    {
-                        return updateFail;
-                    }
-                    if (attemptInt >= 5)
-                    {
-                        string disabled = _AS.UpdateIsEnabled(acc.Username, 0);
-                        if (disabled == "account updated")
-                        {
-                            return "account disabled";
-                        }
-                        //db error 
-                        return disabled;
-
-
-                    }
-                    
-                }
-
-           
+                _AS.InsertFailedAttempts(acc.Username);
             }
             else
             {
-                //DB ERROR
-                return attempts;
+                int newFailedAttempts = Int32.Parse(attempts);
+                newFailedAttempts += 1;
+                _AS.UpdateFailedAttempts(acc.Username, newFailedAttempts);
+
+                if (newFailedAttempts >= 5)
+                {
+                    string disabled = _AS.UpdateIsEnabled(acc.Username, 0);
+                    if (disabled == "account updated")
+                    {
+                        return "account disabled";
+                    }
+                    //db error 
+                    return disabled;
+
+
+                }
             }
             
             
-
-            //DB ERRORS && INVALID PASS AND OTP RETURN
-            return otp != "valid" ? otp : checkPassword;
+            return otp != "valid" ? otp : cp;
         }
 
-
+        
         return _authentication.generateToken(acc.Username);
     }
-
-    public string VerifyAccount(string code, string username)
-    {
-        String StoredCode = _AS.VerifyAccount(username);
-        if (StoredCode.Contains("Database"))
-        {
-            return _iDBErrors.DBErrorCheck(int.Parse(StoredCode));
-        }
-        if (code != StoredCode)
-        {
-            _AS.DeleteCode(username, "Registration");
-            return "Invalid Code";
-        }
-        String DateCheck = _AS.VerifySameDay(code, username, DateTime.Now);
-        _AS.DeleteCode(username, "Registration");
-        if (DateCheck == "True")
-        {
-            return "Account Verified";
-        }
-        return "Code Expired";
-    }
-
-
 
     public bool isTokenValid(string token)
     {
         return _authentication.ValidateToken(token);
     }
-
-    public string HasToken(string token)
+    public string recoverAccount(AccountRecoveryModel arm)
     {
-        if (token != null)
-            return "Token exists";
-        else
-            return "Token Not Found";
+        string ra = _AS.UsernameAndEmailExists(arm.Username, arm.Email);
+        if (ra != "Email and Username found")
+        {
+            return ra;
+        }
+
+        string enabled = _AS.IsEnabled(arm.Username);
+        if(enabled != "enabled")
+        {
+            return "disabled account";
+        }
+        string recoveryValidation = _AS.ValidateRecoveryAttempts(arm.Username);
+        if(recoveryValidation != "under")
+        {
+            return recoveryValidation;
+        }
+        string r = _AS.GenerateRandomString();
+        string email = _AS.SendEmail("angelcueva47@gmail.com", "Bit O Health Recovery", "Please click URL within 24 hours to recover your account" +
+            "\n https://localhost:7011/Account/ResetPassword?r=" + r + "&u=" + arm.Username);
+        DateTime dateTime = DateTime.Now;
+
+        if (email != "email sent")
+        {
+            return email;
+        }
+        string updateRecoveryAttempts = _AS.UpdateRecoveryAttempts(arm.Username);
+
+        if (updateRecoveryAttempts != "1")
+        {
+            return updateRecoveryAttempts;
+        }
+       
+        string saveCode = _AS.SaveActivationCode(arm.Username, dateTime, r, "Recovery");
+        if (saveCode != "1")
+        {
+            _AS.DeletePastOTP(arm.Username, "Recovery");
+            _AS.SaveActivationCode(arm.Username, dateTime, r, "Recovery");
+        }
+        return "Recovery Link Sent To Email: " + arm.Email;
     }
+
+    
+
 
     public string SendOTP(string username)
     {
@@ -204,35 +178,16 @@ public class AccountManager
         }
 
         string email = _AS.GetEmail(username);
-        if(!email.Contains("@"))
-        {
-            return email;
-        }
         //TODO:SEND CODE
         Random rnd = new Random();
-        string code = "";
-        var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
-
-        foreach (var i in Enumerable.Range(0, 10))
-        {
-            code+=chars[rnd.Next(0, 62)];
-        }
-
+        string code  = rnd.Next(1000, 9999).ToString();
         
         //SEND CODE
 
         string del = _AS.DeletePastOTP(username,"OTP");
-        if (!del.Contains("deleted"))
-        {
-            return del;
-        }
-        
-        string save = _AS.SaveActivationCode(username, DateTime.UtcNow, code, "OTP");
-        if (save != "saved")
-        {
-            return save;
-        }
 
+        string save = _AS.SaveActivationCode(username, DateTime.UtcNow, code, "OTP");
+        
         return code;
 
 
@@ -242,34 +197,25 @@ public class AccountManager
     {
         return _AS.DeleteFailedAttempts(username);
     }
-    public string CreateAccount(User user)
+    public string ResetPassword(string u, string r, string p)
     {
-        if (_AS.ValidateEmail(user.Email) == false)
+        string validateOTP =  _AS.ValidateOTP(u, r);
+        if(validateOTP != "valid")
         {
-            return "Invalid Email";
+            return validateOTP;
         }
-        else if (_AS.ValidatePassword(user.Password) == false)
+        string sameDay = _AS.VerifySameDay(u, r);
+        if(sameDay != "1")
         {
-            return "Invalid Password";
+            return "failed" ;
         }
-        String isValidUsername = _AS.ValidateUsername(user.Username);
-        if (isValidUsername != "new username")
+        string reset = _AS.ResetPassword(p, u);
+        if (reset != "1")
         {
-            return isValidUsername;
+            return "password failed to reset";
         }
-        String unactivated = _AS.SaveUnActivatedAccount(user);
-        if (unactivated != "Saved")
-        {
-            return unactivated;
-        }
-            String SentCode = _AS.VerifyEmail(user.Username, user.Email, DateTime.Now);
-            if (SentCode != "True")
-            {
-                _AS.EmailFailed(user);
-                return SentCode;
-            }
-            return "Email Pending Confirmation";
+        return "Account Recovered Successfully";
 
-        
     }
+  
 }

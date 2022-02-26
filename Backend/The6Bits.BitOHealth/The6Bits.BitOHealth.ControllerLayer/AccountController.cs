@@ -7,8 +7,6 @@ using The6Bits.BitOHealth.ManagerLayer;
 using The6Bits.BitOHealth.Models;
 using The6Bits.Logging.DAL.Contracts;
 using The6Bits.Logging.Implementations;
-using The6Bits.DBErrors;
-using The6Bits.EmailService;
 
 namespace The6Bits.BitOHealth.ControllerLayer;
 [ApiController]
@@ -17,14 +15,10 @@ public class AccountController : ControllerBase
 {
     private AccountManager _AM;
     private LogService logService;
-    private IDBErrors _dbErrors;
-    private ISMTPEmailServiceShould _EmailService;
-    public AccountController(IRepositoryAuth<string> authdao ,ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors, ISMTPEmailServiceShould EmailService)
+    public AccountController(IRepositoryAuth<string> authdao ,ILogDal logDao, IAuthenticationService authenticationService)
     {
-        _AM = new AccountManager(authdao,authenticationService,dbErrors,EmailService);
+        _AM = new AccountManager(authdao,authenticationService);
         logService = new LogService(logDao);
-        _dbErrors = dbErrors;
-        _EmailService = EmailService;
     }
 
     [HttpPost("Login")]
@@ -37,18 +31,13 @@ public class AccountController : ControllerBase
         
         //TODO:FIX IF STATMENT TO SOMETHING BETTER
         //TODO:ADD LOGS
+        //TODO:2FA 
         if (parts.Length==3)
         {
+            
             Response.Cookies.Append(
                 "token",
                 jwt);
-            logService.Log(acc.Username,"Logged In", "Info","Business" );
-        }
-        else
-        {
-            string loginfail = "Log In Fail";
-            logService.Log(acc.Username,loginfail+" "+jwt, "Info","Business" );
-
         }
 
         return jwt;
@@ -63,70 +52,45 @@ public class AccountController : ControllerBase
         return otp;
     }
 
+    //TODO: Finish up
     [HttpPost("Logout")]
     public string Logout()
     {
         Response.Cookies.Delete("token");
-        return "Account logged out";
+        return null;
     }
 
 
- //   public void deletecookie(object sender, eventargs e)
+ //   public void DeleteCookie(object sender, EventArgs e)
  //   {
- //       //httpcookie httpcookie = new httpcookie();
-  //      httpcookie httpcookie = request.cookies.get("cookie");
-  //      httpcookie.expires = datetime.now.adddays(-1d);
-  //      response.cookies.append("cookie",httpcookie);
+ //       //HttpCookie httpCookie = new HttpCookie();
+  //      HttpCookie httpCookie = Request.Cookies.Get("Cookie");
+  //      httpCookie.Expires = DateTime.Now.AddDays(-1d);
+  //      Response.Cookies.Append("cookie",httpCookie);
  //   }
     
-
-
-
-    [HttpPost("Register")]
-    public string CreateAccount(User user)
+    //Sets the JWT string to ""
+    public string DeleteToken(LoginModel acc)
     {
+        var jwt = _AM.Login(acc);
+        return jwt = "";
 
-        String CreationStatus = _AM.CreateAccount(user);
-        if (CreationStatus.Contains("Database"))
-        {
-            logService.Log(user.Username, "Registration- " + CreationStatus, "Data Store", "Error");
-            return "Database Error";
-        }
-        else if (CreationStatus == "Email Failed To Send")
-        {
-            logService.Log(user.Username, "Registration- Email Failed To Send", "Business", "Error");
-            return "Email Failed To Send";
-        }
-        else if (CreationStatus != "Email Pending Confirmation") {
-            logService.Log(user.Username, "Registration- "+CreationStatus, "Business", "Information");
-                }
-        else
-        {
-            logService.Log(user.Username, "Verfication Email Sent", "Business", "Information");
-        }
-        return CreationStatus;
     }
-    [HttpGet("VerifyAccount")]
-    public string VerifyAccount(String Code, String Username)
+    [HttpPost("Recovery")]
+    [Consumes("application/json")]
+
+    public string AccountRecovery(AccountRecoveryModel arm)
     {
-        String verfied = _AM.VerifyAccount(Code, Username);
-        if (verfied.Contains("Database"))
-        {
-            logService.Log(Username, "Registration- " + verfied, "Data Store", "Error");
-            return "Database Error";
-        }
-        if(verfied == "Account Verified")
-        {
-            logService.Log(Username, "Registration- Email Verified ", "Business", "Information");
-            return verfied;
-        }
-        logService.Log(Username, "Registration- Email Verified ", "Data Store", "Verified");
-        return verfied;
+
+        return _AM.recoverAccount(arm);
+
+
+    }
+    [HttpPost("ResetPassword")]
+    public string ResetPassword(string r, string u, string p)
+    {
+        return _AM.ResetPassword(u, r, p);
     }
 
 
 }
-
-
-
-

@@ -1,31 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.BitOHealth.Models;
-using The6Bits.DBErrors;
-
-
 using The6Bits.EmailService;
 namespace The6Bits.BitOHealth.ServiceLayer
 {
     public class AccountService
     {
         private IRepositoryAuth<string> _AD;
-        private IDBErrors _DBErrors;
-        private ISMTPEmailServiceShould _EmailService;
-        public AccountService(IRepositoryAuth<string> daotype,IDBErrors DbError, ISMTPEmailServiceShould EmailService)
+        public AccountService(IRepositoryAuth<string> daotype)
         {
-             _DBErrors= DbError;
             _AD = daotype;
-            _EmailService= EmailService;
-
-
 
         }
 
@@ -43,48 +33,34 @@ namespace The6Bits.BitOHealth.ServiceLayer
         {
             return _AD.CheckPassword(username, password);
         }
+        public string UsernameAndEmailExists(string username, string email)
+        {
+            return _AD.UsernameAndEmailExists(username, email);
+        }
+        public string IsEnabled(string username)
+        {
+            return _AD.IsEnabled(username);
+        }
+        public string ValidateRecoveryAttempts(string username)
+        {
+            return _AD.ValidateRecoveryAttempts(username);
+        }
 
         public string GetEmail(string username)
         {
-            string email =  _AD.Read(new User(){Username = username}).Email;
-            int temp;
-            if (!Int32.TryParse(email, out temp))
-            {
-                return email;
-            }
-            //call error handler
-            return email;
+            return _AD.Read(new User(){Username = username}).Email;
         }
 
         public string DeletePastOTP(string username, string codeType)
         {
-            
-            string res = _AD.DeletePastOTP(username, codeType);
-            if (res.Contains("deleted"))
-            {
-                return res;
-            }
-            else
-            {
-                //HANDLE ERROR
-                return res;
-            }
+            return _AD.DeletePastOTP(username, codeType);
         }
 
         public string SaveActivationCode(string username, DateTime time, string code, string codeType)
         {
-            string res =  _AD.SaveActivationCode(username,time,code,codeType);
-            if (res == "1")
-            {
-                return "saved";
-            }
-            else
-            {
-                //handle error
-                return "";
-            }
+            return _AD.SaveActivationCode(username,time,code,codeType);
         }
-
+        /*
         public string IsEnabled(string username)
         {
             try
@@ -104,96 +80,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
             }
 
         }
-        public bool ValidateEmail(string email)
-        {
-            try
-            {
-
-                return new EmailAddressAttribute().IsValid(email) && email.Length < 255;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public bool ValidatePassword(string password)
-        {
-            try
-            {
-                if ((password.Length >= 8 & password.Length <= 30) & (password.Contains('.') || password.Contains(',') || password.Contains('!') || password.Contains('@')))
-                {
-                    password = password.Replace("@", string.Empty).Replace(",", String.Empty).Replace("!", String.Empty).Replace(".", String.Empty);
-                }
-                else
-                {
-                    return false;
-                }
-                return password.All(char.IsLetterOrDigit) && password.Any(char.IsUpper) && password.Any(char.IsLower) && password.Any(char.IsDigit);
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-
-        public string ValidateUsername(string username)
-        {
-            List<char> charsToRemove = new List<char>() { '@', '!', ',', '.' };
-            string usernametest = username.Replace("@", string.Empty).Replace(",", String.Empty).Replace("!", String.Empty).Replace(".", String.Empty);
-            String daoResult = _AD.UsernameExists(username);
-            if (!usernametest.All(Char.IsLetterOrDigit) || username.Length > 16 || username.Length <= 6)
-            {
-                return "Invalid Username";
-            }
-            if (daoResult == "username exists")
-            {
-                return "username exists";
-            }
-            else if(daoResult !="username not found")
-            {
-                return _DBErrors.DBErrorCheck(int.Parse(daoResult));
-            }
-
-            return "new username";
-        }
-
-        public string VerifySameDay(string code, string username, DateTime now)
-        {
-            String CreationTime=_AD.GetTime(code,username);
-            try
-            {
-                DateTime ExpirationDate = DateTime.Parse(CreationTime);
-                ExpirationDate.AddDays(1);
-                if (now > ExpirationDate)
-                {
-                    return "True";
-                }
-                return "Code Expired";
-                    }
-            catch(Exception)
-            {
-                return _DBErrors.DBErrorCheck(int.Parse(CreationTime));
-            }
-            
-        }
-
-        public async Task<String> DeleteCode(string username,string codeType)
-        {
-            return _AD.DeleteCode(username,codeType);
-        }
-
-        public string VerifyAccount(string username)
-        {
-
-           string codeinDB = _AD.getCode(username, "Registration");
-            if (codeinDB.Length < 10)
-            {
-                return _DBErrors.DBErrorCheck(int.Parse(codeinDB));
-            }
-            return codeinDB;
-        }
+        */
 
         public string ValidateOTP(string username, string code)
         {
@@ -217,25 +104,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
         public string CheckFailDate(string username)
         {
-            
-            
-            string date =  _AD.CheckFailDate(username);
-            if (date == "none")
-            {
-                return date;
-            }
-
-            try
-            {
-                DateTime.Parse(date);
-                return date;
-            }
-            catch
-            {
-                return "DB ERROR";
-            }
-
-
+            return _AD.CheckFailDate(username);
         }
 
         public string InsertFailedAttempts(string username)
@@ -257,47 +126,6 @@ namespace The6Bits.BitOHealth.ServiceLayer
             }
         }
 
-        public async Task<string> EmailFailed(User user)
-        {
-            String DeletionStatus=_AD.DeleteUnActivated(user);
-            if (DeletionStatus != "1")
-            {
-                return _DBErrors.DBErrorCheck(int.Parse(DeletionStatus));
-            }
-            return "True";
-        }
-
-        //TODO: Finish implementing email
-        public string VerifyEmail(string username, string email, DateTime now)
-        {
-            String code=Guid.NewGuid().ToString("N");
-            String saveStatus=_AD.SaveActivationCode(username, now, code, "Registration");
-            if (saveStatus != "Saved")
-            {
-                return _DBErrors.DBErrorCheck(int.Parse(saveStatus));
-            }
-
-            String Subject = "Verify your account";
-            String Body = "Please use this link to verify your account https://localhost:7011/Account/VerifyAccount?Code=" + code + "&&Username=" + username;
-            String EmailStatus = _EmailService.SendEmail(email,Subject,Body);
-            if (EmailStatus != "email sent")
-            {
-                return EmailStatus;
-            }
-            return "True";
-        }
-
-        public string SaveUnActivatedAccount(User user)
-        {
-            String unactivated = _AD.UnactivatedSave(user);
-            if (unactivated != "Saved")
-            {
-                return _DBErrors.DBErrorCheck(int.Parse(unactivated));
-            }
-            return "Saved";
-        }
-
-
         public string UpdateIsEnabled(string username, int updateValue)
         {
             string res = _AD.UpdateIsEnabled(username, updateValue);
@@ -311,13 +139,16 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
         public string DeleteFailedAttempts(string username)
         {
-            string res = _AD.DeleteFailedAttempts(username);
-            if (res == "1")
-            {
-                return "1";
-            }
-
-            return res;
+            return _AD.DeleteFailedAttempts(username);
+        }
+        public string SendEmail(string email, string subject, string body)
+        {
+           SMTPEmailService sMTPEmailService = new SMTPEmailService();
+            return sMTPEmailService.SendEmail(email,subject,body);
+        }
+        public string UpdateRecoveryAttempts(string username)
+        {
+            return _AD.UpdateRecoveryAttempts(username);
         }
 
         public string GenerateRandomString()
@@ -333,7 +164,24 @@ namespace The6Bits.BitOHealth.ServiceLayer
             }
             return builder.ToString();
         }
+        public string VerifySameDay(string username, string code)
+        {
+            string sd = _AD.VerifySameDay(username, code);
+            if (sd != "1")
+            {
+                return "expired link";
+            }
+            return sd;
+
+        }
+        public string ResetPassword(string password, string username)
+        {
+            return _AD.ResetPassword(password,username);
+
+        }
+       
     }
+   
 
 
 
