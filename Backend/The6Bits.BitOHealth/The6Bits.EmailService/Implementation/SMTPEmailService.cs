@@ -5,20 +5,12 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace The6Bits.BitOHealth.ServiceLayer
+namespace The6Bits.EmailService
 {
-    public class EmailService
+    public class SMTPEmailService : ISMTPEmailServiceShould
+        //add dependency again
     {
-        string email;
-        string subject;
-        string body;
-        public EmailService(string email, string subject,string body)
-        {
-           this.email = email;
-            this.subject = subject;
-            this.body = body;
-        }
-        public string SendEmail()
+        public string SendEmail(string email, string subject, string body)
         {
             string sender = "test@bitohealth.com";
             try
@@ -31,7 +23,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
                     Credentials = new System.Net.NetworkCredential("username", "password"),
                     Timeout = 30000,
                 };
-                MailMessage message = new MailMessage(sender, GetEmail(), GetSubject(), GetBody());
+                MailMessage message = new MailMessage(sender, email, subject, body);
                 smtp.Send(message);
             }
             catch (Exception ex)
@@ -40,18 +32,5 @@ namespace The6Bits.BitOHealth.ServiceLayer
             }
             return "email sent";
         }
-        public string GetEmail()
-        {
-            return email;
     }
-        public string GetSubject()
-        {
-            return subject;
-        }
-        public string GetBody()
-        {
-            return body;
-        }
-    }
-   
-    }
+}

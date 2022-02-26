@@ -490,6 +490,24 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
             
         }
+        public string UpdateRecoveryAttempts(string username)
+        {
+            try
+            {
+                string query = "update Recovery set RecoveryAttempts = RecoveryAttempts + 1 where Username =  @Username";
+
+                using (SqlConnection conn = new SqlConnection(_connectString))
+                {
+                    conn.Open();
+                    int lines = conn.Execute(query, new { Username = username });
+                    return lines.ToString();
+                }
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
 
 
 

@@ -55,6 +55,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestData", "TestData", "{6B
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.DBErrors", "The6Bits.DBErrors\The6Bits.DBErrors.csproj", "{DD54B656-0F37-4227-8469-F21C9D44DD52}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.SMTPEmailService", "The6Bits.EmailService\The6Bits.SMTPEmailService.csproj", "{2AA2FFCB-096E-48F8-A272-C611EC9A39E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
