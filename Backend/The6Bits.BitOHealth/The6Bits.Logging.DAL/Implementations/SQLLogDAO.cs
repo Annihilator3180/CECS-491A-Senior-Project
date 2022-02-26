@@ -179,7 +179,7 @@ namespace The6Bits.Logging.DAL.Implementations
             {
                 string date = DateTime.UtcNow.ToString("MM-dd-yyyy");
 
-                string query = $"SELECT count(*) FROM TrackerLogs WHERE dateTime = '{date}' AND logType = 'Login'";
+                string query = $"SELECT count(*) FROM TrackerLogs WHERE dateTime = '{date}' AND logType = 'Login';";
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
@@ -206,7 +206,7 @@ namespace The6Bits.Logging.DAL.Implementations
             {
                 String date = DateTime.UtcNow.ToString("MM-dd-yyyy");
 
-                String query = $"INSERT INTO TrackerLogs (count, dateTime, logType) values ('{1}', '{date}', 'Login')";
+                String query = $"INSERT INTO TrackerLogs (count, dateTime, logType) values (1, '{date}', 'Login');";
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {

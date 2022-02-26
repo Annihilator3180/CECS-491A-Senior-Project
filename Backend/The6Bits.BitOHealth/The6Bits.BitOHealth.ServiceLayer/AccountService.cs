@@ -50,7 +50,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
         public string CheckPassword(string username, string password)
         {
             string res = _AD.CheckPassword(username, password);
-            if (res == "found" || res == "not found")
+            if (res == "credentials found" || res == "not found")
             {
                 return res;
             }

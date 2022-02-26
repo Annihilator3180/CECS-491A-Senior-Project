@@ -8,6 +8,7 @@ using The6Bits.BitOHealth.Models;
 using The6Bits.Logging.DAL.Contracts;
 using The6Bits.Logging.Implementations;
 using The6Bits.DBErrors;
+using System.Web;
 using The6Bits.EmailService;
 // using The6Bits.BitOHealth.ServiceLayer;
 
@@ -33,7 +34,9 @@ public class AccountController : ControllerBase
     [HttpPost("Login")]
     public string Login(LoginModel acc)
     {
-        
+        var remoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+
+
 
         var jwt =  _AM.Login(acc);
         var parts = jwt.Split('.');
@@ -45,18 +48,18 @@ public class AccountController : ControllerBase
             Response.Cookies.Append(
                 "token",
                 jwt);
-            logService.Log(acc.Username,"Logged In", "Info","Business" );
+            logService.LoginLog(acc.Username + remoteIpAddress, "Logged In", "Info","Business" );
         }
         else
         {
             string loginfail = "Log In Fail";
             if (jwt.Contains("Database"))
             {
-                logService.Log(acc.Username,loginfail+" "+jwt, "Error","Data Store" );
+                logService.LoginLog(acc.Username + remoteIpAddress, loginfail+" "+jwt, "Error","Data Store" );
             }
             else
             {
-                logService.Log(acc.Username,loginfail+" "+jwt, "Info","Business" );
+                logService.LoginLog(acc.Username + remoteIpAddress, loginfail+" "+jwt, "Info","Business" );
             }
 
         }

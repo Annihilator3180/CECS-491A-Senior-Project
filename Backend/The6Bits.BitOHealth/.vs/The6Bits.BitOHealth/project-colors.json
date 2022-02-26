@@ -195,7 +195,17 @@
       "ProjectGuid": "2aa2ffcb-096e-48f8-a272-c611ec9a39e1",
       "DisplayName": "The6Bits.SMTPEmailService",
       "ColorIndex": 5
+    },
+    "6baa515f-55e7-4ba9-9150-a36b473de2c1": {
+      "ProjectGuid": "6baa515f-55e7-4ba9-9150-a36b473de2c1",
+      "DisplayName": "TestData",
+      "ColorIndex": 6
+    },
+    "cc1e728b-e33d-45d5-999b-55acd879391c": {
+      "ProjectGuid": "cc1e728b-e33d-45d5-999b-55acd879391c",
+      "DisplayName": "The6Bits.Authentication",
+      "ColorIndex": 7
     }
   },
-  "NextColorIndex": 6
+  "NextColorIndex": 8
 }
