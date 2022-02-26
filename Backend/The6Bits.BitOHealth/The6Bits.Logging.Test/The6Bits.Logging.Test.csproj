@@ -20,4 +20,10 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\The6Bits.BitOHealth.Logging\The6Bits.Logging.csproj" />
+    <ProjectReference Include="..\The6Bits.Logging.DAL\The6Bits.Logging.DAL.csproj" />
+    <ProjectReference Include="..\The6Bits.Logging.Models\The6Bits.Logging.Models.csproj" />
+  </ItemGroup>
+
 </Project>
