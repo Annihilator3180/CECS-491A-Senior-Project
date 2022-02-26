@@ -245,5 +245,49 @@ public class MsSqlUMDAO<T> : IRepositoryUM<User>
 
         }
 
+        public bool userAcceptEULA(User user)
+        {
+            try
+            {
+                string query = $"update Accounts where seelct count(username) from Accounts where username = '{user.Username}' set '{User.privOption}' = True;";
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int count = connection.ExecuteScalar<int>(query);
+                    if (count != 0)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch
+            {
+                return true;
+            }
+        }
+
+        public bool userDeclineEULA(User user)
+        {
+            try
+            {
+                string query = $"update Accounts where seelct count(username) from Accounts where username = '{user.Username}' set '{user.privOption}' = True;";
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int count = connection.ExecuteScalar<int>(query);
+                    if (count != 0)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch
+            {
+                return true;
+            }
+        }
+
     }
 }

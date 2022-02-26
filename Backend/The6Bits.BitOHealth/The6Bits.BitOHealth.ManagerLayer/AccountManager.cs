@@ -160,4 +160,10 @@ public class AccountManager
     {
         return _AS.DeleteFailedAttempts(username);
     }
+
+    public string AcceptEULA(string username)
+    {
+        return _AS.AcceptEULA(username);
+    }
+
 }

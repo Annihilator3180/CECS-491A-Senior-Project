@@ -128,6 +128,40 @@ namespace The6Bits.BitOHealth.ServiceLayer
             return _AD.DeleteFailedAttempts(username);
         }
 
+        public string AcceptEULA(string username)
+        {
+            /* add DB error 
+            string codeinDB = _AD.getCode(username, "UserPrivacy");
+            if (codeinDB.Length > 10)
+            {
+                return _DBErrors.DBErrorCheck(int.Parse(codeinDB));
+            }
+            return codeinDB;
+            */
+            string res = _AD.AcceptEULA(username);
+            if (res == "1")
+            {
+                return "Privacy Accepted";
+            }
+            return res;
+        }
 
+        public string DeclineEULA(string username)
+        {
+            /* add DB error 
+            string codeinDB = _AD.getCode(username, "UserPrivacy");
+            if (codeinDB.Length > 10)
+            {
+                return _DBErrors.DBErrorCheck(int.Parse(codeinDB));
+            }
+            return codeinDB;
+            */
+            string res = _AD.AcceptEULA(username);
+            if (res == "1")
+            {
+                return "Privacy Declined";
+            }
+            return res;
+        }
     }
 }
