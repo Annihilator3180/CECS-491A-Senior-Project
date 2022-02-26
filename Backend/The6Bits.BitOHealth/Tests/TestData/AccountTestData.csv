@@ -1,0 +1,11 @@
+Email,Username,Password,FirstName,LastName,IsAdmin,IsEnabled
+testemail1@gmail.com,testuser1,Password1!,firstn,lastn,0,0
+testemail2@gmail.com,testuser2,Password1!,firstn,lastn,0,0
+testemail3@gmail.com,testuser3,Password1!,firstn,lastn,0,0
+testemail4@gmail.com,testuser4,Password1!,firstn,lastn,0,0
+testemail5@gmail.com,testuser5,Password1!,firstn,lastn,0,0
+testemail6@gmail.com,testuser6,Password1!,firstn,lastn,0,0
+testemail7@gmail.com,testuser7,Password1!,firstn,lastn,0,0
+testemail8@gmail.com,testuser8,Password1!,firstn,lastn,0,0
+testemail9@gmail.com,testuser9,Password1!,firstn,lastn,0,0
+testemail10@gmail.com,testuser10,Password1!,firstn,lastn,0,0
