@@ -12,6 +12,8 @@ using The6Bits.DBErrors;
 
 
 using The6Bits.EmailService;
+using The6Bits.BitOHealth.DAL.Implementations;
+
 namespace The6Bits.BitOHealth.ServiceLayer
 {
     public class AccountService
@@ -27,6 +29,10 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
 
 
+        }
+
+        public AccountService(AccountMsSqlDao accountMsSqlDao)
+        {
         }
 
         public string UsernameExists(string username) 
@@ -90,7 +96,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
         public string SaveActivationCode(string username, DateTime time, string code, string codeType)
         {
             string res =  _AD.SaveActivationCode(username,time,code,codeType);
-            if (res == "1")
+            if (res == "Saved")
             {
                 return "saved";
             }

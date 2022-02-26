@@ -303,7 +303,7 @@ public class AccountManager
             return recoveryValidation;
         }
         string r = _AS.GenerateRandomString();
-        string email = _AS.SendEmail("angelcueva47@gmail.com", "Bit O Health Recovery", "Please click URL within 24 hours to recover your account" +
+        string email = _AS.SendEmail(arm.Email, "Bit O Health Recovery", "Please click URL within 24 hours to recover your account" +
             "\n https://localhost:7011/Account/ResetPassword?r=" + r + "&u=" + arm.Username);
         DateTime dateTime = DateTime.Now;
 
@@ -319,7 +319,7 @@ public class AccountManager
         }
 
         string saveCode = _AS.SaveActivationCode(arm.Username, dateTime, r, "Recovery");
-        if (saveCode != "1")
+        if (saveCode != "saved")
         {
             _AS.DeletePastOTP(arm.Username, "Recovery");
             _AS.SaveActivationCode(arm.Username, dateTime, r, "Recovery");
