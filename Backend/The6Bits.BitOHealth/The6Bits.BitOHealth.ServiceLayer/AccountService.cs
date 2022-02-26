@@ -379,6 +379,63 @@ namespace The6Bits.BitOHealth.ServiceLayer
             }
             return builder.ToString();
         }
+
+
+
+
+
+        public string UsernameAndEmailExists(string username, string email)
+        {
+            return _AD.UsernameAndEmailExists(username, email);
+        }
+
+        public string ValidateRecoveryAttempts(string username)
+        {
+            return _AD.ValidateRecoveryAttempts(username);
+        }
+
+        public string SendEmail(string email, string subject, string body)
+        {
+            SMTPEmailService sMTPEmailService = new SMTPEmailService();
+            return sMTPEmailService.SendEmail(email, subject, body);
+        }
+
+        public string UpdateRecoveryAttempts(string username)
+        {
+            return _AD.UpdateRecoveryAttempts(username);
+        }
+
+        public string VerifySameDay(string username, string code)
+        {
+            string sd = _AD.VerifySameDay(username, code);
+            if (sd != "1")
+            {
+                return "expired link";
+            }
+            return sd;
+
+        }
+        public string ResetPassword(string password, string username)
+        {
+            return _AD.ResetPassword(password, username);
+
+        }
+
+        public string RemoveRecoveryAttempts(string username)
+        {
+            return _AD.RemoveRecoveryAttempts(username);
+        }
+
+        public string GetRecoveryOTP(string username)
+        {
+            return _AD.GetRecoveryOTP(username);
+        }
+        public string GetPassword(string username)
+        {
+            return _AD.GetPassword(username);
+        }
+
+
     }
 
 
