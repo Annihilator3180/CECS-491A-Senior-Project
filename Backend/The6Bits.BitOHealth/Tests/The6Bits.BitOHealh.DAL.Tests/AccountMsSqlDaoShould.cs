@@ -81,6 +81,8 @@ public class AccountMsSqlDaoShould : TestsBase
         String codeResult=Ac.getCode(username, codeType); 
         //Assert
         Assert.Equal(code, codeResult);
+        //cleanup
+        Ac.DeleteCode("Test1", "Test");
         
     }
     [Theory]
