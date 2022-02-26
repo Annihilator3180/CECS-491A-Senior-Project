@@ -47,7 +47,14 @@ public class AccountController : ControllerBase
         else
         {
             string loginfail = "Log In Fail";
-            logService.Log(acc.Username,loginfail+" "+jwt, "Info","Business" );
+            if (jwt.Contains("Error"))
+            {
+                logService.Log(acc.Username,loginfail+" "+jwt, "Error","Data Store" );
+            }
+            else
+            {
+                logService.Log(acc.Username,loginfail+" "+jwt, "Info","Business" );
+            }
 
         }
 
