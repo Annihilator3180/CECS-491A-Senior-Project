@@ -52,6 +52,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestData", "TestData", "{6B
 		Tests\TestData\AccountTestData.csv = Tests\TestData\AccountTestData.csv
 		Tests\TestData\AccountTestData.json = Tests\TestData\AccountTestData.json
 		Tests\TestData\InvalidUsernameTestData.json = Tests\TestData\InvalidUsernameTestData.json
+		Tests\TestData\OTPModelTestData.json = Tests\TestData\OTPModelTestData.json
+		Tests\TestData\FailedAttemptsData.json = Tests\TestData\FailedAttemptsData.json
 	EndProjectSection
 EndProject
 Global

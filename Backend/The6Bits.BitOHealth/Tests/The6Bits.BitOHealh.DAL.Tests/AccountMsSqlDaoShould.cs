@@ -17,8 +17,8 @@ namespace The6Bits.BitOHealth.DAL.Tests;
 public class AccountMsSqlDaoShould : TestsBase
 {
     private IRepositoryAuth<string> Ac;
-    
-    
+
+
     //INITIALIZATION STUFF
     //TODO:ADD ACCOUNTS AT TEST START
     public AccountMsSqlDaoShould()
@@ -33,8 +33,6 @@ public class AccountMsSqlDaoShould : TestsBase
     [InlineData("LONGGAACCCA11", "Passwordka!!1")]
     public void CheckPasswordInvalid(string username, string password)
     {
-        //TEMP CONNSTRING
-
 
 
         var ans = Ac.CheckPassword(username, password);
@@ -43,26 +41,34 @@ public class AccountMsSqlDaoShould : TestsBase
     }
 
     [Theory]
-    [InlineData("bossadmin12", "Password!1")]
-    [InlineData("raoaa1!eq", "boofbabA!1")]
-    public void CheckPasswordValid(string username, string password)
+    [MemberData(nameof(LoadUsersJson))]
+
+    public void CheckPasswordValid(User u)
     {
         //TEMP CONNSTRING
+        Ac.Create(u);
 
-
-        var ans = Ac.CheckPassword(username, password);
+        var ans = Ac.CheckPassword(u.Username, u.Password);
         Assert.Equal("credentials found", ans);
+
+
+        Ac.Delete(u);
 
     }
 
 
     [Theory]
-    [InlineData("bossadmin12")]
-    [InlineData("raoaa1!eq")]
-    public void UsernameExistsValid(string username)
+    [MemberData(nameof(LoadUsersJson))]
+    public void UsernameExistsValid(User u)
     {
-        var ans = Ac.UsernameExists(username);
+        Ac.Create(u);
+        var ans = Ac.UsernameExists(u.Username);
         Assert.Equal("username exists", ans);
+
+
+        Ac.Delete(u);
+
+
     }
 
     [Theory]
@@ -86,11 +92,57 @@ public class AccountMsSqlDaoShould : TestsBase
         
         
         Assert.Equal(u.Username,readuser.Username);
-        
-        //CLEANUP
-        
+
+        Ac.Delete(u);
 
     }
+
+    
+    [Theory]
+    [MemberData(nameof(LoadUsersJson))]
+    public void ReadTest(User u)
+    {
+        Ac.Create(u);
+
+        Assert.Equal(u.Username,Ac.Read(u).Username);
+
+        
+        Ac.Delete(u);
+
+    }
+    
+    
+    
+    [Theory]
+    [MemberData(nameof(LoadUsersJson))]
+    public void DeleteTest(User u)
+    {
+        Ac.Create(u);
+        Ac.Delete(u);
+        Ac.Read(u);
+        
+        Assert.NotEqual(u.Username,Ac.Read(u).Username);
+        
+        
+        
+    }
+
+    
+    [Theory]
+    [MemberData(nameof(LoadUsersJson))]
+    public void UpdateIsEnabledTest(User u)
+    {
+        Ac.Create(u);
+        Ac.UpdateIsEnabled(u.Username,0);
+        Assert.Equal(0,Ac.Read(u).IsEnabled);
+
+    }
+
+
+
+
+
+
 
 
 

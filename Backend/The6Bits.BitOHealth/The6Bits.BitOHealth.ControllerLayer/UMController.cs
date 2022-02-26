@@ -44,8 +44,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
             return "This is my default action...";
         }
 
-        [HttpPost("Create")]
-        [Consumes("application/json")]
+        [HttpPost("CreateAccount")]
         //specify form body
         public string CreateAccount(User u)
         {
@@ -80,6 +79,8 @@ namespace The6Bits.BitOHealth.ControllerLayer
             
             return "InvalidToken";
         }
+        
+        [HttpPost("DeleteAccount")]
         public string DeleteAccount(string username)
         {
             if (isValid)
@@ -109,6 +110,9 @@ namespace The6Bits.BitOHealth.ControllerLayer
             
             return "InvalidToken";
         }
+        
+        [HttpPost("UpdateAccount")]
+
         public string UpdateAccount(User user)
         {
             if (isValid)
@@ -136,6 +140,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
             
             return "InvalidToken";
         }
+        [HttpPost("EnableAccount")]
         public string EnableAccount(string username)
         {
             if (isValid)
@@ -161,6 +166,10 @@ namespace The6Bits.BitOHealth.ControllerLayer
             
             return "InvalidToken";
         }
+        
+        
+        [HttpPost("DisableAccount")]
+
         public string DisableAccount(string username)
         {
             if (isValid)
