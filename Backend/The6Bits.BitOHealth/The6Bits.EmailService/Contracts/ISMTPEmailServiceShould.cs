@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace The6Bits.EmailService
 {
-    internal interface ISMTPEmailServiceShould
+    public interface ISMTPEmailServiceShould
     {
         public string SendEmail(string email, string subject, string body);
     }
