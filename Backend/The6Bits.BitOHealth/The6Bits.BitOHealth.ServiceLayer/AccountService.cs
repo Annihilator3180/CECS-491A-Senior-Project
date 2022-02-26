@@ -9,6 +9,7 @@ using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.BitOHealth.Models;
 using The6Bits.DBErrors;
 
+
 using The6Bits.EmailService;
 namespace The6Bits.BitOHealth.ServiceLayer
 {
@@ -16,9 +17,14 @@ namespace The6Bits.BitOHealth.ServiceLayer
     {
         private IRepositoryAuth<string> _AD;
         private IDBErrors _DBErrors;
-        public AccountService(IRepositoryAuth<string> daotype)
+        private ISMTPEmailServiceShould _EmailService;
+        public AccountService(IRepositoryAuth<string> daotype,IDBErrors DbError, ISMTPEmailServiceShould EmailService)
         {
+             _DBErrors= DbError;
             _AD = daotype;
+            _EmailService= EmailService;
+
+
 
         }
 
@@ -118,7 +124,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
             {
                 return "username exists";
             }
-            else if(daoResult !="new username")
+            else if(daoResult !="username not found")
             {
                 return _DBErrors.DBErrorCheck(int.Parse(daoResult));
             }
@@ -155,7 +161,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
         {
 
            string codeinDB = _AD.getCode(username, "Registration");
-            if (codeinDB.Length > 10)
+            if (codeinDB.Length < 10)
             {
                 return _DBErrors.DBErrorCheck(int.Parse(codeinDB));
             }
@@ -228,10 +234,10 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
             String Subject = "Verify your account";
             String Body = "Please use this link to verify your account https://localhost:7011/Account/VerifyAccount?Code=" + code + "&&Username=" + username;
-            String EmailStatus = "";
-            if (EmailStatus != "Email Sent")
+            String EmailStatus = _EmailService.SendEmail(email,Subject,Body);
+            if (EmailStatus != "email sent")
             {
-                return "Email Failed To Send";
+                return EmailStatus;
             }
             return "True";
         }

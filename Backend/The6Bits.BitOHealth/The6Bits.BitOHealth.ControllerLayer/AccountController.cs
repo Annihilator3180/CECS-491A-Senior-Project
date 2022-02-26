@@ -8,6 +8,7 @@ using The6Bits.BitOHealth.Models;
 using The6Bits.Logging.DAL.Contracts;
 using The6Bits.Logging.Implementations;
 using The6Bits.DBErrors;
+using The6Bits.EmailService;
 
 namespace The6Bits.BitOHealth.ControllerLayer;
 [ApiController]
@@ -17,11 +18,13 @@ public class AccountController : ControllerBase
     private AccountManager _AM;
     private LogService logService;
     private IDBErrors _dbErrors;
-    public AccountController(IRepositoryAuth<string> authdao ,ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors)
+    private ISMTPEmailServiceShould _EmailService;
+    public AccountController(IRepositoryAuth<string> authdao ,ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors, ISMTPEmailServiceShould EmailService)
     {
-        _AM = new AccountManager(authdao,authenticationService);
+        _AM = new AccountManager(authdao,authenticationService,dbErrors,EmailService);
         logService = new LogService(logDao);
-        dbErrors = _dbErrors;
+        _dbErrors = dbErrors;
+        _EmailService = EmailService;
     }
 
     [HttpPost("Login")]

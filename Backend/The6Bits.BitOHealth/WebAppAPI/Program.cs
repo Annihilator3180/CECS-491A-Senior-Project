@@ -7,6 +7,7 @@ using The6Bits.BitOHealth.Models;
 using The6Bits.Logging.DAL.Contracts;
 using The6Bits.Logging.DAL.Implementations;
 using The6Bits.DBErrors;
+using The6Bits.EmailService;
 using WebAppMVC.Development;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,9 +17,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 //JSON Config
-builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Configuration.GetConnectionString("Connection2");
 
-var connstring  = builder.Configuration.GetConnectionString("DefaultConnection");
+var connstring  = builder.Configuration.GetConnectionString("Connection2");
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -31,6 +32,7 @@ builder.Services.AddScoped<IRepositoryAuth<string>>(provider =>
     new AccountMsSqlDao(connstring));
 builder.Services.AddTransient<IAuthenticationService, JWTAuthenticationService>();
 builder.Services.AddTransient<IDBErrors, MsSqlDerrorService>();
+builder.Services.AddTransient<ISMTPEmailServiceShould, SMTPEmailService>();
 builder.Services.AddScoped<ILogDal, SQLLogDAO>();
 
 var app = builder.Build();

@@ -194,8 +194,8 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = "INSERT INTO Verification (Username, CodeDate, code, codetype) " +
-                    "values(@username, '@codeDate', '@code', '@codeType')";
+                string query = "INSERT INTO verification (username, CodeDate, code, codetype) " +
+                    "values(@username, @codeDate, @code, @codeType)";
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
@@ -204,9 +204,11 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     new{ 
                         Username = username,
                         codeDate = codeDate,
-                        code = code , 
-                        codetype =  codeType});
-                        return "True";
+                        code = code,
+                        codetype =  codeType
+                    }
+                    );
+                        return "Saved";
                 }
             }
             catch (SqlException ex)
@@ -375,18 +377,18 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = "Select codeDate FROM Verification WHERE Username = @Username amd code =@code ";
+                string query = "Select codeDate FROM Verification WHERE Username = @Username and code =@code ";
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
-                    int lines = connection.Execute(query, new
+                    IEnumerable<DateTime> timeinDB = connection.Query<DateTime>(query, new
                     {
                         Username = username,
                         code = code
                     }
                     );
-                    return lines.ToString();
+                    return timeinDB.First().ToString();
                 }
             }
             catch (SqlException ex)
@@ -422,12 +424,12 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 
             try
             {
-                string query = "Select code FROM Verification WHERE Username = @Username amd codeType =@codeType ";
+                string query = "Select code FROM Verification WHERE Username = @Username and codeType =@codeType ";
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
-                    int lines = connection.Execute(query, new
+                    var lines = connection.QuerySingle<string>(query, new
                     {
                         Username = username,
                         codeType = codeType
