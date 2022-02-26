@@ -180,12 +180,12 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 {
                     connection.Open();
                     int lines = connection.Execute(query, new{ Username = username, CodeType=  codetype});
-                    return lines.ToString();
+                    return lines.ToString()+" deleted";
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                return ex.Message;
+                return ex.Number.ToString();
             }
             
         }
@@ -261,7 +261,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
-                    int lines = connection.ExecuteScalar<int>(query, new{ Username = username, @Date_Time = DateTime.UtcNow});
+                    int lines = connection.Execute(query, new{ Username = username, @Date_Time = DateTime.UtcNow});
                     return lines.ToString();
                 }
             }
@@ -281,7 +281,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
-                    int lines = connection.ExecuteScalar<int>(query, new{ Username = username, Attempts = updatedValue});
+                    int lines = connection.Execute(query, new{ Username = username, Attempts = updatedValue});
                     return lines.ToString();
                 }
             }
@@ -334,6 +334,9 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 return ex.Message;
             }
         }
+        
+        
+        
 
         public string DeleteFailedAttempts(string username)
         {

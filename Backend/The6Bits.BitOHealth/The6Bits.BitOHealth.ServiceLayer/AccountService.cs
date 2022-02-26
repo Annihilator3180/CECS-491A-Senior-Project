@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -35,17 +36,43 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
         public string GetEmail(string username)
         {
-            return _AD.Read(new User(){Username = username}).Email;
+            string email =  _AD.Read(new User(){Username = username}).Email;
+            int temp;
+            if (!Int32.TryParse(email, out temp))
+            {
+                return email;
+            }
+            //call error handler
+            return email;
         }
 
         public string DeletePastOTP(string username, string codeType)
         {
-            return _AD.DeletePastOTP(username, codeType);
+            
+            string res = _AD.DeletePastOTP(username, codeType);
+            if (res.Contains("deleted"))
+            {
+                return res;
+            }
+            else
+            {
+                //HANDLE ERROR
+                return res;
+            }
         }
 
         public string SaveActivationCode(string username, DateTime time, string code, string codeType)
         {
-            return _AD.SaveActivationCode(username,time,code,codeType);
+            string res =  _AD.SaveActivationCode(username,time,code,codeType);
+            if (res == "1")
+            {
+                return "saved";
+            }
+            else
+            {
+                //handle error
+                return "";
+            }
         }
 
         public string IsEnabled(string username)
@@ -90,7 +117,25 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
         public string CheckFailDate(string username)
         {
-            return _AD.CheckFailDate(username);
+            
+            
+            string date =  _AD.CheckFailDate(username);
+            if (date == "none")
+            {
+                return date;
+            }
+
+            try
+            {
+                DateTime.Parse(date);
+                return date;
+            }
+            catch
+            {
+                return "DB ERROR";
+            }
+
+
         }
 
         public string InsertFailedAttempts(string username)
@@ -125,7 +170,13 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
         public string DeleteFailedAttempts(string username)
         {
-            return _AD.DeleteFailedAttempts(username);
+            string res = _AD.DeleteFailedAttempts(username);
+            if (res == "1")
+            {
+                return "1";
+            }
+
+            return res;
         }
 
 

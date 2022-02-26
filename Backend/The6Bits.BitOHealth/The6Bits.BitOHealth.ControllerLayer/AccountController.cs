@@ -31,13 +31,18 @@ public class AccountController : ControllerBase
         
         //TODO:FIX IF STATMENT TO SOMETHING BETTER
         //TODO:ADD LOGS
-        //TODO:2FA 
         if (parts.Length==3)
         {
-            
             Response.Cookies.Append(
                 "token",
                 jwt);
+            logService.Log(acc.Username,"Logged In", "Info","Business" );
+        }
+        else
+        {
+            string loginfail = "Log In Fail";
+            logService.Log(acc.Username,loginfail+" "+jwt, "Info","Business" );
+
         }
 
         return jwt;
