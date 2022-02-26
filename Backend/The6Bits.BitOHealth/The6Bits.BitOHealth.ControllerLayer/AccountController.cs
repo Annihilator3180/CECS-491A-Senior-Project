@@ -57,12 +57,21 @@ public class AccountController : ControllerBase
 
 
 
-    [HttpPost("Register")]
+    [HttpGet("Register")]
     public string CreateAccount(User user)
     {
 
         String emailStatus = _AM.CreateAccount(user);
         return "0";
+    }
+    [HttpGet("VerifyAccount")]
+    public string VerifyAccount(String Code, String Username)
+    {
+        if (Code == "0")
+        {
+            return "Input";
+        }
+        return "no";
     }
 
 

@@ -61,9 +61,9 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     return "Member";
                 }
             }
-            catch
+            catch(SqlException ex)
             {
-                return "DB Error";
+                return ex.Number.ToString();
             }
         }
 
@@ -87,9 +87,9 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     return "not found";
                 }
             }
-            catch
+            catch(SqlException ex)
             {
-                return "DB Error Check Pass";
+                return ex.Number.ToString();
             }
         }
         
@@ -183,30 +183,38 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     return lines.ToString();
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                return ex.Message;
+                return ex.Number.ToString();
             }
             
         }
         
-        public string SaveActivationCode( string username , DateTime time, string code, string codeType)
+        public string  SaveActivationCode( string username , DateTime codeDate, string code, string codeType)
         {
             try
             {
-                string query = "INSERT INTO Accounts (Username, Email, Password, FirstName, LastName, IsEnabled, IsAdmin) " +
-                    "values(@, 'cbass@gmail.com', 'Password!1', 'admin', 'boss', 1, 1)";
+                string query = "INSERT INTO Verification (Username, CodeDate, code, codetype) " +
+                    "values(@username, '@codeDate', '@code', '@codeType')";
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
-                    int lines = connection.Execute(query, new{ Username = username, time = time, code = code , codetype =  codeType});
-                    return lines.ToString();
+                    int lines = connection.Execute(query, 
+                    new{ 
+                        Username = username,
+                        codeDate = codeDate,
+                        code = code , 
+                        codetype =  codeType});
+                    if (lines == 1)
+                    {
+                        return "True";
+                    };
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                return ex.Message;
+                return ex.Number.ToString();
             }
             
         }
@@ -226,9 +234,9 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     return lines.ToString();
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                return ex.Message;
+                return ex.Number.ToString();
             }
             
         }
@@ -246,9 +254,9 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     return attempts.ToString();
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                return ex.Message;
+                return ex.Number.ToString();
             }
 
         }
@@ -266,9 +274,9 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     return lines.ToString();
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                return ex.Message;
+                return ex.Number.ToString();
             }
             
         }
@@ -337,9 +345,6 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         }
         public string UnactivatedSave(User user)
             {
-                user.IsEnabled = 0;
-                user.IsAdmin = 0;
-            {
                 try
                 {
                     string query = "INSERT into ACCOUNTS(Username,Email,Password,FirstName,LastName,IsEnabled,IsAdmin) " +
@@ -356,10 +361,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                                 LastName = user.LastName
                             });
                         connection.Close();
-                        if (lines_modified == 0)
-                        {
-                            return "DB error";
-                        }
+
                     }
 
 
@@ -367,11 +369,33 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 }
                 catch(SqlException ex)
                 {
-                    return "dberror";
+                    return ex.Number.ToString();
                 }
 
+            
+        }
+        public string DeleteUnActivated(User user)
+        {
+            try
+            {
+                string query = $"DELETE FROM Accounts WHERE Username = @Username";
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int linesEdited = connection.Execute(query, new { Username = user.Username });
+                    connection.Close();
+
+                    connection.Close();
+                    return "1";
+                }
+            }
+            catch(SqlException ex)
+            {
+                return ex.Number.ToString();
             }
         }
+    }
+
 
         public string DeleteFailedAttempts(string username)
         {
@@ -387,9 +411,9 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                         return lines.ToString();
                     }
                 }
-                catch (Exception ex)
+                catch (SqlException ex)
                 {
-                    return ex.Message;
+                    return ex.Number.ToString();
                 }
             }
             

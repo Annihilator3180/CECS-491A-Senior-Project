@@ -170,11 +170,46 @@ namespace The6Bits.BitOHealth.ServiceLayer
             }
         }
 
+        public async Task<string> EmailFailed(User user)
+        {
+            String DeletionStatus=_AD.DeleteUnActivated(user);
+            if (DeletionStatus != "1")
+            {
+                return _DBErrors.DBErrorCheck(int.Parse(DeletionStatus));
+            }
+            return "True";
+        }
+
+        //TODO: Finish implementing email
+        public string VerifyEmail(string username, string email, DateTime now)
+        {
+            String code=Guid.NewGuid().ToString("N");
+            String saveStatus=_AD.SaveActivationCode(username, now, code, "Registration");
+            if (saveStatus != "Saved")
+            {
+                return _DBErrors.DBErrorCheck(int.Parse(saveStatus));
+            }
+
+            String Subject = "Verify your account";
+            String Body = "Please use this link to verify your account https://localhost:7011/Account/VerifyAccount?Code=" + code + "&&Username=" + username;
+            String EmailStatus = "";
+            if (EmailStatus != "Email Sent")
+            {
+                return "Email Failed To Send";
+            }
+            return "True";
+        }
+
         public string SaveUnActivatedAccount(User user)
         {
             String unactivated = _AD.UnactivatedSave(user);
-            return "";
+            if (unactivated != "Saved")
+            {
+                return _DBErrors.DBErrorCheck(int.Parse(unactivated));
+            }
+            return "Saved";
         }
+
 
         public string UpdateIsEnabled(string username, int updateValue)
         {

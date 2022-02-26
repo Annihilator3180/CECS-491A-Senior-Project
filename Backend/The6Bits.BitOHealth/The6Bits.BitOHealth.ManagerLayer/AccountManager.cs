@@ -171,7 +171,17 @@ public class AccountManager
             return isValidUsername; 
         }
         String unactivated = _AS.SaveUnActivatedAccount(user);
-        return "0";
+        if(unactivated != "Saved")
+        {
+            return unactivated;
+        }
+        String SentCode=_AS.VerifyEmail(user.Username, user.Email, DateTime.Now);
+        if (SentCode == "Email Failed To Send")
+        {
+            _AS.EmailFailed(user);
+            return "Email Failed To Send";
+        }
+        return "Email Pending Confirmation";
 
     }
 }

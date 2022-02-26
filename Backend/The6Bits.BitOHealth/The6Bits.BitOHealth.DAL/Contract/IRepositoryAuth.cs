@@ -34,7 +34,7 @@ namespace The6Bits.BitOHealth.DAL.Contract
 
         public string DeleteFailedAttempts(string username);
         public string UnactivatedSave(User user);
-
-
+        string DeleteUnActivated(User user);
+        void getCode(string code, string username, string v);
     }
 }

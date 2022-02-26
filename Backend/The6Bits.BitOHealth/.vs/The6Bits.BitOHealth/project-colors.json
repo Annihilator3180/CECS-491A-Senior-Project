@@ -160,7 +160,37 @@
       "ProjectGuid": "a5578da2-0cf4-403e-9247-80ace57ef89b",
       "DisplayName": "The6Bits.Authorization.Tests",
       "ColorIndex": 14
+    },
+    "5a8cc4c0-a900-478c-8320-a3565336a2ce": {
+      "ProjectGuid": "5a8cc4c0-a900-478c-8320-a3565336a2ce",
+      "DisplayName": "The6Bits.DBErrors",
+      "ColorIndex": 15
+    },
+    "dd54b656-0f37-4227-8469-f21c9d44dd52": {
+      "ProjectGuid": "dd54b656-0f37-4227-8469-f21c9d44dd52",
+      "DisplayName": "The6Bits.DBErrors",
+      "ColorIndex": 0
+    },
+    "2f46774b-4c38-4202-9ff8-522280b27b7a": {
+      "ProjectGuid": "2f46774b-4c38-4202-9ff8-522280b27b7a",
+      "DisplayName": "The6Bits.BitOHealth.DAL.Tests",
+      "ColorIndex": 1
+    },
+    "119ce180-1661-4091-91e6-acbe39d37091": {
+      "ProjectGuid": "119ce180-1661-4091-91e6-acbe39d37091",
+      "DisplayName": "The6Bits.BitOHealth.ServiceLayer.Test",
+      "ColorIndex": 2
+    },
+    "b9e84952-e4b2-48bb-a7cd-89197f6b5a77": {
+      "ProjectGuid": "b9e84952-e4b2-48bb-a7cd-89197f6b5a77",
+      "DisplayName": "The6Bits.Authorization.Tests",
+      "ColorIndex": 3
+    },
+    "132f4ef6-f6af-4a9b-8c30-ba5a0e912648": {
+      "ProjectGuid": "132f4ef6-f6af-4a9b-8c30-ba5a0e912648",
+      "DisplayName": "WebAppAPI",
+      "ColorIndex": 4
     }
   },
-  "NextColorIndex": 15
+  "NextColorIndex": 5
 }
