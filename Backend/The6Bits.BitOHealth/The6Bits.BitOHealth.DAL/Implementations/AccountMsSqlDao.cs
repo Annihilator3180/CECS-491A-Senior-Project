@@ -512,7 +512,45 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         }
 
 
+        public string AcceptEULA(string username)
+        {
+            try
+            {
+                string query = $"update Accounts where select count(username) from Accounts where username = '{username}' set privOption = True;";
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int count = connection.ExecuteScalar<int>(query);
+                    return "accepted";
+                    // return count.ToString();
+                        
+                }
+            }
+            catch (SqlException ex)
+            {
+                return ex.Number.ToString();
+            }
+        }
 
+        public string DeclineEULA(string username)
+        {
+            try
+            {
+                string query = $"update Accounts where select count(username) from Accounts where username = '{username}' set privOption = False;";
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int count = connection.ExecuteScalar<int>(query);
+                    return "declined";
+                    // return count.ToString();
+
+                }
+            }
+            catch (SqlException ex)
+            {
+                return ex.Number.ToString();
+            }
+        }
 
 
 

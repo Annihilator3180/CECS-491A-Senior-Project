@@ -271,38 +271,23 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
         public string AcceptEULA(string username)
         {
-            /* add DB error 
-            string codeinDB = _AD.getCode(username, "UserPrivacy");
-            if (codeinDB.Length > 10)
-            {
-                return _DBErrors.DBErrorCheck(int.Parse(codeinDB));
-            }
-            return codeinDB;
-            */
             string res = _AD.AcceptEULA(username);
-            if (res == "1")
+            if (res != "accepted")
             {
-                return "Privacy Accepted";
+                return _DBErrors.DBErrorCheck(int.Parse(res));
             }
-            return res;
+            return "accepted";
         }
 
         public string DeclineEULA(string username)
         {
-            /* add DB error 
-            string codeinDB = _AD.getCode(username, "UserPrivacy");
-            if (codeinDB.Length > 10)
-            {
-                return _DBErrors.DBErrorCheck(int.Parse(codeinDB));
-            }
-            return codeinDB;
-            */
             string res = _AD.AcceptEULA(username);
-            if (res == "1")
+            if (res != "declined")
             {
-                return "Privacy Declined";
+                return _DBErrors.DBErrorCheck(int.Parse(res));
             }
-            return res;
+            return "Privacy Declined";
+        }
         public string GenerateRandomString()
         {
             Random random = new Random();

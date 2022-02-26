@@ -41,7 +41,7 @@ namespace The6Bits.BitOHealth.DAL.Contract
 
         public string DeleteFailedAttempts(string username);
         public string AcceptEULA(string username);
-        public string DeclineEula(string username);
+        public string DeclineEULA(string username);
         public string UnactivatedSave(User user);
         public string DeleteUnActivated(User user);
         public string getCode(string username, string codeType);

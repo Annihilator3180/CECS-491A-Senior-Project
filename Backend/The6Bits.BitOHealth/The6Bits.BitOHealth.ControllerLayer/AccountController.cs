@@ -9,12 +9,14 @@ using The6Bits.Logging.DAL.Contracts;
 using The6Bits.Logging.Implementations;
 using The6Bits.DBErrors;
 using The6Bits.EmailService;
+// using The6Bits.BitOHealth.ServiceLayer;
 
 namespace The6Bits.BitOHealth.ControllerLayer;
 [ApiController]
 [Route("Account")]
 public class AccountController : ControllerBase
 {
+    private IAuthenticationService authenticationService1;
     private AccountManager _AM;
     private LogService logService;
     private IDBErrors _dbErrors;
@@ -25,6 +27,7 @@ public class AccountController : ControllerBase
         logService = new LogService(logDao);
         _dbErrors = dbErrors;
         _EmailService = EmailService;
+        authenticationService1 = authenticationService;
     }
 
     [HttpPost("Login")]
@@ -74,7 +77,7 @@ public class AccountController : ControllerBase
   //      response.cookies.append("cookie",httpcookie);
  //   }
     
-}
+
 
 
     [HttpPost("Register")]
@@ -119,7 +122,27 @@ public class AccountController : ControllerBase
         return verfied;
     }
 
+    public string AcceptEULA(string username)
+    {
+        bool isValid = authenticationService1.ValidateToken(Request.Headers["Authorization"]);
+        if (isValid)
+        {
+            // if usernameExists(username) { return _AM.AcceptEULA(username) } return "invalid username";
+            return _AM.AcceptEULA(username);
+        }
+        return "invalid token";
+    }
 
+    public string DeclineEULA(string username)
+    {
+        bool isValid = authenticationService1.ValidateToken(Request.Headers["Authorization"]);
+        if (isValid)
+        {
+            //check username
+            return _AM.DeclineEULA(username);
+        }
+        return "invalid token";
+    }
 }
 
 

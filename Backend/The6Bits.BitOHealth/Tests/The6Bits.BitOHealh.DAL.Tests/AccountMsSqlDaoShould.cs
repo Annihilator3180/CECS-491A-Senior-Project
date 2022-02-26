@@ -81,28 +81,45 @@ public class AccountMsSqlDaoShould : TestsBase
     public void CreateValid(User u)
     {
         AccountMsSqlDao Ac = new AccountMsSqlDao(_connect);
-        
-        
+
+
         Ac.Create(u);
         User readuser = Ac.Read(u);
-        
-        
-        Assert.Equal(u.Username,readuser.Username);
-        
+
+
+        Assert.Equal(u.Username, readuser.Username);
+
         //CLEANUP
-        
 
 
+
+    }
+    [Theory]
+    [InlineData("bobi")]
+    public void AcceptEULA(string username)
+    {
+        AccountMsSqlDao Ac = new AccountMsSqlDao(_connect);
+        var ans = Ac.AcceptEULA(username);
+        Assert.Equal("accepted", ans);
+    }
+
+    [Theory]
+    [InlineData("bobi2")]
+    public void DeclineEULA(string username)
+    {
+        AccountMsSqlDao Ac = new AccountMsSqlDao(_connect);
+        var ans = Ac.DeclineEULA(username);
+        Assert.Equal("declined", ans);
     }
 
 
 
 
-//DELETE TESTING ITEMS FROM DB
+    //DELETE TESTING ITEMS FROM DB
     //TODO:DELETE ACCOUNTS AT TEST END
 
-    
-    
+
+
     public static IEnumerable<object[]> LoadUsersJson()
     {
         
