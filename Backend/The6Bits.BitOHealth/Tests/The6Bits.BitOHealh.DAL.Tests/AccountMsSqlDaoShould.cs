@@ -110,12 +110,12 @@ public class AccountMsSqlDaoShould : TestsBase
 
     public void DeleteAccountValid(string userName)
     {
-        var repoAuth = new AccountMsSqlDao(_connect);
-        var authService = new JWTAuthenticationService();
+        var AC = new AccountMsSqlDao(_connect);
+        var AS = new JWTAuthenticationService();
 
-        var accountManager = new AccountManager(repoAuth, authService);
+        var AM = new AccountManager(AC, AS);
 
-        var result = accountManager.DeleteAccount(userName);
+        var result = AM.DeleteAccount(userName);
 
         Assert.True(result == "Account Deleted");
     }
