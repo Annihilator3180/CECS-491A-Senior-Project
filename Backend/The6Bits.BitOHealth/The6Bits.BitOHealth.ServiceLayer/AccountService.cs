@@ -31,7 +31,15 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
         public string UsernameExists(string username) 
         {
-            return _AD.UsernameExists(username);
+            string res = _AD.UsernameExists(username);
+            if (res == "username exists" || res == "username not found")
+            {
+                return res;
+            }
+            else 
+            {
+                return _DBErrors.DBErrorCheck(int.Parse(res));
+            }
         }
 
         public string UserRole(string username)
@@ -41,19 +49,27 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
         public string CheckPassword(string username, string password)
         {
-            return _AD.CheckPassword(username, password);
+            string res = _AD.CheckPassword(username, password);
+            if (res == "found" || res == "not found")
+            {
+                return res;
+            }
+            else 
+            {
+                return _DBErrors.DBErrorCheck(int.Parse(res));
+            }
         }
 
         public string GetEmail(string username)
         {
+
             string email =  _AD.Read(new User(){Username = username}).Email;
-            int temp;
-            if (!Int32.TryParse(email, out temp))
+            if (email!="100")
             {
                 return email;
             }
             //call error handler
-            return email;
+            return _DBErrors.DBErrorCheck(int.Parse(email));
         }
 
         public string DeletePastOTP(string username, string codeType)
@@ -66,8 +82,8 @@ namespace The6Bits.BitOHealth.ServiceLayer
             }
             else
             {
-                //HANDLE ERROR
-                return res;
+                return _DBErrors.DBErrorCheck(int.Parse(res));
+
             }
         }
 
@@ -80,8 +96,8 @@ namespace The6Bits.BitOHealth.ServiceLayer
             }
             else
             {
-                //handle error
-                return "";
+                return _DBErrors.DBErrorCheck(int.Parse(res));
+
             }
         }
 
@@ -207,12 +223,18 @@ namespace The6Bits.BitOHealth.ServiceLayer
                 return "invalid OTP";
             }
 
-            return res;
+            return _DBErrors.DBErrorCheck(int.Parse(res));
         }
 
         public string CheckFailedAttempts(string username)
         {
-            return _AD.CheckFailedAttempts(username);
+            string res = _AD.CheckFailedAttempts(username);
+            if (res.Contains("z"))
+            {
+                return _DBErrors.DBErrorCheck(int.Parse(res.TrimEnd('Z')));
+
+            }
+            return res;
         }
 
         public string CheckFailDate(string username)
@@ -232,7 +254,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
             }
             catch
             {
-                return "DB ERROR";
+                return _DBErrors.DBErrorCheck(int.Parse(date));
             }
 
 
@@ -240,7 +262,12 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
         public string InsertFailedAttempts(string username)
         {
-            return _AD.InsertFailedAttempts(username);
+            string res =  _AD.InsertFailedAttempts(username);
+            if (res.Contains("Z")) 
+            {
+                return _DBErrors.DBErrorCheck(int.Parse(res.TrimEnd('Z')));
+            }
+            return res;
         }
 
         public string UpdateFailedAttempts(string username, int updatedValue)
@@ -253,7 +280,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
             }
             else
             {
-                return lineschanged;
+                return _DBErrors.DBErrorCheck(int.Parse(lineschanged));
             }
         }
 
@@ -306,7 +333,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
                 return "account updated";
             }
 
-            return res;
+            return _DBErrors.DBErrorCheck(int.Parse(res));
         }
 
         public string DeleteFailedAttempts(string username)
@@ -317,7 +344,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
                 return "1";
             }
 
-            return res;
+            return _DBErrors.DBErrorCheck(int.Parse(res));
         }
 
         public string GenerateRandomString()

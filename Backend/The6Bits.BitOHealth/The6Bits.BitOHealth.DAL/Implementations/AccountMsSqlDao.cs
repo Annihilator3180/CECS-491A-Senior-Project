@@ -138,9 +138,9 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     return str.First();
                 }
             }
-            catch
+            catch (SqlException ex)
             {
-                return new User();
+                return new User("100", "100", "100", "100", "100", 100,100);
             }
         
         }
@@ -255,7 +255,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
             catch (SqlException ex)
             {
-                return ex.Number.ToString();
+                return ex.Number.ToString()+"Z";
             }
 
         }
@@ -275,9 +275,9 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
             catch (SqlException ex)
             {
-                return ex.Number.ToString();
+                return ex.Number.ToString() + "Z";
             }
-            
+
         }
 
         public string UpdateFailedAttempts(string username, int updatedValue)
