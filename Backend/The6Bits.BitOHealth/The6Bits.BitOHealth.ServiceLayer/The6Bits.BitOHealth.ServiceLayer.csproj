@@ -10,6 +10,7 @@
     <ProjectReference Include="..\Models\The6Bits.BitOHealth.Models.csproj" />
     <ProjectReference Include="..\The6Bits.BitOHealth.DAL\The6Bits.BitOHealth.DAL.csproj" />
     <ProjectReference Include="..\The6Bits.BitOHealth.Logging\The6Bits.Logging.csproj" />
+    <ProjectReference Include="..\The6Bits.EmailService\The6Bits.SMTPEmailService.csproj" />
   </ItemGroup>
 
 </Project>

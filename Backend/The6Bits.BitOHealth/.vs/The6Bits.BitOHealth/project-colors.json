@@ -175,7 +175,12 @@
       "ProjectGuid": "132f4ef6-f6af-4a9b-8c30-ba5a0e912648",
       "DisplayName": "WebAppAPI",
       "ColorIndex": 1
+    },
+    "2aa2ffcb-096e-48f8-a272-c611ec9a39e1": {
+      "ProjectGuid": "2aa2ffcb-096e-48f8-a272-c611ec9a39e1",
+      "DisplayName": "The6Bits.EmailService",
+      "ColorIndex": 2
     }
   },
-  "NextColorIndex": 2
+  "NextColorIndex": 3
 }

@@ -127,7 +127,7 @@ public class AccountManager
         string ra = _AS.UsernameAndEmailExists(arm.Username, arm.Email);
         if (ra != "Email and Username found")
         {
-            return string.Empty;
+            return ra;
         }
 
         string enabled = _AS.IsEnabled(arm.Username);
@@ -138,9 +138,21 @@ public class AccountManager
         string recoveryValidation = _AS.ValidateRecoveryAttempts(arm.Username);
         if(recoveryValidation != "under")
         {
-            return string.Empty;
+            return recoveryValidation;
         }
-        return _AS.SendEmail("angelcueva47@gmail.com", "hello", "test");
+        string email = _AS.SendEmail("the6bits@gmail.com", "hello", "test");
+
+        if (email != "email sent")
+        {
+            return email;
+        }
+        string updateRecoveryAttempts = _AS.UpdateRecoveryAttempts(arm.Username);
+
+        if (updateRecoveryAttempts != "1")
+        {
+            return updateRecoveryAttempts;
+        }
+        return _AS.GenerateRandomString();
     }
 
     
