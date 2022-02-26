@@ -196,7 +196,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             try
             {
                 string query = "INSERT INTO VerifyCodes (username, time, code, codetype) " +
-                    "values(@username, @codeDate, @code, @codeType)";
+                    "values(@username, @time, @code, @codeType)";
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
@@ -204,7 +204,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     int lines = connection.Execute(query, 
                     new{ 
                         Username = username,
-                        codeDate = codeDate,
+                        time = codeDate,
                         code = code,
                         codetype =  codeType
                     }
@@ -354,15 +354,16 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                                    " values (@Username, @Email, @Password, @FirstName,@LastName, 0,0,0) ";
                     using (SqlConnection connection = new SqlConnection(_connectString))
                     {
-                        int lines_modified = connection.Execute(query,
-                            new
-                            {
-                                Email = user.Email,
-                                Username = user.Username,
-                                Password = user.Password,
-                                FirstName = user.FirstName,
-                                LastName = user.LastName,
-                            });
+                    int lines_modified = connection.Execute(query,
+                        new
+                        {
+                            Email = user.Email,
+                            Username = user.Username,
+                            Password = user.Password,
+                            FirstName = user.FirstName,
+                            LastName = user.LastName,
+                            privOption = user.privOption
+                        }) ;
                         connection.Close();
 
                     }

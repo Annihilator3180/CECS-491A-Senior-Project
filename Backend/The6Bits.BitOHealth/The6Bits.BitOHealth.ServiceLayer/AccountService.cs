@@ -90,7 +90,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
         public string SaveActivationCode(string username, DateTime time, string code, string codeType)
         {
             string res =  _AD.SaveActivationCode(username,time,code,codeType);
-            if (res == "1")
+            if (res == "Saved")
             {
                 return "saved";
             }
@@ -294,7 +294,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
             return "True";
         }
 
-        //TODO: Finish implementing email
+  
         public string VerifyEmail(string username, string email, DateTime now)
         {
             String code=Guid.NewGuid().ToString("N");
