@@ -441,24 +441,6 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 return e.Message;
             }
         }
-        public string RemoveRecoveryAttempts(string username)
-        {
-            try
-            {
-                string query = "update Recovery set RecoveryAttempts = RecoveryAttempts - 1 where Username =  @Username";
-
-                using (SqlConnection conn = new SqlConnection(_connectString))
-                {
-                    conn.Open();
-                    int lines = conn.Execute(query, new { Username = username });
-                    return lines.ToString();
-                }
-            }
-            catch (Exception e)
-            {
-                return e.Message;
-            }
-        }
         public string VerifySameDay(string username, string code)
         {
             try
@@ -495,40 +477,6 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 return ex.Message;
             }
 
-        }
-        public string GetRecoveryOTP(string username)
-        {
-            try
-            {
-                string query = "select code from VerifyCodes where username = @username and codeType = 'Recovery'";
-                using (SqlConnection conn = new SqlConnection(_connectString))
-                {
-                    conn.Open();
-                    string otp = conn.ExecuteScalar<string>(query, new { Username = username });
-                    return otp;
-                }
-            }
-            catch (Exception ex)
-            {
-                return ex.Message;
-            }
-        }
-        public string GetPassword(string username)
-        {
-            try
-            {
-                string query = "select password from Accounts where username = @username";
-                using(SqlConnection conn = new SqlConnection(_connectString))
-                {
-                    conn.Open();
-                    string p = conn.ExecuteScalar<string>(query,new { Username = username });
-                    return p;
-                }
-            }
-            catch(Exception ex)
-            {
-                return ex.Message;
-            }
         }
     }
 }

@@ -22,11 +22,6 @@ namespace The6Bits.BitOHealth.DAL.Contract
 
         public string ResetPassword(string password, string username);
 
-         public string RemoveRecoveryAttempts(string username);
-
-        public string GetRecoveryOTP(string username);
-
-        public string GetPassword(string username);
 
 
 
