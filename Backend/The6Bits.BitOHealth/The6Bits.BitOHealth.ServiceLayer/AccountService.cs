@@ -392,11 +392,17 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
         public string UsernameAndEmailExists(string username, string email)
         {
-            return _AD.UsernameAndEmailExists(username, email);
+            string exists = _AD.UsernameAndEmailExists(username, email);
+            if (exists == "Email and Username found" || exists == "incorrect")
+            {
+                return exists;
+            }
+            return _DBErrors.DBErrorCheck(int.Parse(exists));
         }
 
         public string ValidateRecoveryAttempts(string username)
         {
+
             return _AD.ValidateRecoveryAttempts(username);
         }
 
@@ -408,11 +414,17 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
         public string UpdateRecoveryAttempts(string username)
         {
-            return _AD.UpdateRecoveryAttempts(username);
+            string ura = _AD.UpdateRecoveryAttempts(username);
+           if (ura == "1")
+            {
+                return ura;
+            }
+            return _DBErrors.DBErrorCheck(int.Parse(ura));
         }
 
         public string VerifySameDay(string username, string code)
         {
+
             string sd = _AD.VerifySameDay(username, code);
             if (sd != "1")
             {

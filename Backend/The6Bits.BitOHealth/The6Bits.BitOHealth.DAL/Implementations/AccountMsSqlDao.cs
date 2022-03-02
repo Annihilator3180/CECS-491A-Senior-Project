@@ -500,7 +500,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = "update Recovery set RecoveryAttempts = RecoveryAttempts + 1 where Username =  @Username";
+                string query = "update Accounts set RecoveryAttempts = RecoveryAttempts + 1 where Username =  @Username";
 
                 using (SqlConnection conn = new SqlConnection(_connectString))
                 {
@@ -509,9 +509,9 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     return lines.ToString();
                 }
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
-                return e.Message;
+                return e.Number.ToString();
             }
         }
 
@@ -573,9 +573,9 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 }
 
             }
-            catch
+            catch (SqlException ex)
             {
-                return "Db error";
+                return ex.Number.ToString();
             }
         }
 
@@ -595,9 +595,9 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     return "over";
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                return ex.Message;
+                return ex.Number.ToString();
             }
 
 

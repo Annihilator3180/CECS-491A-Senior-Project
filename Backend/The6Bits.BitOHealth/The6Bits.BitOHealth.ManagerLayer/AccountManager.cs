@@ -287,10 +287,15 @@ public class AccountManager
     public string recoverAccount(AccountRecoveryModel arm)
     {
         string ra = _AS.UsernameAndEmailExists(arm.Username, arm.Email);
-        if (ra != "Email and Username found")
+        if (ra.Contains("Database"))
         {
-            return ra;
+            return _iDBErrors.DBErrorCheck(int.Parse(ra));
         }
+        else if(ra == "incorrect")
+        {
+            return "Invalid username and email";
+        }
+        
 
         string enabled = _AS.IsEnabled(arm.Username);
         if (enabled != "enabled")
@@ -315,15 +320,20 @@ public class AccountManager
 
         if (updateRecoveryAttempts != "1")
         {
-            return updateRecoveryAttempts;
+            return _iDBErrors.DBErrorCheck(int.Parse(updateRecoveryAttempts));
         }
 
         string saveCode = _AS.SaveActivationCode(arm.Username, dateTime, r, "Recovery");
         if (saveCode != "saved")
         {
             _AS.DeletePastOTP(arm.Username, "Recovery");
-            _AS.SaveActivationCode(arm.Username, dateTime, r, "Recovery");
+            string retry = _AS.SaveActivationCode(arm.Username, dateTime, r, "Recovery");
+            if (retry.Contains("Database"))
+            {
+                return _iDBErrors.DBErrorCheck(int.Parse(retry));
+            }
         }
+        
         return "Recovery Link Sent To Email: " + arm.Email;
     }
     public string ResetPassword(string u, string r, string p)
