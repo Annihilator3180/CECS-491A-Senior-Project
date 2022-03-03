@@ -162,8 +162,14 @@ public class AccountController : ControllerBase
 
     public string AccountRecovery(AccountRecoveryModel arm)
     {
+        string start = _AM.recoverAccount(arm);
 
-        return _AM.recoverAccount(arm);
+        if (start.Contains("Database"))
+        {
+            return "db error";
+        }
+
+        return start;
 
 
     }

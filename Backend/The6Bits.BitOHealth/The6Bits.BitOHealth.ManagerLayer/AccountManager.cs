@@ -295,28 +295,37 @@ public class AccountManager
         {
             return "Invalid username and email";
         }
-        
+
+
 
         string enabled = _AS.IsEnabled(arm.Username);
         if (enabled != "enabled")
         {
             return "disabled account";
         }
+
         string recoveryValidation = _AS.ValidateRecoveryAttempts(arm.Username);
         if (recoveryValidation != "under")
         {
             return recoveryValidation;
         }
+        //return "here";
+
         string r = _AS.GenerateRandomString();
+        /*
         string email = _AS.SendEmail(arm.Email, "Bit O Health Recovery", "Please click URL within 24 hours to recover your account" +
             "\n https://localhost:7011/Account/ResetPassword?r=" + r + "&u=" + arm.Username);
-        DateTime dateTime = DateTime.Now;
+        
 
         if (email != "email sent")
         {
             return email;
         }
-        string updateRecoveryAttempts = _AS.UpdateRecoveryAttempts(arm.Username);
+        */
+        DateTime dateTime = DateTime.Now;
+
+        string updateRecoveryAttempts = _AS.UpdateRecoveryAttempts(arm.Username, dateTime);
+        return "here";
 
         if (updateRecoveryAttempts != "1")
         {

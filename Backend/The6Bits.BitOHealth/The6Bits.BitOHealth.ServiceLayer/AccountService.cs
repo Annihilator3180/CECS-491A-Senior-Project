@@ -412,10 +412,10 @@ namespace The6Bits.BitOHealth.ServiceLayer
             return sMTPEmailService.SendEmail(email, subject, body);
         }
 
-        public string UpdateRecoveryAttempts(string username)
+        public string UpdateRecoveryAttempts(string username, DateTime dT)
         {
-            string ura = _AD.UpdateRecoveryAttempts(username);
-           if (ura == "1")
+           string ura = _AD.UpdateRecoveryAttempts(username, dT);
+           if (ura == "1" || ura == "0")
             {
                 return ura;
             }

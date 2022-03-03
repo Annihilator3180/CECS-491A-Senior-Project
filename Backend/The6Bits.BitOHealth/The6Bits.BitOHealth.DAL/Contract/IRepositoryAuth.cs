@@ -16,7 +16,7 @@ namespace The6Bits.BitOHealth.DAL.Contract
         //public string IsEnabled(string username);
         //public string ValidateRecoveryAttempts(string username);
 
-        public string UpdateRecoveryAttempts(string username);
+        public string UpdateRecoveryAttempts(string username, DateTime dT);
 
 
 

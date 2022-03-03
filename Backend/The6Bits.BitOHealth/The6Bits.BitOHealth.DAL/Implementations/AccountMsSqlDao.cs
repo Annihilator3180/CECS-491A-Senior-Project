@@ -126,7 +126,35 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
             
         }
+        public string UpdateRecoveryAttempts(string username, DateTime recoveryAttempt)
+        {
+            try
+            {
+
+                string query = "INSERT Recovery(username,email, recoveryAttempt) values(@username,'angelcueva47@gmail.com', @recoveryAttempt)";
+
+                using (SqlConnection conn = new SqlConnection(_connectString))
+                {
+                    int lines = conn.ExecuteScalar<int>(query, new { Username = username, recoveryAttempt = recoveryAttempt });;
+                    conn.Close();
+
+                    if (lines == 0)
+                    {
+                        return "0";
+                    }
+                    return "1";
+
+                }
+
+            }
+            catch (SqlException e)
+            {
+                return e.Number.ToString();
+            }
+        }
         
+
+
         public User Read(User user)
         {
             try
@@ -496,25 +524,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
             
         }
-        public string UpdateRecoveryAttempts(string username)
-        {
-            try
-            {
-                string query = "update Accounts set RecoveryAttempts = RecoveryAttempts + 1 where Username =  @Username";
-
-                using (SqlConnection conn = new SqlConnection(_connectString))
-                {
-                    conn.Open();
-                    int lines = conn.Execute(query, new { Username = username });
-                    return lines.ToString();
-                }
-            }
-            catch (SqlException e)
-            {
-                return e.Number.ToString();
-            }
-        }
-
+        
 
         public string AcceptEULA(string username)
         {
@@ -583,7 +593,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = $"select RecoveryAttempts from Recovery where username = '{username}';";
+                string query = "select count(recoveryAttempt) from Recovery where username = '{username}';";
                 using (SqlConnection conn = new SqlConnection(_connectString))
                 {
                     conn.Open();

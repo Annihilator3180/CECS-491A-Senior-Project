@@ -53,7 +53,7 @@ if (app.Environment.IsDevelopment())
     b.builAccountdDB(connstring);
     b.buildVerifyCodes(connstring);
     b.buildFailedAttempts(connstring);
-    //b.buildRecoveryDB(connstring);
+    b.buildRecovery(connstring);
 
     //app.UseSwagger();
     //app.UseSwaggerUI();
