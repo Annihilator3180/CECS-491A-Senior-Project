@@ -21,6 +21,7 @@ namespace The6Bits.BitOHealth.DAL.Contract
 
 
 
+
         public bool Create(User user);
         public User Read(User user);
         public bool Delete(User user);

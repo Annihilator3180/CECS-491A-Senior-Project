@@ -135,14 +135,10 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 
                 using (SqlConnection conn = new SqlConnection(_connectString))
                 {
-                    int lines = conn.ExecuteScalar<int>(query, new { Username = username, recoveryAttempt = recoveryAttempt });;
+                    int lines = conn.Execute(query, new { Username = username, recoveryAttempt = recoveryAttempt });;
                     conn.Close();
 
-                    if (lines == 0)
-                    {
-                        return "0";
-                    }
-                    return "1";
+                    return lines.ToString();
 
                 }
 
@@ -625,9 +621,9 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     return time.ToString();
                 }
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
-                return e.Message;
+                return e.Number.ToString();
             }
         }
 
@@ -645,9 +641,9 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 }
 
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                return ex.Message;
+                return ex.Number.ToString();
             }
 
         }
@@ -704,6 +700,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 return ex.Message;
             }
         }
+        
 
 
 

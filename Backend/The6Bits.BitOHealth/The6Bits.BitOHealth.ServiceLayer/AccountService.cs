@@ -428,14 +428,19 @@ namespace The6Bits.BitOHealth.ServiceLayer
             string sd = _AD.VerifySameDay(username, code);
             if (sd != "1")
             {
-                return "expired link";
+                return _DBErrors.DBErrorCheck(int.Parse(sd));
             }
             return sd;
 
         }
         public string ResetPassword(string password, string username)
         {
-            return _AD.ResetPassword(password, username);
+            string rp = _AD.ResetPassword(password, username);
+            if (rp != "1")
+            {
+                return _DBErrors.DBErrorCheck(int.Parse(rp));
+            }
+            return rp;
 
         }
 
@@ -452,7 +457,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
         {
             return _AD.GetPassword(username);
         }
-
+      
 
     }
 
