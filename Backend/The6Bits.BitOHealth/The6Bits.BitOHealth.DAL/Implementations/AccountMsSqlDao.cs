@@ -589,16 +589,19 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = "select count(recoveryAttempt) from Recovery where username = '{username}';";
+                string query = "select count(recoveryAttempt) from Recovery where username = @username";
                 using (SqlConnection conn = new SqlConnection(_connectString))
                 {
                     conn.Open();
-                    int recoveryAttempts = conn.ExecuteScalar<int>(query);
+                    int recoveryAttempts = conn.ExecuteScalar<int>(query, new {username = username});
+                    
                     if (recoveryAttempts < 5)
                     {
                         return "under";
                     }
                     return "over";
+                    
+                    //return recoveryAttempts.ToString();
                 }
             }
             catch (SqlException ex)

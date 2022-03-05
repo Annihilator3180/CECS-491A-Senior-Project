@@ -290,7 +290,7 @@ public class AccountManager
 
         if (_AS.ValidateEmail(arm.Email) == false || _AS.ValidateUsername(arm.Username) == "Invalid Username")
         {
-            return "invalid username or email";
+            return "Account Recovery Error";
         }
         string ra = _AS.UsernameAndEmailExists(arm.Username, arm.Email);
         if (ra.Contains("Database"))
@@ -307,17 +307,17 @@ public class AccountManager
         string enabled = _AS.IsEnabled(arm.Username);
         if (enabled != "enabled")
         {
-            return "disabled account";
+            return "Account Recovery Error";
         }
 
         string recoveryValidation = _AS.ValidateRecoveryAttempts(arm.Username);
         if (recoveryValidation != "under")
         {
-            return recoveryValidation;
+            return "Account Recovery Error";
         }
 
         string r = _AS.GenerateRandomString();
-        /*
+        
         string email = _AS.SendEmail(arm.Email, "Bit O Health Recovery", "Please click URL within 24 hours to recover your account" +
             "\n https://localhost:7011/Account/ResetPassword?r=" + r + "&u=" + arm.Username);
         
@@ -326,7 +326,7 @@ public class AccountManager
         {
             return email;
         }
-        */
+       
         DateTime dateTime = DateTime.Now;
 
         string updateRecoveryAttempts = _AS.UpdateRecoveryAttempts(arm.Username, dateTime);
@@ -358,7 +358,15 @@ public class AccountManager
         string validateOTP = _AS.ValidateOTP(u, r);
         if (validateOTP != "valid")
         {
-            return _iDBErrors.DBErrorCheck(int.Parse(validateOTP));
+            if (validateOTP.Contains("Database"))
+            {
+                return _iDBErrors.DBErrorCheck(int.Parse(validateOTP));
+
+            }
+            else
+            {
+                return validateOTP;
+            }
         }
         string sameDay = _AS.VerifySameDay(u, r);
         if (sameDay != "1")
