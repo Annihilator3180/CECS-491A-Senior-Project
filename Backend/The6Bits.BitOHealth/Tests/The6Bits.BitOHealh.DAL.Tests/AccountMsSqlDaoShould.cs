@@ -6,6 +6,8 @@ using The6Bits.BitOHealth.DAL.Implementations;
 using The6Bits.BitOHealth.Models;
 using Xunit;
 using System.Text.Json;
+using The6Bits.BitOHealth.DAL.Contract;
+using The6Bits.BitOHealth.ManagerLayer;
 using The6Bits.Authentication.Implementations;
 using The6Bits.BitOHealth.ManagerLayer;
 //using Microsoft.Extensions.Configuration;
@@ -16,14 +18,14 @@ namespace The6Bits.BitOHealth.DAL.Tests;
 
 public class AccountMsSqlDaoShould : TestsBase
 {
-    private string _connect;
+    private IRepositoryAuth<string> Ac;
+
 
     //INITIALIZATION STUFF
     //TODO:ADD ACCOUNTS AT TEST START
     public AccountMsSqlDaoShould()
     {
-        _connect = "Server=localhost\\SQLEXPRESS;Database=master;Trusted_Connection=True;";
-
+        Ac = new AccountMsSqlDao(conn);
     }
 
 
@@ -33,56 +35,61 @@ public class AccountMsSqlDaoShould : TestsBase
     [InlineData("LONGGAACCCA11", "Passwordka!!1")]
     public void CheckPasswordInvalid(string username, string password)
     {
-        //TEMP CONNSTRING
 
 
-
-        AccountMsSqlDao Ac = new AccountMsSqlDao(_connect);
         var ans = Ac.CheckPassword(username, password);
         Assert.Equal("not found", ans);
 
     }
 
     [Theory]
-    [InlineData("bossadmin12", "Password!1")]
-    [InlineData("raoaa1!eq", "boofbabA!1")]
-    public void CheckPasswordValid(string username, string password)
+    [MemberData(nameof(LoadUsersJson))]
+
+    public void CheckPasswordValid(User u)
     {
         //TEMP CONNSTRING
 
+        Ac.Create(u);
 
-        AccountMsSqlDao Ac = new AccountMsSqlDao(_connect);
-        var ans = Ac.CheckPassword(username, password);
+        var ans = Ac.CheckPassword(u.Username, u.Password);
+
         Assert.Equal("credentials found", ans);
+
+        Ac.Delete(u);
+
 
     }
 
 
     [Theory]
-    [InlineData("bossadmin12")]
-    [InlineData("raoaa1!eq")]
-    public void UsernameExistsValid(string username)
+    [MemberData(nameof(LoadUsersJson))]
+    public void UsernameExistsValid(User u)
     {
-        AccountMsSqlDao Ac = new AccountMsSqlDao(_connect);
-        var ans = Ac.UsernameExists(username);
+        Ac.Create(u);
+        var ans = Ac.UsernameExists(u.Username);
         Assert.Equal("username exists", ans);
+
+
+        Ac.Delete(u);
+
+
     }
+
 
     [Theory]
     [InlineData("zz")]
     [InlineData("dasdsadassddasdsa")]
     public void UsernameExistsInvalid(string username)
     {
-        AccountMsSqlDao Ac = new AccountMsSqlDao(_connect);
         var ans = Ac.UsernameExists(username);
         Assert.Equal("username not found", ans);
 
     }
+    
     [Theory]
     [MemberData(nameof(LoadUsersJson))]
     public void CreateValid(User u)
     {
-        AccountMsSqlDao Ac = new AccountMsSqlDao(_connect);
         
         
         Ac.Create(u);
@@ -90,11 +97,117 @@ public class AccountMsSqlDaoShould : TestsBase
         
         
         Assert.Equal(u.Username,readuser.Username);
-        
-        //CLEANUP
-        
 
+        Ac.Delete(u);
 
+    }
+
+    
+    [Theory]
+    [MemberData(nameof(LoadUsersJson))]
+    public void ReadTest(User u)
+    {
+        Ac.Create(u);
+
+        Assert.Equal(u.Username,Ac.Read(u).Username);
+
+        
+        Ac.Delete(u);
+
+    }
+    [Theory]
+    [MemberData(nameof(LoadUsersJson))]
+    public void UnactivatedSaveTest(User u)
+    {
+        //arrange
+        Ac.Delete(u);
+        //act
+        String userExist = Ac.UnactivatedSave(u);
+        User result=Ac.Read(u);
+        //Assert
+        Assert.Equal(u.Username, result.Username);
+        Assert.Equal(0, result.IsEnabled);
+        //Cleanup
+        Ac.Delete(u);
+    }
+    [Theory]
+    [MemberData(nameof(LoadUsersJson))]
+    public void UsernameExistsTest(User u)
+    {
+        //arrange
+        Ac.Delete(u);
+        Ac.Create(u);
+        //act
+        String userExist= Ac.UsernameExists(u.Username);
+        //Assert
+        Assert.Equal("username exists", userExist);
+        //Cleanup
+        Ac.Delete(u);
+    }
+
+    [Theory]
+    [MemberData(nameof(LoadUsersJson))]
+    public void UsernameDoesntExistsTest(User u)
+    {
+        //arrange
+        Ac.Delete(u);
+        //act
+        String userExist = Ac.UsernameExists(u.Username);
+        //Assert
+        Assert.Equal("username not found", userExist);
+        //Cleanup
+        Ac.Delete(u);
+    }
+    [Theory]
+    [MemberData(nameof(LoadUsersJson))]
+    public void DeleteTest(User u)
+    {
+        Ac.Create(u);
+        Ac.Delete(u);
+        Ac.Read(u);
+        
+        Assert.NotEqual(u.Username,Ac.Read(u).Username);
+        
+        
+        
+    }
+
+    
+    [Theory]
+    [MemberData(nameof(LoadUsersJson))]
+    public void UpdateIsEnabledTest(User u)
+    {
+        Ac.Create(u);
+        Ac.UpdateIsEnabled(u.Username,0);
+        Assert.Equal(0,Ac.Read(u).IsEnabled);
+
+    }
+    [Theory]
+    [MemberData(nameof(LoadUsersJson))]
+    public void AcceptEULA(User u)
+    {
+        // Arrange
+        Ac.Delete(u);  
+        Ac.Create(u);
+        // Act
+        var ans = Ac.AcceptEULA(u.Username);
+        User readuser = Ac.Read(u);
+        // Assert
+        Assert.Equal(1, readuser.privOption);
+    }
+
+    [Theory]
+    [MemberData(nameof(LoadUsersJson))]
+    public void DeclineEULA(User u)
+    {
+        // Arrange
+        Ac.Delete(u);
+        Ac.Create(u);
+        // Act
+        var ans = Ac.DeclineEULA(u.Username);
+        User readuser = Ac.Read(u);
+        // Assert
+        Assert.Equal(0, readuser.privOption);
     }
 
 
@@ -110,14 +223,12 @@ public class AccountMsSqlDaoShould : TestsBase
 
     public void DeleteAccountValid(string userName)
     {
-        var AC = new AccountMsSqlDao(_connect);
+        var AC = new AccountMsSqlDao(conn);
         var AS = new JWTAuthenticationService();
 
-        var AM = new AccountManager(AC, AS);
+        var result = AS.getUsername(userName);
 
-        var result = AM.DeleteAccount(userName);
-
-        Assert.True(result == "Account Deleted");
+        Assert.Equal("firstuser29", result);
     }
 
 

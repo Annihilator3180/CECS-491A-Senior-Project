@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.Logging", "The6Bit
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logging", "Logging", "{D8459BE7-A930-4B65-B2BE-42A22BF68C8F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.Logging.Tests", "The6Bits.Logging.Tests\The6Bits.Logging.Tests.csproj", "{6D4E270E-A74B-4615-8A64-64DECB8865F1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.BitOHealth.ServiceLayer", "The6Bits.BitOHealth.ServiceLayer\The6Bits.BitOHealth.ServiceLayer.csproj", "{54B24C94-87DC-4B48-B133-2E9E29FF1B81}"
 EndProject
@@ -45,9 +43,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{FA5BFC28
 		Tests\TestAccountData.json = Tests\TestAccountData.json
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "The6Bits.Authorization.Tests", "Tests\The6Bits.Authorization.Tests\The6Bits.Authorization.Tests.csproj", "{B9E84952-E4B2-48BB-A7CD-89197F6B5A77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.Authorization.Tests", "Tests\The6Bits.Authorization.Tests\The6Bits.Authorization.Tests.csproj", "{B9E84952-E4B2-48BB-A7CD-89197F6B5A77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "The6Bits.BitOHealth.DAL.Tests", "Tests\The6Bits.BitOHealh.DAL.Tests\The6Bits.BitOHealth.DAL.Tests.csproj", "{2F46774B-4C38-4202-9FF8-522280B27B7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.BitOHealth.DAL.Tests", "Tests\The6Bits.BitOHealh.DAL.Tests\The6Bits.BitOHealth.DAL.Tests.csproj", "{2F46774B-4C38-4202-9FF8-522280B27B7A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.BitOHealth.ServiceLayer.Test", "Tests\The6Bits.BitOHealth.ServiceLayer.Test\The6Bits.BitOHealth.ServiceLayer.Test.csproj", "{119CE180-1661-4091-91E6-ACBE39D37091}"
 EndProject
@@ -56,7 +54,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestData", "TestData", "{6B
 		Tests\TestData\AccountTestData.csv = Tests\TestData\AccountTestData.csv
 		Tests\TestData\AccountTestData.json = Tests\TestData\AccountTestData.json
 		Tests\TestData\InvalidUsernameTestData.json = Tests\TestData\InvalidUsernameTestData.json
+		Tests\TestData\OTPModelTestData.json = Tests\TestData\OTPModelTestData.json
+		Tests\TestData\FailedAttemptsData.json = Tests\TestData\FailedAttemptsData.json
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.DBErrors", "The6Bits.DBErrors\The6Bits.DBErrors.csproj", "{DD54B656-0F37-4227-8469-F21C9D44DD52}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.SMTPEmailService", "The6Bits.EmailService\The6Bits.SMTPEmailService.csproj", "{2AA2FFCB-096E-48F8-A272-C611EC9A39E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -68,10 +72,6 @@ Global
 		{56AB64F0-28A5-4502-BCED-414A4476EC77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56AB64F0-28A5-4502-BCED-414A4476EC77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56AB64F0-28A5-4502-BCED-414A4476EC77}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6D4E270E-A74B-4615-8A64-64DECB8865F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6D4E270E-A74B-4615-8A64-64DECB8865F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6D4E270E-A74B-4615-8A64-64DECB8865F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6D4E270E-A74B-4615-8A64-64DECB8865F1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{54B24C94-87DC-4B48-B133-2E9E29FF1B81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{54B24C94-87DC-4B48-B133-2E9E29FF1B81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54B24C94-87DC-4B48-B133-2E9E29FF1B81}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -128,19 +128,27 @@ Global
 		{119CE180-1661-4091-91E6-ACBE39D37091}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{119CE180-1661-4091-91E6-ACBE39D37091}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{119CE180-1661-4091-91E6-ACBE39D37091}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD54B656-0F37-4227-8469-F21C9D44DD52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD54B656-0F37-4227-8469-F21C9D44DD52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD54B656-0F37-4227-8469-F21C9D44DD52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD54B656-0F37-4227-8469-F21C9D44DD52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AA2FFCB-096E-48F8-A272-C611EC9A39E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AA2FFCB-096E-48F8-A272-C611EC9A39E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AA2FFCB-096E-48F8-A272-C611EC9A39E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AA2FFCB-096E-48F8-A272-C611EC9A39E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{56AB64F0-28A5-4502-BCED-414A4476EC77} = {D8459BE7-A930-4B65-B2BE-42A22BF68C8F}
-		{6D4E270E-A74B-4615-8A64-64DECB8865F1} = {D8459BE7-A930-4B65-B2BE-42A22BF68C8F}
 		{10305673-FC2B-45CA-A4AB-4684EBE6AFB4} = {D8459BE7-A930-4B65-B2BE-42A22BF68C8F}
 		{D79C8CD7-E325-41E1-BD71-5FFCEFFF0B6D} = {D8459BE7-A930-4B65-B2BE-42A22BF68C8F}
 		{B9E84952-E4B2-48BB-A7CD-89197F6B5A77} = {FA5BFC28-6E48-4A14-8698-79CA6508D73A}
 		{2F46774B-4C38-4202-9FF8-522280B27B7A} = {FA5BFC28-6E48-4A14-8698-79CA6508D73A}
 		{119CE180-1661-4091-91E6-ACBE39D37091} = {FA5BFC28-6E48-4A14-8698-79CA6508D73A}
 		{6BAA515F-55E7-4BA9-9150-A36B473DE2C1} = {FA5BFC28-6E48-4A14-8698-79CA6508D73A}
+		{A06D44A0-0B8A-44BA-9C9E-E68BD8430D4D} = {D8459BE7-A930-4B65-B2BE-42A22BF68C8F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {68B84F46-5EA5-4F10-B710-F84F25054F70}

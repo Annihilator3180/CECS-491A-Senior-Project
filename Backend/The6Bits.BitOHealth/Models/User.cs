@@ -8,7 +8,7 @@ namespace The6Bits.BitOHealth.Models
     public class User
     {
         // optional for future use for updating users
-        
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Username { get; set; }
@@ -18,20 +18,23 @@ namespace The6Bits.BitOHealth.Models
         public int IsEnabled { get; set; }
 
         public int IsAdmin { get; set; }
+        public int privOption { get; set; }
+
 
         public User()
         {
         }
 
-        public User(string username, string email, string password, string first, string last, int isEnabled, int isAdmin)
+        public User(string username, string email, string password, string first, string last, int isEnabled, int isAdmin, int PrivOption)
         {
             FirstName = first;
             LastName = last;
             Username = username;
             Email = email;
             Password = password;
-            isAdmin = IsAdmin;
-            isEnabled = isEnabled;
+            IsAdmin = isAdmin;
+            IsEnabled = isEnabled;
+            privOption = PrivOption;
         }
 
     }

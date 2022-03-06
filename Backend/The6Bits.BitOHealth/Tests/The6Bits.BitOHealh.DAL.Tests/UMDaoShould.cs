@@ -10,13 +10,18 @@ using Xunit;
 namespace The6Bits.BitOHealth.DAL.Tests
 {
 
-    public class UMDaoShould
+    public class UMDaoShould : TestsBase
     {
+        private MsSqlUMDAO<User> UmDAO;
+
+        public UMDaoShould()
+        {
+            UmDAO = new MsSqlUMDAO<User>(conn);
+        }
 
         [Fact]
         public void CreateTest()
         {
-                MsSqlUMDAO<User> UmDAO = new MsSqlUMDAO<User>();
                 User Test = new User();
                 Test.Username = "createname";
                 Test.LastName = "test";
@@ -25,6 +30,7 @@ namespace The6Bits.BitOHealth.DAL.Tests
                 Test.IsAdmin = 0;
                 Test.Password = "testPass123!";
                 Test.IsEnabled = 1;
+            Test.privOption = 1;
                 Stopwatch stopwatch = Stopwatch.StartNew();
                 bool valid = UmDAO.Create(Test);
                 stopwatch.Stop();
@@ -37,7 +43,6 @@ namespace The6Bits.BitOHealth.DAL.Tests
     [Fact]
     public void testDelete()
     {
-        MsSqlUMDAO<User> UmDAO = new MsSqlUMDAO<User>();
         User Test = new User();
         Test.Username = "deletetest";
         Test.LastName = "test";
@@ -46,6 +51,7 @@ namespace The6Bits.BitOHealth.DAL.Tests
         Test.IsAdmin = 0;
         Test.Password = "testpass123";
         Test.IsEnabled = 1;
+        Test.privOption = 1;
         Test.Email = "test2@gmail.com";
         UmDAO.Create(Test);
         Stopwatch stopwatch = Stopwatch.StartNew();
@@ -60,7 +66,6 @@ namespace The6Bits.BitOHealth.DAL.Tests
     public void UpdateDaoTest()
     {
 
-        MsSqlUMDAO<User> UmDAO = new MsSqlUMDAO<User>();
         User Test = new User();
         Test.Username = "updatest";
         Test.LastName = "test";
@@ -68,6 +73,7 @@ namespace The6Bits.BitOHealth.DAL.Tests
         Test.IsAdmin = 0;
         Test.Password = "testPass123!";
         Test.IsEnabled = 1;
+        Test.privOption = 1;
         UmDAO.Create(Test);
         Test.Email = "test2@gmail.com";
         Stopwatch stopwatch = Stopwatch.StartNew();
@@ -86,7 +92,6 @@ namespace The6Bits.BitOHealth.DAL.Tests
     [Fact]
     public void ReadTest()
     {
-        MsSqlUMDAO<User> UmDAO = new MsSqlUMDAO<User>();
         User Test=new User();
         Test.Username = "readtest";
         Test.LastName = "test";
@@ -95,6 +100,7 @@ namespace The6Bits.BitOHealth.DAL.Tests
         Test.IsAdmin = 0;
         Test.Password = "testpass123";
         Test.IsEnabled = 1;
+        Test.privOption = 1;
         UmDAO.Create(Test);
         Stopwatch stopwatch = Stopwatch.StartNew();
         User original = UmDAO.Read(Test);
@@ -111,7 +117,6 @@ namespace The6Bits.BitOHealth.DAL.Tests
     [Fact]
     public void ReadAfterDeleteTest()
     {
-        MsSqlUMDAO<User> UmDAO = new MsSqlUMDAO<User>();
         User Test = new User();
         Test.Username = "rafterdtest";
         Test.LastName = "test";
@@ -120,6 +125,7 @@ namespace The6Bits.BitOHealth.DAL.Tests
         Test.IsAdmin = 0;
         Test.Password = "testpass123";
         Test.IsEnabled = 1;
+        Test.privOption = 1;
         UmDAO.Create(Test);
         UmDAO.Delete(Test);
         Stopwatch stopwatch = Stopwatch.StartNew();
@@ -138,7 +144,6 @@ namespace The6Bits.BitOHealth.DAL.Tests
     [Fact]
     public void EnableTest()
     {
-        MsSqlUMDAO<User> UmDAO = new MsSqlUMDAO<User>();
         User Test = new User();
         Test.Username = "enabletest";
         Test.LastName = "test";
@@ -146,6 +151,7 @@ namespace The6Bits.BitOHealth.DAL.Tests
         Test.IsAdmin = 0;
         Test.Password = "testpass123";
         Test.IsEnabled = 0;
+        Test.privOption = 1;
         UmDAO.Create(Test);
         Stopwatch stopwatch = Stopwatch.StartNew();
         bool valid =UmDAO.EnableAccount("enabletest");
@@ -161,7 +167,6 @@ namespace The6Bits.BitOHealth.DAL.Tests
     [Fact]
     public void DisableTest()
     {
-        MsSqlUMDAO<User> UmDAO = new MsSqlUMDAO<User>();
         User Test = new User();
         Test.Username = "disabletest";
         Test.LastName = "test";
@@ -169,6 +174,7 @@ namespace The6Bits.BitOHealth.DAL.Tests
         Test.IsAdmin = 0;
         Test.Password = "testpass123";
         Test.IsEnabled = 0;
+        Test.privOption = 1;
         UmDAO.Create(Test);
         Stopwatch stopwatch = Stopwatch.StartNew();
         bool valid = UmDAO.EnableAccount("disabletest");
@@ -185,14 +191,12 @@ namespace The6Bits.BitOHealth.DAL.Tests
         [Fact]
         public void ValidZero()
         {
-            MsSqlUMDAO<User> UmDAO = new MsSqlUMDAO<User>();
             bool isValid = UmDAO.UsernameExists("countcheck");
             Assert.False(isValid);
         }
         [Fact]
         public void TestDuplicateExists()
         {
-            MsSqlUMDAO<User> UmDAO = new MsSqlUMDAO<User>();
             User Test = new User();
             Test.Username = "duplicate";
             Test.LastName = "test";
@@ -200,6 +204,7 @@ namespace The6Bits.BitOHealth.DAL.Tests
             Test.IsAdmin = 0;
             Test.Password = "testpass123";
             Test.IsEnabled = 0;
+            Test.privOption = 1;
             UmDAO.Create(Test);
             bool isValid = UmDAO.UsernameExists("duplicate");
             UmDAO.Delete(Test);
