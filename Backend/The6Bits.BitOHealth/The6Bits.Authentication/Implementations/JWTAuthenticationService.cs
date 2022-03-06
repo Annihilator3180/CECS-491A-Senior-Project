@@ -135,8 +135,11 @@ public class JWTAuthenticationService : IAuthenticationService
         var header = parts[0];
         var payload = parts[1];
 
+       if (payload.Length != 60)
+       {
+            return "Incorrect Payload format";
+        }
         var data = Convert.FromBase64String((string)payload);
-
         var dataString = Encoding.UTF8.GetString(data);
 
         var user = JsonSerializer.Deserialize<JwtPayloadModel>(dataString);
