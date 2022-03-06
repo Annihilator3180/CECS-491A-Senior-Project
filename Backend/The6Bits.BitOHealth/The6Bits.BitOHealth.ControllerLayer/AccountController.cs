@@ -93,12 +93,32 @@ public class AccountController : ControllerBase
     }
     // JSON 
     [HttpPost("Delete")]
-    public string DeleteAccount(string token)
+    public string DeleteAccount()
     {
+        var token = "";
+        if(Request.Headers.ContainsKey("Authorization"))
+        {
+            token = Request.Headers["Authorization"].ToString();
+            if(token.StartsWith("Bearer "))
+            {
+                token = token.Remove(0, 7);
+            }
 
-        string del =  _AM.DeleteAccount(token);
+        }
+        string username = authenticationService1.getUsername(token);
+
+        string status =  _AM.DeleteAccount(token);
+        if (status.Contains("Database"))
+        {
+            logService.Log(username, "Account Deletion- " + status, "Data Store ", "Error");
+        }
+        else
+        {
+            logService.Log(username, "Account Deletion- " + status, "Business", "Information");
+        }
+
         Response.Cookies.Delete(token);
-        return del;
+        return status;
     }
 
 

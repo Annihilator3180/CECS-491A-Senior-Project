@@ -443,8 +443,16 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
         public string DeleteAccount(string username)
         {
+            String deleteStatus = _AD.DeleteAccount(username);
+            if (deleteStatus == "0")
+            {
+                return _DBErrors.DBErrorCheck(int.Parse(deleteStatus));
+            }
+            else
+            {
+                return "Account Deleted";
+            }
 
-            return _AD.DeleteAccount(username) ? "Account Deleted" : "Database Error";
 
         }
 
