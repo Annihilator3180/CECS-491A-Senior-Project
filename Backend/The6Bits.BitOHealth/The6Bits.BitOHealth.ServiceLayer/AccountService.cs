@@ -162,10 +162,9 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
         public string ValidateUsername(string username)
         {
-            List<char> charsToRemove = new List<char>() { '@', '!', ',', '.' };
-            string usernametest = username.Replace("@", string.Empty).Replace(",", String.Empty).Replace("!", String.Empty).Replace(".", String.Empty);
+            string usernameTest = username.Replace("@", string.Empty).Replace(",", String.Empty).Replace("!", String.Empty).Replace(".", String.Empty);
             String daoResult = _AD.UsernameExists(username);
-            if (!usernametest.All(Char.IsLetterOrDigit) || username.Length > 16 || username.Length <= 6)
+            if (!usernameTest.All(Char.IsLetterOrDigit) || username.Length > 16 || username.Length <= 6)
             {
                 return "Invalid Username";
             }
@@ -209,12 +208,12 @@ namespace The6Bits.BitOHealth.ServiceLayer
         public string VerifyAccount(string username)
         {
 
-           string codeinDB = _AD.getCode(username, "Registration");
-            if (codeinDB.Length < 10)
+           string codeInDB = _AD.getCode(username, "Registration");
+            if (codeInDB.Length < 10)
             {
-                return _DBErrors.DBErrorCheck(int.Parse(codeinDB));
+                return _DBErrors.DBErrorCheck(int.Parse(codeInDB));
             }
-            return codeinDB;
+            return codeInDB;
         }
 
         public string ValidateOTP(string username, string code)
@@ -292,10 +291,10 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
         public async Task<string> EmailFailed(User user)
         {
-            String DeletionStatus=_AD.DeleteUnActivated(user);
-            if (DeletionStatus != "1")
+            String deletionStatus=_AD.DeleteUnActivated(user);
+            if (deletionStatus != "1")
             {
-                return _DBErrors.DBErrorCheck(int.Parse(DeletionStatus));
+                return _DBErrors.DBErrorCheck(int.Parse(deletionStatus));
             }
             return "True";
         }

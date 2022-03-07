@@ -27,9 +27,10 @@ public class AccountController : ControllerBase
     private IDBErrors _dbErrors;
     private ISMTPEmailServiceShould _EmailService;
     private IConfiguration _config;
+
     public AccountController(IRepositoryAuth<string> authdao ,ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors, ISMTPEmailServiceShould EmailService, IConfiguration config)
     {
-        _AM = new AccountManager(authdao,authenticationService,dbErrors,EmailService);
+        _AM = new AccountManager(authdao,authenticationService,dbErrors,EmailService,config);
         logService = new LogService(logDao);
         _dbErrors = dbErrors;
         _EmailService = EmailService;
@@ -42,7 +43,6 @@ public class AccountController : ControllerBase
     {
         var remoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
 
-
         //HASH
         DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
         string p = di.Parent.ToString();
@@ -52,6 +52,7 @@ public class AccountController : ControllerBase
         var sha = new HMACSHA256(keyBytes);
         byte[] signature = sha.ComputeHash(bytesToSign);
         acc.Password = Convert.ToBase64String(signature);
+
 
 
         var jwt =  _AM.Login(acc);
@@ -130,25 +131,25 @@ public class AccountController : ControllerBase
     public string CreateAccount(User user)
     {
 
-        String CreationStatus = _AM.CreateAccount(user);
-        if (CreationStatus.Contains("Database"))
+        String creationStatus = _AM.CreateAccount(user);
+        if (creationStatus.Contains("Database"))
         {
-            logService.RegistrationLog(user.Username, "Registration- " + CreationStatus, "Data Store", "Error");
+            logService.RegistrationLog(user.Username, "Registration- " + creationStatus, "Data Store", "Error");
             return "Database Error";
         }
-        else if (CreationStatus == "Email Failed To Send")
+        else if (creationStatus == "Email Failed To Send")
         {
             logService.RegistrationLog(user.Username, "Registration- Email Failed To Send", "Business", "Error");
             return "Email Failed To Send";
         }
-        else if (CreationStatus != "Email Pending Confirmation") {
-            logService.RegistrationLog(user.Username, "Registration- "+CreationStatus, "Business", "Information");
+        else if (creationStatus != "Email Pending Confirmation") {
+            logService.RegistrationLog(user.Username, "Registration- "+creationStatus, "Business", "Information");
                 }
         else
         {
             logService.RegistrationLog(user.Username, "Verfication Email Sent", "Business", "Information");
         }
-        return CreationStatus;
+        return creationStatus;
     }
 
     [HttpGet("VerifyAccount")]

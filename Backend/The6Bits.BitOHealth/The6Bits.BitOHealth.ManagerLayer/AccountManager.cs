@@ -4,7 +4,9 @@ using The6Bits.BitOHealth.ServiceLayer;
 using The6Bits.Authentication.Contract;
 using The6Bits.DBErrors;
 using The6Bits.EmailService;
-
+using System.Text;
+using System.Security.Cryptography;
+using Microsoft.Extensions.Configuration;
 
 namespace The6Bits.BitOHealth.ManagerLayer;
 
@@ -14,15 +16,17 @@ public class AccountManager
     private AccountService _AS;
     private IDBErrors _iDBErrors;
     private ISMTPEmailServiceShould _EmailService;
+    private IConfiguration _config;
 
 
 
-    public AccountManager(IRepositoryAuth<string> authdao, IAuthenticationService authenticationService, IDBErrors dbError, ISMTPEmailServiceShould email)
+    public AccountManager(IRepositoryAuth<string> authdao, IAuthenticationService authenticationService, IDBErrors dbError, ISMTPEmailServiceShould email, IConfiguration config)
     {
         _iDBErrors = dbError;
         _EmailService = email;
         _authentication = authenticationService;
         _AS = new AccountService(authdao, dbError, email);
+        _config=config;
     }
 
     
@@ -263,21 +267,30 @@ public class AccountManager
         {
             return "Invalid Password";
         }
-        String isValidUsername = _AS.ValidateUsername(user.Username);
-        if (isValidUsername != "new username")
+        //HASH
+        DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
+        string p = di.Parent.ToString();
+        string mySecret = System.IO.File.ReadAllText(Path.GetFullPath(p + _config.GetSection("PKs")["JWT"]));
+        byte[] keyBytes = Encoding.UTF8.GetBytes(mySecret);
+        var bytesToSign = Encoding.UTF8.GetBytes(user.Password);
+        var sha = new HMACSHA256(keyBytes);
+        byte[] signature = sha.ComputeHash(bytesToSign);
+        user.Password = Convert.ToBase64String(signature);
+        String validUsername = _AS.ValidateUsername(user.Username);
+        if (validUsername != "new username")
         {
-            return isValidUsername;
+            return validUsername;
         }
         String unactivated = _AS.SaveUnActivatedAccount(user);
         if (unactivated != "Saved")
         {
             return unactivated;
         }
-        String SentCode = _AS.VerifyEmail(user.Username, user.Email, DateTime.Now);
-        if (SentCode != "True")
+        String sentCode = _AS.VerifyEmail(user.Username, user.Email, DateTime.Now);
+        if (sentCode != "True")
         {
             _AS.EmailFailed(user);
-            return SentCode;
+            return sentCode;
         }
         return "Email Pending Confirmation";
 
