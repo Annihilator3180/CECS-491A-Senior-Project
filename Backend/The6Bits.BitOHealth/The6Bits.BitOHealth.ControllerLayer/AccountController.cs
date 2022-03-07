@@ -1,3 +1,5 @@
+using System.Security.Cryptography;
+using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using The6Bits.Authentication.Contract;
 using The6Bits.Authentication.Implementations;
@@ -10,6 +12,7 @@ using The6Bits.Logging.DAL.Contracts;
 using The6Bits.Logging.Implementations;
 using The6Bits.DBErrors;
 using System.Web;
+using Microsoft.Extensions.Configuration;
 using The6Bits.EmailService;
 // using The6Bits.BitOHealth.ServiceLayer;
 
@@ -23,13 +26,15 @@ public class AccountController : ControllerBase
     private LogService logService;
     private IDBErrors _dbErrors;
     private ISMTPEmailServiceShould _EmailService;
-    public AccountController(IRepositoryAuth<string> authdao ,ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors, ISMTPEmailServiceShould EmailService)
+    private IConfiguration _config;
+    public AccountController(IRepositoryAuth<string> authdao ,ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors, ISMTPEmailServiceShould EmailService, IConfiguration config)
     {
         _AM = new AccountManager(authdao,authenticationService,dbErrors,EmailService);
         logService = new LogService(logDao);
         _dbErrors = dbErrors;
         _EmailService = EmailService;
         authenticationService1 = authenticationService;
+        _config = config;
     }
 
     [HttpPost("Login")]
@@ -37,6 +42,16 @@ public class AccountController : ControllerBase
     {
         var remoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
 
+
+        //HASH
+        DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
+        string p = di.Parent.ToString();
+        string mySecret = System.IO.File.ReadAllText(Path.GetFullPath(p + _config.GetSection("PKs")["JWT"]));
+        byte[] keyBytes = Encoding.UTF8.GetBytes(mySecret);
+        var bytesToSign = Encoding.UTF8.GetBytes(acc.Password);
+        var sha = new HMACSHA256(keyBytes);
+        byte[] signature = sha.ComputeHash(bytesToSign);
+        acc.Password = Convert.ToBase64String(signature);
 
 
         var jwt =  _AM.Login(acc);
