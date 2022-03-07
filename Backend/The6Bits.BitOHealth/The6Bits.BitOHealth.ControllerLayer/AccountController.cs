@@ -106,8 +106,8 @@ public class AccountController : ControllerBase
 
         }
         string username = authenticationService1.getUsername(token);
-
         string status =  _AM.DeleteAccount(token);
+
         if (status.Contains("Database"))
         {
             logService.Log(username, "Account Deletion- " + status, "Data Store ", "Error");

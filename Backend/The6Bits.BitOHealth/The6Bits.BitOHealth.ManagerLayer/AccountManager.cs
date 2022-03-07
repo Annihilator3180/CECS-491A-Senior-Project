@@ -351,17 +351,16 @@ public class AccountManager
 
     public string DeleteAccount(string token)
     {
-        //validate before calling AS
         bool isValid = isTokenValid(token);
         if(isValid != true)
         {
            return "Invalid Token";
         }
         string username = _authentication.getUsername(token);
-        string user = _AS.UsernameExists(username);
-        if (user != "username exists")
+        string userMessage = _AS.UsernameExists(username);
+        if (userMessage != "username exists")
         {
-            return user;
+            return userMessage;
         }
         return _AS.DeleteAccount(username);
     }
