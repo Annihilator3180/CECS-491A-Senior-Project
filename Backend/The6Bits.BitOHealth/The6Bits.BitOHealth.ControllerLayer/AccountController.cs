@@ -42,8 +42,6 @@ public class AccountController : ControllerBase
         var jwt =  _AM.Login(acc);
         var parts = jwt.Split('.');
         
-        //TODO:FIX IF STATMENT TO SOMETHING BETTER
-        //TODO:ADD LOGS
         if (parts.Length==3)
         {
             Response.Cookies.Append(

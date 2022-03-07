@@ -22,6 +22,8 @@ builder.Services.AddControllers();
 builder.Configuration.GetConnectionString("DefaultConnection");
 
 var connstring  = builder.Configuration.GetConnectionString("DefaultConnection");
+var Configuration = builder.Configuration;
+
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -36,6 +38,8 @@ builder.Services.AddTransient<IAuthenticationService, JWTAuthenticationService>(
 builder.Services.AddTransient<IDBErrors, MsSqlDerrorService>();
 builder.Services.AddTransient<ISMTPEmailServiceShould, SMTPEmailService>();
 builder.Services.AddScoped<ILogDal, SQLLogDAO>();
+builder.Services.AddSingleton<IConfiguration>(Configuration);
+
 //builder.Services.AddTransient<IAccountService, AccountService>();
 
 var app = builder.Build();
