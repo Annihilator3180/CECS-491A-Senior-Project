@@ -286,8 +286,6 @@ public class AccountManager
 
     public string recoverAccount(AccountRecoveryModel arm)
     {
-        //add nuke method here ?
-
         if (_AS.ValidateEmail(arm.Email) == false || _AS.ValidateUsername(arm.Username) == "Invalid Username")
         {
             return "Account Recovery Error";
