@@ -63,7 +63,9 @@ public class AccountController : ControllerBase
         {
             var cookieOptions = new CookieOptions()
             {
+                Secure = true,
                 Expires = DateTime.UtcNow.AddDays(14),
+                SameSite = SameSiteMode.None,
             };
             Response.Cookies.Append(
                 "token",
