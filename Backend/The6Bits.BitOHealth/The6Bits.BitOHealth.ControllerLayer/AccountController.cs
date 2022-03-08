@@ -22,13 +22,15 @@ public class AccountController : ControllerBase
     private IDBErrors _dbErrors;
     private ISMTPEmailService _EmailService;
     private IConfiguration _config;
-    public AccountController(IRepositoryAuth<string> authdao, ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors, ISMTPEmailService emailService, IConfiguration config)
+    private IAuthenticationService _auth;
+    public AccountController(IRepositoryAuth<string> authdao, ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors, 
+        ISMTPEmailService emailService, IConfiguration config)
     {
         _AM = new AccountManager(authdao, authenticationService, dbErrors, emailService, config);
         logService = new LogService(logDao);
         _dbErrors = dbErrors;
         _EmailService = emailService;
-        authenticationService1 = authenticationService;
+        _auth = authenticationService;
         _config = config;
     }
 
@@ -108,7 +110,7 @@ public class AccountController : ControllerBase
         }
         else
         {
-            logService.RegistrationLog(user.Username, "Verfication Email Sent", "Business", "Information");
+            logService.Log(user.Username, "Verfication Email Sent", "Business", "Information");
         }
         return creationStatus;
     }
@@ -126,7 +128,7 @@ public class AccountController : ControllerBase
             logService.Log(Username, "Registration- Email Verified ", "Business", "Information");
             return verfied;
         }
-        logService.RegistrationLog(Username, "Registration- Email Verified ", "Data Store", "Verified");
+        logService.Log(Username, "Registration- Email Verified ", "Data Store", "Verified");
         return verfied;
     }
 

@@ -10,8 +10,6 @@ using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.BitOHealth.Models;
 using The6Bits.DBErrors;
 using The6Bits.URLService;
-
-
 using The6Bits.EmailService;
 using Microsoft.Extensions.Configuration;
 
@@ -24,7 +22,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
         private ISMTPEmailService _EmailService;
         private IConfiguration _config;
         public AccountService(IRepositoryAuth<string> daotype,IDBErrors DbError, 
-            ISMTPEmailServiceShould EmailService, IConfiguration config)
+            ISMTPEmailService EmailService, IConfiguration config)
         {
              _DBErrors= DbError;
             _AD = daotype;

@@ -10,19 +10,19 @@ namespace The6Bits.BitOHealth.ManagerLayer;
 
 public class AccountManager
 {
-    private IAuthenticationService _authentication;
+    private IAuthenticationService _auth;
     private AccountService _AS;
     private IDBErrors _iDBErrors;
-    private ISMTPEmailServiceShould _EmailService;
+    private ISMTPEmailService _EmailService;
     private IConfiguration _config;
 
 
 
-    public AccountManager(IRepositoryAuth<string> authdao, IAuthenticationService authenticationService, IDBErrors dbError, ISMTPEmailServiceShould email, IConfiguration config)
+    public AccountManager(IRepositoryAuth<string> authdao, IAuthenticationService authenticationService, IDBErrors dbError, ISMTPEmailService email, IConfiguration config)
     {
         _iDBErrors = dbError;
         _EmailService = email;
-        _authentication = authenticationService;
+        _auth = authenticationService;
         _config = config;
         _AS = new AccountService(authdao, dbError, email,config);
     }
@@ -157,7 +157,7 @@ public class AccountManager
         }
 
 
-        return _authentication.generateToken(acc.Username);
+        return _auth.generateToken(acc.Username);
     }
 
     public string VerifyAccount(string code, string username)
@@ -185,7 +185,7 @@ public class AccountManager
 
     public bool isTokenValid(string token)
     {
-        return _authentication.ValidateToken(token);
+        return _auth.ValidateToken(token);
     }
 
     public string HasToken(string token)
