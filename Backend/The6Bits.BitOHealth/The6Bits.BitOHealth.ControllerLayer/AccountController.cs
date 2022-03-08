@@ -25,16 +25,17 @@ public class AccountController : ControllerBase
     private AccountManager _AM;
     private LogService logService;
     private IDBErrors _dbErrors;
-    private ISMTPEmailServiceShould _EmailService;
+    private ISMTPEmailService _EmailService;
     private IConfiguration _config;
-
-    public AccountController(IRepositoryAuth<string> authdao ,ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors, ISMTPEmailServiceShould EmailService, IConfiguration config)
+    private IAuthenticationService _auth;
+    public AccountController(IRepositoryAuth<string> authdao, ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors, 
+        ISMTPEmailService emailService, IConfiguration config)
     {
-        _AM = new AccountManager(authdao,authenticationService,dbErrors,EmailService,config);
+        _AM = new AccountManager(authdao, authenticationService, dbErrors, emailService, config);
         logService = new LogService(logDao);
         _dbErrors = dbErrors;
-        _EmailService = EmailService;
-        authenticationService1 = authenticationService;
+        _EmailService = emailService;
+        _auth = authenticationService;
         _config = config;
     }
 
@@ -43,19 +44,12 @@ public class AccountController : ControllerBase
     {
         var remoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
 
-        //HASH
-        DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
-        string p = di.Parent.ToString();
-        string mySecret = System.IO.File.ReadAllText(Path.GetFullPath(p + _config.GetSection("PKs")["JWT"]));
-        byte[] keyBytes = Encoding.UTF8.GetBytes(mySecret);
-        var bytesToSign = Encoding.UTF8.GetBytes(acc.Password);
-        var sha = new HMACSHA256(keyBytes);
-        byte[] signature = sha.ComputeHash(bytesToSign);
-        acc.Password = Convert.ToBase64String(signature);
 
 
 
-        var jwt =  _AM.Login(acc);
+
+
+        var jwt = _AM.Login(acc);
         var parts = jwt.Split('.');
         
         if (parts.Length==3)
@@ -82,7 +76,7 @@ public class AccountController : ControllerBase
         return jwt;
 
     }
-    
+
     [HttpPost("OTP")]
     public string SendOTP(string username)
     {
@@ -116,14 +110,14 @@ public class AccountController : ControllerBase
     }
 
 
- //   public void deletecookie(object sender, eventargs e)
- //   {
- //       //httpcookie httpcookie = new httpcookie();
-  //      httpcookie httpcookie = request.cookies.get("cookie");
-  //      httpcookie.expires = datetime.now.adddays(-1d);
-  //      response.cookies.append("cookie",httpcookie);
- //   }
-    
+    //   public void deletecookie(object sender, eventargs e)
+    //   {
+    //       //httpcookie httpcookie = new httpcookie();
+    //      httpcookie httpcookie = request.cookies.get("cookie");
+    //      httpcookie.expires = datetime.now.adddays(-1d);
+    //      response.cookies.append("cookie",httpcookie);
+    //   }
+
 
 
 
@@ -131,7 +125,7 @@ public class AccountController : ControllerBase
     public string CreateAccount(User user)
     {
 
-        String creationStatus = _AM.CreateAccount(user);
+        string creationStatus = _AM.CreateAccount(user);
         if (creationStatus.Contains("Database"))
         {
             logService.RegistrationLog(user.Username, "Registration- " + creationStatus, "Data Store", "Error");
@@ -161,7 +155,7 @@ public class AccountController : ControllerBase
             logService.Log(Username, "Registration- " + verfied, "Data Store", "Error");
             return "Database Error";
         }
-        if(verfied == "Account Verified")
+        if (verfied == "Account Verified")
         {
             logService.Log(Username, "Registration- Email Verified ", "Business", "Information");
             return verfied;

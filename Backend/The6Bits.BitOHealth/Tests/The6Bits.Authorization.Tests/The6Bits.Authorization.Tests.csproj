@@ -22,8 +22,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\The6Bits.Authorization\The6Bits.Authorization.csproj" />
-    <ProjectReference Include="..\The6Bits.Authentication\The6Bits.Authentication.csproj" />
-    <ProjectReference Include="..\The6Bits.Authorization\The6Bits.Authorization.csproj" />
   </ItemGroup>
 
 </Project>

@@ -31,6 +31,7 @@
     <ProjectReference Include="..\The6Bits.BitOHealth.DAL\The6Bits.BitOHealth.DAL.csproj" />
     <ProjectReference Include="..\The6Bits.BitOHealth.ServiceLayer\The6Bits.BitOHealth.ServiceLayer.csproj" />
     <ProjectReference Include="..\..\The6Bits.Authentication\The6Bits.Authentication.csproj" />
+    <ProjectReference Include="..\..\Models\The6Bits.BitOHealth.Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>

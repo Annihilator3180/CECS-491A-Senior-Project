@@ -353,7 +353,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             try
             {
                 string query = "INSERT into ACCOUNTS(Username,Email,Password,FirstName,LastName,IsEnabled,IsAdmin,privOption) " +
-                               " values (@Username, @Email, @Password, @FirstName,@LastName, 0,0,0) ";
+                                " values (@Username, @Email, @Password, @FirstName,@LastName, 0,0, @privOption) ";
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     int lines_modified = connection.Execute(query,
@@ -364,7 +364,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                             Password = user.Password,
                             FirstName = user.FirstName,
                             LastName = user.LastName,
-                            privOption = user.privOption
+                            privOption=user.privOption
                         });
                     connection.Close();
 

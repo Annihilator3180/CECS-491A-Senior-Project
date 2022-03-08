@@ -9,10 +9,9 @@ using System.Threading.Tasks;
 using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.BitOHealth.Models;
 using The6Bits.DBErrors;
-
-
 using The6Bits.EmailService;
 using The6Bits.BitOHealth.DAL.Implementations;
+using Microsoft.Extensions.Configuration;
 
 namespace The6Bits.BitOHealth.ServiceLayer
 {
@@ -20,12 +19,15 @@ namespace The6Bits.BitOHealth.ServiceLayer
     {
         private IRepositoryAuth<string> _AD;
         private IDBErrors _DBErrors;
-        private ISMTPEmailServiceShould _EmailService;
-        public AccountService(IRepositoryAuth<string> daotype,IDBErrors DbError, ISMTPEmailServiceShould EmailService)
+        private ISMTPEmailService _EmailService;
+        private IConfiguration _config;
+        public AccountService(IRepositoryAuth<string> daotype,IDBErrors DbError, 
+            ISMTPEmailService EmailService, IConfiguration config)
         {
              _DBErrors= DbError;
             _AD = daotype;
             _EmailService= EmailService;
+            _config = config;
 
 
 
@@ -143,15 +145,18 @@ namespace The6Bits.BitOHealth.ServiceLayer
         {
             try
             {
-                if ((password.Length >= 8 & password.Length <= 30) & (password.Contains('.') || password.Contains(',') || password.Contains('!') || password.Contains('@')))
+                if ((password.Length >= 8 & password.Length <= 30) & (password.Contains('.') || 
+                    password.Contains(',') || password.Contains('!') || password.Contains('@')))
                 {
-                    password = password.Replace("@", string.Empty).Replace(",", String.Empty).Replace("!", String.Empty).Replace(".", String.Empty);
+                    password = password.Replace("@", string.Empty).Replace(",", String.Empty).Replace("!", 
+                        String.Empty).Replace(".", String.Empty);
                 }
                 else
                 {
                     return false;
                 }
-                return password.All(char.IsLetterOrDigit) && password.Any(char.IsUpper) && password.Any(char.IsLower) && password.Any(char.IsDigit);
+                return password.All(char.IsLetterOrDigit) && password.Any(char.IsUpper) &&
+                    password.Any(char.IsLower) && password.Any(char.IsDigit);
             }
             catch
             {
@@ -302,16 +307,18 @@ namespace The6Bits.BitOHealth.ServiceLayer
   
         public string VerifyEmail(string username, string email, DateTime now)
         {
-            String code=Guid.NewGuid().ToString("N");
-            String saveStatus=_AD.SaveActivationCode(username, now, code, "Registration");
+            string code=Guid.NewGuid().ToString("N");
+            string saveStatus=_AD.SaveActivationCode(username, now, code, "Registration");
             if (saveStatus != "Saved")
             {
                 return _DBErrors.DBErrorCheck(int.Parse(saveStatus));
             }
 
-            String Subject = "Verify your account";
-            String Body = "Please use this link to verify your account https://localhost:7011/Account/VerifyAccount?Code=" + code + "&&Username=" + username;
-            String EmailStatus = _EmailService.SendEmail(email,Subject,Body);
+            const string SUBJECT = "Verify your account";
+            string Body = "Please use this link to verify your account"+ 
+                _config.GetSection("URL")["localhost"] + "Account/VerifyAccount?Code=" + code +
+                "&&Username=" + username;
+            String EmailStatus = _EmailService.SendEmailNoReply(email,SUBJECT,Body);
             if (EmailStatus != "email sent")
             {
                 return EmailStatus;
