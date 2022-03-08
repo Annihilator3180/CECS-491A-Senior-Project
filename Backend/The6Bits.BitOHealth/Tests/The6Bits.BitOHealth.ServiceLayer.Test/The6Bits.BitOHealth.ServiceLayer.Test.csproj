@@ -27,10 +27,6 @@
     <ProjectReference Include="..\..\The6Bits.BitOHealth.ManagerLayer\The6Bits.BitOHealth.ManagerLayer.csproj" />
     <ProjectReference Include="..\..\The6Bits.BitOHealth.ServiceLayer\The6Bits.BitOHealth.ServiceLayer.csproj" />
     <ProjectReference Include="..\..\The6Bits.EmailService\The6Bits.SMTPEmailService.csproj" />
-    <ProjectReference Include="..\Models\The6Bits.BitOHealth.Models.csproj" />
-    <ProjectReference Include="..\The6Bits.BitOHealth.DAL\The6Bits.BitOHealth.DAL.csproj" />
-    <ProjectReference Include="..\The6Bits.BitOHealth.ServiceLayer\The6Bits.BitOHealth.ServiceLayer.csproj" />
-    <ProjectReference Include="..\..\The6Bits.Authentication\The6Bits.Authentication.csproj" />
   </ItemGroup>
 
   <ItemGroup>
