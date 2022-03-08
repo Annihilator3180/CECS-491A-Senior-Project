@@ -196,15 +196,32 @@ public class AccountController : ControllerBase
 
     public string AccountRecovery(AccountRecoveryModel arm)
     {
+        string start = _AM.recoverAccount(arm);
 
-        return _AM.recoverAccount(arm);
+        if (start.Contains("Database"))
+        {
+            logService.Log(arm.Username, " Account Recovery ", start, "Error");
+            return "Database Error";
+        }
+        logService.Log(arm.Username, " Account Recovery ", "Recovery Email Sent", "Information");
+
+        return start;
 
 
     }
     [HttpPost("ResetPassword")]
     public string ResetPassword(string r, string u, string p)
     {
-        return _AM.ResetPassword(u, r, p);
+        string reset = _AM.ResetPassword(u, r, p);
+
+        if (reset.Contains("Database"))
+        {
+            logService.Log(u, " Password Reset ", reset, "Error");
+            return "Database Error";
+        }
+        logService.Log(u, " Password Reset ", "Password Change ", "Information");
+
+        return reset;
     }
 
 }

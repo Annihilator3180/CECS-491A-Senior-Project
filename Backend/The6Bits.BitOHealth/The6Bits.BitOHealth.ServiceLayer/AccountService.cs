@@ -398,11 +398,17 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
         public string UsernameAndEmailExists(string username, string email)
         {
-            return _AD.UsernameAndEmailExists(username, email);
+            string exists = _AD.UsernameAndEmailExists(username, email);
+            if (exists == "Email and Username found" || exists == "incorrect")
+            {
+                return exists;
+            }
+            return _DBErrors.DBErrorCheck(int.Parse(exists));
         }
 
         public string ValidateRecoveryAttempts(string username)
         {
+
             return _AD.ValidateRecoveryAttempts(username);
         }
 
@@ -411,24 +417,35 @@ namespace The6Bits.BitOHealth.ServiceLayer
             return _EmailService.SendEmailNoReply(email, subject, body);
         }
 
-        public string UpdateRecoveryAttempts(string username)
+        public string UpdateRecoveryAttempts(string username, DateTime dT)
         {
-            return _AD.UpdateRecoveryAttempts(username);
+           string ura = _AD.UpdateRecoveryAttempts(username, dT);
+           if (ura == "1" || ura == "0")
+            {
+                return ura;
+            }
+            return _DBErrors.DBErrorCheck(int.Parse(ura));
         }
 
         public string VerifySameDay(string username, string code)
         {
+
             string sd = _AD.VerifySameDay(username, code);
             if (sd != "1")
             {
-                return "expired link";
+                return _DBErrors.DBErrorCheck(int.Parse(sd));
             }
             return sd;
 
         }
         public string ResetPassword(string password, string username)
         {
-            return _AD.ResetPassword(password, username);
+            string rp = _AD.ResetPassword(password, username);
+            if (rp != "1")
+            {
+                return _DBErrors.DBErrorCheck(int.Parse(rp));
+            }
+            return rp;
 
         }
 

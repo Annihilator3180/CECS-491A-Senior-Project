@@ -127,6 +127,30 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
 
         }
+        public string UpdateRecoveryAttempts(string username, DateTime recoveryAttempt)
+        {
+            try
+            {
+
+                string query = "INSERT Recovery(username,email, recoveryAttempt) values(@username,'angelcueva47@gmail.com', @recoveryAttempt)";
+
+                using (SqlConnection conn = new SqlConnection(_connectString))
+                {
+                    int lines = conn.Execute(query, new { Username = username, recoveryAttempt = recoveryAttempt });;
+                    conn.Close();
+
+                    return lines.ToString();
+
+                }
+
+            }
+            catch (SqlException e)
+            {
+                return e.Number.ToString();
+            }
+        }
+        
+
 
         public User Read(User user)
         {
@@ -521,25 +545,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 return false;
             }
         }
-        public string UpdateRecoveryAttempts(string username)
-        {
-            try
-            {
-                string query = "update Recovery set RecoveryAttempts = RecoveryAttempts + 1 where Username =  @Username";
-
-                using (SqlConnection conn = new SqlConnection(_connectString))
-                {
-                    conn.Open();
-                    int lines = conn.Execute(query, new { Username = username });
-                    return lines.ToString();
-                }
-            }
-            catch (Exception e)
-            {
-                return e.Message;
-            }
-        }
-
+        
 
         public string AcceptEULA(string username)
         {
@@ -598,9 +604,9 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 }
 
             }
-            catch
+            catch (SqlException ex)
             {
-                return "Db error";
+                return ex.Number.ToString();
             }
         }
 
@@ -608,21 +614,24 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = $"select RecoveryAttempts from Recovery where username = '{username}';";
+                string query = "select count(recoveryAttempt) from Recovery where username = @username";
                 using (SqlConnection conn = new SqlConnection(_connectString))
                 {
                     conn.Open();
-                    int recoveryAttempts = conn.ExecuteScalar<int>(query);
+                    int recoveryAttempts = conn.ExecuteScalar<int>(query, new {username = username});
+                    
                     if (recoveryAttempts < 5)
                     {
                         return "under";
                     }
                     return "over";
+                    
+                    //return recoveryAttempts.ToString();
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                return ex.Message;
+                return ex.Number.ToString();
             }
 
 
@@ -640,9 +649,9 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     return time.ToString();
                 }
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
-                return e.Message;
+                return e.Number.ToString();
             }
         }
 
@@ -660,9 +669,9 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 }
 
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                return ex.Message;
+                return ex.Number.ToString();
             }
 
         }
@@ -719,6 +728,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 return ex.Message;
             }
         }
+        
 
 
     }
