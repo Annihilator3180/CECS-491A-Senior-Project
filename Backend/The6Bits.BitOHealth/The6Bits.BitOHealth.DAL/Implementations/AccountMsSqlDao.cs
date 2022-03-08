@@ -196,7 +196,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = "INSERT INTO VerifyCodes (username, time, code, codetype) " +
+                string query = "INSERT INTO VerifyCodes (username, CodeDate, code, codetype) " +
                     "values(@username, @time, @code, @codeType)";
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
@@ -384,7 +384,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = "Select time FROM VerifyCodes WHERE Username = @Username and code =@code ";
+                string query = "Select CodeDate FROM VerifyCodes WHERE Username = @Username and code =@code ";
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
@@ -632,7 +632,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = "select count(time) from VerifyCodes where Username = @Username and Code = @Code and time >= DATEADD(day, -1, GETDATE())";
+                string query = "select count(CodeDate) from VerifyCodes where Username = @Username and Code = @Code and CodeDate >= DATEADD(day, -1, GETDATE())";
                 using (SqlConnection conn = new SqlConnection(_connectString))
                 {
                     conn.Open();

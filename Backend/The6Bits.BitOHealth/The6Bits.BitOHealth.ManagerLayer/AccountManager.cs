@@ -361,7 +361,7 @@ public class AccountManager
         {
            return "Invalid Token";
         }
-        string username = _authentication.getUsername(token);
+        string username = _auth.getUsername(token);
         string user = _AS.UsernameExists(username);
         if (user != "username exists")
         {

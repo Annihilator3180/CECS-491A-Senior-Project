@@ -10,7 +10,7 @@ namespace The6Bits.BitOHealth.Models
         // optional for future use for updating users
         
         public string username { get; set; }
-        public DateTime time { get; set; }
+        public DateTime CodeDate { get; set; }
         public string code { get; set; }
         public string codeType { get; set; }
 
@@ -18,11 +18,11 @@ namespace The6Bits.BitOHealth.Models
         {
         }
 
-        public OTPModel(string username, DateTime time, string code, string codeType )
+        public OTPModel(string username, DateTime CodeDate, string code, string codeType )
         {
 
             username = username;
-            time = time;
+            CodeDate = CodeDate;
             code = code;
             codeType = codeType;
 

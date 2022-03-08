@@ -408,8 +408,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
         public string SendEmail(string email, string subject, string body)
         {
-            SMTPEmailService sMTPEmailService = new SMTPEmailService();
-            return sMTPEmailService.SendEmail(email, subject, body);
+            return _EmailService.SendEmailNoReply(email, subject, body);
         }
 
         public string UpdateRecoveryAttempts(string username)
