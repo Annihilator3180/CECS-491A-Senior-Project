@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace The6Bits.EmailService
 {
-    public class SMTPEmailService : ISMTPEmailServiceShould
+    public class SMTPEmailService : ISMTPEmailService
         //add dependency again
     {
         public string SendEmail(string email, string subject, string body)

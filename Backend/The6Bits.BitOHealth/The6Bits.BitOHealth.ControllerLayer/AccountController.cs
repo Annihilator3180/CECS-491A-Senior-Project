@@ -18,8 +18,8 @@ public class AccountController : ControllerBase
     private AccountManager _AM;
     private LogService logService;
     private IDBErrors _dbErrors;
-    private ISMTPEmailServiceShould _EmailService;
-    public AccountController(IRepositoryAuth<string> authdao ,ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors, ISMTPEmailServiceShould EmailService)
+    private ISMTPEmailService _EmailService;
+    public AccountController(IRepositoryAuth<string> authdao ,ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors, ISMTPEmailService EmailService)
     {
         _AM = new AccountManager(authdao,authenticationService,dbErrors,EmailService);
         logService = new LogService(logDao);

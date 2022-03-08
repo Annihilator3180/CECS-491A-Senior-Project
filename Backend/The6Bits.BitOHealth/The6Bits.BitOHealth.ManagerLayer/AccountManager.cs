@@ -13,11 +13,11 @@ public class AccountManager
     private IAuthenticationService _authentication;
     private AccountService _AS;
     private IDBErrors _iDBErrors;
-    private ISMTPEmailServiceShould _EmailService;
+    private ISMTPEmailService _EmailService;
 
 
 
-    public AccountManager(IRepositoryAuth<string> authdao, IAuthenticationService authenticationService, IDBErrors dbError, ISMTPEmailServiceShould email)
+    public AccountManager(IRepositoryAuth<string> authdao, IAuthenticationService authenticationService, IDBErrors dbError, ISMTPEmailService email)
     {
         _iDBErrors = dbError;
         _EmailService = email;

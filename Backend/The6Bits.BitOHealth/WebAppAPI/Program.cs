@@ -33,7 +33,7 @@ builder.Services.AddScoped<IRepositoryAuth<string>>(provider =>
     new AccountMsSqlDao(connstring));
 builder.Services.AddTransient<IAuthenticationService, JWTAuthenticationService>();
 builder.Services.AddTransient<IDBErrors, MsSqlDerrorService>();
-builder.Services.AddTransient<ISMTPEmailServiceShould, SMTPEmailService>();
+builder.Services.AddTransient<ISMTPEmailService, SMTPEmailService>();
 builder.Services.AddScoped<ILogDal, SQLLogDAO>();
 
 var app = builder.Build();

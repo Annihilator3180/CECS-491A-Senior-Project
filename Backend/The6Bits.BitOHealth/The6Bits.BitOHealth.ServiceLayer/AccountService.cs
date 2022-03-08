@@ -18,8 +18,8 @@ namespace The6Bits.BitOHealth.ServiceLayer
     {
         private IRepositoryAuth<string> _AD;
         private IDBErrors _DBErrors;
-        private ISMTPEmailServiceShould _EmailService;
-        public AccountService(IRepositoryAuth<string> daotype,IDBErrors DbError, ISMTPEmailServiceShould EmailService)
+        private ISMTPEmailService _EmailService;
+        public AccountService(IRepositoryAuth<string> daotype,IDBErrors DbError, ISMTPEmailService EmailService)
         {
              _DBErrors= DbError;
             _AD = daotype;
