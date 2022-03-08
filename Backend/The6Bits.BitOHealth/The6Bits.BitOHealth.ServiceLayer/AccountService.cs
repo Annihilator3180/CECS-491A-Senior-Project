@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.BitOHealth.Models;
 using The6Bits.DBErrors;
-using The6Bits.URLService;
 using The6Bits.EmailService;
 using Microsoft.Extensions.Configuration;
 
@@ -285,7 +284,6 @@ namespace The6Bits.BitOHealth.ServiceLayer
             }
 
             const string SUBJECT = "Verify your account";
-            string codeLink = _URLService.RegistrationEmail(username, code);
             string Body = "Please use this link to verify your account"+ 
                 _config.GetSection("URL")["localhost"] + "Account/VerifyAccount?Code=" + code +
                 "&&Username=" + username;

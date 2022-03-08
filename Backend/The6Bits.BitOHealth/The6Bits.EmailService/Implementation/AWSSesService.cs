@@ -4,7 +4,7 @@ using System.Net.Mail;
 namespace The6Bits.EmailService
 {
     //add dependency again
-    public class AWSSesService
+    public class AWSSesService : ISMTPEmailService
     {
         readonly private string DO_NOT_REPLY_EMAIL = "donotreply@bitohealth.com";
         readonly private string DO_NOT_REPLY_SENDER = "do not reply";

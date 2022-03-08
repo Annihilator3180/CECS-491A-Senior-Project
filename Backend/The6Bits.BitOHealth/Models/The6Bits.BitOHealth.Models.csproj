@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\The6Bits.URLService\The6Bits.URLService.csproj" />
   </ItemGroup>
 
 </Project>

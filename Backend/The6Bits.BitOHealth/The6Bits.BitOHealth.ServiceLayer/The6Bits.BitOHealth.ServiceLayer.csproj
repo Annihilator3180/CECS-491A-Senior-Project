@@ -12,7 +12,6 @@
     <ProjectReference Include="..\The6Bits.BitOHealth.Logging\The6Bits.Logging.csproj" />
     <ProjectReference Include="..\The6Bits.DBErrors\The6Bits.DBErrors.csproj" />
     <ProjectReference Include="..\The6Bits.EmailService\The6Bits.SMTPEmailService.csproj" />
-    <ProjectReference Include="..\The6Bits.URLService\The6Bits.URLService.csproj" />
   </ItemGroup>
 
 </Project>
