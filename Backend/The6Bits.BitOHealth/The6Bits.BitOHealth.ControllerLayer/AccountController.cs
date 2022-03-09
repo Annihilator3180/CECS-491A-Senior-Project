@@ -1,3 +1,4 @@
+using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +13,7 @@ using The6Bits.Logging.DAL.Contracts;
 using The6Bits.Logging.Implementations;
 using The6Bits.DBErrors;
 using System.Web;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using The6Bits.EmailService;
 // using The6Bits.BitOHealth.ServiceLayer;
@@ -45,22 +47,39 @@ public class AccountController : ControllerBase
         var remoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
 
 
+        //HASH
+        //DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
+        //string p = di.Parent.ToString();
+        //string mySecret = System.IO.File.ReadAllText(Path.GetFullPath(p + _config.GetSection("PKs")["JWT"]));
+        //byte[] keyBytes = Encoding.UTF8.GetBytes(mySecret);
+        //var bytesToSign = Encoding.UTF8.GetBytes(acc.Password);
+        //var sha = new HMACSHA256(keyBytes);
+        //byte[] signature = sha.ComputeHash(bytesToSign);
+        //acc.Password = Convert.ToBase64String(signature);
 
 
 
 
         var jwt = _AM.Login(acc);
         var parts = jwt.Split('.');
-        
+
         if (parts.Length==3)
         {
+            var cookieOptions = new CookieOptions()
+            {
+                Secure = true,
+                Expires = DateTime.UtcNow.AddDays(14),
+                SameSite = SameSiteMode.None,
+            };
             Response.Cookies.Append(
                 "token",
-                jwt);
+                jwt, cookieOptions);
+
             logService.LoginLog(acc.Username + remoteIpAddress, "Logged In", "Info","Business" );
         }
         else
         {
+
             string loginfail = "Log In Fail";
             if (jwt.Contains("Database"))
             {
