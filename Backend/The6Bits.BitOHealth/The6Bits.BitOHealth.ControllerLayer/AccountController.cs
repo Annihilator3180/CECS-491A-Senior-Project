@@ -148,7 +148,7 @@ public class AccountController : ControllerBase
         if (creationStatus.Contains("Database"))
         {
             logService.RegistrationLog(user.Username, "Registration- " + creationStatus, "Data Store", "Error");
-            return "Database Error";
+            return creationStatus;
         }
         else if (creationStatus == "Email Failed To Send")
         {
@@ -168,6 +168,7 @@ public class AccountController : ControllerBase
     [HttpGet("VerifyAccount")]
     public string VerifyAccount(String Code, String Username)
     {
+        
         String verfied = _AM.VerifyAccount(Code, Username);
         if (verfied.Contains("Database"))
         {

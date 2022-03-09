@@ -178,10 +178,17 @@ public class AccountManager
         _AS.DeleteCode(username, "Registration");
         if (DateCheck == "True")
         {
-            return "Account Verified";
+            return DateCheck;
         }
-        return "Code Expired";
+        string activated = _AS.ActivateUser(username);
+        if (activated.Contains("Database"))
+        {
+            return activated;
+        }
+        return "Account Verified";
+        
     }
+
 
 
 

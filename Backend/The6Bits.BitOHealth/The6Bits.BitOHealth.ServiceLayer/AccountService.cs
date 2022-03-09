@@ -185,6 +185,19 @@ namespace The6Bits.BitOHealth.ServiceLayer
             return "new username";
         }
 
+        public string ActivateUser(string username)
+        {
+            String activated = _AD.ActivateUser(username);
+            if (activated == "activated")
+            {
+                return "activated";
+            }
+            else
+            {
+                return _DBErrors.DBErrorCheck(int.Parse(activated));
+            }
+        }
+
         public string VerifySameDay(string code, string username, DateTime now)
         {
             String CreationTime=_AD.GetTime(code,username);
@@ -315,8 +328,8 @@ namespace The6Bits.BitOHealth.ServiceLayer
             }
 
             const string SUBJECT = "Verify your account";
-            string Body = "Please use this link to verify your account"+ 
-                _config.GetSection("URL")["localhost"] + "Account/VerifyAccount?Code=" + code +
+            string Body = "Please use this link to verify your account "+ 
+                _config.GetSection("URL")["localhost"] + "/Account/VerifyAccount?Code=" + code +
                 "&&Username=" + username;
             String EmailStatus = _EmailService.SendEmailNoReply(email,SUBJECT,Body);
             if (EmailStatus != "email sent")

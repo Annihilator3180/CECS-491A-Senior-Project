@@ -220,7 +220,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = "INSERT INTO VerifyCodes (username, CodeDate, code, codetype) " +
+                string query = "INSERT INTO VerifyCodes (username, time, code, codetype) " +
                     "values(@username, @time, @code, @codeType)";
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
@@ -728,7 +728,31 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 return ex.Message;
             }
         }
-        
+        public string ActivateUser(string username)
+        {
+            try
+            {
+                string query = "UPDATE Accounts SET IsEnabled = 1 WHERE Username = @Username";
+
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int lines = connection.Execute(query, new
+                    {
+                        Username = username
+                    });
+                }
+
+                return "activated";
+            }
+
+            catch (SqlException ex)
+            {
+                return ex.Number.ToString();
+            }
+
+        }
+
 
 
     }
