@@ -18,6 +18,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
 {
     public class RecordsController : ControllerBase
     {
+        private IAuthenticationService authenticationService1;
         private RecordsManager _MHM;
         private LogService logService;
         private string Username;
@@ -25,11 +26,15 @@ namespace The6Bits.BitOHealth.ControllerLayer
         private IAuthenticationService _authentication;
     }
 
-    public class RecordsController(IRepositoryUM<User> daoType, IAuthenticationService authentication, ILogDal logDao)
+    public RecordsController(IRepositoryAuth<string> authdao, ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors, ISMTPEmailServiceShould EmailService, IConfiguration config)
     {
-        _MHM = new RecordsManager(daotype);
-        _authentication = authentication;
-        logService = new LogService(logDao); 
+        _MHM = new RecordsManager(authdao, authenticationService,dbErrors,EmailService,config);
+        
+        logService = new LogService(logDao);
+        _dbErrors = dbErrors;
+        _EmailService = EmailService;
+        authenticationService1 = authenticationService;
+        _config = config;
         
     }
 
