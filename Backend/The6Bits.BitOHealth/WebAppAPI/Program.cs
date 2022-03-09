@@ -36,7 +36,7 @@ builder.Services.AddScoped<IRepositoryAuth<string>>(provider =>
     new AccountMsSqlDao(connstring));
 builder.Services.AddTransient<IAuthenticationService, JWTAuthenticationService>();
 builder.Services.AddTransient<IDBErrors, MsSqlDerrorService>();
-builder.Services.AddTransient<ISMTPEmailServiceShould, SMTPEmailService>();
+builder.Services.AddTransient<ISMTPEmailService, AWSSesService>();
 builder.Services.AddScoped<ILogDal, SQLLogDAO>();
 builder.Services.AddSingleton<IConfiguration>(Configuration);
 
@@ -59,8 +59,8 @@ if (app.Environment.IsDevelopment())
     b.builAccountdDB(connstring);
     b.buildVerifyCodes(connstring);
     b.buildFailedAttempts(connstring);
-    b.buildRecoveryDB(connstring);
     b.buildTrackerLogs(connstring);
+    b.buildRecovery(connstring);
 
     //app.UseSwagger();
     //app.UseSwaggerUI();
