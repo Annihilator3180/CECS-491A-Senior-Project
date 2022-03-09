@@ -36,9 +36,12 @@ public class JWTAuthenticationService : IAuthenticationService
 
         claimsIdentity.AddClaim(new Claim("username", data));
         claimsIdentity.AddClaim(new Claim("iat", DateTimeOffset.Now.ToUnixTimeSeconds().ToString()));
+
         var header = new { alg = "HS256", typ = "JWT" };
         byte[] headerBytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(header));
-        byte[] payloadBytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(claimsIdentity));
+        JwtPayload payload = new JwtPayload(claimsIdentity.Claims);
+
+        byte[] payloadBytes = Encoding.UTF8.GetBytes(payload.SerializeToJson());
 
         segments.Add(Convert.ToBase64String(headerBytes));
         segments.Add(Convert.ToBase64String(payloadBytes));
@@ -119,8 +122,15 @@ public class JWTAuthenticationService : IAuthenticationService
 
         var dataString = Encoding.UTF8.GetString(data);
 
-        var user = JsonSerializer.Deserialize<ClaimsIdentity>(dataString);
-
-       return user.FindFirst(ClaimTypes.);
+        var obj = JwtPayload.Deserialize(dataString);
+        foreach (Claim claim in obj.Claims)
+        {
+            if(claim.Type == "username")
+            {
+                return claim.Value; 
+            }
+        }
+        return "";
+     
     }
 }

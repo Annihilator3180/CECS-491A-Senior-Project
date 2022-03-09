@@ -7,6 +7,9 @@ using The6Bits.EmailService;
 using System.Text;
 using System.Security.Cryptography;
 using Microsoft.Extensions.Configuration;
+using The6Bits.Authorization.Contract;
+using The6Bits.Authorization;
+using The6Bits.Authorization.Implementations;
 
 namespace The6Bits.BitOHealth.ManagerLayer;
 
@@ -157,9 +160,9 @@ public class AccountManager
             //DB ERRORS && INVALID PASS AND OTP RETURN
             return otp != "valid" ? otp : checkPassword;
         }
+        AuthorizationService authentication = new AuthorizationService(new MsSqlRoleAuthorizationDao(_config.GetConnectionString("DefaultConnection")));
 
-
-        return _auth.generateToken(acc.Username);
+        return _auth.generateToken(acc.Username,authentication.getClaims(acc.Username));
     }
 
     public string VerifyAccount(string code, string username)
@@ -396,6 +399,7 @@ public class AccountManager
            return "Invalid Token";
         }
         string username = _auth.getUsername(token);
+        return username;
         string user = _AS.UsernameExists(username);
         if (user != "username exists")
         {

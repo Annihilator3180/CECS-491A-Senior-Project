@@ -14,7 +14,7 @@ using System.Web;
 using Microsoft.AspNetCore.Http;
 using The6Bits.Authentication.Contract;
 using The6Bits.BitOHealth.DAL.Contract;
-
+using The6Bits.Authorization;
 
 namespace The6Bits.BitOHealth.ControllerLayer
 {
@@ -27,12 +27,12 @@ namespace The6Bits.BitOHealth.ControllerLayer
         private string adminUsername;
         private bool isValid;
         private IAuthenticationService _authentication;
-        
 
-        
-        public UMController(IRepositoryUM<User> daoType , IAuthenticationService authentication ,ILogDal logDao)
+
+
+        public UMController(IRepositoryUM<User> daoType , IAuthenticationService authentication ,ILogDal logDao, IAuthorizationDao authorizationDao)
         {
-            _UMM = new UMManager(daoType);
+            _UMM = new UMManager(daoType,authorizationDao);
             _authentication = authentication;
             adminUsername = "buhss";
             logService = new LogService(logDao);

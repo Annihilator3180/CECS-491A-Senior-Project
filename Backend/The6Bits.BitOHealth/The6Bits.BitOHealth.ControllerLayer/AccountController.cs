@@ -124,7 +124,7 @@ public class AccountController : ControllerBase
     {
 
         string del =  _AM.DeleteAccount(token);
-        Response.Cookies.Delete(token);
+        Response.Cookies.Delete("token");
         return del;
     }
 

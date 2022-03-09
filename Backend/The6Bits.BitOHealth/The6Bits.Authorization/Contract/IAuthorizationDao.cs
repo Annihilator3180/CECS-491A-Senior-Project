@@ -11,7 +11,7 @@ namespace The6Bits.Authorization.Contract
     {
 
         public ClaimsIdentity getClaims(string data);
-        public string VerifyClaims(string token, string claim);
+        //public string VerifyClaims(string token, string claim);
 
     }
 }
