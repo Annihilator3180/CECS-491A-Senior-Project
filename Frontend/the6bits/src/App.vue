@@ -1,25 +1,24 @@
 <template>
-  <account-recovery/>
+    <LoginPost/>
+    <OTPPost/>
+    <account-recovery/>
+
 </template>
 
 <script>
+import LoginPost from './components/LoginPost.vue'
+import OTPPost from './components/OneTimePass.vue'
 import AccountRecovery from './components/AccountRecovery.vue'
 
+
+
 export default {
-  name: 'App',
+  name: 'app',
   components: {
-    AccountRecovery
-  }
+    LoginPost ,
+    OTPPost,
+    AccountRecovery,
+  },
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

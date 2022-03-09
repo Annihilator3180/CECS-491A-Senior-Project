@@ -74,7 +74,6 @@ namespace WebAppMVC.Development
 
 
 
-        }
         public bool buildTrackerLogs(string connStr)
         {
             var RecoveryStr = "If not exists (select name from sysobjects where name = 'TrackerLogs') CREATE TABLE TrackerLogs ( count int, dateTime VARCHAR(30), logType VARCHAR(30))";

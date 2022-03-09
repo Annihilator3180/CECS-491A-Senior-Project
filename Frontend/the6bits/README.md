@@ -1,4 +1,4 @@
-# the6bits
+# frontend
 
 ## Project setup
 ```
