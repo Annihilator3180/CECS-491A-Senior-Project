@@ -81,34 +81,34 @@ namespace The6Bits.BitOHealth.ServiceLayer
             string correctFileName = Path.GetFileName(fileName.correctFileName);
             char [] invalidFilenameChars = Path.GetInvalidFileNameChars();
             char [] InvalidPathChars = Path.GetInvalidPathChars();
-            foreach (char someChar in correctFileName)
-            {
-                if (Char.IsWhiteSpace(someChar))
-                {
-                    return "Invalid file name.";
-                }
-                else if (someChar = Path.GetInvalidFileNameChars)
-                {
-                    return "invalid file name";
-                }
-            }
+            
+            
             if (File.Exists(correctFileName))
             {
-
+                foreach (char someChar in correctFileName)
+                {
+                    if (Char.IsWhiteSpace(someChar))
+                    {
+                        return "Invalid file name.";
+                    }
+                    else if (someChar = Path.GetInvalidFileNameChars)
+                    {
+                        return "invalid file name";
+                    }
+                }
+            }
+            else
+            {
+                return "File Name does not exist";
             }
 
         }
 
 
+        public string VerifySystemStorageRecords(string fileName, string username, string filePath)
+        {
 
-
-
-
-
-
-
-
-
+        }
 
 
     }
