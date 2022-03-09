@@ -31,7 +31,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
         }
 
-        public RecordsService(AccountMsSqlDao accountMsSqlDao)
+        public RecordsService(RecordsMsSqlDAO recordsMsSqlDao)
         {
 
         }
@@ -39,17 +39,18 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
         // CHECK IF FILE SIZE IS OK
         // 0.5 MB MIN - 12 MB MAX   
-        public string ValidateFileSizeRecords(User user)
+        public string ValidateFileSizeRecords(string fileName, string username)
         {
-            string fileName;
-            string username;
-            int fileSize;
-
-            if (fileSize < 0.5 MB)
+            //string fileName;
+            //string username;
+            //int fileSize = fileName.VerifyFileSizeRecords(user);
+            int fileSize = fileName.Length;
+            if (fileSize < 500000)
         {
                 return fileName + "File size too small. Try again";
             }
-            if (fileSize > 12 MB){
+            if (fileSize > 112000000)
+            {
                 return fileName + "File size too large. Try again";
             }
 
@@ -58,7 +59,44 @@ namespace The6Bits.BitOHealth.ServiceLayer
         // CHECK TO SEE IF FILE HAS CORRECT 
         public string VerifyFileTypeRecords(string fileName, string userName, string filePath)
         {
-            return "null";
+            string correctFile = Path.GetExtension(filePath);
+            if(correctFile == ".pdf")
+            {
+                return "Upload Successful";
+
+            }
+            else if(correctFile == "jpg")
+            {
+                return "Upload Successful";
+            }
+            else
+            {
+                return "Invalid File Type";
+            }
+                
+        }
+
+        public string VerifyFileNameRecords(string fileName, string username, string filePath)
+        {
+            string correctFileName = Path.GetFileName(fileName.correctFileName);
+            char [] invalidFilenameChars = Path.GetInvalidFileNameChars();
+            char [] InvalidPathChars = Path.GetInvalidPathChars();
+            foreach (char someChar in correctFileName)
+            {
+                if (Char.IsWhiteSpace(someChar))
+                {
+                    return "Invalid file name.";
+                }
+                else if (someChar = Path.GetInvalidFileNameChars)
+                {
+                    return "invalid file name";
+                }
+            }
+            if (File.Exists(correctFileName))
+            {
+
+            }
+
         }
 
 
