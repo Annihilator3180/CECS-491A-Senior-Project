@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Design;
+using The6Bits.Authorization;
 using The6Bits.BitOHealth.DAL;
 using The6Bits.BitOHealth.DAL.Implementations;
 using The6Bits.BitOHealth.ServiceLayer;
@@ -14,11 +15,12 @@ namespace The6Bits.BitOHealth.ManagerLayer
     public class UMManager
     {
 
-        public IAuthorizationService auth;
+        private AuthorizationService _authorizationService;
         public string token;
         private UMService _UMS;
-        public UMManager(IRepositoryUM<User> daoType)
+        public UMManager(IRepositoryUM<User> daoType, IAuthorizationDao _iAuthorizationDao)
         {
+            _authorizationService = new AuthorizationService(_iAuthorizationDao);
             _UMS = new UMService(daoType);
         }
 
@@ -46,7 +48,7 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
         public string DeleteAccount(string username)
         {
-            if (!auth.VerifyClaims(token, "Admin"))
+            if (!_authorizationService.VerifyClaim(token, "Admin"))
             {
                 return "invalid claims/token";
             }
@@ -61,7 +63,7 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
         public string EnableAccount(string username)
         {
-            if (!auth.VerifyClaims(token, "Admin"))
+            if (!_authorizationService.VerifyClaim(token, "Admin"))
             {
                 return "invalid claims/token";
             }
@@ -75,7 +77,7 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
         public string UpdateAccount(User user)
         {
-            if (!auth.VerifyClaims(token, "Admin"))
+            if (!_authorizationService.VerifyClaim(token, "Admin"))
             {
                 return "invalid claims/token";
             }
@@ -110,7 +112,7 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
         public string DisableAccount(string username)
         {
-            if (!auth.VerifyClaims(token, "Admin"))
+            if (!_authorizationService.VerifyClaim(token, "Admin"))
             {
                 return "invalid claims/token";
             }
