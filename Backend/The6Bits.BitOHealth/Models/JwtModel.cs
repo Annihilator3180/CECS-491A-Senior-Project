@@ -12,7 +12,6 @@ namespace The6Bits.BitOHealth.Models
     {
         public string username { get; set; }
         public string iat { get; set; }
-
         public ClaimsIdentity Claims { get; set; }
     }
 }

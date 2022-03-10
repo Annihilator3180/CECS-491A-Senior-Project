@@ -46,10 +46,13 @@
 </template>
 
 <script>
-    export default {
+    
+        export default {
         name : 'UMUserObj',
+         
         data() {
         return {
+            
             formData :{ 
                 username: '',
                 password: '',

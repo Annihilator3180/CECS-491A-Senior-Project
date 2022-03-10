@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using System.Web;
 using Microsoft.Extensions.Configuration;
 using The6Bits.Authentication.Contract;
 using The6Bits.BitOHealth.Models;
@@ -62,7 +63,10 @@ public class JWTAuthenticationService : IAuthenticationService
     {
         try
         {
-            
+
+
+            token = HttpUtility.UrlDecode(token);
+
             //DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
             //string p = di.Parent.ToString();
             var code = Assembly.GetExecutingAssembly().CodeBase;
@@ -112,7 +116,6 @@ public class JWTAuthenticationService : IAuthenticationService
 
     public string getUsername(string token)
     {
-
 
         var parts = token.Split('.');
         var header = parts[0];

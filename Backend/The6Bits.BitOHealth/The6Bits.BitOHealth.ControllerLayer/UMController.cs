@@ -28,6 +28,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
         private bool isValid;
         private IAuthenticationService _authentication;
 
+        private AuthorizationService _authorization;
 
 
         public UMController(IRepositoryUM<User> daoType , IAuthenticationService authentication ,ILogDal logDao, IAuthorizationDao authorizationDao)
@@ -36,6 +37,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
             _authentication = authentication;
             adminUsername = "buhss";
             logService = new LogService(logDao);
+            _authorization= new AuthorizationService(authorizationDao);
         }
 
         [HttpGet]
@@ -48,12 +50,27 @@ namespace The6Bits.BitOHealth.ControllerLayer
         //specify form body
         public string CreateAccount(User u)
         {
-            isValid = _authentication.ValidateToken(Request.Headers["Authorization"]);
-            string adminUsername = _authentication.getUsername(Request.Headers["Authorization"]);
+            string token = "";
+            try
+            {
+                token = Request.Cookies["token"];
+
+            }
+
+            catch
+            {
+                return "LoggedOut";
+            }
+            isValid = _authentication.ValidateToken(token);
             
             if (isValid)
             {
-                
+
+                string adminUsername = _authentication.getUsername(token);
+                if (!_authorization.VerifyClaim(token, "IsAdmin")){
+                    logService.Log(adminUsername, "Account creation-Claims Denied", "Info", "Business");
+                    return "InvalidClaims";
+                }
                 
                 
                 string res = _UMM.CreateAccount(u);
@@ -78,16 +95,26 @@ namespace The6Bits.BitOHealth.ControllerLayer
                 logService.Log("None", "Account Creation -"+"InvalidToken", "Info", "Business");
             
             
-            return "InvalidToken";
+            return Request.Cookies["token"];
         }
         
         [HttpPost("DeleteAccount")]
         public string DeleteAccount(string username)
         {
-            isValid = _authentication.ValidateToken(Request.Headers["Authorization"]);
-            string adminUsername = _authentication.getUsername(Request.Headers["Authorization"]);
+            isValid = _authentication.ValidateToken(Request.Cookies["token"]);
+
+
             if (isValid)
             {
+
+                string token = Request.Cookies["token"];
+
+                string adminUsername = _authentication.getUsername(token);
+                if (!_authorization.VerifyClaim(token, "IsAdmin"))
+                {
+                    logService.Log(adminUsername, "Account Delete-Claims Denied", "Info", "Business");
+                    return "InvalidClaims";
+                }
 
 
                 string res = _UMM.DeleteAccount(username);
@@ -118,12 +145,20 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
         public string UpdateAccount(User user)
         {
-            isValid = _authentication.ValidateToken(Request.Headers["Authorization"]);
-            string adminUsername = _authentication.getUsername(Request.Headers["Authorization"]);
+            isValid = _authentication.ValidateToken(Request.Cookies["token"]);
+
+
             if (isValid)
             {
-                
-                
+
+                string token = Request.Cookies["token"];
+
+                string adminUsername = _authentication.getUsername(token);
+                if (!_authorization.VerifyClaim(token, "IsAdmin"))
+                {
+                    logService.Log(adminUsername, "Account Update-Claims Denied", "Info", "Business");
+                    return "InvalidClaims";
+                }
                 string res = _UMM.UpdateAccount(user);
 
                 if (res != "username exists")
@@ -146,13 +181,44 @@ namespace The6Bits.BitOHealth.ControllerLayer
             
             return "InvalidToken";
         }
+
+
+
+
+
+
+
+
+
+
         [HttpPost("EnableAccount")]
         public string EnableAccount(string username)
         {
-            isValid = _authentication.ValidateToken(Request.Headers["Authorization"]);
-            string adminUsername = _authentication.getUsername(Request.Headers["Authorization"]);
+            string token = "";
+            try
+            {
+                token = Request.Cookies["token"];
+
+            }
+
+            catch
+            {
+                return "LoggedOut";
+            }
+
+            isValid = _authentication.ValidateToken(token);
+
+
             if (isValid)
             {
+
+
+                string adminUsername = _authentication.getUsername(token);
+                if (!_authorization.VerifyClaim(token, "IsAdmin"))
+                {
+                    logService.Log(adminUsername, "Account Update-Claims Denied", "Info", "Business");
+                    return "InvalidClaims";
+                }
                 string res = _UMM.EnableAccount(username);
                 if (res != "username exists")
                 {
@@ -180,10 +246,21 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
         public string DisableAccount(string username)
         {
-            isValid = _authentication.ValidateToken(Request.Headers["Authorization"]);
-            string adminUsername = _authentication.getUsername(Request.Headers["Authorization"]);
+
+            isValid = _authentication.ValidateToken(Request.Cookies["token"]);
+
+
             if (isValid)
             {
+
+                string token = Request.Cookies["token"];
+
+                string adminUsername = _authentication.getUsername(token);
+                if (!_authorization.VerifyClaim(token, "IsAdmin"))
+                {
+                    logService.Log(adminUsername, "Account Disable-Claims Denied", "Info", "Business");
+                    return "InvalidClaims";
+                }
                 string res = _UMM.DisableAccount(username);
                 if (res != "username exists")
                 {

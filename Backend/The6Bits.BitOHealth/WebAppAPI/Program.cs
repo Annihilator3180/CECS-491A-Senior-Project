@@ -1,5 +1,7 @@
 using The6Bits.Authentication.Contract;
 using The6Bits.Authentication.Implementations;
+using The6Bits.Authorization.Contract;
+using The6Bits.Authorization.Implementations;
 using The6Bits.BitOHealth.ControllerLayer;
 using The6Bits.BitOHealth.DAL;
 using The6Bits.BitOHealth.DAL.Contract;
@@ -39,6 +41,7 @@ builder.Services.AddTransient<IDBErrors, MsSqlDerrorService>();
 builder.Services.AddTransient<ISMTPEmailService, AWSSesService>();
 builder.Services.AddScoped<ILogDal, SQLLogDAO>();
 builder.Services.AddSingleton<IConfiguration>(Configuration);
+builder.Services.AddScoped<IAuthorizationDao>(provider => new MsSqlRoleAuthorizationDao(connstring));
 
 //builder.Services.AddTransient<IAccountService, AccountService>();
 

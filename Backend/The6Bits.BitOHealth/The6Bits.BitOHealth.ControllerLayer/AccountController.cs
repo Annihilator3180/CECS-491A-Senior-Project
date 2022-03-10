@@ -70,6 +70,7 @@ public class AccountController : ControllerBase
                 Secure = true,
                 Expires = DateTime.UtcNow.AddDays(14),
                 SameSite = SameSiteMode.None,
+                HttpOnly = true,
             };
             Response.Cookies.Append(
                 "token",

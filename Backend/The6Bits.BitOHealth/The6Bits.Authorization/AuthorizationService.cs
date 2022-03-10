@@ -1,6 +1,8 @@
-﻿using System.Security.Claims;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
+using System.Web;
 using Microsoft.VisualBasic;
 using The6Bits.Authorization.Contract;
 using The6Bits.BitOHealth.Models;
@@ -31,7 +33,7 @@ public class AuthorizationService
     public bool VerifyClaim(string token, string claim)
     {
 
-        var parts = token.Split('.');
+        string[] parts = token.Split('.');
         var header = parts[0];
         var payload = parts[1];
 
@@ -39,9 +41,8 @@ public class AuthorizationService
 
         var dataString = Encoding.UTF8.GetString(data);
 
-        var user = JsonSerializer.Deserialize<JwtPayloadModel>(dataString);
-
-        foreach (var c in user.Claims.Claims)
+        JwtPayload k = JwtPayload.Deserialize(dataString);
+        foreach (var c in k.Claims)
         {
             if (claim == c.Type && c.Value == "1")
             {
