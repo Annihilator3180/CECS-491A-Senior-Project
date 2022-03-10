@@ -28,31 +28,39 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
     }
 
-    public RecordsManager(IRepositoryUM<string> authdao, IAuthenticationService authenticationService, IDBErrors dbError, ISMTPEmailServiceShould email, IConfiguration config)
+    public RecordsManager(IRecordsDB daotype, IAuthenticationService authenticationService, IDBErrors dbError, ISMTPEmailServiceShould email, IConfiguration config)
     {
         _iDBErrors = dbError;
         _EmailService = email;
         _authentication = authenticationService;
-        _MHS = new RecordsService(authdao, dbError, email);
+        _MHS = new RecordsService(daotype, dbError, email);
         _config=config;
     }
 
     // CHECK IF FILE SIZE IS OK
     // 0.5 MB MIN - 12 MB MAX   
-    public string ValidateFileSizeRecords(string fileName, string username)
+    public string ValidateFileSizeRecords(string fileName, string username, int fileSize)
     {
-        string fileName;
-        string username;
-        int fileSize;
+        //string fileName;
+        //string username;
+        //int fileSize = fileName.VerifyFileSizeRecords(user);
+        //int fileSize2 = fileName.Length;
+        //int fileSize2 = _MHD.ValidateFileSizeRecords(fileName, username, fileSize);
+        int fileSize2 = _MHS.Int32.Parse(ValidateFileSizeRecords(fileName, username, fileSize));
 
-        if(fileSize < 0.5 MB)
+        if (fileSize2 < 500000)
         {
             return fileName + "File size too small. Try again";
         }
-        if(fileSize > 12 MB){
+        else if (fileSize2 > 112000000)
+        {
             return fileName + "File size too large. Try again";
         }
-        
+        else
+        {
+            return fileName + " is " + fileSize;
+        }
+
     }
 
     public string VerifyFileTypeRecords(string fileName,string userName,string filePath)

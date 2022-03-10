@@ -12,8 +12,6 @@ using The6Bits.DBErrors;
 using System.Data.SqlClient;
 using Dapper;
 using The6Bits.Logging.DAL.Implementations;
-
-
 using The6Bits.EmailService;
 using The6Bits.BitOHealth.DAL.Implementations;
 
@@ -143,6 +141,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
         //  Todo : Fix
         public string UploadRecordsWinDao(string fileName, string username, string filePath)
         {
+            if(file)
             return null;
         }
 
