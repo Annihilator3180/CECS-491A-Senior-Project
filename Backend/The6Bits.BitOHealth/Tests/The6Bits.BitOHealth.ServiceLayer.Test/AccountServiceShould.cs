@@ -10,7 +10,7 @@ using Xunit;
 
 namespace The6Bits.BitOHealth.AccountRecovery.Test
 {
-    public class AccountRecoveryServiceShould
+    public class AccountServiceShould
     {
         AccountService _AS = new AccountService(new AccountMsSqlDao("Server=localhost\\SQLEXPRESS;Database=master;Trusted_Connection=True;"));
         [Fact]

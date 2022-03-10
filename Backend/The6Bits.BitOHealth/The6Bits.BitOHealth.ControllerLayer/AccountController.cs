@@ -180,7 +180,7 @@ public class AccountController : ControllerBase
             logService.Log(Username, "Registration- Email Verified ", "Business", "Information");
             return verfied;
         }
-        logService.Log(Username, "Registration- Email Verified ", "Data Store", "Verified");
+        logService.Log(Username, "Registration- " + verfied, "Business", "Information");
         return verfied;
     }
 
