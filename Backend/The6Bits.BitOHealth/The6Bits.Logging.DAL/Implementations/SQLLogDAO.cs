@@ -72,7 +72,7 @@ namespace The6Bits.Logging.DAL.Implementations
         {
             try
             {
-                string query = $"INSERT INTO Logs (username, description, LogLevel, LogCategory, Date_Time) values ('{username}', '{description}', 'here' , '{LogCategory}', '{DateTime.UtcNow}')";
+                string query = $"INSERT INTO Logs (username, description, LogLevel, LogCategory, Date_Time) values ('{username}', '{description}', '{LogLevel}' , '{LogCategory}', '{DateTime.UtcNow}')";
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
@@ -172,9 +172,8 @@ namespace The6Bits.Logging.DAL.Implementations
 
         }
 
-        public int LoginChecker(string username, string description, string LogLevel, string LogCategory)
+        public bool LoginChecker(string username, string description, string LogLevel, string LogCategory)
         {
-            int s = 0;
             //select date count, check if table has instance for given date
             try
             {
@@ -188,14 +187,14 @@ namespace The6Bits.Logging.DAL.Implementations
                     int s = connection.ExecuteScalar<int>(query);
                     if (s == 0)
                     {
-                        return -10;
+                        return false;
                     }
                 }
-                return s;
+                return true;
             }
             catch
             {
-                return s;
+                return false;
             }
 
         }
@@ -207,7 +206,7 @@ namespace The6Bits.Logging.DAL.Implementations
             {
                 String date = DateTime.UtcNow.ToString("MM-dd-yyyy");
 
-                String query = $"INSERT INTO TrackerLogs (count, dateTime, logType) values (1, '{date}', '{LogCategory}');";
+                String query = $"INSERT INTO TrackerLogs (count, dateTime, logType) values (1, '{date}', 'Login');";
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
