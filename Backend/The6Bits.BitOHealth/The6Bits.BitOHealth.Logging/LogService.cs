@@ -68,7 +68,7 @@ namespace The6Bits.Logging.Implementations
         public async Task<bool> LoginLog(string username, string description, string LogLevel, string LogCategory)
         {
             bool daoLog = false;
-            int checker = 0;
+            bool checker = false;
             await Task.Run(() =>
            {
                daoLog = _dao.Log(username, description, LogLevel, LogCategory);
@@ -79,12 +79,12 @@ namespace The6Bits.Logging.Implementations
 
             //if false then table doe not have something for the given
             //date, so we insert a new row to the table
-            /*
+
             if (checker == false)
             {
                 return _dao.LoginInsert(username, description, LogLevel, LogCategory);
 
-            } 
+            }
             //if true then table already has something for the given
             //date, so we update the table and add one
             else if (checker == true)
@@ -92,7 +92,7 @@ namespace The6Bits.Logging.Implementations
                 return _dao.LoginLog(username, description, LogLevel, LogCategory);
 
             }
-            */
+
             return _dao.LoginInsert(username, description, LogLevel, checker.ToString());
 
             //return checker;
