@@ -31,10 +31,8 @@ namespace The6Bits.BitOHealth.ServiceLayer
             while (true)
             {
 
-                DateTime now = DateTime.Now;
-                now = now.AddMonths(1);
-                DateTime date = new DateTime(now.Year, now.Month, 1, 0, 0, 0);
-                await Task.Delay(TimeSpan.FromDays(30));
+                DateTime nowDateTime = DateTime.Now;
+                await Task.Delay(executionTime - nowDateTime);
 
                 Archive();
                 executionTime.AddMonths(1);

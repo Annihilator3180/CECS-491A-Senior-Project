@@ -180,13 +180,13 @@ namespace The6Bits.Logging.DAL.Implementations
             {
                 string date = DateTime.UtcNow.ToString("MM-dd-yyyy");
 
-                string query = $"Select count(*) FROM Logs";
+                string query = $"SELECT count(dateTime) FROM TrackerLogs WHERE dateTime = '{date}' AND logType = 'Login';";
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
-                    s = connection.Execute(query);
-                    if (s == -1)
+                    int s = connection.ExecuteScalar<int>(query);
+                    if (s == 0)
                     {
                         return -10;
                     }

@@ -18,8 +18,6 @@ namespace The6Bits.BitOHealth.ManagerLayer
             DateTime Now = DateTime.Now;
             Now = Now.AddMonths(1);
             DateTime date = new DateTime(Now.Year, Now.Month, 1, 0, 0, 0);
-            Console.WriteLine(date);
-
             _archivingService = new ArchivingService(new WindowsArchivingDAO(), new SqlArchivingDAO() { _connectString = conn});
             new Task(() => _archivingService.ArchiveScheduler(date)).Start();
             return true;
