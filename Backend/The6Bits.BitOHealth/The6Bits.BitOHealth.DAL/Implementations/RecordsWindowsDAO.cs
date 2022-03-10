@@ -10,18 +10,30 @@ using The6Bits.BitOHealth.Models;
 
 namespace The6Bits.BitOHealth.DAL.Implementations
 {
-    public class RecordsWindowsDAO : IRecordsPC<string>
+    public class RecordsWindowsDAO : IRecordsPC
     {
         private string _connectString;
 
-        public RecordsWindowsDao(string connectstring)
+        public RecordsWindowsDAO()
+        {
+        }
+        public RecordsWindowsDAO(string connectstring)
         {
             _connectString = connectstring;
         }
 
+        // Windows DAO access for VerifySystemsStorageRecords
         public string VerifySystemStorageRecords(string fileName, string username, string filePath)
         {
-        
+            try
+            {
+                string query = "";
+                return null;
+            }
+            catch (SqlException ex)
+            {
+                return ex.Number.ToString();
+            }
         }
     }
 }

@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace The6Bits.BitOHealth.DAL.Contract
 {
-    public class IRecordsDB<T>
+    public interface IRecordsDB
     {
+        //public string ValidateFileSizeRecords(string fileName, string username, int fileSize);
+        //public string VerifyFileTypeRecords(string fileName, string userName, string filePath);
         //public string VerifyFileNameRecords(string fileName, string username, string filePath);
-
         public string VerifySystemStorageRecords(string fileName, string username, string filePath);
-
-        public string CreateRecords(string recordName, string username, string filePath);
-
+        public string CreateRecords(string recordName, string username);
 
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace The6Bits.BitOHealth.DAL.Contract
 {
-    public class IRecordsPC<T>
+    public interface IRecordsPC
     {
         public string VerifySystemStorageRecords(string fileName, string username);
 

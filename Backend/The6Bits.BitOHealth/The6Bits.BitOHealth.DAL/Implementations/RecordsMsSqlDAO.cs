@@ -10,13 +10,14 @@ using The6Bits.BitOHealth.Models;
 
 namespace The6Bits.BitOHealth.DAL.Implementations
 {
-    public class RecordsMsSqlDAO : IRecordsDB<string>
+    public class RecordsMsSqlDAO : IRecordsDB
     {
         private string _connectString;
 
-
-
-        public RecordsMsSqlDao(string connectstring)
+        public RecordsMsSqlDAO()
+        {
+        }
+        public RecordsMsSqlDAO(string connectstring)
         {
             _connectString = connectstring;
         }
@@ -45,6 +46,24 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 
         }
 
+        // DAO access for VerifySystemsStorageRecords
+        public string VerifySystemStorageRecords(string fileName, string username, string filePath)
+        {
+            try
+            {
+                string query = "";
+                return null;
+            }
+            catch(SqlException ex)
+            {
+                return ex.Number.ToString();
+            } 
+        }
+
+
+
+
+        // Dao access for CreateRecords
         public string CreateRecords(string recordName, string username)
         {
             try

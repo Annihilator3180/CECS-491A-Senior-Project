@@ -39,7 +39,7 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
     // CHECK IF FILE SIZE IS OK
     // 0.5 MB MIN - 12 MB MAX   
-    public string ValidateFileSizeRecords(User user)
+    public string ValidateFileSizeRecords(string fileName, string username)
     {
         string fileName;
         string username;
