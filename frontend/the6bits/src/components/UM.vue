@@ -8,18 +8,12 @@
 </template>
 
 <script>
-import LoginPost from './components/LoginPost.vue'
-import OTPPost from './components/OneTimePass.vue'
-import AccountRecovery from './components/AccountRecovery.vue'
 import UMUserObj from './components/UMComponents/UMUserObj.vue'
 import UMUsername from './components/UMComponents/UMUsername.vue'
 
 export default {
   name: 'app',
   components: {
-    LoginPost ,
-    OTPPost,
-    AccountRecovery,
     UMUserObj,
     UMUsername,
   },
