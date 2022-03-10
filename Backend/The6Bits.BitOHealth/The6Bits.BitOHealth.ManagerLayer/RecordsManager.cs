@@ -46,7 +46,7 @@ namespace The6Bits.BitOHealth.ManagerLayer
         //int fileSize = fileName.VerifyFileSizeRecords(user);
         //int fileSize2 = fileName.Length;
         //int fileSize2 = _MHD.ValidateFileSizeRecords(fileName, username, fileSize);
-        int fileSize2 = _MHS.Int32.Parse(ValidateFileSizeRecords(fileName, username, fileSize));
+        int fileSize2 = Int32.Parse(ValidateFileSizeRecords(fileName, username, fileSize));
 
         if (fileSize2 < 500000)
         {
