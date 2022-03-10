@@ -8,5 +8,10 @@ namespace The6Bits.BitOHealth.DAL
 {
     public class MsSqlMedicationDAO : IRepositoryMedication<string>
     {
+        private string _connectString;
+        public MsSqlMedicationDAO(string connectstring)
+        {
+            _connectString = connectstring;
+        }
     }
 }

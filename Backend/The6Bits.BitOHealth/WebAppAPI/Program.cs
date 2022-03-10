@@ -34,8 +34,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IRepositoryUM<User>>(provider => new MsSqlUMDAO<User>(connstring));
 builder.Services.AddScoped<IRepositoryAuth<string>>(provider =>
     new AccountMsSqlDao(connstring));
-builder.Services.AddScoped<IRepositoryMedication<string>(provider =>
-    new MedicationMsSqlDao(connstring));
+builder.Services.AddScoped<IRepositoryMedication<string>>(provider =>
+    new MsSqlMedicationDAO(connstring));
 builder.Services.AddTransient<IDrugDataSet, OpenFDADAO>();
 builder.Services.AddTransient<IAuthenticationService, JWTAuthenticationService>();
 builder.Services.AddTransient<IDBErrors, MsSqlDerrorService>();
