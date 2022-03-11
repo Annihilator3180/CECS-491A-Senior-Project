@@ -15,17 +15,16 @@ public class MedicationManager
     private IAuthenticationService _auth;
     private MedicationService _MS;
     private IDBErrors _iDBErrors;
-
     private IConfiguration _config;
 
 
 
-    public MedicationManager(IDrugDataSet _drugDataSet, IAuthenticationService authenticationService, IDBErrors dbError, IConfiguration config)
+    public MedicationManager(IRepositoryMedication<string> MedicationDao,IDrugDataSet _drugDataSet, IAuthenticationService authenticationService, IDBErrors dbError, IConfiguration config)
     {
         _iDBErrors = dbError;
         _auth = authenticationService;
         _config = config;
-        _MS = new MedicationService(_drugDataSet, dbError, config);
+        _MS = new MedicationService(MedicationDao,_drugDataSet, dbError, config);
     }
 
     public List<DrugName> FindDrug(string drugName)

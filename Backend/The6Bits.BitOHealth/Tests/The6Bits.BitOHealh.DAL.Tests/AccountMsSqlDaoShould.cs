@@ -215,7 +215,7 @@ public class AccountMsSqlDaoShould : TestsBase
 
     //DELETE TESTING ITEMS FROM DB
     //TODO:DELETE ACCOUNTS AT TEST END
-
+    /**
     [Theory]
     [InlineData("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZpcnN0dXNlcjI5IiwiaWF0IjoiMTY0NTg4NTY1NCJ9.lDE7wMZHk3bAxj6dYd2V6fSl5OddworGmB6mw5zn5bw")]
     [InlineData("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZpcnN0dXNlcjI5IiwiaWF0IjoiMTY0NTg4NDgyMCJ9.FJ1qz-IooxUXtesazX36FaVDqT-XImRdwpAqd81Pg5A")]
@@ -224,12 +224,12 @@ public class AccountMsSqlDaoShould : TestsBase
     public void DeleteAccountValid(string userName)
     {
         var AC = new AccountMsSqlDao(conn);
-        var AS = new JWTAuthenticationService();
+        var AS = new //JWTAuthenticationService();
 
         var result = AS.getUsername(userName);
 
         Assert.Equal("firstuser29", result);
-    }
+    }**/
 
 
 

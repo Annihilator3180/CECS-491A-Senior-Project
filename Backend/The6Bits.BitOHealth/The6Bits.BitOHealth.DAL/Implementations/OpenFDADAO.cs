@@ -12,13 +12,13 @@ namespace The6Bits.BitOHealth.DAL
 {
     public class OpenFDADAO : IDrugDataSet
     {
-        private IConfiguration _config;
 
         private static HttpClient api { get; set; }
-        public OpenFDADAO(IConfiguration config)
+        public OpenFDADAO()
         {
-            _config = config;
         }
+
+
         public async Task<List<DrugName>> GetGenericDrugName(string drugName)
         {
             api = new HttpClient();

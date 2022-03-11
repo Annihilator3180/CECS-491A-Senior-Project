@@ -14,18 +14,23 @@ namespace The6Bits.BitOHealth.ServiceLayer
         IDrugDataSet _drugDataSet;
         private IDBErrors _DBErrors;
         private IConfiguration _config;
-        public MedicationService(IDrugDataSet drugDataSet, IDBErrors DbError,
+        private IRepositoryMedication<string> _MedicationDao;
+        public MedicationService(IRepositoryMedication<string> MedicationDao, IDrugDataSet drugDataSet, IDBErrors DbError,
              IConfiguration config)
         {
             _DBErrors = DbError;
             _drugDataSet = drugDataSet;
             _config = config;
+            _MedicationDao = MedicationDao;
 
 
 
         }
+        public MedicationService(IRepositoryMedication<string> MedicationDao, IDrugDataSet drugDataSet)
+        {
+        }
 
-  
+
         public List<DrugName> GetGenericDrugName(string drugName)
         {
             return _drugDataSet.GetGenericDrugName(drugName).Result;
