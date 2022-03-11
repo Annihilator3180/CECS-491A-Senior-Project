@@ -9,24 +9,28 @@ using The6Bits.BitOHealth.DAL.Contract;
 
 namespace The6Bits.BitOHealth.DAL.Implementations
 {
-    internal class ReminderMsSqlDao : IReminderDatabase
+    public class ReminderMsSqlDao : IReminderDatabase
     {
         public string _connectString = @"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;";
 
-        public bool CreateReminder(string reminderName, string description, string date, string time, string repeat)
+        public ReminderMsSqlDao(string connectstring)
+        {
+            _connectString = connectstring;
+        }
+        public bool CreateReminder(string username, string name, string description, string date, string time, string repeat)
         {
 
-            //update table and add plus one to given date
+            //insert into table
             try
             {
-                
-                String query = $"INSERT INTO TrackerLogs (count, dateTime, logType) values ('{1}', '{date}', 'Registration')";
+                //change values
+                String query = $"INSERT INTO Reminders (username, name, description, date, time, repeat) values ('{1}', '{date}', 'Registration')";
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
                     int s = connection.Execute(query);
-                    if (s == 0)
+                    if (s == 1)
                     {
                         return true;
                     }

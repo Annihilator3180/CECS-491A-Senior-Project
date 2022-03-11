@@ -39,6 +39,8 @@ builder.Services.AddTransient<IDBErrors, MsSqlDerrorService>();
 builder.Services.AddTransient<ISMTPEmailService, AWSSesService>();
 builder.Services.AddScoped<ILogDal, SQLLogDAO>();
 builder.Services.AddSingleton<IConfiguration>(Configuration);
+builder.Services.AddScoped<IReminderDatabase>(provider =>
+    new ReminderMsSqlDao(connstring));
 
 //builder.Services.AddTransient<IAccountService, AccountService>();
 
