@@ -22,23 +22,24 @@ namespace The6Bits.BitOHealth.ControllerLayer
 {
     public class RecordsController : ControllerBase
     {
-        private IAuthenticationService authenticationService1;
+        private IAuthenticationService authenticationService;
         private RecordsManager _MHM;
         private LogService logService;
-        private ISMTPEmailServiceShould _EmailService;
+        private ISMTPEmailService _EmailService;
         private IDBErrors _dbErrors;
         private string Username;
         private bool isValid;
         private IAuthenticationService _authentication;
     }
 
-    public RecordsController(IRepositoryAuth<string> authdao, ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors, ISMTPEmailServiceShould EmailService, IConfiguration config)
+    public RecordsController(IRecordsDB daoType, ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors, 
+        ISMTPEmailService EmailService, IConfiguration config)
     {
-        _MHM = new RecordsManager(authdao, authenticationService,dbErrors,EmailService,config);
+        _MHM = new RecordsManager(daoType, authenticationService,dbErrors,EmailService,config);
         logService = new LogService(logDao);
         _dbErrors = dbErrors;
         _EmailService = EmailService;
-        authenticationService1 = authenticationService;
+        _authenticationService = authenticationService;
         _config = config;
         
     }

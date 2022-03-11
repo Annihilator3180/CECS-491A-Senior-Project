@@ -23,50 +23,52 @@ namespace The6Bits.BitOHealth.ManagerLayer
         private IAuthenticationService _authentication;
         private RecordsService _MHS;
         private IDBErrors _iDBErrors;
-        private ISMTPEmailServiceShould _EmailService;
+        private ISMTPEmailService _EmailService;
         private IConfiguration _config;
 
-    }
 
-    public RecordsManager(IRecordsDB daotype, IAuthenticationService authenticationService, IDBErrors dbError, ISMTPEmailServiceShould email, IConfiguration config)
-    {
-        _iDBErrors = dbError;
-        _EmailService = email;
-        _authentication = authenticationService;
-        _MHS = new RecordsService(daotype, dbError, email);
-        _config=config;
-    }
 
-    // CHECK IF FILE SIZE IS OK
-    // 0.5 MB MIN - 12 MB MAX   
-    // Todo : Fix
-    public string ValidateFileSizeRecords(string fileName, string username, int fileSize)
-    {
-        //string fileName;
-        //string username;
-        //int fileSize = fileName.VerifyFileSizeRecords(user);
-        //int fileSize2 = fileName.Length;
-        //int fileSize2 = _MHD.ValidateFileSizeRecords(fileName, username, fileSize);
-        int fileSize2 = Int32.Parse(ValidateFileSizeRecords(fileName, username, fileSize));
+        public RecordsManager(IRecordsDB daotype, IAuthenticationService authenticationService, IDBErrors dbError, ISMTPEmailService email, IConfiguration config)
+        {
+            _iDBErrors = dbError;
+            _EmailService = email;
+            _authentication = authenticationService;
+            _config = config;
+            _MHS = new RecordsService(daotype, dbError, email, config);
 
-        if (fileSize2 < 500000)
-        {
-            return fileName + "File size too small. Try again";
-        }
-        else if (fileSize2 > 112000000)
-        {
-            return fileName + "File size too large. Try again";
-        }
-        else
-        {
-            return fileName + " is " + fileSize;
         }
 
+
+        public string CreateRecords(string recordName, string username)
+        {
+            // CHECKS IF FILE SIZE IS OK
+            var response = _MHS.ValidateFileSizeRecords(fileName, username, fileSize);
+            if (response.Contains("Try again"))
+            {
+                return response;
+            }
+
+            // CHECK TO SEE IF FILE HAS CORRECT
+            var responseFileType = _MHS.VerifyFileTypeRecords(fileName, username, filePath);
+            if (responseFileType.Contains("Upload Successful"))
+            {
+                return responseFileType;
+            }
+            else
+            {
+                return responseFileType;
+            }
+
+            // CHECK TO SEE IF FILENAME IS CORRECT
+
+            if
+
+
+
+        }
     }
 
-    // Todo: Fix
-    public string VerifyFileTypeRecords(string fileName,string userName,string filePath)
-    {
-        return _MHS.VerifyFileTypeRecords(fileName, userName, filePath);
-    }
+
+    
+
 }

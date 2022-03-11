@@ -15,6 +15,7 @@ using The6Bits.Logging.DAL.Implementations;
 using The6Bits.EmailService;
 using The6Bits.BitOHealth.DAL.Implementations;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 
 namespace The6Bits.BitOHealth.ServiceLayer
 {
@@ -22,13 +23,15 @@ namespace The6Bits.BitOHealth.ServiceLayer
     {
         private IRecordsDB _MHD;
         private IDBErrors _DBErrors;
-        private ISMTPEmailServiceShould _EmailService;
+        private ISMTPEmailService _EmailService;
+        private IConfiguration _config;
 
-        public RecordsService(IRecordsDB daotype, IDBErrors DbError, ISMTPEmailServiceShould EmailService)
+        public RecordsService(IRecordsDB daotype, IDBErrors DbError, ISMTPEmailService EmailService, IConfiguration config)
         {
             _DBErrors= DbError;
             _MHD = daotype;
             _EmailService= EmailService;
+            _config = config;
         }
 
         public RecordsService(RecordsMsSqlDAO recordsMsSqlDao)
@@ -103,9 +106,11 @@ namespace The6Bits.BitOHealth.ServiceLayer
                 {
                     return "Invalid file name, contains special characters";
                 }
+                else
+                {
+                    return "valid filename: " + fileName;
+                }
             }
-
-            return "valid filename: " + fileName;
 
         }
 
