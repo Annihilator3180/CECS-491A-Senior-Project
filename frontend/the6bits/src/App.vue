@@ -2,17 +2,14 @@
     <LoginPost/>
     <OTPPost/>
     <account-recovery/>
-    <UMUserObj/>
-    <UMUsername/>
-
+    <UM/>
 </template>
 
 <script>
 import LoginPost from './components/LoginPost.vue'
 import OTPPost from './components/OneTimePass.vue'
 import AccountRecovery from './components/AccountRecovery.vue'
-import UMUserObj from './components/UMComponents/UMUserObj.vue'
-import UMUsername from './components/UMComponents/UMUsername.vue'
+import UM from './components/UM.vue'
 
 export default {
   name: 'app',
@@ -20,8 +17,7 @@ export default {
     LoginPost ,
     OTPPost,
     AccountRecovery,
-    UMUserObj,
-    UMUsername,
+    UM,
   },
 }
 </script>

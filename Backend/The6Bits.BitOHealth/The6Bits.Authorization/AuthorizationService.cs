@@ -7,6 +7,7 @@ using Microsoft.VisualBasic;
 using The6Bits.Authorization.Contract;
 using The6Bits.BitOHealth.Models;
 
+
 namespace The6Bits.Authorization;
 
 public class AuthorizationService

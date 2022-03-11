@@ -1,18 +1,15 @@
 <template>
-    <LoginPost/>
-    <OTPPost/>
-    <account-recovery/>
     <UMUserObj/>
     <UMUsername/>
 
 </template>
 
 <script>
-import UMUserObj from './components/UMComponents/UMUserObj.vue'
-import UMUsername from './components/UMComponents/UMUsername.vue'
+import UMUserObj from './UMComponents/UMUserObj.vue'
+import UMUsername from './UMComponents/UMUsername.vue'
 
 export default {
-  name: 'app',
+  name: 'UM',
   components: {
     UMUserObj,
     UMUsername,

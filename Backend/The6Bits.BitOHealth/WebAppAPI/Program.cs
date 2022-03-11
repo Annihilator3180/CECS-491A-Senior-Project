@@ -36,7 +36,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IRepositoryUM<User>>(provider => new MsSqlUMDAO<User>(connstring));
 builder.Services.AddScoped<IRepositoryAuth<string>>(provider =>
     new AccountMsSqlDao(connstring));
-builder.Services.AddTransient<IAuthenticationService, JWTAuthenticationService>();
+builder.Services.AddTransient<IAuthenticationService>(provider => new JWTAuthenticationService(builder.Configuration.GetSection("PKs")["JWT"]));
 builder.Services.AddTransient<IDBErrors, MsSqlDerrorService>();
 builder.Services.AddTransient<ISMTPEmailService, AWSSesService>();
 builder.Services.AddScoped<ILogDal, SQLLogDAO>();

@@ -89,6 +89,21 @@ namespace WebAppMVC.Development
 
         }
 
+        public bool addAdmin(string connStr)
+        {
+            var RecoveryStr = "If not exists (select name from sysobjects where name = 'TrackerLogs') CREATE TABLE TrackerLogs ( count int, dateTime VARCHAR(30), logType VARCHAR(30))";
+            var conn = new SqlConnection(connStr);
+            using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
+            {
+                conn.Open();
+                command.ExecuteNonQuery();
+            }
+            return false;
+
+
+
+        }
+
 
     }
 }
