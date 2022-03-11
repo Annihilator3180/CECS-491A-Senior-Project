@@ -65,8 +65,6 @@ public class JWTAuthenticationService : IAuthenticationService
         {
 
 
-            token = HttpUtility.UrlDecode(token);
-
             //DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
             //string p = di.Parent.ToString();
             DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());

@@ -283,7 +283,24 @@ namespace The6Bits.BitOHealth.ControllerLayer
             
             return "InvalidToken";
         }
+        [HttpPost("UploadFiles")]
+        public string Post()
+        {
+            using (var reader = new StreamReader(Request.Body))
+            {
+                var body = reader.ReadToEnd();
+                return body;
 
+                // Do something
+            }
+
+
+
+
+            // process uploaded files
+            // Don't rely on or trust the FileName property without validation.
+
+        }
 
 
 
