@@ -8,7 +8,7 @@
 
 <script>
   import test from '../UMComponents/UMFunctions'
-
+    
     export default {
         name : 'bulkActions',
         data() {

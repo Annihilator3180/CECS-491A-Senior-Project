@@ -1,29 +1,22 @@
 <template>
-    <LoginPost/>
-    <OTPPost/>
-    <account-recovery/>
-    <UM/>
-    <CreateGoal/>
-    <bulkActions/>
+
+  <nav>
+    <router-link to="/">Home</router-link> |
+    <router-link :to="{name:'login'}">login</router-link> |
+    <router-link :to="{name:'otp'}">otp</router-link> |
+    <router-link :to="{name:'UM'}">User Management</router-link> |
+    <router-link :to="{name:'WeightManagement'}">Weight Management</router-link> |
+    <router-link :to="{name:'AccountRecovery'}">Account Recovery</router-link>  
+  </nav>
+  <router-view/>
+
 </template>
 
 <script>
-import LoginPost from './components/LoginPost.vue'
-import OTPPost from './components/OneTimePass.vue'
-import AccountRecovery from './components/AccountRecovery.vue'
-import UM from './components/UM.vue'
-import CreateGoal from './components/WeightManagement/CreateWeightGoal.vue'
-import bulkActions from './components/BulkUM/bulkActions.vue'
 
 export default {
   name: 'app',
   components: {
-    LoginPost ,
-    OTPPost,
-    AccountRecovery,
-    UM,
-    CreateGoal,
-    bulkActions,
   },
 }
 </script>
