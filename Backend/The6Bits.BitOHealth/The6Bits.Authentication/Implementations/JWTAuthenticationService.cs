@@ -69,9 +69,9 @@ public class JWTAuthenticationService : IAuthenticationService
 
             //DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
             //string p = di.Parent.ToString();
-            var code = Assembly.GetExecutingAssembly().CodeBase;
-            var root = Path.GetDirectoryName(Uri.UnescapeDataString((new UriBuilder(code)).Path));
-            string key = File.ReadAllText(Path.GetFullPath(root + keyPath));
+            DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
+            string p = di.Parent.ToString();
+            string key = File.ReadAllText(Path.GetFullPath(p + keyPath));
 
             var parts = token.Split('.');
             var header = parts[0];

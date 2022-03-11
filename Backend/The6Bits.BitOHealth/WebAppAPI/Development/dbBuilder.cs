@@ -89,9 +89,9 @@ namespace WebAppMVC.Development
 
         }
 
-        public bool addAdmin(string connStr)
+        public bool buildWMGoals(string connStr)
         {
-            var RecoveryStr = "If not exists (select name from sysobjects where name = 'TrackerLogs') CREATE TABLE TrackerLogs ( count int, dateTime VARCHAR(30), logType VARCHAR(30))";
+            var RecoveryStr = "If not exists (select name from sysobjects where name = 'WMGoals') CREATE TABLE WMGoals (Username VARCHAR(30), Goal int)";
             var conn = new SqlConnection(connStr);
             using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
             {

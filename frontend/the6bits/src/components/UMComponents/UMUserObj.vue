@@ -109,7 +109,6 @@
     }
 }
 </script>
-
 <style scoped>   
 .form { width:300px; margin:0 auto }
 label {

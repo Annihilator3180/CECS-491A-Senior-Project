@@ -43,6 +43,11 @@ builder.Services.AddScoped<ILogDal, SQLLogDAO>();
 builder.Services.AddSingleton<IConfiguration>(Configuration);
 builder.Services.AddScoped<IAuthorizationDao>(provider => new MsSqlRoleAuthorizationDao(connstring));
 
+
+
+
+
+builder.Services.AddTransient<IRepositoryWeightManagementDao>(provider => new WeightManagementMsSqlDao(connstring));
 //builder.Services.AddTransient<IAccountService, AccountService>();
 
 var app = builder.Build();
@@ -64,7 +69,7 @@ if (app.Environment.IsDevelopment())
     b.buildFailedAttempts(connstring);
     b.buildTrackerLogs(connstring);
     b.buildRecovery(connstring);
-
+    b.buildWMGoals(connstring);
     //app.UseSwagger();
     //app.UseSwaggerUI();
 }
