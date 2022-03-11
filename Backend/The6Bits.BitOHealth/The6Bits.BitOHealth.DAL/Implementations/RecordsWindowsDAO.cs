@@ -35,5 +35,31 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 return ex.Number.ToString();
             }
         }
+        // Create Records for Win DAO
+        public string CreateRecords(string recordName, string username)
+        {
+            try
+            {
+                string query = "";
+                return null;
+            }
+            catch (SqlException ex)
+            {
+                return ex.Number.ToString();
+            }
+        }
+        // FOR WIN DAO
+        public string UploadRecordsWinDao(string fileName, string username, string filePath)
+        {
+            try
+            {
+                string query = "";
+                return null;
+            }
+            catch (SqlException ex)
+            {
+                return ex.Number.ToString();
+            }
+        }
     }
 }

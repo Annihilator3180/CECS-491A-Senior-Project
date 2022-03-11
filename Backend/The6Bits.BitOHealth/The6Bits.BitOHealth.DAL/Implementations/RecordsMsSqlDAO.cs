@@ -51,13 +51,30 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = "";
-                return null;
+                string query = "Insert into MHRecords (Username, Records) " +
+                    "values (@Username, @Records)";
+
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int lines = connection.Execute(query,
+                        new
+                        {
+                            Username = username,
+                            filename = fileName,
+
+                        }
+                        );
+                    return "0";
+
+                }
             }
-            catch(SqlException ex)
+            catch (SqlException ex)
             {
                 return ex.Number.ToString();
-            } 
+
+            }
+
         }
 
 

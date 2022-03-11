@@ -8,7 +8,7 @@ namespace The6Bits.BitOHealth.DAL.Contract
 {
     public interface IRecordsPC
     {
-        public string VerifySystemStorageRecords(string fileName, string username);
+        public string VerifySystemStorageRecords(string fileName, string username, string filePath);
 
         public string CreateRecords(string recordName, string username);
 

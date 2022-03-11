@@ -13,6 +13,7 @@ namespace The6Bits.BitOHealth.DAL.Contract
         //public string VerifyFileNameRecords(string fileName, string username, string filePath);
         public string VerifySystemStorageRecords(string fileName, string username, string filePath);
         public string CreateRecords(string recordName, string username);
+        public string UploadRecordsWinDao(string fileName, string username, string filePath);
 
     }
 }

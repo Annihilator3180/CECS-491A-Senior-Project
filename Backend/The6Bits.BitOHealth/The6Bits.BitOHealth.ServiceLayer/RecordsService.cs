@@ -14,6 +14,7 @@ using Dapper;
 using The6Bits.Logging.DAL.Implementations;
 using The6Bits.EmailService;
 using The6Bits.BitOHealth.DAL.Implementations;
+using Microsoft.AspNetCore.Http;
 
 namespace The6Bits.BitOHealth.ServiceLayer
 {
@@ -141,8 +142,42 @@ namespace The6Bits.BitOHealth.ServiceLayer
         //  Todo : Fix
         public string UploadRecordsWinDao(string fileName, string username, string filePath)
         {
-            if(file)
-            return null;
+            string fileToWindows = _MHD.UploadRecordsWinDao(fileName, username, filePath);
+            string filePath2 = "C:\\Users\\Owner\\Documents\\";
+
+            if(File.Exists(fileToWindows) == true)
+            {
+                File.Copy(fileToWindows, filePath2);
+                
+            }
+            else
+            {
+                return "";
+            }
+            
+        }
+
+        public async Task<String> OnPostUploadAsync(List<IFormFile> files)
+        {
+            long size = files.Sum(f => f.Length);
+
+            foreach (var formFile in files)
+            {
+                if (formFile.Length > 0)
+                {
+                    var filePath = Path.GetTempFileName();
+
+                    using (var stream = System.IO.File.Create(filePath))
+                    {
+                        await formFile.CopyToAsync(stream);
+                    }
+                }
+            }
+
+            // Process uploaded files
+            // Don't rely on or trust the FileName property without validation.
+
+            return Ok(new { count = files.Count, size });
         }
 
     }

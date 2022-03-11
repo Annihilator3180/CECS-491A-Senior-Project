@@ -14,6 +14,10 @@ using System.Web;
 using Microsoft.AspNetCore.Http;
 using The6Bits.Authentication.Contract;
 using The6Bits.BitOHealth.DAL.Contract;
+using The6Bits.DBErrors;
+using The6Bits.EmailService;
+using Microsoft.Extensions.Configuration;
+
 namespace The6Bits.BitOHealth.ControllerLayer
 {
     public class RecordsController : ControllerBase
@@ -21,6 +25,8 @@ namespace The6Bits.BitOHealth.ControllerLayer
         private IAuthenticationService authenticationService1;
         private RecordsManager _MHM;
         private LogService logService;
+        private ISMTPEmailServiceShould _EmailService;
+        private IDBErrors _dbErrors;
         private string Username;
         private bool isValid;
         private IAuthenticationService _authentication;
@@ -29,7 +35,6 @@ namespace The6Bits.BitOHealth.ControllerLayer
     public RecordsController(IRepositoryAuth<string> authdao, ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors, ISMTPEmailServiceShould EmailService, IConfiguration config)
     {
         _MHM = new RecordsManager(authdao, authenticationService,dbErrors,EmailService,config);
-        
         logService = new LogService(logDao);
         _dbErrors = dbErrors;
         _EmailService = EmailService;
@@ -39,7 +44,6 @@ namespace The6Bits.BitOHealth.ControllerLayer
     }
 
     [HttpPost("CreateRecords")]
-    
     public string CreateRecords(User u)
     {
         isValid = _authentication.ValidateToken(Request.Headers["Authorization"]);

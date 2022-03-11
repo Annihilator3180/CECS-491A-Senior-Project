@@ -39,6 +39,7 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
     // CHECK IF FILE SIZE IS OK
     // 0.5 MB MIN - 12 MB MAX   
+    // Todo : Fix
     public string ValidateFileSizeRecords(string fileName, string username, int fileSize)
     {
         //string fileName;
@@ -63,8 +64,9 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
     }
 
+    // Todo: Fix
     public string VerifyFileTypeRecords(string fileName,string userName,string filePath)
     {
-        return "null";
+        return _MHS.VerifyFileTypeRecords(fileName, userName, filePath);
     }
 }
