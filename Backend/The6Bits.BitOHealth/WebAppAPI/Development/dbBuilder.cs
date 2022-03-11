@@ -34,7 +34,7 @@ namespace WebAppMVC.Development
         
         public bool buildVerifyCodes(string connStr)
         {
-            var AccountsStr = "If not exists (select name from sysobjects where name = 'VerifyCodes')CREATE TABLE VerifyCodes ( username VARCHAR(30),time DateTime,code VARCHAR(30),codeType VARCHAR(30),primary key(username, codeType)); ";
+            var AccountsStr = "If not exists (select name from sysobjects where name = 'VerifyCodes') CREATE TABLE VerifyCodes ( username VARCHAR(30) NOT NULL primary key, CodeDate DateTime, code VARCHAR(40), codeType VARCHAR(30))";
             var conn = new SqlConnection(connStr);
             using (SqlCommand command = new SqlCommand(AccountsStr, conn))
             {
@@ -55,20 +55,25 @@ namespace WebAppMVC.Development
             }
             return false;
         }
-        public bool buildRecoveryDB(string connStr)
+        
+        public bool buildRecovery(string connStr)
         {
-            var RecoveryStr = "If not exists (select name from sysobjects where name = 'Recovery') CREATE TABLE Recovery ( Username VARCHAR(30) NOT NULL, Email VARCHAR(255) NOT NULL, RecoveryAttempts int)";
+            var RecoverysStr = "If not exists (select name from sysobjects where name = 'Recovery') CREATE TABLE Recovery ( Username VARCHAR(30) NOT NULL, email varchar(100), recoveryAttempt DateTime, primary key (username, recoveryAttempt))";
             var conn = new SqlConnection(connStr);
-            using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
+            using (SqlCommand command = new SqlCommand(RecoverysStr, conn))
             {
                 conn.Open();
                 command.ExecuteNonQuery();
             }
             return false;
-
-
-
         }
+
+
+
+
+
+
+
         public bool buildTrackerLogs(string connStr)
         {
             var RecoveryStr = "If not exists (select name from sysobjects where name = 'TrackerLogs') CREATE TABLE TrackerLogs ( count int, dateTime VARCHAR(30), logType VARCHAR(30))";
