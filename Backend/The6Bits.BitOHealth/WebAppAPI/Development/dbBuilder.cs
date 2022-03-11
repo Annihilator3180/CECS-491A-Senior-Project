@@ -105,5 +105,23 @@ namespace WebAppMVC.Development
         }
 
 
+        public bool addBossAdmin(string connStr)
+        {
+            var RecoveryStr = "INSERT INTO Accounts "+
+            "(Username, Email, Password, FirstName, LastName, IsEnabled, IsAdmin, privOption)"+
+            "values('bossadmin12', 'cbass@gmail.com', 'Password!1', 'admin', 'boss', 1, 1,1); ";
+            var conn = new SqlConnection(connStr);
+            using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
+            {
+                conn.Open();
+                command.ExecuteScalar();
+            }
+            return false;
+
+
+
+        }
+
+
     }
 }
