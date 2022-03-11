@@ -121,6 +121,14 @@ namespace The6Bits.BitOHealth.ServiceLayer
         {
             string ver = _MHD.VerifySystemStorageRecords(fileName, username, filePath);
 
+            DriveInfo drive = new DriveInfo("C");
+
+            if (drive.IsReady)
+            {
+                double freeSpace = ((drive.AvailableFreeSpace / (double)drive.TotalSize) * 100);
+                return freeSpace.ToString();
+            }
+            
 
             return null;
         }
@@ -145,20 +153,20 @@ namespace The6Bits.BitOHealth.ServiceLayer
           
         }
         // CHECKS TO SEE IF RECORDS UPLOADED TO WINDOWS SERVER/MACHINE  
-        //  Todo : Fix
+        //  Todo : Done
         public string UploadRecordsWinDao(string fileName, string username, string filePath)
         {
             string fileToWindows = _MHD.UploadRecordsWinDao(fileName, username, filePath);
             string filePath2 = "C:\\Users\\Owner\\Documents\\";
 
-            if(File.Exists(fileToWindows) == true)
+            if(File.Exists(fileToWindows) == true && File.Exists(filePath2) == true)
             {
-                File.Copy(fileToWindows, filePath2);
+                return fileToWindows + " uploaded successfully to Windows DAO";
                 
             }
             else
             {
-                return "";
+                return fileToWindows + " not uploaded successfully to Windows DAO";
             }
             return null;
         }

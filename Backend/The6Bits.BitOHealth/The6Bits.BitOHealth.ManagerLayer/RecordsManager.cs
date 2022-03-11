@@ -41,7 +41,7 @@ namespace The6Bits.BitOHealth.ManagerLayer
         }
 
 
-        public string CreateRecords(string recordName, string username)
+        public string CreateRecords(string recordName, string username, string fileName, int fileSize, string filePath)
         {
             // CHECKS IF FILE SIZE IS OK
             // Todo : Fix
@@ -86,6 +86,7 @@ namespace The6Bits.BitOHealth.ManagerLayer
             var responseSystemStorage = _MHS.VerifySystemStorageRecords(fileName, username, filePath);
 
 
+
             // CHECKS TO SEE IF RECORD NAME MEETS LENGTH REQUIREMENT
             // Todo : Done
             var responseCreateRecords = _MHS.CreateRecords(recordName, username);
@@ -104,6 +105,14 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
             // CHECKS TO SEE IF RECORDS UPLOADED TO WINDOWS SERVER/MACHINE 
             var responseUploadRecords = _MHS.UploadRecordsWinDao(fileName, username, filePath);
+            if (responseUploadRecords.Contains("uploaded"))
+            {
+                return responseUploadRecords;
+            }
+            else
+            {
+                return responseUploadRecords;
+            }
 
         }
     }

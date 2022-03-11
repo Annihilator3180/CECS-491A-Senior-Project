@@ -21,30 +21,6 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             _connectString = connectstring;
         }
-        // async/await
-        public string UsernameExists(string username)
-        {
-            try
-            {
-                string query = $"select count(@Username) from Accounts where Username = @Username";
-                using (SqlConnection connection = new SqlConnection(_connectString))
-                {
-                    connection.Open();
-                    int count = connection.ExecuteScalar<int>(query, new { Username = username });
-                    if (count != 0)
-                    {
-                        return "username exists";
-                    }
-                    return "username not found";
-                }
-            }
-            catch (SqlException ex)
-            {
-                return ex.Number.ToString();
-            }
-
-
-        }
 
         // DAO access for VerifySystemsStorageRecords
         public string VerifySystemStorageRecords(string fileName, string username, string filePath)

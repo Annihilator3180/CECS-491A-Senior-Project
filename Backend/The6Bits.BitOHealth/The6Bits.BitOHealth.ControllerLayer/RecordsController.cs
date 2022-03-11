@@ -23,7 +23,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
 {
     public class RecordsController : ControllerBase
     {
-        private IAuthenticationService _authenticationService;
+        private IAuthenticationService _authentication;
         private IConfiguration _config;
         private RecordsManager _MHM;
         
@@ -31,17 +31,19 @@ namespace The6Bits.BitOHealth.ControllerLayer
         private IDBErrors _dbErrors;
         private string Username;
         private bool isValid;
-        private IAuthenticationService _authentication;
+        
+
+        
 
 
-        public RecordsController(IRecordsDB daoType, ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors,
+        public RecordsController(IRecordsDB daoType, ILogDal logDao, IAuthenticationService authentication, IDBErrors dbErrors,
             ISMTPEmailService EmailService, IConfiguration config)
         {
-            _MHM = new RecordsManager(daoType, authenticationService, dbErrors, EmailService, config, logDao);
+            _MHM = new RecordsManager(daoType, authentication, dbErrors, EmailService, config, logDao);
             
             _dbErrors = dbErrors;
             _EmailService = EmailService;
-            _authenticationService = authenticationService;
+            _authentication = authentication;
             _config = config;
 
         }
@@ -72,48 +74,59 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
 
         // ADD Authenticate.IsValidToken(token) : Bool
-
+        public bool ValidateToken(string token)
+        {
+            isValid = _authentication.ValidateToken(Request.Headers["Authorization"]);
+            
+            return true;
+        }
+        
+        
         // ADD Authenticate.getUserName(token : string) : string
+        public string getUsername(string token)
+        {
+            string username = _authentication.getUsername(Request.Headers["Authorization"]);
+            return username;
+        }
+    
 
 
+        //    [HttpGet("ValidateFileSizeRecords")]
+        //    public string ValidateFileSizeRecords(String fileName, String username, String filePath)
+        //    {
+        //        string sizeStatus = _MHM.ValidateFileSizeRecords(fileName, username, filePath);
+        //        if (sizeStatus.Contains("Try again"))
+        //        {
+        //            //logService.Log(username, "Invalid Size: " + fileName, "Information", "Business");
+        //            return "Cannot upload file because it did not meet requirements";
+        //        }
 
+        //        logService.Log(Username, "Record crated/saved successfully", "Information", "Business");
+        //        return sizeStatus;
+        //    }
 
-    //    [HttpGet("ValidateFileSizeRecords")]
-    //    public string ValidateFileSizeRecords(String fileName, String username, String filePath)
-    //    {
-    //        string sizeStatus = _MHM.ValidateFileSizeRecords(fileName, username, filePath);
-    //        if (sizeStatus.Contains("Try again"))
-    //        {
-    //            //logService.Log(username, "Invalid Size: " + fileName, "Information", "Business");
-    //            return "Cannot upload file because it did not meet requirements";
-    //        }
-           
-    //        logService.Log(Username, "Record crated/saved successfully", "Information", "Business");
-    //        return sizeStatus;
-    //    }
+        //    [HttpGet("VerifyFileTypeRecords")]
+        //    public string VerifyFileTypeRecords(String fileName, String username, String filePath)
+        //    {
+        //        string fileTypeStatus = _MHM.VerifyFileTypeRecords(fileName, username, filePath);
+        //        if (fileTypeStatus.Contains("Invalid"))
+        //        {
+        //            logService.Log(username, "Invalid Type - File Type", "Information", "Business");
+        //            return "invalid file type";
+        //        }
+        //        else
+        //        {
+        //            logService.Log(username, "Upload Successful - File Type", "Information", "Business");
+        //        }
+        //        logService.Log(username, "Upload Successful - File Type", "Information", "Business");
+        //        return fileTypeStatus;
+        //    }
 
-    //    [HttpGet("VerifyFileTypeRecords")]
-    //    public string VerifyFileTypeRecords(String fileName, String username, String filePath)
-    //    {
-    //        string fileTypeStatus = _MHM.VerifyFileTypeRecords(fileName, username, filePath);
-    //        if (fileTypeStatus.Contains("Invalid"))
-    //        {
-    //            logService.Log(username, "Invalid Type - File Type", "Information", "Business");
-    //            return "invalid file type";
-    //        }
-    //        else
-    //        {
-    //            logService.Log(username, "Upload Successful - File Type", "Information", "Business");
-    //        }
-    //        logService.Log(username, "Upload Successful - File Type", "Information", "Business");
-    //        return fileTypeStatus;
-    //    }
+        //    [HttpGet("VerifyFileNameRecords")]
+        //    public string VerifyFileNameRecords(String fileName, String username, String filePath)
+        //    {
+        //        stromg fileNameStatus
+        //    }
+        //}
 
-    //    [HttpGet("VerifyFileNameRecords")]
-    //    public string VerifyFileNameRecords(String fileName, String username, String filePath)
-    //    {
-    //        stromg fileNameStatus
-    //    }
-    //}
-
-}
+    }
