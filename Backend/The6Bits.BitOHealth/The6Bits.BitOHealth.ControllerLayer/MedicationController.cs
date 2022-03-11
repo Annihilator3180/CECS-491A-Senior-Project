@@ -15,7 +15,7 @@ using System.Text.Json;
 namespace The6Bits.BitOHealth.ControllerLayer;
 [ApiController]
 [Route("Medication")]
-public class MedicationController
+public class MedicationController : ControllerBase
 {
     
     private MedicationManager _MM;
@@ -36,7 +36,7 @@ public class MedicationController
     public string FindDrug(string drugName)
     {
         string token;
-        /**try
+        try
         {
             token = Request.Cookies["token"];
         }
@@ -47,7 +47,7 @@ public class MedicationController
         if (!_auth.ValidateToken(token))
         {
             return "invalid token";
-        }**/
+        }
         //string username = _auth.getUsername(token);
         List<DrugName> genericdrugNames = _MM.FindDrug(drugName);
         string jsonString = JsonSerializer.Serialize(genericdrugNames);

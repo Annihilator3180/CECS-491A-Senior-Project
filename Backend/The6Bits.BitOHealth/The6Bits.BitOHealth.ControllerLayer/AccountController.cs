@@ -148,7 +148,7 @@ public class AccountController : ControllerBase
         if (creationStatus.Contains("Database"))
         {
             logService.RegistrationLog(user.Username, "Registration- " + creationStatus, "Data Store", "Error");
-            return creationStatus;
+            return "Database Error";
         }
         else if (creationStatus == "Email Failed To Send")
         {

@@ -2,7 +2,7 @@
     <LoginPost/>
     <OTPPost/>
     <account-recovery/>
-    <RegistrationGet/>
+    <RegistrationPost/>
     <medSearch/>
 
 </template>
@@ -11,7 +11,7 @@
 import LoginPost from './components/LoginPost.vue'
 import OTPPost from './components/OneTimePass.vue'
 import AccountRecovery from './components/AccountRecovery.vue'
-import RegistrationGet from './components/Registration.vue'
+import RegistrationPost from './components/Registration.vue'
 import MedSearch from './components/MedicationSearch.vue'
 
 
@@ -22,7 +22,7 @@ export default {
     LoginPost ,
     OTPPost,
    AccountRecovery,
-    RegistrationGet,
+    RegistrationPost,
     MedSearch
   },
 }
