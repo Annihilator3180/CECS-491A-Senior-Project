@@ -132,7 +132,7 @@ public class AccountController : ControllerBase
             }
 
         }
-        string username = authenticationService1.getUsername(token);
+        string username = _auth.getUsername(token);
         string status =  _AM.DeleteAccount(token);
 
         if (status.Contains("Database"))
@@ -144,7 +144,7 @@ public class AccountController : ControllerBase
             logService.Log(username, "Account Deletion- " + status, "Business", "Information");
         }
 
-        Response.Cookies.Delete(token);
+        Response.Cookies.Delete("token");
         return status;
     }
 

@@ -121,7 +121,7 @@ public class JWTAuthenticationService : IAuthenticationService
         var header = parts[0];
         var payload = parts[1];
 
-       if (payload.Length != 60)
+       if (payload.Length != 64)
        {
             return "Incorrect Payload format";
         }

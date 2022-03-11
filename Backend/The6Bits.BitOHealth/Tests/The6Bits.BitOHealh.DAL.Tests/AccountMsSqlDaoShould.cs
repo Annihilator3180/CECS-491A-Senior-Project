@@ -9,7 +9,6 @@ using System.Text.Json;
 using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.BitOHealth.ManagerLayer;
 using The6Bits.Authentication.Implementations;
-using The6Bits.BitOHealth.ManagerLayer;
 //using Microsoft.Extensions.Configuration;
 
 namespace The6Bits.BitOHealth.DAL.Tests;

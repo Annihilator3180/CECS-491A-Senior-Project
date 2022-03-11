@@ -205,12 +205,7 @@
       "ProjectGuid": "6baa515f-55e7-4ba9-9150-a36b473de2c1",
       "DisplayName": "TestData",
       "ColorIndex": 7
-    },
-    "5c85ca0c-9442-4807-b053-5a7825cd83eb": {
-      "ProjectGuid": "5c85ca0c-9442-4807-b053-5a7825cd83eb",
-      "DisplayName": "The6Bits.Authorization",
-      "ColorIndex": 8
     }
   },
-  "NextColorIndex": 9
+  "NextColorIndex": 8
 }
