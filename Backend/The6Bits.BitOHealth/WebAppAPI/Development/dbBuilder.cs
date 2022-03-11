@@ -89,6 +89,20 @@ namespace WebAppMVC.Development
 
         }
 
+        public bool buildUserDietDB(string connStr)
+        {
+            var RecoveryStr = "If not exists (select name from sysobjects where name = 'Diet') CREATE TABLE Diet(Diet VARCHAR(30) NOT NULL, Health VARCHAR(30) NOT NULL, Ingr int, DishType VARCHAR(30) NOT NULL, Calories int, Time int, Excluded VARCHAR(30) NOT NULL)";
+            var conn = new SqlConnection(connStr);
+            using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
+            {
+                conn.Open();
+                command.ExecuteNonQuery();
+            }
+            return false;
+
+        }
+
+
 
     }
 }

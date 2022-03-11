@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\API\The6Bits.API.csproj" />
     <ProjectReference Include="..\Models\The6Bits.BitOHealth.Models.csproj" />
     <ProjectReference Include="..\The6Bits.BitOHealth.DAL\The6Bits.BitOHealth.DAL.csproj" />
     <ProjectReference Include="..\The6Bits.BitOHealth.Logging\The6Bits.Logging.csproj" />

@@ -11,32 +11,61 @@ using The6Bits.DBErrors;
 using The6Bits.Logging.DAL.Contracts;
 using The6Bits.Logging.Implementations;
 using The6Bits.Authentication.Contract;
-
+using The6Bits.BitOHealth.Models;
+using System.Text.Json;
+using The6Bits.BitOHealth.DAL.Contract;
 
 namespace The6Bits.BitOHealth.ControllerLayer
 {
-    public class DietRecommendationsController
+    [ApiController]
+    [Route("DietRecommendation")]
+    public class DietRecommendationsController : ControllerBase
     {
         private DietRecommendationsManager _DRM;
         private LogService _logService;
         private IDBErrors _dBErrors;
         private IConfiguration _config;
         private IAuthenticationService _auth;
-        public DietRecommendationsController(ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors,
+        public DietRecommendationsController(IRepositoryDietRecommendations DietDao, ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors,
              IConfiguration config)
         {
-            _DRM = new DietRecommendationsManager(authenticationService, dbErrors, config);
+            _DRM = new DietRecommendationsManager(DietDao, authenticationService, dbErrors, config);
             _logService = new LogService(logDao);
             _dBErrors = dbErrors;
             _auth = authenticationService;
             _config = config;
         }
 
-       // [HttpGet("Create")]
-       // public List<Recipes> getRecommendedRecipies()
-        
+        [HttpGet("Create")]
+        public async Task<string> CreateDietRecommendations([FromQuery] DietR userResponses)
+        {
+            //string token = "";
+            //try
+            //{
+              //  token = Request.Cookies["token"];
+            //}
+            //catch
+            //{
+              //  return "NoToken";
+            //}
+            //bool isValid = _auth.ValidateToken(token);
+            //if (isValid != true)
+            //{
+               // _logService.Log("None", "Invalid Token - Create Diet Recommendation", "Info", "Bussiness");
+                //return "Invalid Token";
+            //}
+            //string username = _auth.getUsername(token);
+            string response = _DRM.SaveDietRespones(userResponses);
+            if (response.Contains("Database"))
+            {
+                _logService.Log("NO", "Save User Diet " + response, "DataStore", "Error");
+            }
 
+                _logService.Log("NO", "Save User Diet", "Info", "Business");
 
-
+            List<Recipe> recipes = await _DRM.getRecommendedRecipies(userResponses); 
+            string recipeList = JsonSerializer.Serialize(recipes);
+            return recipeList;
+        }
     }
 }

@@ -205,7 +205,17 @@
       "ProjectGuid": "6baa515f-55e7-4ba9-9150-a36b473de2c1",
       "DisplayName": "TestData",
       "ColorIndex": 7
+    },
+    "ddbaacb1-4af7-4876-8dac-ca4dabe1c076": {
+      "ProjectGuid": "ddbaacb1-4af7-4876-8dac-ca4dabe1c076",
+      "DisplayName": "The6Bits.API",
+      "ColorIndex": 8
+    },
+    "5bc68f44-bc94-4093-9248-c2fe3dbb8624": {
+      "ProjectGuid": "5bc68f44-bc94-4093-9248-c2fe3dbb8624",
+      "DisplayName": "DietRecommendation",
+      "ColorIndex": 9
     }
   },
-  "NextColorIndex": 8
+  "NextColorIndex": 10
 }
