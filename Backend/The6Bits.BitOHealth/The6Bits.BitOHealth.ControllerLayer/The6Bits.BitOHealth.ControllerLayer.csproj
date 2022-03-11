@@ -23,4 +23,9 @@
     <ProjectReference Include="..\The6Bits.EmailService\The6Bits.SMTPEmailService.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Core\" />
+    <Folder Include="Features\" />
+  </ItemGroup>
+
 </Project>
