@@ -42,13 +42,15 @@ namespace The6Bits.BitOHealth.ManagerLayer
         public string CreateRecords(string recordName, string username)
         {
             // CHECKS IF FILE SIZE IS OK
+            // Todo : Fix
             var response = _MHS.ValidateFileSizeRecords(fileName, username, fileSize);
             if (response.Contains("Try again"))
             {
                 return response;
             }
 
-            // CHECK TO SEE IF FILE HAS CORRECT
+            // CHECKS TO SEE IF FILE HAS CORRECT
+            // Todo : Fix
             var responseFileType = _MHS.VerifyFileTypeRecords(fileName, username, filePath);
             if (responseFileType.Contains("Upload Successful"))
             {
@@ -59,11 +61,45 @@ namespace The6Bits.BitOHealth.ManagerLayer
                 return responseFileType;
             }
 
-            // CHECK TO SEE IF FILENAME IS CORRECT
+            // CHECKS TO SEE IF FILE NAME IS VALID
+            // Todo : Fix
+            var responseFileName = _MHS.VerifyFileNameRecords(fileName, username, filePath);
+            if (responseFileName.Contains("Invalid file name."))
+            {
+                return responseFileName;
+            }
+            else if (responseFileName.Contains("Invalid file name, contains special characters"))
+            {
+                return responseFileName;
+            }
+            else
+            {
+                return responseFileName;
+            }
 
-            if
+            // CHECKS TO WINDAO IF THERE IS ENOUGH STORAGE
+            // Todo : Fix
+            var responseSystemStorage = _MHS.VerifySystemStorageRecords(fileName, username, filePath);
 
 
+            // CHECKS TO SEE IF RECORD NAME MEETS LENGTH REQUIREMENT
+            // Todo : Done
+            var responseCreateRecords = _MHS.CreateRecords(recordName, username);
+            if (responseCreateRecords.Contains("invalid"))
+            {
+                return responseCreateRecords;
+            }
+            else if (responseCreateRecords.Contains("valid"))
+            {
+                return responseCreateRecords;
+            }
+            else
+            {
+                return responseCreateRecords;
+            }
+
+            // CHECKS TO SEE IF RECORDS UPLOADED TO WINDOWS SERVER/MACHINE 
+            var responseUploadRecords = _MHS.UploadRecordsWinDao(fileName, username, filePath);
 
         }
     }

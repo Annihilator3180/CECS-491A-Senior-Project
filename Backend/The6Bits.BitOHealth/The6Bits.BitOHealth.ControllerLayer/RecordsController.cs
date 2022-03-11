@@ -17,12 +17,14 @@ using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.DBErrors;
 using The6Bits.EmailService;
 using Microsoft.Extensions.Configuration;
+using System.Linq;
 
 namespace The6Bits.BitOHealth.ControllerLayer
 {
     public class RecordsController : ControllerBase
     {
-        private IAuthenticationService authenticationService;
+        private IAuthenticationService _authenticationService;
+        private IConfiguration _config;
         private RecordsManager _MHM;
         private LogService logService;
         private ISMTPEmailService _EmailService;
@@ -30,34 +32,35 @@ namespace The6Bits.BitOHealth.ControllerLayer
         private string Username;
         private bool isValid;
         private IAuthenticationService _authentication;
-    }
-
-    public RecordsController(IRecordsDB daoType, ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors, 
-        ISMTPEmailService EmailService, IConfiguration config)
-    {
-        _MHM = new RecordsManager(daoType, authenticationService,dbErrors,EmailService,config);
-        logService = new LogService(logDao);
-        _dbErrors = dbErrors;
-        _EmailService = EmailService;
-        _authenticationService = authenticationService;
-        _config = config;
-        
-    }
-
-    [HttpPost("CreateRecords")]
-    public string CreateRecords(User u)
-    {
-        isValid = _authentication.ValidateToken(Request.Headers["Authorization"]);
-        string userName = _authenication.getUsername(Request.Headers["Authorizatoin"]);
-
-        if (isValid == null) 
-        { 
-            
 
 
-            
+        public RecordsController(IRecordsDB daoType, ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors,
+            ISMTPEmailService EmailService, IConfiguration config)
+        {
+            _MHM = new RecordsManager(daoType, authenticationService, dbErrors, EmailService, config);
+            logService = new LogService(logDao);
+            _dbErrors = dbErrors;
+            _EmailService = EmailService;
+            _authenticationService = authenticationService;
+            _config = config;
+
+        }
+
+        [HttpPost("CreateRecords")]
+        public string CreateRecords(String recordName, String username)
+        {
+            //isValid = _authentication.ValidateToken(Request.Headers["Authorization"]);
+            //string userName = _authentication.getUsername(Request.Headers["Authorizatoin"]);
+            string namingStatus = _MHM.CreateRecords(recordName, username);
+
+            if (namingStatus.Contains("invalid"))
+            {
+                logService.LoginLog("Record name created failed", "Information",time,"Business", username);
+
+
+
+            }
         }
     }
-
 
 }

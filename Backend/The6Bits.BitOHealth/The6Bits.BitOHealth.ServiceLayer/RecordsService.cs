@@ -111,6 +111,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
                     return "valid filename: " + fileName;
                 }
             }
+            return null;
 
         }
 
@@ -159,7 +160,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
             {
                 return "";
             }
-            
+            return null;
         }
 
         public async Task<String> OnPostUploadAsync(List<IFormFile> files)
