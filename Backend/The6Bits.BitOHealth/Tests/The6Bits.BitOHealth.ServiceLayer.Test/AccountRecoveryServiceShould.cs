@@ -51,7 +51,7 @@ namespace The6Bits.BitOHealth.AccountRecovery.Test
             string username = "bossadmin12";
             string predicted = "1";
 
-            string actual = _AS.UpdateRecoveryAttempts(username);
+            string actual = _AS.UpdateRecoveryAttempts(username, DateTime.Now);
 
             Assert.True(predicted.Equals(actual));
 

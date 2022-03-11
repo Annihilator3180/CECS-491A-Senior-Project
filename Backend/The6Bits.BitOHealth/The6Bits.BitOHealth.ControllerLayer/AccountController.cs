@@ -1,3 +1,6 @@
+using System.Net;
+using System.Security.Cryptography;
+using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using The6Bits.Authentication.Contract;
 using The6Bits.Authentication.Implementations;
@@ -10,6 +13,8 @@ using The6Bits.Logging.DAL.Contracts;
 using The6Bits.Logging.Implementations;
 using The6Bits.DBErrors;
 using System.Web;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using The6Bits.EmailService;
 // using The6Bits.BitOHealth.ServiceLayer;
 
@@ -22,14 +27,18 @@ public class AccountController : ControllerBase
     private AccountManager _AM;
     private LogService logService;
     private IDBErrors _dbErrors;
-    private ISMTPEmailServiceShould _EmailService;
-    public AccountController(IRepositoryAuth<string> authdao ,ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors, ISMTPEmailServiceShould EmailService)
+    private ISMTPEmailService _EmailService;
+    private IConfiguration _config;
+    private IAuthenticationService _auth;
+    public AccountController(IRepositoryAuth<string> authdao, ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors, 
+        ISMTPEmailService emailService, IConfiguration config)
     {
-        _AM = new AccountManager(authdao,authenticationService,dbErrors,EmailService);
+        _AM = new AccountManager(authdao, authenticationService, dbErrors, emailService, config);
         logService = new LogService(logDao);
         _dbErrors = dbErrors;
-        _EmailService = EmailService;
-        authenticationService1 = authenticationService;
+        _EmailService = emailService;
+        _auth = authenticationService;
+        _config = config;
     }
 
     [HttpPost("Login")]
@@ -38,21 +47,39 @@ public class AccountController : ControllerBase
         var remoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
 
 
+        //HASH
+        //DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
+        //string p = di.Parent.ToString();
+        //string mySecret = System.IO.File.ReadAllText(Path.GetFullPath(p + _config.GetSection("PKs")["JWT"]));
+        //byte[] keyBytes = Encoding.UTF8.GetBytes(mySecret);
+        //var bytesToSign = Encoding.UTF8.GetBytes(acc.Password);
+        //var sha = new HMACSHA256(keyBytes);
+        //byte[] signature = sha.ComputeHash(bytesToSign);
+        //acc.Password = Convert.ToBase64String(signature);
 
-        var jwt =  _AM.Login(acc);
+
+
+
+        var jwt = _AM.Login(acc);
         var parts = jwt.Split('.');
-        
-        //TODO:FIX IF STATMENT TO SOMETHING BETTER
-        //TODO:ADD LOGS
+
         if (parts.Length==3)
         {
+            var cookieOptions = new CookieOptions()
+            {
+                Secure = true,
+                Expires = DateTime.UtcNow.AddDays(14),
+                SameSite = SameSiteMode.None,
+            };
             Response.Cookies.Append(
                 "token",
-                jwt);
+                jwt, cookieOptions);
+
             logService.LoginLog(acc.Username + remoteIpAddress, "Logged In", "Info","Business" );
         }
         else
         {
+
             string loginfail = "Log In Fail";
             if (jwt.Contains("Database"))
             {
@@ -68,7 +95,7 @@ public class AccountController : ControllerBase
         return jwt;
 
     }
-    
+
     [HttpPost("OTP")]
     public string SendOTP(string username)
     {
@@ -122,14 +149,14 @@ public class AccountController : ControllerBase
     }
 
 
- //   public void deletecookie(object sender, eventargs e)
- //   {
- //       //httpcookie httpcookie = new httpcookie();
-  //      httpcookie httpcookie = request.cookies.get("cookie");
-  //      httpcookie.expires = datetime.now.adddays(-1d);
-  //      response.cookies.append("cookie",httpcookie);
- //   }
-    
+    //   public void deletecookie(object sender, eventargs e)
+    //   {
+    //       //httpcookie httpcookie = new httpcookie();
+    //      httpcookie httpcookie = request.cookies.get("cookie");
+    //      httpcookie.expires = datetime.now.adddays(-1d);
+    //      response.cookies.append("cookie",httpcookie);
+    //   }
+
 
 
 
@@ -137,25 +164,25 @@ public class AccountController : ControllerBase
     public string CreateAccount(User user)
     {
 
-        String CreationStatus = _AM.CreateAccount(user);
-        if (CreationStatus.Contains("Database"))
+        string creationStatus = _AM.CreateAccount(user);
+        if (creationStatus.Contains("Database"))
         {
-            logService.RegistrationLog(user.Username, "Registration- " + CreationStatus, "Data Store", "Error");
+            logService.RegistrationLog(user.Username, "Registration- " + creationStatus, "Data Store", "Error");
             return "Database Error";
         }
-        else if (CreationStatus == "Email Failed To Send")
+        else if (creationStatus == "Email Failed To Send")
         {
             logService.RegistrationLog(user.Username, "Registration- Email Failed To Send", "Business", "Error");
             return "Email Failed To Send";
         }
-        else if (CreationStatus != "Email Pending Confirmation") {
-            logService.RegistrationLog(user.Username, "Registration- "+CreationStatus, "Business", "Information");
+        else if (creationStatus != "Email Pending Confirmation") {
+            logService.RegistrationLog(user.Username, "Registration- "+creationStatus, "Business", "Information");
                 }
         else
         {
             logService.RegistrationLog(user.Username, "Verfication Email Sent", "Business", "Information");
         }
-        return CreationStatus;
+        return creationStatus;
     }
 
     [HttpGet("VerifyAccount")]
@@ -167,7 +194,7 @@ public class AccountController : ControllerBase
             logService.Log(Username, "Registration- " + verfied, "Data Store", "Error");
             return "Database Error";
         }
-        if(verfied == "Account Verified")
+        if (verfied == "Account Verified")
         {
             logService.Log(Username, "Registration- Email Verified ", "Business", "Information");
             return verfied;
@@ -208,15 +235,32 @@ public class AccountController : ControllerBase
 
     public string AccountRecovery(AccountRecoveryModel arm)
     {
+        string start = _AM.recoverAccount(arm);
 
-        return _AM.recoverAccount(arm);
+        if (start.Contains("Database"))
+        {
+            logService.Log(arm.Username, " Account Recovery ", start, "Error");
+            return "Database Error";
+        }
+        logService.Log(arm.Username, " Account Recovery ", "Recovery Email Sent", "Information");
+
+        return start;
 
 
     }
     [HttpPost("ResetPassword")]
     public string ResetPassword(string r, string u, string p)
     {
-        return _AM.ResetPassword(u, r, p);
+        string reset = _AM.ResetPassword(u, r, p);
+
+        if (reset.Contains("Database"))
+        {
+            logService.Log(u, " Password Reset ", reset, "Error");
+            return "Database Error";
+        }
+        logService.Log(u, " Password Reset ", "Password Change ", "Information");
+
+        return reset;
     }
 
 }

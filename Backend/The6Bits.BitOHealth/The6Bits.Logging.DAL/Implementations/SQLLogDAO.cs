@@ -179,12 +179,12 @@ namespace The6Bits.Logging.DAL.Implementations
             {
                 string date = DateTime.UtcNow.ToString("MM-dd-yyyy");
 
-                string query = $"SELECT count(*) FROM TrackerLogs WHERE dateTime = '{date}' AND logType = 'Login';";
+                string query = $"SELECT count(dateTime) FROM TrackerLogs WHERE dateTime = '{date}' AND logType = 'Login';";
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
-                    int s = connection.Execute(query);
+                    int s = connection.ExecuteScalar<int>(query);
                     if (s == 0)
                     {
                         return false;

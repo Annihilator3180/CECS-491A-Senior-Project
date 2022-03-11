@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using Microsoft.Extensions.Configuration;
 using The6Bits.Authentication.Contract;
 using The6Bits.BitOHealth.Models;
 
@@ -13,21 +14,22 @@ namespace The6Bits.Authentication.Implementations;
 public class JWTAuthenticationService : IAuthenticationService
 {
 
-    private static string Base64UrlEncode(byte[] input)
+
+    private IConfiguration _configuration;
+
+
+    public JWTAuthenticationService(IConfiguration configuration)
     {
-        var output = Convert.ToBase64String(input);
-        output = output.Split('=')[0]; // Remove any trailing '='s
-        output = output.Replace('+', '-'); // 62nd char of encoding
-        output = output.Replace('/', '_'); // 63rd char of encoding
-        return output;
+        _configuration = configuration;
     }
+
+
 
     public string generateToken(string data)
     {
         DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
         string p = di.Parent.ToString();
-        string mySecret = File.ReadAllText(Path.GetFullPath(p + @"/Keys/private-key.pem"));
-        //var mySecret = "asdv234234^&%&^%&^hjsdfb2%%%";
+        string mySecret = File.ReadAllText(Path.GetFullPath(p + _configuration.GetSection("PKs")["JWT"]));
         byte[] keyBytes = Encoding.UTF8.GetBytes(mySecret);
         var segments = new List<string>();
 
@@ -37,8 +39,8 @@ public class JWTAuthenticationService : IAuthenticationService
         byte[] headerBytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(header));
         byte[] payloadBytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(payload));
 
-        segments.Add(Base64UrlEncode(headerBytes));
-        segments.Add(Base64UrlEncode(payloadBytes));
+        segments.Add(Convert.ToBase64String(headerBytes));
+        segments.Add(Convert.ToBase64String(payloadBytes));
         //segments.Add(Encoding.UTF8.GetString(Base64UrlDecode(BYTE ARRAY OF THE DATA STRING HERE)));
 
         var stringToSign = string.Join(".", segments.ToArray());
@@ -47,7 +49,7 @@ public class JWTAuthenticationService : IAuthenticationService
 
         var sha = new HMACSHA256(keyBytes);
         byte[] signature = sha.ComputeHash(bytesToSign);
-        segments.Add(Base64UrlEncode(signature));
+        segments.Add(Convert.ToBase64String(signature));
 
         return string.Join(".", segments.ToArray());
     }
@@ -61,12 +63,12 @@ public class JWTAuthenticationService : IAuthenticationService
             //string p = di.Parent.ToString();
             var code = Assembly.GetExecutingAssembly().CodeBase;
             var root = Path.GetDirectoryName(Uri.UnescapeDataString((new UriBuilder(code)).Path));
-            string key = File.ReadAllText(Path.GetFullPath(root + @"/Keys/private-key.pem"));
+            string key = File.ReadAllText(Path.GetFullPath(root + _configuration.GetSection("PKs")["JWT"]));
 
             var parts = token.Split('.');
             var header = parts[0];
             var payload = parts[1];
-            byte[] crypto = Base64UrlDecode(parts[2]);
+            byte[] crypto = Convert.FromBase64String(parts[2]);
 
 
 
@@ -103,22 +105,6 @@ public class JWTAuthenticationService : IAuthenticationService
         return "";
     }
 
-    private static byte[] Base64UrlDecode(string input)
-    {
-        var output = input;
-        output = output.Replace('-', '+'); // 62nd char of encoding
-        output = output.Replace('_', '/'); // 63rd char of encoding
-        switch (output.Length % 4) // Pad with trailing '='s
-        {
-            case 0: break; // No pad chars in this case
-            case 2: output += "=="; break; // Two pad chars
-            case 3: output += "="; break; // One pad char
-            default: throw new System.Exception("Illegal base64url string!");
-        }
-        var converted = Convert.FromBase64String(output); // Standard base64 decoder
-        return converted;
-    }
-
 
     public string getUsername(string token)
     {
@@ -129,7 +115,7 @@ public class JWTAuthenticationService : IAuthenticationService
 
         var code= Assembly.GetExecutingAssembly().CodeBase;
         var root = Path.GetDirectoryName(Uri.UnescapeDataString((new UriBuilder(code)).Path));
-        string key = File.ReadAllText(Path.GetFullPath(root + @"/Keys/private-key.pem"));
+        string key = File.ReadAllText(Path.GetFullPath(root + _configuration.GetSection("PKs")["JWT"]));
 
         var parts = token.Split('.');
         var header = parts[0];
