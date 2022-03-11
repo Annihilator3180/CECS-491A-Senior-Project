@@ -2,6 +2,8 @@
     <LoginPost/>
     <OTPPost/>
     <account-recovery/>
+    <RegistrationGet/>
+    <medSearch/>
 
 </template>
 
@@ -9,6 +11,8 @@
 import LoginPost from './components/LoginPost.vue'
 import OTPPost from './components/OneTimePass.vue'
 import AccountRecovery from './components/AccountRecovery.vue'
+import RegistrationGet from './components/Registration.vue'
+import MedSearch from './components/MedicationSearch.vue'
 
 
 
@@ -17,7 +21,9 @@ export default {
   components: {
     LoginPost ,
     OTPPost,
-    AccountRecovery,
+   AccountRecovery,
+    RegistrationGet,
+    MedSearch
   },
 }
 </script>

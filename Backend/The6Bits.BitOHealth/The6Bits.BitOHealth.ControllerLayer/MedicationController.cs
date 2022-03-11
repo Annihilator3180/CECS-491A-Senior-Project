@@ -48,7 +48,7 @@ public class MedicationController
         {
             return "invalid token";
         }**/
-        string username = _auth.getUsername(token);
+        //string username = _auth.getUsername(token);
         List<DrugName> genericdrugNames = _MM.FindDrug(drugName);
         string jsonString = JsonSerializer.Serialize(genericdrugNames);
         return jsonString;
