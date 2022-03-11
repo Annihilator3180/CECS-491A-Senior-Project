@@ -5,23 +5,31 @@ using System.Text;
 using System.Threading.Tasks;
 using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.BitOHealth.ServiceLayer;
+using The6Bits.DBErrors;
 
 namespace The6Bits.BitOHealth.ManagerLayer
 {
     public class ReminderManager
     {
         private ReminderService _RS;
-        public ReminderManager(IReminderDatabase dao)
+        private IReminderDatabase _dao;
+        private IDBErrors _DBErrors;
+        public ReminderManager(IReminderDatabase dao, IDBErrors db)
         {
+            _DBErrors = db;
+            _dao = dao;
             _RS = new ReminderService(dao);
         }
-        public bool CreateReminder(string username, string name, string description, string date, string time, string repeat)
+
+        public string CreateReminder(string username, string name, string description, string date, string time, string repeat)
         {
-            //catch error here
+            string res = _RS.CreateReminder(username, name, description, date, time, repeat);
 
-            bool dao = _RS.CreateReminder(username, name, description, date, time, repeat);
+            if (res.Contains("Reminder")){
+                return res;
+            }
+            return _DBErrors.DBErrorCheck(int.Parse(res));
 
-            return dao;
         }
     }
 }

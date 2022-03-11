@@ -8,6 +8,6 @@ namespace The6Bits.BitOHealth.DAL.Contract
 {
     public interface IReminderDatabase
     {
-        bool CreateReminder(string username, string reminderName, string description, string date, string time, string repeat);
+        string CreateReminder(string username, string name, string description, string date, string time, string repeat);
     }
 }

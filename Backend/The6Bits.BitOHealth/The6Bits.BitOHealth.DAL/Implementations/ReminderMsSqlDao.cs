@@ -11,20 +11,20 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 {
     public class ReminderMsSqlDao : IReminderDatabase
     {
-        public string _connectString = @"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;";
+        public string _connectString;
 
         public ReminderMsSqlDao(string connectstring)
         {
             _connectString = connectstring;
         }
-        public bool CreateReminder(string username, string name, string description, string date, string time, string repeat)
+        public string CreateReminder(string username, string name, string description, string date, string time, string repeat)
         {
 
             //insert into table
             try
             {
                 //change values
-                String query = $"INSERT INTO Reminders (username, name, description, date, time, repeat) values ('{1}', '{date}', 'Registration')";
+                String query = $"INSERT INTO Reminders (username, name, description, date, time, repeat) values ('{username}', '{name}', '{description}', '{date}', '{time}', '{repeat}')";
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
@@ -32,14 +32,14 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     int s = connection.Execute(query);
                     if (s == 1)
                     {
-                        return true;
+                        return "Reminder Created";
                     }
-                    return false;
+                    return "Reminder NOT Created";
                 }
             }
-            catch
+            catch (SqlException ex)
             {
-                return false;
+                return ex.Number.ToString();
             }
 
         }

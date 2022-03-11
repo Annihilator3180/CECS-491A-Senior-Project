@@ -10,16 +10,15 @@ namespace The6Bits.BitOHealth.ServiceLayer
 {
     public class ReminderService
     {
-        public IReminderDatabase _dao;
+        public IReminderDatabase _Rdao;
+
         public ReminderService(IReminderDatabase dao)
         {
-            _dao = dao;
+            _Rdao = dao;
         }
-        public bool CreateReminder(string username, string name, string description, string date, string time, string repeat)
+        public string CreateReminder(string username, string name, string description, string date, string time, string repeat)
         {
-            bool dao = _dao.CreateReminder(username, name, description, date, time, repeat);
-
-            return dao;
+            return _Rdao.CreateReminder(username, name, description, date, time, repeat);
         }
     }
 }
