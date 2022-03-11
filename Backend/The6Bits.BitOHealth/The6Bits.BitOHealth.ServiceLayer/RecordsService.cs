@@ -52,7 +52,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
             int fileSize2 = Int32.Parse(ValidateFileSizeRecords(fileName, username, fileSize));
 
             if (fileSize2 < 500000)
-        {
+            {
                 return fileName + "File size too small. Try again";
             }
             else if (fileSize2 > 112000000)
@@ -171,9 +171,10 @@ namespace The6Bits.BitOHealth.ServiceLayer
             {
                 if (formFile.Length > 0)
                 {
-                    var filePath = Path.GetTempFileName();
+                    var filePath = Path.Combine(_config["StoredFilesPath"],
+                        Path.GetRandomFileName());
 
-                    using (var stream = System.IO.File.Create(filePath))
+                    using (var stream = File.Create(filePath))
                     {
                         await formFile.CopyToAsync(stream);
                     }

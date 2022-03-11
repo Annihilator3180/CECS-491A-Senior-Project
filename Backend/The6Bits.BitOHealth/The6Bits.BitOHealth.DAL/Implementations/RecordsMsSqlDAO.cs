@@ -77,6 +77,8 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 
         }
 
+        
+
 
 
 
@@ -109,6 +111,35 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 
             }
             
+        }
+
+        public string UploadRecordsWinDao(string fileName, string username, string filePath)
+        {
+            try
+            {
+                string query = "";
+
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int lines = connection.Execute(query,
+                        new
+                        {
+                            Username = username,
+                            filename = fileName,
+
+                        }
+                        );
+                    return "0";
+
+                }
+            }
+            catch (SqlException ex)
+            {
+                return ex.Number.ToString();
+
+            }
+
         }
     }
 }

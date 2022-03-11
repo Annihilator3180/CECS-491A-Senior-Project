@@ -14,7 +14,7 @@ using The6Bits.EmailService;
 using System.Text;
 using System.Security.Cryptography;
 using Microsoft.Extensions.Configuration;
-
+using The6Bits.Logging.DAL.Contracts;
 
 namespace The6Bits.BitOHealth.ManagerLayer
 {
@@ -25,16 +25,18 @@ namespace The6Bits.BitOHealth.ManagerLayer
         private IDBErrors _iDBErrors;
         private ISMTPEmailService _EmailService;
         private IConfiguration _config;
+        private LogService logService;
 
 
-
-        public RecordsManager(IRecordsDB daotype, IAuthenticationService authenticationService, IDBErrors dbError, ISMTPEmailService email, IConfiguration config)
+        public RecordsManager(IRecordsDB daotype, IAuthenticationService authenticationService, IDBErrors dbError,
+            ISMTPEmailService email, IConfiguration config, ILogDal logDao)
         {
             _iDBErrors = dbError;
             _EmailService = email;
             _authentication = authenticationService;
             _config = config;
             _MHS = new RecordsService(daotype, dbError, email, config);
+            logService = new LogService(logDao);
 
         }
 
@@ -46,9 +48,11 @@ namespace The6Bits.BitOHealth.ManagerLayer
             var response = _MHS.ValidateFileSizeRecords(fileName, username, fileSize);
             if (response.Contains("Try again"))
             {
+                logService.Log(username, "Invalid Size: " + fileName, "Information", "Business");
                 return response;
+                
             }
-
+            
             // CHECKS TO SEE IF FILE HAS CORRECT
             // Todo : Fix
             var responseFileType = _MHS.VerifyFileTypeRecords(fileName, username, filePath);
@@ -63,7 +67,7 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
             // CHECKS TO SEE IF FILE NAME IS VALID
             // Todo : Fix
-            var responseFileName = _MHS.VerifyFileNameRecords(fileName, username, filePath);
+            var responseFileName = _MHS.VerifyFileNameRecords(recordName, username, filePath);
             if (responseFileName.Contains("Invalid file name."))
             {
                 return responseFileName;
