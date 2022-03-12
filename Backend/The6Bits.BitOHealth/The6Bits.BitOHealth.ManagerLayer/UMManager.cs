@@ -8,6 +8,8 @@ using The6Bits.BitOHealth.Models;
 using The6Bits.Logging;
 using The6Bits.Logging.Implementations;
 using The6Bits.Authorization.Contract;
+using The6Bits.HashAndSaltService;
+using The6Bits.HashAndSaltService.Contract;
 
 
 namespace The6Bits.BitOHealth.ManagerLayer
@@ -18,9 +20,12 @@ namespace The6Bits.BitOHealth.ManagerLayer
         private AuthorizationService _authorizationService;
         public string token;
         private UMService _UMS;
-        public UMManager(IRepositoryUM<User> daoType, IAuthorizationDao _iAuthorizationDao)
+        private HashNSaltService _hashNSaltService;
+
+        public UMManager(IRepositoryUM<User> daoType, IAuthorizationDao _iAuthorizationDao, IHashDao hashDao)
         {
             _authorizationService = new AuthorizationService(_iAuthorizationDao);
+            _hashNSaltService = new HashNSaltService(hashDao);
             _UMS = new UMService(daoType);
         }
 
