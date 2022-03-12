@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using The6Bits.Authentication.Contract;
 using The6Bits.Authentication.Implementations;
 using The6Bits.Authorization.Contract;
@@ -34,11 +35,15 @@ var Configuration = builder.Configuration;
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+builder.Configuration.AddJsonFile("secrets.json");
+
+
 //pass in conn string . IS there a better way to do this?
 builder.Services.AddScoped<IRepositoryUM<User>>(provider => new MsSqlUMDAO<User>(connstring));
 builder.Services.AddScoped<IRepositoryAuth<string>>(provider =>
     new AccountMsSqlDao(connstring));
-builder.Services.AddTransient<IAuthenticationService>(provider => new JWTAuthenticationService(builder.Configuration.GetSection("PKs")["JWT"]));
+builder.Services.AddTransient<IAuthenticationService>(provider => new JWTAuthenticationService(builder.Configuration["jwt"]));
 builder.Services.AddTransient<IDBErrors, MsSqlDerrorService>();
 builder.Services.AddTransient<ISMTPEmailService, AWSSesService>();
 builder.Services.AddScoped<ILogDal, SQLLogDAO>();

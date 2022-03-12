@@ -45,7 +45,7 @@ public class AccountController : ControllerBase
     public string Login(LoginModel acc)
     {
         var remoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
-
+        
 
         //HASH
         //DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
