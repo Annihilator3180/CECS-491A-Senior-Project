@@ -10,6 +10,7 @@ import RegistrationPost from '@/components/Registration.vue'
 import MedSearch from '@/components/MedicationSearch.vue'
 import viewHT from '@/components/viewHotTopics.vue'
 import AccountRecovery from '@/components/AccountRecovery.vue'
+import CreateRecords from '@/components/CreateRecords.vue'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -60,6 +61,11 @@ const routes: Array<RouteRecordRaw> = [
   path:'/HotTopics',
   name: 'HotTopics',
   component:viewHT
+},
+{
+  path:'/CreateRecords',
+  name: 'CreateRecords',
+  component:CreateRecords
 }
 ]
 
