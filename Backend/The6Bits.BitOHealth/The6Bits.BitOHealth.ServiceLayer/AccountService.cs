@@ -35,6 +35,8 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
         public AccountService(AccountMsSqlDao accountMsSqlDao)
         {
+            _AD = accountMsSqlDao;
+
         }
 
         public string UsernameExists(string username) 

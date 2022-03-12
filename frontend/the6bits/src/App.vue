@@ -1,23 +1,25 @@
 <template>
-    <LoginPost/>
-    <OTPPost/>
-    <account-recovery/>
+
+  <nav>
+    <router-link to="/">Home</router-link> |
+    <router-link :to="{name:'login'}">login</router-link> |
+    <router-link :to="{name:'otp'}">otp</router-link> |
+    <router-link :to="{name:'UM'}">User Management</router-link> |
+    <router-link :to="{name:'WeightManagement'}">Weight Management</router-link> |
+    <router-link :to="{name:'AccountRecovery'}">Account Recovery</router-link> |
+    <router-link :to="{name:'ResetPassword'}">ResetPassword</router-link>  
+
+
+  </nav>
+  <router-view/>
 
 </template>
 
 <script>
-import LoginPost from './components/LoginPost.vue'
-import OTPPost from './components/OneTimePass.vue'
-import AccountRecovery from './components/AccountRecovery.vue'
-
-
 
 export default {
   name: 'app',
   components: {
-    LoginPost ,
-    OTPPost,
-    AccountRecovery,
   },
 }
 </script>

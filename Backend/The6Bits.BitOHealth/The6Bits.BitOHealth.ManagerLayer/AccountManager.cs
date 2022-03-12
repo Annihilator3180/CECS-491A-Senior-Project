@@ -7,6 +7,9 @@ using The6Bits.EmailService;
 using System.Text;
 using System.Security.Cryptography;
 using Microsoft.Extensions.Configuration;
+using The6Bits.Authorization.Contract;
+using The6Bits.Authorization;
+using The6Bits.Authorization.Implementations;
 
 namespace The6Bits.BitOHealth.ManagerLayer;
 
@@ -157,9 +160,9 @@ public class AccountManager
             //DB ERRORS && INVALID PASS AND OTP RETURN
             return otp != "valid" ? otp : checkPassword;
         }
+        AuthorizationService authentication = new AuthorizationService(new MsSqlRoleAuthorizationDao(_config.GetConnectionString("DefaultConnection")));
 
-
-        return _auth.generateToken(acc.Username);
+        return _auth.generateToken(acc.Username,authentication.getClaims(acc.Username));
     }
 
     public string VerifyAccount(string code, string username)
@@ -288,7 +291,7 @@ public class AccountManager
         
     }
 
-    public string recoverAccount(AccountRecoveryModel arm)
+    public string RecoverAccount(AccountRecoveryModel arm)
     {
         if (_AS.ValidateEmail(arm.Email) == false || _AS.ValidateUsername(arm.Username) == "Invalid Username")
         {
@@ -318,16 +321,22 @@ public class AccountManager
             return "Account Recovery Error";
         }
 
-        string r = _AS.GenerateRandomString();
+        string randomString = _AS.GenerateRandomString();
+
+        const string subject = "Bit O Health Recovery";
+
+        string body = "Please click this link within 24 hours to recover your account "+
+                "http://192.168.0.2:8080/ResetPassword?randomString=" + randomString + "&username=" + arm.Username;
         
-        string email = _AS.SendEmail(arm.Email, "Bit O Health Recovery", "Please click URL within 24 hours to recover your account" +
-            "\n https://localhost:7011/Account/ResetPassword?r=" + r + "&u=" + arm.Username);
+        
+        string email = _AS.SendEmail(arm.Email, subject, body);
         
 
         if (email != "email sent") 
         {
             return email;
         }
+        
        
         DateTime dateTime = DateTime.Now;
 
@@ -338,26 +347,26 @@ public class AccountManager
         {
             return _iDBErrors.DBErrorCheck(int.Parse(updateRecoveryAttempts));
         }
-        string saveCode = _AS.SaveActivationCode(arm.Username, dateTime, r, "Recovery");
+        string saveCode = _AS.SaveActivationCode(arm.Username, dateTime, randomString, "Recovery");
         if (saveCode != "saved")
         {
             _AS.DeletePastOTP(arm.Username, "Recovery");
-            string retry = _AS.SaveActivationCode(arm.Username, dateTime, r, "Recovery");
+            string retry = _AS.SaveActivationCode(arm.Username, dateTime, randomString, "Recovery");
             if (retry.Contains("Database"))
             {
-                return _iDBErrors.DBErrorCheck(int.Parse(retry));
+                return retry;
             }
         }
         
         return "Recovery Link Sent To Email: " + arm.Email;
     }
-    public string ResetPassword(string u, string r, string p)
+    public string ResetPassword(string username, string randomString, string password)
     {
-        if (!_AS.ValidatePassword(p))
+        if (!_AS.ValidatePassword(password))
         {
             return "invalid password";
         }
-        string validateOTP = _AS.ValidateOTP(u, r);
+        string validateOTP = _AS.ValidateOTP(username, randomString);
         if (validateOTP != "valid")
         {
             if (validateOTP.Contains("Database"))
@@ -370,13 +379,13 @@ public class AccountManager
                 return validateOTP;
             }
         }
-        string sameDay = _AS.VerifySameDay(u, r);
+        string sameDay = _AS.VerifySameDay(username, randomString);
         if (sameDay != "1")
         {
             return _iDBErrors.DBErrorCheck(int.Parse(sameDay));
         }
         
-        string reset = _AS.ResetPassword(p, u);
+        string reset = _AS.ResetPassword(password, username);
         if (reset != "1")
         {
             return _iDBErrors.DBErrorCheck(int.Parse(reset));
@@ -396,6 +405,7 @@ public class AccountManager
            return "Invalid Token";
         }
         string username = _auth.getUsername(token);
+        return username;
         string user = _AS.UsernameExists(username);
         if (user != "username exists")
         {

@@ -1,5 +1,7 @@
 using The6Bits.Authentication.Contract;
 using The6Bits.Authentication.Implementations;
+using The6Bits.Authorization.Contract;
+using The6Bits.Authorization.Implementations;
 using The6Bits.BitOHealth.ControllerLayer;
 using The6Bits.BitOHealth.DAL;
 using The6Bits.BitOHealth.DAL.Contract;
@@ -10,6 +12,8 @@ using The6Bits.Logging.DAL.Contracts;
 using The6Bits.Logging.DAL.Implementations;
 using The6Bits.DBErrors;
 using The6Bits.EmailService;
+using The6Bits.HashAndSaltService.Contract;
+using The6Bits.HashAndSaltService.Implementations;
 using WebAppMVC.Development;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,7 +25,7 @@ builder.Services.AddControllers();
 //JSON Config
 builder.Configuration.GetConnectionString("DefaultConnection");
 
-var connstring  = builder.Configuration.GetConnectionString("DefaultConnection");
+string connstring  = builder.Configuration.GetConnectionString("DefaultConnection");
 var Configuration = builder.Configuration;
 
 
@@ -34,14 +38,21 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IRepositoryUM<User>>(provider => new MsSqlUMDAO<User>(connstring));
 builder.Services.AddScoped<IRepositoryAuth<string>>(provider =>
     new AccountMsSqlDao(connstring));
-builder.Services.AddTransient<IAuthenticationService, JWTAuthenticationService>();
+builder.Services.AddTransient<IAuthenticationService>(provider => new JWTAuthenticationService(builder.Configuration.GetSection("PKs")["JWT"]));
 builder.Services.AddTransient<IDBErrors, MsSqlDerrorService>();
 builder.Services.AddTransient<ISMTPEmailService, AWSSesService>();
 builder.Services.AddScoped<ILogDal, SQLLogDAO>();
 builder.Services.AddSingleton<IConfiguration>(Configuration);
-builder.Services.AddScoped<IReminderDatabase>(provider =>
-    new ReminderMsSqlDao(connstring));
+builder.Services.AddScoped<IAuthorizationDao>(provider => new MsSqlRoleAuthorizationDao(connstring));
+builder.Services.AddScoped<IHashDao>(provider=> new MsSqlHashDao(connstring));
 
+
+
+builder.Configuration.AddEnvironmentVariables();
+
+
+
+builder.Services.AddTransient<IRepositoryWeightManagementDao>(provider => new WeightManagementMsSqlDao(connstring));
 //builder.Services.AddTransient<IAccountService, AccountService>();
 
 var app = builder.Build();
@@ -51,6 +62,9 @@ var app = builder.Build();
 
 var archive = new ArchivingController();
 archive.Archive();
+
+var recoveryReset = new RecoveryResetController();
+recoveryReset.ResetRecovery();
 
 
 
@@ -63,7 +77,8 @@ if (app.Environment.IsDevelopment())
     b.buildFailedAttempts(connstring);
     b.buildTrackerLogs(connstring);
     b.buildRecovery(connstring);
-
+    b.buildWMGoals(connstring);
+    b.addBossAdmin(connstring);
     //app.UseSwagger();
     //app.UseSwaggerUI();
 }
@@ -73,7 +88,6 @@ app.UseCors(x => x
     .AllowAnyHeader()
     .SetIsOriginAllowed(origin => true) // allow any origin
     .AllowCredentials()); // allow credentials
-
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
