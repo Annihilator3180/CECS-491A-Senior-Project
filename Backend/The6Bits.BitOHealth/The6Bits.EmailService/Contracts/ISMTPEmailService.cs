@@ -8,7 +8,6 @@ namespace The6Bits.EmailService
 {
     public interface ISMTPEmailService
     {
-        //public string SendEmail(string email, string subject, string body);
         public string SendEmailNoReply(string email, string subject, string body);
     }
 }

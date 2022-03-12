@@ -14,7 +14,7 @@ namespace The6Bits.BitOHealth.AccountRecovery.Test
     {
         AccountService _AS ;
 
-        public AccountRecoveryServiceShould(){
+        public AccountServiceShould(){
             _AS = new AccountService(new AccountMsSqlDao("Server=localhost\\SQLEXPRESS;Database=master;Trusted_Connection=True;"));
 
         }
