@@ -17,12 +17,12 @@ public class JWTAuthenticationService : IAuthenticationService
 {
 
 
-    private string keyPath;
+    private readonly string _keyPath;
 
 
     public JWTAuthenticationService(string configuration)
     {
-        keyPath = configuration;
+        _keyPath = configuration;
     }
 
 
@@ -31,7 +31,7 @@ public class JWTAuthenticationService : IAuthenticationService
     {
         DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
         string p = di.Parent.ToString();
-        string mySecret = File.ReadAllText(Path.GetFullPath(p + keyPath));
+        string mySecret = File.ReadAllText(Path.GetFullPath(p + _keyPath));
         byte[] keyBytes = Encoding.UTF8.GetBytes(mySecret);
         var segments = new List<string>();
 
@@ -69,7 +69,7 @@ public class JWTAuthenticationService : IAuthenticationService
             //string p = di.Parent.ToString();
             DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
             string p = di.Parent.ToString();
-            string key = File.ReadAllText(Path.GetFullPath(p + keyPath));
+            string key = File.ReadAllText(Path.GetFullPath(p + _keyPath));
 
             var parts = token.Split('.');
             var header = parts[0];
