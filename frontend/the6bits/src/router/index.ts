@@ -4,6 +4,8 @@ import LoginPost from '@/components/LoginPost.vue'
 import OTPPost from '@/components/OneTimePass.vue'
 import UM from '@/components/UM.vue'
 import CreateGoal from '@/components/WeightManagement/CreateWeightGoal.vue'
+import ResetPassword from '@/components/ResetPassword.vue'
+
 import RegistrationGet from '@/components/Registration.vue'
 import MedSearch from '@/components/MedicationSearch.vue'
 
@@ -38,6 +40,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/WeightManagement',
     name: 'WeightManagement',
     component: CreateGoal
+  },
+  {
+    path: '/ResetPassword',
+    name: 'ResetPassword',
+    component: ResetPassword
   },
   {
     path:'/Registration',
