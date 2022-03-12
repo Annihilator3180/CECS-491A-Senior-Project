@@ -1,17 +1,18 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
-using The6Bits.HashAndSaltService;
+using The6Bits.HashAndSaltService.Contract;
+
 
 namespace The6Bits.HashAndSaltService;
 
-public class HashAndSaltService : IHashAndSalt
+public class HashNSaltService 
 {
-    private readonly string _keyPath;
+    private readonly string _pk;
     private IHashDao _dao;
 
-    public HashAndSaltService( string path, IHashDao dao)
+    public HashNSaltService(  IHashDao dao)
     {
-        _keyPath = path;
+        _pk = Environment.GetEnvironmentVariable("jwt");
         _dao = dao;
     }
     
@@ -20,9 +21,7 @@ public class HashAndSaltService : IHashAndSalt
         try
         {
 
-            DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
-            string p = di.Parent.ToString();
-            string mySecret = File.ReadAllText(Path.GetFullPath(p + _keyPath));
+            string mySecret = _pk;
             byte[] keyBytes = Encoding.UTF8.GetBytes(mySecret);
 
 
@@ -65,10 +64,7 @@ public class HashAndSaltService : IHashAndSalt
     {
         try
         {
-
-            DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
-            string p = di.Parent.ToString();
-            string mySecret = File.ReadAllText(Path.GetFullPath(p + _keyPath));
+            string mySecret = _pk;
             byte[] keyBytes = Encoding.UTF8.GetBytes(mySecret);
             
             password += salt;

@@ -24,7 +24,7 @@ namespace The6Bits.BitOHealth.DAL
             api = new HttpClient();
             api.DefaultRequestHeaders.Accept.Clear();
             api.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            string url = "https://api.fda.gov/drug/ndc.json?api_key=imFf95grrUBnCaPj2DA3MQQtpCpBmnPFiTtXfbD8&search=generic_name:%22" +drugName+"%22&limit=3";
+            string url = "https://api.fda.gov/drug/ndc.json?api_key="+Environment.GetEnvironmentVariable("OpenFda")+"&search=generic_name:%22" + drugName+"%22&limit=3";
             using (HttpResponseMessage response = await api.GetAsync(url))
             {
                 if (response.IsSuccessStatusCode)
@@ -52,7 +52,7 @@ namespace The6Bits.BitOHealth.DAL
             api = new HttpClient();
             api.DefaultRequestHeaders.Accept.Clear();
             api.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            string url = "https://api.fda.gov/drug/ndc.json?api_key=imFf95grrUBnCaPj2DA3MQQtpCpBmnPFiTtXfbD8&search=brand_name:%22" + drugName + "%22&limit=3";
+            string url = "https://api.fda.gov/drug/ndc.json?api_key=" + Environment.GetEnvironmentVariable("OpenFda") + "&search=brand_name:%22" + drugName + "%22&limit=3";
             using (HttpResponseMessage response = await api.GetAsync(url))
             {
                 if (response.IsSuccessStatusCode)

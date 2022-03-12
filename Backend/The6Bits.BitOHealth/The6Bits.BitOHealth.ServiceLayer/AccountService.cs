@@ -219,6 +219,35 @@ namespace The6Bits.BitOHealth.ServiceLayer
             }
             
         }
+        
+        
+        
+        public string VerifyTwoMins(string code, string username)
+        {
+            String res=_AD.VerifyTwoMins(username,code);
+            if (res == "1")
+            {
+                return "valid";
+            }
+            else if (res == "0")
+            {
+                return "Code Expired";
+            }
+            else
+            {
+               return  _DBErrors.DBErrorCheck(Int32.Parse(res));
+            }
+
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
         public async Task<String> DeleteCode(string username,string codeType)
         {
@@ -331,7 +360,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
             const string SUBJECT = "Verify your account";
             string Body = "Please use this link to verify your account "+ 
-                _config.GetSection("URL")["localhost"] + "/Account/VerifyAccount?Code=" + code +
+                _config.GetSection("URL")["url"] + "/Account/VerifyAccount?Code=" + code +
                 "&&Username=" + username;
             String EmailStatus = _EmailService.SendEmailNoReply(email,SUBJECT,Body);
             if (EmailStatus != "email sent")
