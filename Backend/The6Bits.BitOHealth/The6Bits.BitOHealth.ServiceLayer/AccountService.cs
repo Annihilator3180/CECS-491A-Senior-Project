@@ -427,7 +427,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
             Random random = new Random();
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefhijklmnopqrstuvwxyz0123456789";
             var builder = new StringBuilder();
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 10;i++)
             {
                 char c = chars[random.Next(chars.Length)];
                 builder.Append(c);

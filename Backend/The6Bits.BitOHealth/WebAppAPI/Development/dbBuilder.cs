@@ -34,7 +34,8 @@ namespace WebAppMVC.Development
         
         public bool buildVerifyCodes(string connStr)
         {
-            var AccountsStr = "If not exists (select name from sysobjects where name = 'VerifyCodes') CREATE TABLE VerifyCodes ( username VARCHAR(30) NOT NULL primary key, CodeDate DateTime, code VARCHAR(40), codeType VARCHAR(30))";
+            var AccountsStr = "If not exists (select name from sysobjects where name = 'VerifyCodes') CREATE TABLE VerifyCodes ( username VARCHAR(30) NOT NULL, " +
+                "CodeDate DateTime, code VARCHAR(40), codeType VARCHAR(30))";
             var conn = new SqlConnection(connStr);
             using (SqlCommand command = new SqlCommand(AccountsStr, conn))
             {
@@ -58,7 +59,8 @@ namespace WebAppMVC.Development
         
         public bool buildRecovery(string connStr)
         {
-            var RecoverysStr = "If not exists (select name from sysobjects where name = 'Recovery') CREATE TABLE Recovery ( Username VARCHAR(30) NOT NULL, email varchar(100), recoveryAttempt DateTime, primary key (username, recoveryAttempt))";
+            var RecoverysStr = "If not exists (select name from sysobjects where name = 'Recovery') CREATE TABLE Recovery ( Username VARCHAR(30) NOT NULL," +
+                " email varchar(100), recoveryAttempt DateTime, primary key (username, recoveryAttempt))";
             var conn = new SqlConnection(connStr);
             using (SqlCommand command = new SqlCommand(RecoverysStr, conn))
             {
