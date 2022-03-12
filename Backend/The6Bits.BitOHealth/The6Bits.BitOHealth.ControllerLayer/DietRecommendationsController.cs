@@ -39,22 +39,22 @@ namespace The6Bits.BitOHealth.ControllerLayer
         [HttpGet("Create")]
         public async Task<string> CreateDietRecommendations([FromQuery] DietR userResponses)
         {
-            //string token = "";
-            //try
-            //{
-              //  token = Request.Cookies["token"];
-            //}
-            //catch
-            //{
-              //  return "NoToken";
-            //}
-            //bool isValid = _auth.ValidateToken(token);
-            //if (isValid != true)
-            //{
-               // _logService.Log("None", "Invalid Token - Create Diet Recommendation", "Info", "Bussiness");
-                //return "Invalid Token";
-            //}
-            //string username = _auth.getUsername(token);
+            string token = "";
+            try
+            {
+                token = Request.Cookies["token"];
+            }
+            catch
+            {
+                return "NoToken";
+            }
+            bool isValid = _auth.ValidateToken(token);
+            if (isValid != true)
+            {
+                _logService.Log("None", "Invalid Token - Create Diet Recommendation", "Info", "Bussiness");
+                return "Invalid Token";
+            }
+            string username = _auth.getUsername(token);
             string response = _DRM.SaveDietRespones(userResponses);
             if (response.Contains("Database"))
             {
@@ -66,6 +66,13 @@ namespace The6Bits.BitOHealth.ControllerLayer
             List<Recipe> recipes = await _DRM.getRecommendedRecipies(userResponses); 
             string recipeList = JsonSerializer.Serialize(recipes);
             return recipeList;
+            bool isEmpty = !recipeList.Any();
+            if (isEmpty)
+            {
+                return "No search results found";
+            }
+
+
         }
     }
 }

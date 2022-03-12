@@ -122,16 +122,17 @@ public class AccountController : ControllerBase
     [HttpPost("Delete")]
     public string DeleteAccount()
     {
-        var token = "";
-        if(Request.Headers.ContainsKey("Authorization"))
-        {
-            token = Request.Headers["Authorization"].ToString();
-            if(token.StartsWith("Bearer "))
-            {
-                token = token.Remove(0, 7);
-            }
+        var token = Request.Cookies["token"];
+;
+        //  if(Request.Headers.ContainsKey("Authorization"))
+        //{
+        //  token = Request.Headers["Authorization"].ToString();
+        // if(token.StartsWith("Bearer "))
+        //{
+        //  token = token.Remove(0, 7);
+        //}
 
-        }
+        //        }
         string username = _auth.getUsername(token);
         string status =  _AM.DeleteAccount(token);
 

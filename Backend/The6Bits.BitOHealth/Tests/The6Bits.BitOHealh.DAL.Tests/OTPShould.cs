@@ -29,7 +29,7 @@ public class OTPShould : TestsBase
     [MemberData(nameof(LoadOTPJson))]
     public void DeletePastOTPTest(OTPModel o)
     {
-        Ac.SaveActivationCode(o.username, o.time, o.code, o.codeType);
+        Ac.SaveActivationCode(o.username, o.CodeDate, o.code, o.codeType);
         Ac.DeletePastOTP(o.username,o.codeType);
         Assert.Equal("0",         Ac.ValidateOTP(o.username,o.code));
 
@@ -40,7 +40,7 @@ public class OTPShould : TestsBase
     [MemberData(nameof(LoadOTPJson))]
     public void ValidateOTPTest(OTPModel o)
     {
-        Ac.SaveActivationCode(o.username, o.time, o.code, o.codeType);
+        Ac.SaveActivationCode(o.username, o.CodeDate, o.code, o.codeType);
         
         
         Assert.Equal("1",Ac.ValidateOTP(o.username, o.code));

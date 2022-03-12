@@ -13,7 +13,7 @@ namespace The6Bits.API
         public async Task<EdamamResponseRoot> GetRecommenedRecipes(DietR request)
         {
             var httpClient = new HttpClient();
-            var endpoint = $"https://api.edamam.com/api/recipes/v2?app_id=d6503f85&app_key=08c1a71e5a883c74b3b4a652ee32840e&ingr=5&diet={request.Diet}&health={request.Health}&dishType={request.DishType}&calories={request.Calories}&time={request.Time}&excluded={request.Excluded}&q={request.Q}&type=public";
+            var endpoint = $"https://api.edamam.com/api/recipes/v2?app_id=d6503f85&app_key=08c1a71e5a883c74b3b4a652ee32840e&ingr={request.Ingr}&diet={request.Diet}&health={request.Health}&dishType={request.DishType}&calories={request.Calories}&cuisineType={request.CuisineType}&excluded={request.Excluded}&q={request.Q}&type=public";
 
             var response = await httpClient.GetAsync(endpoint);
 

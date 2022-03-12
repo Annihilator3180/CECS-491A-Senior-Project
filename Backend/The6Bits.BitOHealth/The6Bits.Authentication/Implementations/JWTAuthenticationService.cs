@@ -23,7 +23,9 @@ public class JWTAuthenticationService : IAuthenticationService
         _configuration = configuration;
     }
 
-
+    public JWTAuthenticationService()
+    {
+    }
 
     public string generateToken(string data)
     {

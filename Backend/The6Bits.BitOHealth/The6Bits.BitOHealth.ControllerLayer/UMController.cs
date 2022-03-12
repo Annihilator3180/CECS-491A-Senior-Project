@@ -84,6 +84,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
         [HttpPost("DeleteAccount")]
         public string DeleteAccount(string username)
         {
+
             isValid = _authentication.ValidateToken(Request.Headers["Authorization"]);
             string adminUsername = _authentication.getUsername(Request.Headers["Authorization"]);
             if (isValid)

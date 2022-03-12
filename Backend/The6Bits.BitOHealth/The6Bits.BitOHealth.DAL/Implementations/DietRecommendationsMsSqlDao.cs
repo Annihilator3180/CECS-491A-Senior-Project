@@ -23,7 +23,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = "INSERT Diet(Diet,Health, Ingr, DishType, Calories, Time, Excluded) values (@Diet, @Health, @Ingr, @DishType,@Calories ,@Time,@Excluded) ";
+                string query = "INSERT Diet(Diet,Health, Ingr, DishType, Calories, CuisineType, Excluded, MealType) values (@Diet, @Health, @Ingr, @DishType,@Calories ,@CuisineType,@Excluded,@MealType) ";
                 using( SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     int linesAdded = connection.Execute(query,
@@ -34,8 +34,9 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                             Ingr = d.Ingr,
                             DishType = d.DishType,
                             Calories = d.Calories,
-                            Time = d.Time,
-                            Excluded = d.Excluded
+                            CuisineType = d.CuisineType,
+                            Excluded = d.Excluded,
+                            MealType = d.MealType
                         }); ;
                     connection.Close();
                     if(linesAdded==0)
