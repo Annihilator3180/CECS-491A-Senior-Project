@@ -11,6 +11,7 @@ using The6Bits.Authorization.Contract;
 using The6Bits.Authorization;
 using The6Bits.Authorization.Implementations;
 using The6Bits.HashAndSaltService;
+using The6Bits.HashAndSaltService.Contract;
 
 namespace The6Bits.BitOHealth.ManagerLayer;
 
@@ -21,17 +22,17 @@ public class AccountManager
     private IDBErrors _iDBErrors;
     private ISMTPEmailService _EmailService;
     private IConfiguration _config;
-    private IHashAndSalt _hash;
+    private HashNSaltService _hash;
 
 
 
-    public AccountManager(IRepositoryAuth<string> authdao, IAuthenticationService authenticationService, IDBErrors dbError, ISMTPEmailService email, IConfiguration config,IHashAndSalt hash)
+    public AccountManager(IRepositoryAuth<string> authdao, IAuthenticationService authenticationService, IDBErrors dbError, ISMTPEmailService email, IConfiguration config, IHashDao dao)
     {
         _iDBErrors = dbError;
         _EmailService = email;
         _auth = authenticationService;
         _config = config;
-        _hash = hash;
+        _hash = new HashNSaltService( dao);
         _AS = new AccountService(authdao, dbError, email,config);
     }
 
