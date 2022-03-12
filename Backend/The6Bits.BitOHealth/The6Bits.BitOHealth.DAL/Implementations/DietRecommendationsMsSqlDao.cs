@@ -13,12 +13,11 @@ namespace The6Bits.BitOHealth.DAL.Implementations
     public class DietRecommendationsMsSqlDao : IRepositoryDietRecommendations
 
     {
-        public string _connectionString = @"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;";
-
-        // public DietRecommendationsMsSqlDao(string connectionString)
-        //{
-        //  _connectionString = connectionString;
-        // }
+        private string _connectionString;
+        public DietRecommendationsMsSqlDao(string connectionString)
+        {
+          _connectionString = connectionString;
+         }
         public string SaveDietResponses(DietR d)
         {
             try

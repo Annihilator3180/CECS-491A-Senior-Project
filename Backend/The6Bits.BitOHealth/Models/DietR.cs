@@ -12,7 +12,6 @@ namespace The6Bits.BitOHealth.Models
         public string CuisineType{ get; set; }
         public string Excluded { get; set; }
         public string Q { get; set; } 
-
         public string MealType { get; set; }
 
         public DietR()
