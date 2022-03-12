@@ -7,12 +7,12 @@ namespace The6Bits.HashAndSaltService;
 
 public class HashNSaltService 
 {
-    private readonly string _keyPath;
+    private readonly string _pk;
     private IHashDao _dao;
 
-    public HashNSaltService(  IHashDao dao)
+    public HashNSaltService(  IHashDao dao, string key)
     {
-        _keyPath = Environment.GetEnvironmentVariable("jwt");
+        _pk = key;
         _dao = dao;
     }
     
@@ -21,9 +21,7 @@ public class HashNSaltService
         try
         {
 
-            DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
-            string p = di.Parent.ToString();
-            string mySecret = File.ReadAllText(Path.GetFullPath(p + _keyPath));
+            string mySecret = _pk;
             byte[] keyBytes = Encoding.UTF8.GetBytes(mySecret);
 
 
@@ -66,10 +64,7 @@ public class HashNSaltService
     {
         try
         {
-
-            DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
-            string p = di.Parent.ToString();
-            string mySecret = File.ReadAllText(Path.GetFullPath(p + _keyPath));
+            string mySecret = _pk;
             byte[] keyBytes = Encoding.UTF8.GetBytes(mySecret);
             
             password += salt;

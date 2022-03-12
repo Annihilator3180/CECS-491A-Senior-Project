@@ -34,7 +34,7 @@ public class AccountController : ControllerBase
     public AccountController(IRepositoryAuth<string> authdao, ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors, 
         ISMTPEmailService emailService, IConfiguration config, IHashDao hashDao)
     {
-        _AM = new AccountManager(authdao, authenticationService, dbErrors, emailService, config, hashDao);
+        _AM = new AccountManager(authdao, authenticationService, dbErrors, emailService, config, hashDao, config.GetSection("jwt").Value);
         logService = new LogService(logDao);
         _dbErrors = dbErrors;
         _EmailService = emailService;
