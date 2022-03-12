@@ -21,9 +21,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 //JSON Config
-builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Configuration.GetConnectionString("cbassMac");
 
-var connstring  = builder.Configuration.GetConnectionString("DefaultConnection");
+var connstring  = builder.Configuration.GetConnectionString("cbassMac");
 var Configuration = builder.Configuration;
 
 

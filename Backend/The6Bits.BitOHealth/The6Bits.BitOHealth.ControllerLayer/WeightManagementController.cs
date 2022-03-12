@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using The6Bits.Authentication.Contract;
 using The6Bits.BitOHealth.DAL;
 using The6Bits.BitOHealth.ManagerLayer;
+using The6Bits.DBErrors;
 using The6Bits.Logging.DAL.Contracts;
 using The6Bits.Logging.Implementations;
 
@@ -23,12 +24,12 @@ namespace The6Bits.BitOHealth.ControllerLayer.Features
         private LogService logService;
 
         private bool isValid;
-        public WeightManagementController(IRepositoryWeightManagementDao dao, IAuthenticationService authentication, ILogDal logDal)
+        public WeightManagementController(IRepositoryWeightManagementDao dao, IAuthenticationService authentication, ILogDal logDal, IDBErrors dbErrors)
         {
             _dao = dao;
             _authentication = authentication;
             logService = new LogService(logDal);
-            _WMM = new WeightManagementManager(dao);
+            _WMM = new WeightManagementManager(dao,dbErrors);
         }
 
 
@@ -63,6 +64,7 @@ namespace The6Bits.BitOHealth.ControllerLayer.Features
             if (res.Contains("Database"))
             {
                 _ = logService.Log(username, "Create Weight Goal" + res, "DataStore", "Error");
+                return res;
             }
 
             _ = logService.Log(username, "Saved Weight Goal", "Info", "Business");

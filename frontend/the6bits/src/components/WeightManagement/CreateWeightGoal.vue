@@ -4,6 +4,7 @@
                 <H1>Save Weight Goal</H1>
                 <label for="Username">Weight Goal in Lbs: </label>
                 <input type="text" id="username" v-model ="formData.weight" />
+                {{message}}
             </div>
             <button @click = "UMDelete">Save</button>
 
@@ -19,6 +20,7 @@
             formData :{ 
                 weight: '',
             },
+            message : '',
         }
     },
     methods:{
@@ -29,7 +31,7 @@
             
             };
             fetch('https://localhost:7011/WeightManagement/CreateGoal?goalNum=' +this.formData.weight ,requestOptions)
-                .then(response => console.log(response))
+                .then(response => this.message = response)
         }
         
     }
