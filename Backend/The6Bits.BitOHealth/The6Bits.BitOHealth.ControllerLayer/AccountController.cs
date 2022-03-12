@@ -190,7 +190,6 @@ public class AccountController : ControllerBase
 
         if (isValid)
         {
-            // if usernameExists(username) { return _AM.AcceptEULA(username) } return "invalid username";
             return _AM.AcceptEULA(username);
         }
         return "invalid token";
@@ -203,7 +202,6 @@ public class AccountController : ControllerBase
 
         if (isValid)
         {
-            //check username
             return _AM.DeclineEULA(username);
         }
         return "invalid token";
