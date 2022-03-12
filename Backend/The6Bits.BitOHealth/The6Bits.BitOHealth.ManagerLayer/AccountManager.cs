@@ -26,13 +26,13 @@ public class AccountManager
 
 
 
-    public AccountManager(IRepositoryAuth<string> authdao, IAuthenticationService authenticationService, IDBErrors dbError, ISMTPEmailService email, IConfiguration config, IHashDao dao)
+    public AccountManager(IRepositoryAuth<string> authdao, IAuthenticationService authenticationService, IDBErrors dbError, ISMTPEmailService email, IConfiguration config, IHashDao dao, string key)
     {
         _iDBErrors = dbError;
         _EmailService = email;
         _auth = authenticationService;
         _config = config;
-        _hash = new HashNSaltService( dao);
+        _hash = new HashNSaltService( dao, key);
         _AS = new AccountService(authdao, dbError, email,config);
     }
 
@@ -189,7 +189,7 @@ public class AccountManager
         }
         String DateCheck = _AS.VerifySameDay(code, username, DateTime.Now);
         _AS.DeleteCode(username, "Registration");
-        if (DateCheck == "True")
+        if (DateCheck != "True")
         {
             return DateCheck;
         }
@@ -407,8 +407,9 @@ public class AccountManager
         {
             return _iDBErrors.DBErrorCheck(int.Parse(sameDay));
         }
+        string hash = _hash.HashAndSalt(password);
         
-        string reset = _AS.ResetPassword(password, username);
+        string reset = _AS.ResetPassword(hash, username);
         if (reset != "1")
         {
             return _iDBErrors.DBErrorCheck(int.Parse(reset));

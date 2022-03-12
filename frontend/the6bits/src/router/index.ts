@@ -6,7 +6,7 @@ import UM from '@/components/UM.vue'
 import CreateGoal from '@/components/WeightManagement/CreateWeightGoal.vue'
 import ResetPassword from '@/components/ResetPassword.vue'
 
-import RegistrationGet from '@/components/Registration.vue'
+import RegistrationPost from '@/components/Registration.vue'
 import MedSearch from '@/components/MedicationSearch.vue'
 import viewHT from '@/components/viewHotTopics.vue'
 import AccountRecovery from '@/components/AccountRecovery.vue'
@@ -49,7 +49,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path:'/Registration',
     name:'Registration' ,
-    component: RegistrationGet
+    component: RegistrationPost
 },
 {
   path:'/MedicationSearch',

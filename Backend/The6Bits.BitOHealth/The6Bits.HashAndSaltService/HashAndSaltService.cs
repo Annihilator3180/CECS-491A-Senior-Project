@@ -10,9 +10,9 @@ public class HashNSaltService
     private readonly string _pk;
     private IHashDao _dao;
 
-    public HashNSaltService(  IHashDao dao)
+    public HashNSaltService(  IHashDao dao, string key)
     {
-        _pk = Environment.GetEnvironmentVariable("jwt");
+        _pk = key;
         _dao = dao;
     }
     

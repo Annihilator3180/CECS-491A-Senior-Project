@@ -110,7 +110,7 @@ namespace WebAppMVC.Development
             var RecoveryStr = "BEGIN IF NOT EXISTS (Select * From Accounts where Username = 'bossadmin12')  " +
                 " BEGIN INSERT  INTO Accounts " +
             "(Username, Email, Password, FirstName, LastName, IsEnabled, IsAdmin, privOption)"+
-            "values('bossadmin12', 'boof@kizmoz.com', 'Password!1', 'admin', 'boss', 1, 1,1) " +
+            "values('bossadmin12', 'boof@kizmoz.com', 'JJsZQkSJ1WeC/t0cw+8w093KvafOvQ9umEwRJhZpvnE=.LNdXDlkAGS', 'admin', 'boss', 1, 1,1) " +
             "END END";
             var conn = new SqlConnection(connStr);
             using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
