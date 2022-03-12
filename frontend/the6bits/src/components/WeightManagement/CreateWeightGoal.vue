@@ -31,8 +31,10 @@
             
             };
             fetch('https://localhost:7011/WeightManagement/CreateGoal?goalNum=' +this.formData.weight ,requestOptions)
-                .then(response => this.message = response)
+                .then(response =>  response.text())
+                .then(body => this.message = body)
         }
+
         
     }
 }
