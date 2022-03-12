@@ -1,10 +1,10 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
-using The6Bits.HashAndSaltService.Contract;
+using The6Bits.HashAndSaltService;
 
 namespace The6Bits.HashAndSaltService;
 
-public class HashAndSaltService
+public class HashAndSaltService : IHashAndSalt
 {
     private readonly string _keyPath;
     private IHashDao _dao;

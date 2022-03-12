@@ -16,7 +16,7 @@ using System.Web;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using The6Bits.EmailService;
-// using The6Bits.BitOHealth.ServiceLayer;
+using The6Bits.HashAndSaltService;
 
 namespace The6Bits.BitOHealth.ControllerLayer;
 [ApiController]
@@ -31,7 +31,7 @@ public class AccountController : ControllerBase
     private IConfiguration _config;
     private IAuthenticationService _auth;
     public AccountController(IRepositoryAuth<string> authdao, ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors, 
-        ISMTPEmailService emailService, IConfiguration config)
+        ISMTPEmailService emailService, IConfiguration config, HashAndSaltService hash)
     {
         _AM = new AccountManager(authdao, authenticationService, dbErrors, emailService, config);
         logService = new LogService(logDao);

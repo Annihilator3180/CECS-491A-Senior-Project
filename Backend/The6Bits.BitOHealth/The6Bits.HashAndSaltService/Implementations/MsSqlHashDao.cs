@@ -1,9 +1,9 @@
 ﻿using System.Data.SqlClient;
 using Dapper;
 using The6Bits.BitOHealth.Models;
-using The6Bits.HashAndSaltService.Contract;
+using The6Bits.HashAndSaltService;
 
-namespace The6Bits.HashAndSaltService.Implementations;
+namespace The6Bits.HashAndSaltService;
 
 public class MsSqlHashDao : IHashDao
 {

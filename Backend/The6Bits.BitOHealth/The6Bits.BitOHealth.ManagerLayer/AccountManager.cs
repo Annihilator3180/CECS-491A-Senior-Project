@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using The6Bits.Authorization.Contract;
 using The6Bits.Authorization;
 using The6Bits.Authorization.Implementations;
+using The6Bits.HashAndSaltService;
 
 namespace The6Bits.BitOHealth.ManagerLayer;
 
@@ -20,15 +21,17 @@ public class AccountManager
     private IDBErrors _iDBErrors;
     private ISMTPEmailService _EmailService;
     private IConfiguration _config;
+    private IHashAndSalt _hash;
 
 
 
-    public AccountManager(IRepositoryAuth<string> authdao, IAuthenticationService authenticationService, IDBErrors dbError, ISMTPEmailService email, IConfiguration config)
+    public AccountManager(IRepositoryAuth<string> authdao, IAuthenticationService authenticationService, IDBErrors dbError, ISMTPEmailService email, IConfiguration config,IHashAndSalt hash)
     {
         _iDBErrors = dbError;
         _EmailService = email;
         _auth = authenticationService;
         _config = config;
+        _hash = hash;
         _AS = new AccountService(authdao, dbError, email,config);
     }
 
@@ -282,6 +285,7 @@ public class AccountManager
         {
             return validUsername;
         }
+        user.Password= _hash.HashAndSalt(user.Password);
         String unactivated = _AS.SaveUnActivatedAccount(user);
         if (unactivated != "Saved")
         {
