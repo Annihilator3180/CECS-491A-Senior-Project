@@ -210,7 +210,22 @@
       "ProjectGuid": "5c85ca0c-9442-4807-b053-5a7825cd83eb",
       "DisplayName": "The6Bits.Authorization",
       "ColorIndex": 8
+    },
+    "f2d52a85-d7db-40e9-909a-c798aac61b90": {
+      "ProjectGuid": "f2d52a85-d7db-40e9-909a-c798aac61b90",
+      "DisplayName": "The6Bits.HashAndSaltService.Tests",
+      "ColorIndex": 9
+    },
+    "97955ffb-21d4-44b1-94d2-0527fc0d1db5": {
+      "ProjectGuid": "97955ffb-21d4-44b1-94d2-0527fc0d1db5",
+      "DisplayName": "The6Bits.HashAndSaltService",
+      "ColorIndex": 10
+    },
+    "fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1": {
+      "ProjectGuid": "fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1",
+      "DisplayName": "The6Bits.Authentication.Tests",
+      "ColorIndex": 11
     }
   },
-  "NextColorIndex": 9
+  "NextColorIndex": 12
 }
