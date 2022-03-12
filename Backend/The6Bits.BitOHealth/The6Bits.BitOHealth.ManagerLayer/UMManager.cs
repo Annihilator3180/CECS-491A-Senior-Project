@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Design;
+using Microsoft.Extensions.Configuration;
 using The6Bits.Authorization;
 using The6Bits.BitOHealth.DAL;
 using The6Bits.BitOHealth.DAL.Implementations;
@@ -22,10 +23,10 @@ namespace The6Bits.BitOHealth.ManagerLayer
         private UMService _UMS;
         private HashNSaltService _hashNSaltService;
 
-        public UMManager(IRepositoryUM<User> daoType, IAuthorizationDao _iAuthorizationDao, IHashDao hashDao)
+        public UMManager(IRepositoryUM<User> daoType, IAuthorizationDao _iAuthorizationDao, IHashDao hashDao, IConfiguration config)
         {
             _authorizationService = new AuthorizationService(_iAuthorizationDao);
-            _hashNSaltService = new HashNSaltService(hashDao);
+            _hashNSaltService = new HashNSaltService(hashDao, config.GetSection("jwt").Value);
             _UMS = new UMService(daoType);
         }
 
@@ -47,6 +48,8 @@ namespace The6Bits.BitOHealth.ManagerLayer
             {
                 return "invalid password";
             }
+
+            user.Password = _hashNSaltService.HashAndSalt(user.Password);
 
             return _UMS.CreateAccount(user);
         }
@@ -94,6 +97,9 @@ namespace The6Bits.BitOHealth.ManagerLayer
                 {
                     return "invalid password";
                 }
+
+                user.Password = _hashNSaltService.HashAndSalt(user.Password);
+
             }
 
 

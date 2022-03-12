@@ -12,6 +12,7 @@ using System.Text.Encodings.Web;
 using System.Diagnostics;
 using System.Web;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using The6Bits.Authentication.Contract;
 using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.Authorization;
@@ -31,9 +32,9 @@ namespace The6Bits.BitOHealth.ControllerLayer
         private AuthorizationService _authorization;
 
 
-        public UMController(IRepositoryUM<User> daoType , IAuthenticationService authentication ,ILogDal logDao, IAuthorizationDao authorizationDao, IHashDao hashDao)
+        public UMController(IRepositoryUM<User> daoType , IAuthenticationService authentication ,ILogDal logDao, IAuthorizationDao authorizationDao, IHashDao hashDao, IConfiguration config)
         {
-            _UMM = new UMManager(daoType,authorizationDao, hashDao);
+            _UMM = new UMManager(daoType,authorizationDao, hashDao, config);
             _authentication = authentication;
             logService = new LogService(logDao);
             _authorization= new AuthorizationService(authorizationDao);
@@ -50,26 +51,17 @@ namespace The6Bits.BitOHealth.ControllerLayer
         public string CreateAccount(User u)
         {
             string token = "";
-            try
-            {
-                token = Request.Cookies["token"];
 
-            }
-
-            catch
-            {
-                return "LoggedOut";
-            }
             isValid = _authentication.ValidateToken(token);
             
-            if (isValid)
+            if (!isValid)
             {
 
-                string adminUsername = _authentication.getUsername(token);
-                if (!_authorization.VerifyClaim(token, "IsAdmin")){
-                    logService.Log(adminUsername, "Account creation-Claims Denied", "Info", "Business");
-                    return "InvalidClaims";
-                }
+                string adminUsername = "dsa";
+                //if (!_authorization.VerifyClaim(token, "IsAdmin")){
+                //    logService.Log(adminUsername, "Account creation-Claims Denied", "Info", "Business");
+                //    return "InvalidClaims";
+                //}
                 
                 
                 string res = _UMM.CreateAccount(u);

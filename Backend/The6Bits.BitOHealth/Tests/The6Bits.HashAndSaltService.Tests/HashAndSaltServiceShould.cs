@@ -12,7 +12,7 @@ public class HashAndSaltServiceShould : TestsBase
     private HashNSaltService _service;
     public HashAndSaltServiceShould()
     {
-        _service = new HashNSaltService(new MsSqlHashDao(conn));
+        _service = new HashNSaltService(new MsSqlHashDao(conn), "");
     }
 
     
