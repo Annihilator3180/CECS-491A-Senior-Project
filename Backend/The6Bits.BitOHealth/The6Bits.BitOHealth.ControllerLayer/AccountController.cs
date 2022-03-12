@@ -70,6 +70,7 @@ public class AccountController : ControllerBase
                 Secure = true,
                 Expires = DateTime.UtcNow.AddDays(14),
                 SameSite = SameSiteMode.None,
+                HttpOnly = true,
             };
             Response.Cookies.Append(
                 "token",
@@ -124,7 +125,7 @@ public class AccountController : ControllerBase
     {
 
         string del =  _AM.DeleteAccount(token);
-        Response.Cookies.Delete(token);
+        Response.Cookies.Delete("token");
         return del;
     }
 

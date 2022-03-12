@@ -224,7 +224,7 @@ public class AccountMsSqlDaoShould : TestsBase
     public void DeleteAccountValid(string userName)
     {
         var AC = new AccountMsSqlDao(conn);
-        var AS = new JWTAuthenticationService();
+        var AS = new JWTAuthenticationService(conn);
 
         var result = AS.getUsername(userName);
 
