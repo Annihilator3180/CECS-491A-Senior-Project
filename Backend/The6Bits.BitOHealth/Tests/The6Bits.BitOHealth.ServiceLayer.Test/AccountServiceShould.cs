@@ -12,7 +12,13 @@ namespace The6Bits.BitOHealth.AccountRecovery.Test
 {
     public class AccountServiceShould
     {
-        AccountService _AS = new AccountService(new AccountMsSqlDao("Server=localhost\\SQLEXPRESS;Database=master;Trusted_Connection=True;"));
+        AccountService _AS ;
+
+        public AccountRecoveryServiceShould(){
+            _AS = new AccountService(new AccountMsSqlDao("Server=localhost\\SQLEXPRESS;Database=master;Trusted_Connection=True;"));
+
+        }
+
         [Fact]
         public void UsernameAndEmailTest()
         {
@@ -32,8 +38,8 @@ namespace The6Bits.BitOHealth.AccountRecovery.Test
             string predicted = "enabled";
 
             string actual = _AS.IsEnabled(username);
-
-            Assert.Equal(actual, predicted);
+            Console.WriteLine(actual);
+            Assert.Equal(predicted, actual);
         }
         [Fact]
         public void ValidateRecoveryAttemptsTest()
@@ -67,7 +73,7 @@ namespace The6Bits.BitOHealth.AccountRecovery.Test
 
             string predicted = "1";
 
-            Assert.Equal(_AS.VerifySameDay(username, code), predicted);
+            Assert.Equal(predicted,_AS.VerifySameDay(username, code));
         }
 
         [Fact]

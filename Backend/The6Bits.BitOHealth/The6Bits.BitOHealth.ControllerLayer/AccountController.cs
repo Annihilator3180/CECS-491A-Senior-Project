@@ -70,6 +70,7 @@ public class AccountController : ControllerBase
                 Secure = true,
                 Expires = DateTime.UtcNow.AddDays(14),
                 SameSite = SameSiteMode.None,
+                HttpOnly = true,
             };
             Response.Cookies.Append(
                 "token",
@@ -124,7 +125,7 @@ public class AccountController : ControllerBase
     {
 
         string del =  _AM.DeleteAccount(token);
-        Response.Cookies.Delete(token);
+        Response.Cookies.Delete("token");
         return del;
     }
 
@@ -216,7 +217,7 @@ public class AccountController : ControllerBase
 
     public string AccountRecovery(AccountRecoveryModel arm)
     {
-        string start = _AM.recoverAccount(arm);
+        string start = _AM.RecoverAccount(arm);
 
         if (start.Contains("Database"))
         {
@@ -230,16 +231,16 @@ public class AccountController : ControllerBase
 
     }
     [HttpPost("ResetPassword")]
-    public string ResetPassword(string r, string u, string p)
+    public string ResetPassword(string randomString, string username, string password)
     {
-        string reset = _AM.ResetPassword(u, r, p);
+        string reset = _AM.ResetPassword(username, randomString, password);
 
         if (reset.Contains("Database"))
         {
-            logService.Log(u, " Password Reset ", reset, "Error");
+            logService.Log(username, " Password Reset ", reset, "Error");
             return "Database Error";
         }
-        logService.Log(u, " Password Reset ", "Password Change ", "Information");
+        logService.Log(username, " Password Reset ", "Password Change ", "Information");
 
         return reset;
     }

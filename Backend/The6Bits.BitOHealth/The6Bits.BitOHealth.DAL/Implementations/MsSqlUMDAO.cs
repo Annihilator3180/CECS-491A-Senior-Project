@@ -31,10 +31,22 @@ public class MsSqlUMDAO<T> : IRepositoryUM<User>
         {
             try
             {
-                string query = InsertQueryBuilder(user);
+                string query = "INSERT ACCOUNTS (Username,Email,Password,FirstName,LastName,IsEnabled,IsAdmin,privOption) " +
+                               " values (@Username, @Email, @Password, @FirstName,@LastName, @IsEnabled,@IsAdmin,@privOption) ";
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
-                    int lines_modified = connection.Execute(query);
+                    int lines_modified = connection.Execute(query,
+                        new
+                        {
+                            Email = user.Email,
+                            Username = user.Username,
+                            Password = user.Password,
+                            FirstName = user.FirstName,
+                            LastName = user.LastName,
+                            IsEnabled = user.IsEnabled,
+                            IsAdmin = user.IsAdmin,
+                            privOption = user.privOption
+                        }); ;
                     connection.Close();
                     if (lines_modified == 0)
                     {
@@ -49,9 +61,8 @@ public class MsSqlUMDAO<T> : IRepositoryUM<User>
             {
                 return false;
             }
-            
-        }
 
+        }
         //TODO:Rename error, fix SQL handling
         public User Read(User user)
         {
@@ -146,28 +157,7 @@ public class MsSqlUMDAO<T> : IRepositoryUM<User>
             return query;
         }
 
-        public string InsertQueryBuilder(User user)
-        {
-            string query = "INSERT INTO Accounts (";
-            List<string> varnames = new List<string> { };
-            List<string> values = new List<string> { };
-            foreach (var prop in user.GetType().GetProperties())
-            {
-                if (prop.GetValue(user, null) != null && prop.PropertyType == typeof(string))
-                {
-                    varnames.Add($" {prop.Name} ");
-                    values.Add($"'{prop.GetValue(user, null)}'");
-                }
-                if (prop.GetValue(user, null) != null && prop.PropertyType != typeof(string))
-                {
-                    varnames.Add($" {prop.Name} ");
-                    values.Add($"{prop.GetValue(user, null)}");
-                }
-            }
-            query += $"{string.Join(", ", varnames)}) VALUES ( ";
-            query += $"{string.Join(", ", values)});";
-            return query;
-        }
+        
         //TODO:test
         public bool EnableAccount(string username)
         {

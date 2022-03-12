@@ -9,6 +9,7 @@ namespace The6Bits.BitOHealth.DAL.Tests;
 public abstract class TestsBase : IDisposable
 {
     public string conn { get; set; }
+    public string keyPath { get; set; }
 
     protected TestsBase()
     {
@@ -18,9 +19,8 @@ public abstract class TestsBase : IDisposable
             .AddJsonFile("appsettings.json")
             .Build();
          conn = configuration.GetConnectionString("DefaultConnection");
-
-
-        // Do "global" initialization here; Called before every test method.
+         keyPath = configuration.GetSection("PKs")["JWT"];
+         // Do "global" initialization here; Called before every test method.
     }
 
     public void Dispose()

@@ -1,30 +1,22 @@
 <template>
-    <!-- <LoginPost/>
-    <OTPPost/>
-    //<account-recovery/>
-    
-    <medSearch/> -->
-    <RegistrationPost/>
+
+  <nav>
+    <router-link to="/">Home</router-link> |
+    <router-link :to="{name:'login'}">login</router-link> |
+    <router-link :to="{name:'otp'}">otp</router-link> |
+    <router-link :to="{name:'UM'}">User Management</router-link> |
+    <router-link :to="{name:'WeightManagement'}">Weight Management</router-link> |
+    <router-link :to="{name:'AccountRecovery'}">Account Recovery</router-link>  
+  </nav>
+  <router-view/>
 
 </template>
 
 <script>
-/*import LoginPost from './components/LoginPost.vue'
-import OTPPost from './components/OneTimePass.vue'
-import AccountRecovery from './components/AccountRecovery.vue'*/
-import RegistrationPost from './components/Registration.vue'
-//import MedSearch from './components/MedicationSearch.vue'
-
-
 
 export default {
   name: 'app',
   components: {
-    /**LoginPost ,
-    OTPPost,
-   AccountRecovery,**/
-    RegistrationPost,
-    //MedSearch
   },
 }
 </script>

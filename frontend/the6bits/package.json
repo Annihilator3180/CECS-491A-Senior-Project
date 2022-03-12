@@ -11,7 +11,7 @@
     "axios": "^0.26.0",
     "package.json": "^2.0.1",
     "vue": "^3.2.13",
-    "vue-router": "^4.0.13"
+    "vue-router": "^4.0.14"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.4.0",
