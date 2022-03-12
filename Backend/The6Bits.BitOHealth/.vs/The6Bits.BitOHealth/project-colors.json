@@ -161,66 +161,71 @@
       "DisplayName": "The6Bits.Authorization.Tests",
       "ColorIndex": 14
     },
-    "bf653376-9d16-43fe-a31b-e3de453d90fe": {
-      "ProjectGuid": "bf653376-9d16-43fe-a31b-e3de453d90fe",
-      "DisplayName": "WebApp",
+    "5a8cc4c0-a900-478c-8320-a3565336a2ce": {
+      "ProjectGuid": "5a8cc4c0-a900-478c-8320-a3565336a2ce",
+      "DisplayName": "The6Bits.DBErrors",
       "ColorIndex": 15
-    },
-    "613a88a6-9405-40c1-a013-dcdb4b19dd80": {
-      "ProjectGuid": "613a88a6-9405-40c1-a013-dcdb4b19dd80",
-      "DisplayName": "WebAppAPI",
-      "ColorIndex": 0
-    },
-    "132f4ef6-f6af-4a9b-8c30-ba5a0e912648": {
-      "ProjectGuid": "132f4ef6-f6af-4a9b-8c30-ba5a0e912648",
-      "DisplayName": "WebAppAPI",
-      "ColorIndex": 1
-    },
-    "2f46774b-4c38-4202-9ff8-522280b27b7a": {
-      "ProjectGuid": "2f46774b-4c38-4202-9ff8-522280b27b7a",
-      "DisplayName": "The6Bits.BitOHealth.DAL.Tests",
-      "ColorIndex": 2
-    },
-    "119ce180-1661-4091-91e6-acbe39d37091": {
-      "ProjectGuid": "119ce180-1661-4091-91e6-acbe39d37091",
-      "DisplayName": "The6Bits.BitOHealth.ServiceLayer.Test",
-      "ColorIndex": 3
-    },
-    "cc1e728b-e33d-45d5-999b-55acd879391c": {
-      "ProjectGuid": "cc1e728b-e33d-45d5-999b-55acd879391c",
-      "DisplayName": "The6Bits.Authentication",
-      "ColorIndex": 4
-    },
-    "b9e84952-e4b2-48bb-a7cd-89197f6b5a77": {
-      "ProjectGuid": "b9e84952-e4b2-48bb-a7cd-89197f6b5a77",
-      "DisplayName": "The6Bits.Authorization.Tests",
-      "ColorIndex": 5
     },
     "dd54b656-0f37-4227-8469-f21c9d44dd52": {
       "ProjectGuid": "dd54b656-0f37-4227-8469-f21c9d44dd52",
       "DisplayName": "The6Bits.DBErrors",
-      "ColorIndex": 6
+      "ColorIndex": 0
     },
-    "6baa515f-55e7-4ba9-9150-a36b473de2c1": {
-      "ProjectGuid": "6baa515f-55e7-4ba9-9150-a36b473de2c1",
-      "DisplayName": "TestData",
-      "ColorIndex": 7
+    "2f46774b-4c38-4202-9ff8-522280b27b7a": {
+      "ProjectGuid": "2f46774b-4c38-4202-9ff8-522280b27b7a",
+      "DisplayName": "The6Bits.BitOHealth.DAL.Tests",
+      "ColorIndex": 1
     },
-    "ddbaacb1-4af7-4876-8dac-ca4dabe1c076": {
-      "ProjectGuid": "ddbaacb1-4af7-4876-8dac-ca4dabe1c076",
-      "DisplayName": "The6Bits.API",
-      "ColorIndex": 8
+    "119ce180-1661-4091-91e6-acbe39d37091": {
+      "ProjectGuid": "119ce180-1661-4091-91e6-acbe39d37091",
+      "DisplayName": "The6Bits.BitOHealth.ServiceLayer.Test",
+      "ColorIndex": 2
     },
-    "5bc68f44-bc94-4093-9248-c2fe3dbb8624": {
-      "ProjectGuid": "5bc68f44-bc94-4093-9248-c2fe3dbb8624",
-      "DisplayName": "DietRecommendation",
-      "ColorIndex": 9
+    "b9e84952-e4b2-48bb-a7cd-89197f6b5a77": {
+      "ProjectGuid": "b9e84952-e4b2-48bb-a7cd-89197f6b5a77",
+      "DisplayName": "The6Bits.Authorization.Tests",
+      "ColorIndex": 3
+    },
+    "132f4ef6-f6af-4a9b-8c30-ba5a0e912648": {
+      "ProjectGuid": "132f4ef6-f6af-4a9b-8c30-ba5a0e912648",
+      "DisplayName": "WebAppAPI",
+      "ColorIndex": 4
     },
     "2aa2ffcb-096e-48f8-a272-c611ec9a39e1": {
       "ProjectGuid": "2aa2ffcb-096e-48f8-a272-c611ec9a39e1",
       "DisplayName": "The6Bits.SMTPEmailService",
+      "ColorIndex": 5
+    },
+    "6baa515f-55e7-4ba9-9150-a36b473de2c1": {
+      "ProjectGuid": "6baa515f-55e7-4ba9-9150-a36b473de2c1",
+      "DisplayName": "TestData",
+      "ColorIndex": 6
+    },
+    "cc1e728b-e33d-45d5-999b-55acd879391c": {
+      "ProjectGuid": "cc1e728b-e33d-45d5-999b-55acd879391c",
+      "DisplayName": "The6Bits.Authentication",
+      "ColorIndex": 7
+    },
+    "5c85ca0c-9442-4807-b053-5a7825cd83eb": {
+      "ProjectGuid": "5c85ca0c-9442-4807-b053-5a7825cd83eb",
+      "DisplayName": "The6Bits.Authorization",
+      "ColorIndex": 8
+    },
+    "f2d52a85-d7db-40e9-909a-c798aac61b90": {
+      "ProjectGuid": "f2d52a85-d7db-40e9-909a-c798aac61b90",
+      "DisplayName": "The6Bits.HashAndSaltService.Tests",
+      "ColorIndex": 9
+    },
+    "97955ffb-21d4-44b1-94d2-0527fc0d1db5": {
+      "ProjectGuid": "97955ffb-21d4-44b1-94d2-0527fc0d1db5",
+      "DisplayName": "The6Bits.HashAndSaltService",
       "ColorIndex": 10
+    },
+    "fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1": {
+      "ProjectGuid": "fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1",
+      "DisplayName": "The6Bits.Authentication.Tests",
+      "ColorIndex": 11
     }
   },
-  "NextColorIndex": 11
+  "NextColorIndex": 12
 }
