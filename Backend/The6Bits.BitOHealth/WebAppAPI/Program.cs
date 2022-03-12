@@ -54,6 +54,8 @@ builder.Services.AddTransient<ISMTPEmailService, AWSSesService>();
 builder.Services.AddScoped<ILogDal, SQLLogDAO>();
 builder.Services.AddSingleton<IConfiguration>(Configuration);
 builder.Services.AddTransient<HotTopicsService>(provider=>new HotTopicsService("0c0dc5fd4cc641a58578260b7e4815ff"));
+builder.Services.AddTransient<HashNSaltService>(provider => new HashNSaltService(new MsSqlHashDao(connstring), builder.Configuration["jwt"]));
+
 builder.Services.AddScoped<IAuthorizationDao>(provider => new MsSqlRoleAuthorizationDao(connstring));
 builder.Services.AddScoped<IHashDao>(provider=> new MsSqlHashDao(connstring));
 
@@ -74,7 +76,7 @@ var archive = new ArchivingController();
 archive.Archive();
 
 var recoveryReset = new RecoveryResetController();
-recoveryReset.ResetRecovery();
+recoveryReset.ResetRecovery(connstring);
 
 
 

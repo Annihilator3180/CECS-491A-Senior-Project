@@ -26,13 +26,13 @@ public class AccountManager
 
 
 
-    public AccountManager(IRepositoryAuth<string> authdao, IAuthenticationService authenticationService, IDBErrors dbError, ISMTPEmailService email, IConfiguration config, IHashDao dao)
+    public AccountManager(IRepositoryAuth<string> authdao, IAuthenticationService authenticationService, IDBErrors dbError, ISMTPEmailService email, IConfiguration config, IHashDao dao, string key)
     {
         _iDBErrors = dbError;
         _EmailService = email;
         _auth = authenticationService;
         _config = config;
-        _hash = new HashNSaltService( dao);
+        _hash = new HashNSaltService( dao, key);
         _AS = new AccountService(authdao, dbError, email,config);
     }
 
@@ -113,6 +113,7 @@ public class AccountManager
             string deletePastOtp = _AS.DeletePastOTP(acc.Username, "OTP");
         }
 
+        acc.Password = _hash.HashAndSalt(acc.Password, _hash.GetSalt(acc.Username));
 
         string checkPassword = _AS.CheckPassword(acc.Username, acc.Password);
         
@@ -189,7 +190,7 @@ public class AccountManager
         }
         String DateCheck = _AS.VerifySameDay(code, username, DateTime.Now);
         _AS.DeleteCode(username, "Registration");
-        if (DateCheck == "True")
+        if (DateCheck != "True")
         {
             return DateCheck;
         }
@@ -323,7 +324,7 @@ public class AccountManager
         string ra = _AS.UsernameAndEmailExists(arm.Username, arm.Email);
         if (ra.Contains("Database"))
         {
-            return _iDBErrors.DBErrorCheck(int.Parse(ra));
+            return ra;
         }
         else if(ra == "incorrect")
         {
@@ -349,7 +350,7 @@ public class AccountManager
         const string subject = "Bit O Health Recovery";
 
         string body = "Please click this link within 24 hours to recover your account "+
-                "http://192.168.0.2:8080/ResetPassword?randomString=" + randomString + "&username=" + arm.Username;
+                "http://localhost:8080/ResetPassword?randomString=" + randomString + "&username=" + arm.Username;
         
         
         string email = _AS.SendEmail(arm.Email, subject, body);
@@ -394,24 +395,22 @@ public class AccountManager
         {
             if (validateOTP.Contains("Database"))
             {
-                return _iDBErrors.DBErrorCheck(int.Parse(validateOTP));
+                return validateOTP;
 
             }
-            else
-            {
-                return validateOTP;
-            }
+            
         }
         string sameDay = _AS.VerifySameDay(username, randomString);
         if (sameDay != "1")
         {
-            return _iDBErrors.DBErrorCheck(int.Parse(sameDay));
+            return sameDay;
         }
+        string hashPassword = _hash.HashAndSalt(password);
         
-        string reset = _AS.ResetPassword(password, username);
-        if (reset != "1")
+        string reset = _AS.ResetPassword(hashPassword, username);
+        if (reset.Contains("Database"))
         {
-            return _iDBErrors.DBErrorCheck(int.Parse(reset));
+            return reset;
         }
         return "Account Recovery Completed Successfully";
 
