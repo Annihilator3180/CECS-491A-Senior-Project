@@ -30,6 +30,9 @@ public class AccountController : ControllerBase
     private ISMTPEmailService _EmailService;
     private IConfiguration _config;
     private IAuthenticationService _auth;
+    private bool isValid;
+
+
     public AccountController(IRepositoryAuth<string> authdao, ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors, 
         ISMTPEmailService emailService, IConfiguration config)
     {
@@ -95,6 +98,27 @@ public class AccountController : ControllerBase
 
         return jwt;
 
+    }
+
+    [HttpPost]
+    public string getTrackerLogs(string date)
+    {
+        String token = "";
+        try
+        {
+            token = Request.Cookies["token"];
+        }
+        catch
+        {
+            return "No token";
+        }
+        isValid = authenticationService1.ValidateToken(token);
+        if (!isValid)
+        {
+            _ = logService.Log("None", "Invalid Token - Get Tracker Logs", "Info", "Business");
+            return "Invalid Token";
+        }
+        return logService.getAllTrackerLogs();
     }
 
     [HttpPost("OTP")]
