@@ -57,7 +57,7 @@ namespace The6Bits.BitOHealth.AccountRecovery.Test
             string password = "Short@1";
             //act
             bool isValid = _AS.ValidatePassword(password);
-            //assert
+            //arrange
             Assert.False(isValid);
         }
         [Fact]
@@ -67,7 +67,7 @@ namespace The6Bits.BitOHealth.AccountRecovery.Test
             string password = "BadSpecialCharacter$$$@1";
             //act
             bool isValid = _AS.ValidatePassword(password);
-            //assert
+            //arrange
             Assert.False(isValid);
         }
         [Fact]
@@ -130,7 +130,7 @@ namespace The6Bits.BitOHealth.AccountRecovery.Test
            string UserName = "UsernameGood@1";
             //act
             string returnString = _AS.ValidateUsername(UserName);
-            //assert
+
            Assert.Equal("new username", returnString);
         }
 
@@ -147,49 +147,45 @@ namespace The6Bits.BitOHealth.AccountRecovery.Test
         [Fact]
         public void UsernameAndEmailTest()
         {
-            //arrange
             string email = "cbass@gmail.com";
             string username = "bossadmin12";
             string predicted = "Email and Username found";
-            //act
+
             string actual = _AS.UsernameAndEmailExists(username, email);
-            //assert
+
             Assert.Equal(actual, predicted);
         }
 
         [Fact]
         public void IsEnabledTest()
         {
-            //arrange
             string username = "bossadmin12";
             string predicted = "enabled";
-            //act
+
             string actual = _AS.IsEnabled(username);
-            //assert
+            Console.WriteLine(actual);
             Assert.Equal(predicted, actual);
         }
         [Fact]
         public void ValidateRecoveryAttemptsTest()
         {
-            //arrange
             string username = "bossadmin12";
             string predicted = "under";
-            //act
+
             string actual = _AS.ValidateRecoveryAttempts(username);
-            //assert
+
             Assert.Equal(actual, predicted);
         }
         [Fact]
         public void UpdateRecoveryAttemptsTest()
         {
-            //arrange
             string username = "bossadmin12";
             string predicted = "1";
-            //act
+
             string actual = _AS.UpdateRecoveryAttempts(username, DateTime.Now);
-            //assert
+
             Assert.True(predicted.Equals(actual));
-            //cleanup
+
             _AS.RemoveRecoveryAttempts(username);
 
         }
@@ -197,33 +193,25 @@ namespace The6Bits.BitOHealth.AccountRecovery.Test
         [Fact]
         public void VerifySameDayTest()
         {
-            //arrange
             string username = "bossadmin12";
-            string predicted = "1";
-            //act
             string code = _AS.GetRecoveryOTP(username);
 
-           
-            //assert
+            string predicted = "1";
+
             Assert.Equal(predicted,_AS.VerifySameDay(username, code));
         }
 
         [Fact]
         public void ResetPasswordTest()
         {
-            //arrange
             string newPassword = "testPassword!1";
-            string predicted = "1";
             string username = "bossadmin12";
-            //act
             string oldPassword = _AS.GetPassword(username);
 
-
-            //assert
+            string predicted = "1";
 
             Assert.Equal(_AS.ResetPassword(newPassword, username), predicted);
-            
-            //cleanup
+
             _AS.ResetPassword(oldPassword, username);
 
 
