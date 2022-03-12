@@ -72,12 +72,12 @@ namespace The6Bits.BitOHealth.ServiceLayer
         {
             string correctFile = Path.GetExtension(filePath);
             //string correctFile2 = _MHD.VerifyFileTypeRecords(correctFile, userName, filePath);
-            if(correctFile == ".pdf")
+            if (correctFile == ".pdf")
             {
                 return "Upload Successful";
 
             }
-            else if(correctFile == ".jpg")
+            else if (correctFile == ".jpg")
             {
                 return "Upload Successful";
             }
@@ -85,7 +85,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
             {
                 return "Invalid File Type";
             }
-                
+
         }
 
         // CHECKS TO SEE IF FILE NAME IS VALID
@@ -94,7 +94,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
         {
             string correctFileName = Path.GetFileName(fileName);
             //string correctFileName2 = _MHD.VerifyFileNameRecords(correctFileName, username, filePath); //use _MHD when accessing dao
-            char [] invalidFilenameChars = Path.GetInvalidFileNameChars();
+            char[] invalidFilenameChars = Path.GetInvalidFileNameChars();
 
             foreach (char someChar in Path.GetInvalidFileNameChars())
             {
@@ -128,7 +128,11 @@ namespace The6Bits.BitOHealth.ServiceLayer
                 double freeSpace = ((drive.AvailableFreeSpace / (double)drive.TotalSize) * 100);
                 return freeSpace.ToString();
             }
-            
+            else
+            {
+                return "Upload failed";
+            }
+
 
             return null;
         }
@@ -141,8 +145,8 @@ namespace The6Bits.BitOHealth.ServiceLayer
             if (nam.Length < 0 || nam.Length > 100)
             {
                 return recordName + " invalid. Record name needs to be 1-100 characters long.";
-            }       
-            else if(nam.Length < 0 || nam.Length > 100)
+            }
+            else if (nam.Length < 0 || nam.Length > 100)
             {
                 return _DBErrors.DBErrorCheck(int.Parse(nam));
             }
@@ -150,7 +154,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
             {
                 return recordName + " valid.";
             }
-          
+
         }
         // CHECKS TO SEE IF RECORDS UPLOADED TO WINDOWS SERVER/MACHINE  
         //  Todo : Done
@@ -159,40 +163,16 @@ namespace The6Bits.BitOHealth.ServiceLayer
             string fileToWindows = _MHD.UploadRecordsWinDao(fileName, username, filePath);
             string filePath2 = "C:\\Users\\Owner\\Documents\\";
 
-            if(File.Exists(fileToWindows) == true && File.Exists(filePath2) == true)
+            if (File.Exists(fileToWindows) == true && File.Exists(filePath2) == true)
             {
                 return fileToWindows + " uploaded successfully to Windows DAO";
-                
+
             }
             else
             {
                 return fileToWindows + " not uploaded successfully to Windows DAO";
             }
             return null;
-        }
-
-        public async Task<String> OnPostUploadAsync(List<IFormFile> files)
-        {
-            long size = files.Sum(f => f.Length);
-
-            foreach (var formFile in files)
-            {
-                if (formFile.Length > 0)
-                {
-                    var filePath = Path.Combine(_config["StoredFilesPath"],
-                        Path.GetRandomFileName());
-
-                    using (var stream = File.Create(filePath))
-                    {
-                        await formFile.CopyToAsync(stream);
-                    }
-                }
-            }
-
-            // Process uploaded files
-            // Don't rely on or trust the FileName property without validation.
-
-            return Ok(new { count = files.Count, size });
         }
 
     }

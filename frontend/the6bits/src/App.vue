@@ -2,7 +2,7 @@
     <LoginPost/>
     <OTPPost/>
     <account-recovery/>
-    <CreateRecordsPost/>
+    <CreateRecords/>
 
 </template>
 

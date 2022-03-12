@@ -26,21 +26,21 @@ namespace The6Bits.BitOHealth.ControllerLayer
         private IAuthenticationService _authentication;
         private IConfiguration _config;
         private RecordsManager _MHM;
-        
+
         private ISMTPEmailService _EmailService;
         private IDBErrors _dbErrors;
         private string Username;
         private bool isValid;
-        
 
-        
+
+
 
 
         public RecordsController(IRecordsDB daoType, ILogDal logDao, IAuthenticationService authentication, IDBErrors dbErrors,
             ISMTPEmailService EmailService, IConfiguration config)
         {
             _MHM = new RecordsManager(daoType, authentication, dbErrors, EmailService, config, logDao);
-            
+
             _dbErrors = dbErrors;
             _EmailService = EmailService;
             _authentication = authentication;
@@ -53,7 +53,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
         {
             //isValid = _authentication.ValidateToken(Request.Headers["Authorization"]);
             //string userName = _authentication.getUsername(Request.Headers["Authorizatoin"]);
-            string namingStatus = _MHM.CreateRecords(recordName, username);
+            string namingStatus = _MHM.CreateRecords(recordName, username, null, 0, null);
 
             if (namingStatus.Contains("invalid"))
             {
@@ -77,18 +77,18 @@ namespace The6Bits.BitOHealth.ControllerLayer
         public bool ValidateToken(string token)
         {
             isValid = _authentication.ValidateToken(Request.Headers["Authorization"]);
-            
+
             return true;
         }
-        
-        
+
+
         // ADD Authenticate.getUserName(token : string) : string
         public string getUsername(string token)
         {
             string username = _authentication.getUsername(Request.Headers["Authorization"]);
             return username;
         }
-    
+
 
 
         //    [HttpGet("ValidateFileSizeRecords")]
@@ -130,3 +130,4 @@ namespace The6Bits.BitOHealth.ControllerLayer
         //}
 
     }
+}

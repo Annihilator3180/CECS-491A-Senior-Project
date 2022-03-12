@@ -53,11 +53,6 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 
         }
 
-        
-
-
-
-
         // Dao access for CreateRecords
         public string CreateRecords(string recordName, string username)
         {
