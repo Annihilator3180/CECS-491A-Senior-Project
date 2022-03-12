@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\The6Bits.HashAndSaltService\The6Bits.HashAndSaltService.csproj" />
+      <ProjectReference Include="..\The6Bits.BitOHealh.DAL.Tests\The6Bits.BitOHealth.DAL.Tests.csproj" />
+    </ItemGroup>
+
+</Project>

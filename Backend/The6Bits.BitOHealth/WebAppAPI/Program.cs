@@ -12,6 +12,8 @@ using The6Bits.Logging.DAL.Contracts;
 using The6Bits.Logging.DAL.Implementations;
 using The6Bits.DBErrors;
 using The6Bits.EmailService;
+using The6Bits.HashAndSaltService.Contract;
+using The6Bits.HashAndSaltService.Implementations;
 using WebAppMVC.Development;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -45,8 +47,11 @@ builder.Services.AddTransient<ISMTPEmailService, AWSSesService>();
 builder.Services.AddScoped<ILogDal, SQLLogDAO>();
 builder.Services.AddSingleton<IConfiguration>(Configuration);
 builder.Services.AddScoped<IAuthorizationDao>(provider => new MsSqlRoleAuthorizationDao(connstring));
+builder.Services.AddScoped<IHashDao>(provider=> new MsSqlHashDao(connstring));
 
 
+
+builder.Configuration.AddEnvironmentVariables();
 
 
 builder.Services.AddTransient<IRepositoryWeightManagementDao>(provider => new WeightManagementMsSqlDao(connstring));
@@ -82,7 +87,6 @@ app.UseCors(x => x
     .AllowAnyHeader()
     .SetIsOriginAllowed(origin => true) // allow any origin
     .AllowCredentials()); // allow credentials
-
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
