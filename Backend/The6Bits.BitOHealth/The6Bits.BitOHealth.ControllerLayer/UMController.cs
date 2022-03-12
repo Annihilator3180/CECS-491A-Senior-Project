@@ -54,14 +54,14 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
             isValid = _authentication.ValidateToken(token);
             
-            if (!isValid)
+            if (isValid)
             {
 
                 string adminUsername = "dsa";
-                //if (!_authorization.VerifyClaim(token, "IsAdmin")){
-                //    logService.Log(adminUsername, "Account creation-Claims Denied", "Info", "Business");
-                //    return "InvalidClaims";
-                //}
+                if (!_authorization.VerifyClaim(token, "IsAdmin")){
+                    logService.Log(adminUsername, "Account creation-Claims Denied", "Info", "Business");
+                    return "InvalidClaims";
+                }
                 
                 
                 string res = _UMM.CreateAccount(u);
