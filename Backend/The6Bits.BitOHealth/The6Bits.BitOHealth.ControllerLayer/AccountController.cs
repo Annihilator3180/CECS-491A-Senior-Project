@@ -16,7 +16,10 @@ using System.Web;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using The6Bits.EmailService;
-// using The6Bits.BitOHealth.ServiceLayer;
+using The6Bits.HashAndSaltService;
+using The6Bits.HashAndSaltService.Contract;
+using System.Data.SqlClient;
+using Dapper;
 
 namespace The6Bits.BitOHealth.ControllerLayer;
 [ApiController]
@@ -30,10 +33,13 @@ public class AccountController : ControllerBase
     private ISMTPEmailService _EmailService;
     private IConfiguration _config;
     private IAuthenticationService _auth;
-    public AccountController(IRepositoryAuth<string> authdao, ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors, 
-        ISMTPEmailService emailService, IConfiguration config)
+    private bool isValid;
+
+
+    public AccountController(IRepositoryAuth<string> authdao, ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors,
+        ISMTPEmailService emailService, IConfiguration config, IHashDao hashDao)
     {
-        _AM = new AccountManager(authdao, authenticationService, dbErrors, emailService, config);
+        _AM = new AccountManager(authdao, authenticationService, dbErrors, emailService, config, hashDao, config.GetSection("jwt").Value);
         logService = new LogService(logDao);
         _dbErrors = dbErrors;
         _EmailService = emailService;
@@ -63,19 +69,20 @@ public class AccountController : ControllerBase
         var jwt = _AM.Login(acc);
         var parts = jwt.Split('.');
 
-        if (parts.Length==3)
+        if (parts.Length == 3)
         {
             var cookieOptions = new CookieOptions()
             {
                 Secure = true,
                 Expires = DateTime.UtcNow.AddDays(14),
                 SameSite = SameSiteMode.None,
+                HttpOnly = true,
             };
             Response.Cookies.Append(
                 "token",
                 jwt, cookieOptions);
 
-            logService.LoginLog(acc.Username + remoteIpAddress, "Logged In", "Info","Business" );
+            logService.LoginLog(acc.Username + remoteIpAddress, "Logged In", "Info", "Business");
         }
         else
         {
@@ -83,11 +90,11 @@ public class AccountController : ControllerBase
             string loginfail = "Log In Fail";
             if (jwt.Contains("Database"))
             {
-                logService.LoginLog(acc.Username + remoteIpAddress, loginfail+" "+jwt, "Error","Data Store" );
+                logService.LoginLog(acc.Username + remoteIpAddress, loginfail + " " + jwt, "Error", "Data Store");
             }
             else
             {
-                logService.LoginLog(acc.Username + remoteIpAddress, loginfail+" "+jwt, "Info","Business" );
+                logService.LoginLog(acc.Username + remoteIpAddress, loginfail + " " + jwt, "Info", "Business");
             }
 
         }
@@ -96,14 +103,62 @@ public class AccountController : ControllerBase
 
     }
 
+    [HttpPost("getTLogs")]
+    public string getTrackerLogs()
+    {
+        /*
+        String token = "";
+        try
+        {
+            token = Request.Cookies["token"];
+        }
+        catch
+        {
+            return "No token";
+        }
+        isValid = authenticationService1.ValidateToken(token);
+        if (!isValid)
+        {
+            _ = logService.Log("None", "Invalid Token - Get Tracker Logs", "Info", "Business");
+            return "Invalid Token";
+        }
+        */
+        string s = logService.getAllTrackerLogs();
+        string[] subs = s.Split(' ');
+        string holder = "";
+        int counter = 0;
+        foreach (var sub in subs)
+        {
+            if(counter == 0)
+            {
+                holder = sub;
+            }
+            else if(counter != 0)
+            {
+                if (counter == 4)
+                {
+                    holder += "," + sub;
+                    counter = 1;
+                }
+                else
+                {
+                    holder += " " + sub;
+                }
+            }
+            counter++;
+        }
+        return holder;
+
+    }
+
     [HttpPost("OTP")]
     public string SendOTP(string username)
     {
-        
-        var otp =  _AM.SendOTP(username);
+
+        var otp = _AM.SendOTP(username);
         if (otp.Contains("Database"))
         {
-            logService.Log(username, otp , "OTP Error " + "Error", "Data Store");
+            logService.Log(username, otp, "OTP Error " + "Error", "Data Store");
         }
         else
         {
@@ -120,33 +175,12 @@ public class AccountController : ControllerBase
     }
     // JSON 
     [HttpPost("Delete")]
-    public string DeleteAccount()
+    public string DeleteAccount(string token)
     {
-        var token = Request.Cookies["token"];
-;
-        //  if(Request.Headers.ContainsKey("Authorization"))
-        //{
-        //  token = Request.Headers["Authorization"].ToString();
-        // if(token.StartsWith("Bearer "))
-        //{
-        //  token = token.Remove(0, 7);
-        //}
 
-        //        }
-        string username = _auth.getUsername(token);
-        string status =  _AM.DeleteAccount(token);
-
-        if (status.Contains("Database"))
-        {
-            logService.Log(username, "Account Deletion- " + status, "Data Store ", "Error");
-        }
-        else
-        {
-            logService.Log(username, "Account Deletion- " + status, "Business", "Information");
-        }
-
+        string del = _AM.DeleteAccount(token);
         Response.Cookies.Delete("token");
-        return status;
+        return del;
     }
 
 
@@ -176,9 +210,10 @@ public class AccountController : ControllerBase
             logService.RegistrationLog(user.Username, "Registration- Email Failed To Send", "Business", "Error");
             return "Email Failed To Send";
         }
-        else if (creationStatus != "Email Pending Confirmation") {
-            logService.RegistrationLog(user.Username, "Registration- "+creationStatus, "Business", "Information");
-                }
+        else if (creationStatus != "Email Pending Confirmation")
+        {
+            logService.RegistrationLog(user.Username, "Registration- " + creationStatus, "Business", "Information");
+        }
         else
         {
             logService.RegistrationLog(user.Username, "Verfication Email Sent", "Business", "Information");
@@ -189,6 +224,7 @@ public class AccountController : ControllerBase
     [HttpGet("VerifyAccount")]
     public string VerifyAccount(String Code, String Username)
     {
+
         String verfied = _AM.VerifyAccount(Code, Username);
         if (verfied.Contains("Database"))
         {
@@ -200,7 +236,7 @@ public class AccountController : ControllerBase
             logService.Log(Username, "Registration- Email Verified ", "Business", "Information");
             return verfied;
         }
-        logService.Log(Username, "Registration- Email Verified ", "Data Store", "Verified");
+        logService.Log(Username, "Registration- " + verfied, "Business", "Information");
         return verfied;
     }
 
@@ -211,7 +247,6 @@ public class AccountController : ControllerBase
 
         if (isValid)
         {
-            // if usernameExists(username) { return _AM.AcceptEULA(username) } return "invalid username";
             return _AM.AcceptEULA(username);
         }
         return "invalid token";
@@ -224,7 +259,6 @@ public class AccountController : ControllerBase
 
         if (isValid)
         {
-            //check username
             return _AM.DeclineEULA(username);
         }
         return "invalid token";
@@ -236,7 +270,7 @@ public class AccountController : ControllerBase
 
     public string AccountRecovery(AccountRecoveryModel arm)
     {
-        string start = _AM.recoverAccount(arm);
+        string start = _AM.RecoverAccount(arm);
 
         if (start.Contains("Database"))
         {
@@ -250,16 +284,16 @@ public class AccountController : ControllerBase
 
     }
     [HttpPost("ResetPassword")]
-    public string ResetPassword(string r, string u, string p)
+    public string ResetPassword(string randomString, string username, string password)
     {
-        string reset = _AM.ResetPassword(u, r, p);
+        string reset = _AM.ResetPassword(username, randomString, password);
 
         if (reset.Contains("Database"))
         {
-            logService.Log(u, " Password Reset ", reset, "Error");
+            logService.Log(username, " Password Reset ", reset, "Error");
             return "Database Error";
         }
-        logService.Log(u, " Password Reset ", "Password Change ", "Information");
+        logService.Log(username, " Password Reset ", "Password Change ", "Information");
 
         return reset;
     }

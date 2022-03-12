@@ -1,12 +1,12 @@
-﻿ using System;
+﻿using System;
 using System.Data.SqlClient;
 using Dapper;
- using The6Bits.Logging.DAL.Contracts;
- using The6Bits.Logging.DAL.Implementations;
+using The6Bits.Logging.DAL.Contracts;
+using The6Bits.Logging.DAL.Implementations;
 
 namespace The6Bits.Logging.Implementations
 {
-    public class LogService 
+    public class LogService
     {
         private ILogDal _dao;
 
@@ -27,17 +27,22 @@ namespace The6Bits.Logging.Implementations
         }
 
 
-    public async Task<bool> Log(string username, string description, string LogLevel, string LogCategory)
+        public async Task<bool> Log(string username, string description, string LogLevel, string LogCategory)
         {
-            return _dao.Log(username, description, LogLevel, LogCategory);
+            bool holder = false;
+            await Task.Run(() =>
+            {
+                holder = _dao.Log(username, description, LogLevel, LogCategory);
+            });
+            return holder;
 
         }
 
         public async Task<bool> RegistrationLog(string username, string description, string LogLevel, string LogCategory)
         {
-            bool daoLog =  _dao.Log(username, description, LogLevel, LogCategory);
+            bool daoLog = _dao.Log(username, description, LogLevel, LogCategory);
             bool checker = false;
-            if(daoLog == true)
+            if (daoLog == true)
             {
                 checker = _dao.RegistrationChecker(username, description, LogLevel, LogCategory);
 
@@ -62,30 +67,35 @@ namespace The6Bits.Logging.Implementations
 
         public async Task<bool> LoginLog(string username, string description, string LogLevel, string LogCategory)
         {
-            bool daoLog = _dao.Log(username, description, LogLevel, LogCategory);
+            bool daoLog = false;
             bool checker = false;
-            if (daoLog == true)
+            await Task.Run(() =>
+           {
+               daoLog = _dao.Log(username, description, LogLevel, LogCategory);
+               checker = _dao.LoginChecker(username, description, LogLevel, LogCategory);
+
+           });
+            //login checker returns -1 instead of a proper number
+
+            //if false then table doe not have something for the given
+            //date, so we insert a new row to the table
+
+            if (checker == false)
             {
-                checker = _dao.LoginChecker(username, description, LogLevel, LogCategory);
+                return _dao.LoginInsert(username, description, LogLevel, LogCategory);
 
-                //if false then table doe not have something for the given
-                //date, so we insert a new row to the table
+            }
+            //if true then table already has something for the given
+            //date, so we update the table and add one
+            else if (checker == true)
+            {
+                return _dao.LoginLog(username, description, LogLevel, LogCategory);
 
-                if (checker == false)
-                {
-                    return _dao.LoginInsert(username, description, LogLevel, LogCategory);
-
-                }
-                //if true then table already has something for the given
-                //date, so we update the table and add one
-                else if (checker == true)
-                {
-                    return _dao.LoginLog(username, description, LogLevel, LogCategory);
-
-                }
             }
 
-            return checker;
+            return _dao.LoginInsert(username, description, LogLevel, checker.ToString());
+
+            //return checker;
         }
 
     }

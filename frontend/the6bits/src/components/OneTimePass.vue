@@ -6,6 +6,7 @@
                 <input type="text" id="userId" v-model ="formData.userId" />
             </div>
             <button>Send OTP</button>
+                            {{message}}
         </form>
     </div>
 </template>
@@ -18,6 +19,7 @@
             formData :{ 
                 userId: '',
             },
+            message : '',
         }
     },
     methods:{
@@ -27,7 +29,8 @@
                 credentials: 'include',
             };
             fetch('https://localhost:7011/Account/OTP?Username=' + this.formData.userId ,requestOptions)
-                .then(response => console.log(response))
+                .then(response =>  response.text())
+                .then(body => this.message = body)
             // axios
             // .post('https://localhost:7011/Account/Login',{Username : this.formData.userId, Password : this.formData.password, Code:this.formData.otp})
             // .then(response => console.log(response))

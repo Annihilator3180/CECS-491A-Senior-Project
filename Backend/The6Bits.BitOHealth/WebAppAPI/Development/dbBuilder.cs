@@ -34,7 +34,8 @@ namespace WebAppMVC.Development
         
         public bool buildVerifyCodes(string connStr)
         {
-            var AccountsStr = "If not exists (select name from sysobjects where name = 'VerifyCodes') CREATE TABLE VerifyCodes ( username VARCHAR(30) NOT NULL primary key, CodeDate DateTime, code VARCHAR(40), codeType VARCHAR(30))";
+            var AccountsStr = "If not exists (select name from sysobjects where name = 'VerifyCodes') CREATE TABLE VerifyCodes ( username VARCHAR(30) NOT NULL, " +
+                "CodeDate DateTime, code VARCHAR(40), codeType VARCHAR(30))";
             var conn = new SqlConnection(connStr);
             using (SqlCommand command = new SqlCommand(AccountsStr, conn))
             {
@@ -58,7 +59,8 @@ namespace WebAppMVC.Development
         
         public bool buildRecovery(string connStr)
         {
-            var RecoverysStr = "If not exists (select name from sysobjects where name = 'Recovery') CREATE TABLE Recovery ( Username VARCHAR(30) NOT NULL, email varchar(100), recoveryAttempt DateTime, primary key (username, recoveryAttempt))";
+            var RecoverysStr = "If not exists (select name from sysobjects where name = 'Recovery') CREATE TABLE Recovery ( Username VARCHAR(30) NOT NULL," +
+                " email varchar(100), recoveryAttempt DateTime, primary key (username, recoveryAttempt))";
             var conn = new SqlConnection(connStr);
             using (SqlCommand command = new SqlCommand(RecoverysStr, conn))
             {
@@ -89,9 +91,9 @@ namespace WebAppMVC.Development
 
         }
 
-        public bool buildUserDietDB(string connStr)
+        public bool buildWMGoals(string connStr)
         {
-            var RecoveryStr = "If not exists (select name from sysobjects where name = 'Diet') CREATE TABLE Diet(Diet VARCHAR(30) NOT NULL, Health VARCHAR(30) NOT NULL, Ingr int, DishType VARCHAR(30) NOT NULL, Calories int, CuisineType VARCHAR(30), Excluded VARCHAR(30) NOT NULL)";
+            var RecoveryStr = "If not exists (select name from sysobjects where name = 'WMGoals') CREATE TABLE WMGoals (Username VARCHAR(30), Goal int)";
             var conn = new SqlConnection(connStr);
             using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
             {
@@ -100,8 +102,29 @@ namespace WebAppMVC.Development
             }
             return false;
 
+
+
         }
 
+
+        public bool addBossAdmin(string connStr)
+        {
+            var RecoveryStr = "BEGIN IF NOT EXISTS (Select * From Accounts where Username = 'bossadmin12')  " +
+                " BEGIN INSERT  INTO Accounts " +
+            "(Username, Email, Password, FirstName, LastName, IsEnabled, IsAdmin, privOption)"+
+            "values('bossadmin12', 'boof@kizmoz.com', 'JJsZQkSJ1WeC/t0cw+8w093KvafOvQ9umEwRJhZpvnE=.LNdXDlkAGS', 'admin', 'boss', 1, 1,1) " +
+            "END END";
+            var conn = new SqlConnection(connStr);
+            using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
+            {
+                conn.Open();
+                command.ExecuteScalar();
+            }
+            return false;
+
+
+
+        }
 
 
     }

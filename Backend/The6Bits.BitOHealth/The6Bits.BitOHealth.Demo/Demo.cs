@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+/**using System.Text;
 using System.Threading.Tasks;
 using The6Bits.BitOHealth.ControllerLayer;
 using The6Bits.BitOHealth.DAL.Implementations;
-using The6Bits.BitOHealth.DAL.Tests;
 using The6Bits.BitOHealth.Models;
 using The6Bits.BitOHealth.ServiceLayer;
 using The6Bits.Logging;
@@ -274,3 +273,4 @@ namespace The6Bits.BitOHealth.Demo
         }
     }
 }
+**/

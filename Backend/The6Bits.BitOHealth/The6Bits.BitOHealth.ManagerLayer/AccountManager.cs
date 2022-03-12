@@ -7,6 +7,11 @@ using The6Bits.EmailService;
 using System.Text;
 using System.Security.Cryptography;
 using Microsoft.Extensions.Configuration;
+using The6Bits.Authorization.Contract;
+using The6Bits.Authorization;
+using The6Bits.Authorization.Implementations;
+using The6Bits.HashAndSaltService;
+using The6Bits.HashAndSaltService.Contract;
 
 namespace The6Bits.BitOHealth.ManagerLayer;
 
@@ -17,15 +22,17 @@ public class AccountManager
     private IDBErrors _iDBErrors;
     private ISMTPEmailService _EmailService;
     private IConfiguration _config;
+    private HashNSaltService _hash;
 
 
 
-    public AccountManager(IRepositoryAuth<string> authdao, IAuthenticationService authenticationService, IDBErrors dbError, ISMTPEmailService email, IConfiguration config)
+    public AccountManager(IRepositoryAuth<string> authdao, IAuthenticationService authenticationService, IDBErrors dbError, ISMTPEmailService email, IConfiguration config, IHashDao dao, string key)
     {
         _iDBErrors = dbError;
         _EmailService = email;
         _auth = authenticationService;
         _config = config;
+        _hash = new HashNSaltService( dao, key);
         _AS = new AccountService(authdao, dbError, email,config);
     }
 
@@ -100,8 +107,14 @@ public class AccountManager
         //VALIDATE OTP
 
         string otp = _AS.ValidateOTP(acc.Username, acc.Code);
-        
-        
+        if (otp == "valid")
+        {
+            otp = _AS.VerifyTwoMins(acc.Code,acc.Username);
+            string deletePastOtp = _AS.DeletePastOTP(acc.Username, "OTP");
+        }
+
+        acc.Password = _hash.HashAndSalt(acc.Password, _hash.GetSalt(acc.Username));
+
         string checkPassword = _AS.CheckPassword(acc.Username, acc.Password);
         
         if (otp != "valid" || checkPassword != "credentials found")
@@ -155,11 +168,12 @@ public class AccountManager
             
 
             //DB ERRORS && INVALID PASS AND OTP RETURN
+
             return otp != "valid" ? otp : checkPassword;
         }
+        AuthorizationService authentication = new AuthorizationService(new MsSqlRoleAuthorizationDao(_config.GetConnectionString("DefaultConnection")));
 
-
-        return _auth.generateToken(acc.Username);
+        return _auth.generateToken(acc.Username,authentication.getClaims(acc.Username));
     }
 
     public string VerifyAccount(string code, string username)
@@ -176,12 +190,19 @@ public class AccountManager
         }
         String DateCheck = _AS.VerifySameDay(code, username, DateTime.Now);
         _AS.DeleteCode(username, "Registration");
-        if (DateCheck == "True")
+        if (DateCheck != "True")
         {
-            return "Account Verified";
+            return DateCheck;
         }
-        return "Code Expired";
+        string activated = _AS.ActivateUser(username);
+        if (activated.Contains("Database"))
+        {
+            return activated;
+        }
+        return "Account Verified";
+        
     }
+
 
 
 
@@ -222,6 +243,11 @@ public class AccountManager
             code+=chars[rnd.Next(0, 62)];
         }
 
+        string em = _EmailService.SendEmailNoReply(email, "ONE TIME PASSWORD", "YOUR ONE TIME PASSWORD IS : " + code);
+        if (em != "email sent")
+        {
+            return "Email Error " + em;
+        }
         
         //SEND CODE
 
@@ -272,6 +298,7 @@ public class AccountManager
         {
             return validUsername;
         }
+        user.Password= _hash.HashAndSalt(user.Password);
         String unactivated = _AS.SaveUnActivatedAccount(user);
         if (unactivated != "Saved")
         {
@@ -288,7 +315,7 @@ public class AccountManager
         
     }
 
-    public string recoverAccount(AccountRecoveryModel arm)
+    public string RecoverAccount(AccountRecoveryModel arm)
     {
         if (_AS.ValidateEmail(arm.Email) == false || _AS.ValidateUsername(arm.Username) == "Invalid Username")
         {
@@ -297,7 +324,7 @@ public class AccountManager
         string ra = _AS.UsernameAndEmailExists(arm.Username, arm.Email);
         if (ra.Contains("Database"))
         {
-            return _iDBErrors.DBErrorCheck(int.Parse(ra));
+            return ra;
         }
         else if(ra == "incorrect")
         {
@@ -318,16 +345,22 @@ public class AccountManager
             return "Account Recovery Error";
         }
 
-        string r = _AS.GenerateRandomString();
+        string randomString = _AS.GenerateRandomString();
+
+        const string subject = "Bit O Health Recovery";
+
+        string body = "Please click this link within 24 hours to recover your account "+
+                "http://localhost:8080/ResetPassword?randomString=" + randomString + "&username=" + arm.Username;
         
-        string email = _AS.SendEmail(arm.Email, "Bit O Health Recovery", "Please click URL within 24 hours to recover your account" +
-            "\n https://localhost:7011/Account/ResetPassword?r=" + r + "&u=" + arm.Username);
+        
+        string email = _AS.SendEmail(arm.Email, subject, body);
         
 
         if (email != "email sent") 
         {
             return email;
         }
+        
        
         DateTime dateTime = DateTime.Now;
 
@@ -338,48 +371,46 @@ public class AccountManager
         {
             return _iDBErrors.DBErrorCheck(int.Parse(updateRecoveryAttempts));
         }
-        string saveCode = _AS.SaveActivationCode(arm.Username, dateTime, r, "Recovery");
+        string saveCode = _AS.SaveActivationCode(arm.Username, dateTime, randomString, "Recovery");
         if (saveCode != "saved")
         {
             _AS.DeletePastOTP(arm.Username, "Recovery");
-            string retry = _AS.SaveActivationCode(arm.Username, dateTime, r, "Recovery");
+            string retry = _AS.SaveActivationCode(arm.Username, dateTime, randomString, "Recovery");
             if (retry.Contains("Database"))
             {
-                return _iDBErrors.DBErrorCheck(int.Parse(retry));
+                return retry;
             }
         }
         
         return "Recovery Link Sent To Email: " + arm.Email;
     }
-    public string ResetPassword(string u, string r, string p)
+    public string ResetPassword(string username, string randomString, string password)
     {
-        if (!_AS.ValidatePassword(p))
+        if (!_AS.ValidatePassword(password))
         {
             return "invalid password";
         }
-        string validateOTP = _AS.ValidateOTP(u, r);
+        string validateOTP = _AS.ValidateOTP(username, randomString);
         if (validateOTP != "valid")
         {
             if (validateOTP.Contains("Database"))
             {
-                return _iDBErrors.DBErrorCheck(int.Parse(validateOTP));
+                return validateOTP;
 
             }
-            else
-            {
-                return validateOTP;
-            }
+            
         }
-        string sameDay = _AS.VerifySameDay(u, r);
+        string sameDay = _AS.VerifySameDay(username, randomString);
         if (sameDay != "1")
         {
-            return _iDBErrors.DBErrorCheck(int.Parse(sameDay));
+            return sameDay;
         }
+        string hashPassword = _hash.HashAndSalt(password);
         
-        string reset = _AS.ResetPassword(p, u);
-        if (reset != "1")
+        string reset = _AS.ResetPassword(hashPassword, username);
+        if (reset.Contains("Database"))
         {
-            return _iDBErrors.DBErrorCheck(int.Parse(reset));
+            return reset;
         }
         return "Account Recovery Completed Successfully";
 
@@ -396,6 +427,7 @@ public class AccountManager
            return "Invalid Token";
         }
         string username = _auth.getUsername(token);
+        return username;
         string user = _AS.UsernameExists(username);
         if (user != "username exists")
         {

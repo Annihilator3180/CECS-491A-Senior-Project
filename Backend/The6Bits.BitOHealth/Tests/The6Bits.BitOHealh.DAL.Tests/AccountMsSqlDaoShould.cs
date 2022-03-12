@@ -9,6 +9,7 @@ using System.Text.Json;
 using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.BitOHealth.ManagerLayer;
 using The6Bits.Authentication.Implementations;
+using The6Bits.BitOHealth.ManagerLayer;
 //using Microsoft.Extensions.Configuration;
 
 namespace The6Bits.BitOHealth.DAL.Tests;
@@ -214,22 +215,21 @@ public class AccountMsSqlDaoShould : TestsBase
 
     //DELETE TESTING ITEMS FROM DB
     //TODO:DELETE ACCOUNTS AT TEST END
+    /**
+    [Theory]
+    [InlineData("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZpcnN0dXNlcjI5IiwiaWF0IjoiMTY0NTg4NTY1NCJ9.lDE7wMZHk3bAxj6dYd2V6fSl5OddworGmB6mw5zn5bw")]
+    [InlineData("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZpcnN0dXNlcjI5IiwiaWF0IjoiMTY0NTg4NDgyMCJ9.FJ1qz-IooxUXtesazX36FaVDqT-XImRdwpAqd81Pg5A")]
 
-    [Fact]
-    public void DeleteAccountTest()
+
+    public void DeleteAccountValid(string userName)
     {
-        User u = new User();
-        u.Username = "firstUser29";
-        u.Email = "first@gmail.com";
-        u.Password = "Password!1";
-        u.FirstName = "admin";
-        u.LastName = "boss";
-        u.IsEnabled = 1;
-        u.IsAdmin = 0;
-        Ac.Create(u);
-        Ac.DeleteAccount(u.Username);
-        Assert.NotEqual(u.Username, Ac.Read(u).Username);
-    }
+        var AC = new AccountMsSqlDao(conn);
+        var AS = new JWTAuthenticationService(conn);
+
+        var result = AS.getUsername(userName);
+
+        Assert.Equal("firstuser29", result);
+    }**/
 
 
 

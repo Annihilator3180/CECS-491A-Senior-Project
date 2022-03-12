@@ -12,8 +12,9 @@ namespace The6Bits.BitOHealth.ControllerLayer
         public string connectionString;
         private RecoveryResetManager _rM;
 
-        public bool ResetRecovery()
+        public bool ResetRecovery(string conn)
         {
+            connectionString = conn;
             _rM = new RecoveryResetManager() { connection = connectionString};
             return _rM.RecoveryReset();
         }

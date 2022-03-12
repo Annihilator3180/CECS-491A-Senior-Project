@@ -220,8 +220,8 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = "INSERT INTO VerifyCodes (username, CodeDate, code, codetype) " +
-                    "values(@username, @time, @code, @codeType)";
+                string query = "INSERT INTO VerifyCodes (username, codeDate, code, codetype) " +
+                    "values(@username, @codeDate, @code, @codeType)";
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
@@ -230,7 +230,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     new
                     {
                         Username = username,
-                        time = codeDate,
+                        codeDate = codeDate,
                         code = code,
                         codetype = codeType
                     }
@@ -247,10 +247,11 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 
         public string ValidateOTP(string username, string code)
         {
-
+            
             try
             {
-                string query = "select count(username) from VerifyCodes where username = @Username AND code = @Code ";
+                string query = "select count(username) from VerifyCodes where username = @Username "+
+                "AND code = @Code " ;
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
@@ -728,7 +729,61 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 return ex.Message;
             }
         }
-        
+
+
+        public string VerifyTwoMins(string username, string code){
+            try
+            {
+                
+                DateTime dt = DateTime.UtcNow;
+                dt = dt.AddMinutes(-2);
+                string query = "select count(username) from VerifyCodes where username = @Username "+
+                               "AND code = @Code AND CodeDate > @Dt" ;
+
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int lines = connection.ExecuteScalar<int>(query, new { Username = username, Code = code, Dt = dt });
+                    return lines.ToString();
+                }
+            }
+            catch (SqlException ex)
+            {
+                return ex.Number.ToString();
+            }
+        }
+
+
+        public string ActivateUser(string username)
+        {
+            try
+            {
+                string query = "UPDATE Accounts SET IsEnabled = 1 WHERE Username = @Username";
+
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int lines = connection.Execute(query, new
+                    {
+                        Username = username
+                    });
+                }
+
+                return "activated";
+            }
+
+            catch (SqlException ex)
+            {
+                return ex.Number.ToString();
+            }
+
+        }
+
+
+
+
+
+
 
 
     }

@@ -1,35 +1,25 @@
 <template>
-    <LoginPost />
-    <OTPPost />
-    <account-recovery />
-    <DeleteAccount />
-    <DietRecommendation />
-    <router-link :to="{name: 'Diet Recommendation'}"> DietRecommendation</router-link>|
-    <router-link :to="{name: 'Delete'}"> DeleteAccount</router-link>
+  <nav>
+    <router-link to="/">Home</router-link> |
+    <router-link :to="{ name: 'login' }">login</router-link> |
+    <router-link :to="{ name: 'otp' }">otp</router-link> |
+    <router-link :to="{ name: 'UM' }">User Management</router-link> |
+    <router-link :to="{ name: 'WeightManagement' }">Weight Management</router-link>|
+    <router-link :to="{ name: 'ResetPassword' }">ResetPassword</router-link>|
+    <router-link :to="{ name: 'AccountRecovery' }">Account Recovery</router-link>|
+    <router-link :to="{ name: 'Registration' }"> Registration</router-link> |
+    <router-link :to="{ name: 'MedSearch' }"> MedSearch</router-link>|
+    <router-link :to="{ name: 'HotTopics' }"> HotTopics</router-link>|
+    <router-link :to="{name: 'getTLogs'}"> TrackingLog</router-link>
 
 
-
+  </nav>
+  <router-view />
 </template>
 
 <script>
-import LoginPost from './components/LoginPost.vue'
-import OTPPost from './components/OneTimePass.vue'
-import AccountRecovery from './components/AccountRecovery.vue'
-    import DeleteAccount from './components/DeleteAccount.vue'
-    import DietRecommendation from './components/DietRecommendation.vue'
-
-
-
 export default {
-  name: 'app',
-  components: {
-   LoginPost ,
-    OTPPost,
-    AccountRecovery,
-      DeleteAccount,
-      DietRecommendation,
-
-  },
-}
+  name: "app",
+  components: {},
+};
 </script>
-

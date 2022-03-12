@@ -1,10 +1,12 @@
 using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
 using System.Reflection;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using System.Web;
 using Microsoft.Extensions.Configuration;
 using The6Bits.Authentication.Contract;
 using The6Bits.BitOHealth.Models;
@@ -15,31 +17,31 @@ public class JWTAuthenticationService : IAuthenticationService
 {
 
 
-    private IConfiguration _configuration;
+    private readonly string _key;
 
 
-    public JWTAuthenticationService(IConfiguration configuration)
+    public JWTAuthenticationService(string configuration)
     {
-        _configuration = configuration;
+        _key = configuration;
     }
 
     public JWTAuthenticationService()
     {
     }
 
-    public string generateToken(string data)
+    public string generateToken(string data, ClaimsIdentity claimsIdentity)
     {
-        DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
-        string p = di.Parent.ToString();
-        string mySecret = File.ReadAllText(Path.GetFullPath(p + _configuration.GetSection("PKs")["JWT"]));
-        byte[] keyBytes = Encoding.UTF8.GetBytes(mySecret);
+        byte[] keyBytes = Encoding.UTF8.GetBytes(_key);
         var segments = new List<string>();
 
+        claimsIdentity.AddClaim(new Claim("username", data));
+        claimsIdentity.AddClaim(new Claim("iat", DateTimeOffset.Now.ToUnixTimeSeconds().ToString()));
 
         var header = new { alg = "HS256", typ = "JWT" };
-        var payload = new { username = data, iat = DateTimeOffset.Now.ToUnixTimeSeconds().ToString() };
         byte[] headerBytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(header));
-        byte[] payloadBytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(payload));
+        JwtPayload payload = new JwtPayload(claimsIdentity.Claims);
+
+        byte[] payloadBytes = Encoding.UTF8.GetBytes(payload.SerializeToJson());
 
         segments.Add(Convert.ToBase64String(headerBytes));
         segments.Add(Convert.ToBase64String(payloadBytes));
@@ -61,11 +63,6 @@ public class JWTAuthenticationService : IAuthenticationService
         try
         {
             
-            //DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
-            //string p = di.Parent.ToString();
-            var code = Assembly.GetExecutingAssembly().CodeBase;
-            var root = Path.GetDirectoryName(Uri.UnescapeDataString((new UriBuilder(code)).Path));
-            string key = File.ReadAllText(Path.GetFullPath(root + _configuration.GetSection("PKs")["JWT"]));
 
             var parts = token.Split('.');
             var header = parts[0];
@@ -75,7 +72,7 @@ public class JWTAuthenticationService : IAuthenticationService
 
 
             var bytesToSign = Encoding.UTF8.GetBytes(string.Concat(header, ".", payload));
-            var keyBytes = Encoding.UTF8.GetBytes(key);
+            var keyBytes = Encoding.UTF8.GetBytes(_key);
 
             var sha = new HMACSHA256(keyBytes);
             byte[] signature = sha.ComputeHash(bytesToSign);
@@ -111,14 +108,6 @@ public class JWTAuthenticationService : IAuthenticationService
     public string getUsername(string token)
     {
 
-        DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
-        //string p = di.Parent.ToString();
-        //string key = File.ReadAllText(Path.GetFullPath(p + @"/Keys/private-key.pem"));
-
-        var code= Assembly.GetExecutingAssembly().CodeBase;
-        var root = Path.GetDirectoryName(Uri.UnescapeDataString((new UriBuilder(code)).Path));
-        string key = File.ReadAllText(Path.GetFullPath(root + _configuration.GetSection("PKs")["JWT"]));
-
         var parts = token.Split('.');
         var header = parts[0];
         var payload = parts[1];
@@ -130,8 +119,15 @@ public class JWTAuthenticationService : IAuthenticationService
         var data = Convert.FromBase64String((string)payload);
         var dataString = Encoding.UTF8.GetString(data);
 
-        var user = JsonSerializer.Deserialize<JwtPayloadModel>(dataString);
-
-       return user.username;
+        var obj = JwtPayload.Deserialize(dataString);
+        foreach (Claim claim in obj.Claims)
+        {
+            if(claim.Type == "username")
+            {
+                return claim.Value; 
+            }
+        }
+        return "";
+     
     }
 }

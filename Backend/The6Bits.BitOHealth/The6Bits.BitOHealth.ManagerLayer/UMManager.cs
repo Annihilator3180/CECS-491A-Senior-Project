@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Design;
+using Microsoft.Extensions.Configuration;
+using The6Bits.Authorization;
 using The6Bits.BitOHealth.DAL;
 using The6Bits.BitOHealth.DAL.Implementations;
 using The6Bits.BitOHealth.ServiceLayer;
@@ -7,6 +9,8 @@ using The6Bits.BitOHealth.Models;
 using The6Bits.Logging;
 using The6Bits.Logging.Implementations;
 using The6Bits.Authorization.Contract;
+using The6Bits.HashAndSaltService;
+using The6Bits.HashAndSaltService.Contract;
 
 
 namespace The6Bits.BitOHealth.ManagerLayer
@@ -14,11 +18,15 @@ namespace The6Bits.BitOHealth.ManagerLayer
     public class UMManager
     {
 
-        public IAuthorizationService auth;
+        private AuthorizationService _authorizationService;
         public string token;
         private UMService _UMS;
-        public UMManager(IRepositoryUM<User> daoType)
+        private HashNSaltService _hashNSaltService;
+
+        public UMManager(IRepositoryUM<User> daoType, IAuthorizationDao _iAuthorizationDao, IHashDao hashDao, IConfiguration config)
         {
+            _authorizationService = new AuthorizationService(_iAuthorizationDao);
+            _hashNSaltService = new HashNSaltService(hashDao, config.GetSection("jwt").Value);
             _UMS = new UMService(daoType);
         }
 
@@ -41,15 +49,13 @@ namespace The6Bits.BitOHealth.ManagerLayer
                 return "invalid password";
             }
 
+            user.Password = _hashNSaltService.HashAndSalt(user.Password);
+
             return _UMS.CreateAccount(user);
         }
 
         public string DeleteAccount(string username)
         {
-            if (!auth.VerifyClaims(token, "Admin"))
-            {
-                return "invalid claims/token";
-            }
             string validation = _UMS.ValidateUsername(username);
             if (validation != "username exists")
             {
@@ -61,10 +67,6 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
         public string EnableAccount(string username)
         {
-            if (!auth.VerifyClaims(token, "Admin"))
-            {
-                return "invalid claims/token";
-            }
             string validation = _UMS.ValidateUsername(username);
             if (validation != "username exists")
             {
@@ -75,10 +77,7 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
         public string UpdateAccount(User user)
         {
-            if (!auth.VerifyClaims(token, "Admin"))
-            {
-                return "invalid claims/token";
-            }
+
             string validation = _UMS.ValidateUsername(user.Username);
             if (validation != "username exists")
             {
@@ -98,6 +97,9 @@ namespace The6Bits.BitOHealth.ManagerLayer
                 {
                     return "invalid password";
                 }
+
+                user.Password = _hashNSaltService.HashAndSalt(user.Password);
+
             }
 
 
@@ -110,10 +112,7 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
         public string DisableAccount(string username)
         {
-            if (!auth.VerifyClaims(token, "Admin"))
-            {
-                return "invalid claims/token";
-            }
+
             _UMS = new UMService(new MsSqlUMDAO<User>());
             string validation = _UMS.ValidateUsername(username);
             if (validation != "username exists")
