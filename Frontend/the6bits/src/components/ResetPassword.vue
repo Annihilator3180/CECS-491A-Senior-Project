@@ -1,28 +1,28 @@
 <template>
   <div class="form">
     <h1>
-      Account Recovery
+      Password Reset
     </h1>
     <form method = "get" id = "form1">
-      <label for = "Email"> Email Address: </label><br>
-      <input type = "text" id = "Email" v-model="formData.email" placeholder="Enter Email Address"> <br>
+      <label for = "Password"> Password: </label><br>
+      <input type = "text" id = "Password" v-model="formData.password" placeholder="New Password"> <br>
 
-      <label for = "Username"> Username: </label><br>
-      <input type = "text" id = "Username" v-model="formData.username" placeholder="Enter Username"><br>
+      <label for = "Password2"> Verify Password: </label><br>
+      <input type = "text" id = "Password2" v-model="formData.password2" placeholder="Re-Enter Password"><br>
       </form>
 
-      <button @click = "AccountRecovery"> Recover Account </button>
+      <button @click = "PasswordReset"> Reset Password </button>
   </div>
 </template>
 
 <script>
   export default{
-    name : 'AccountRecovery',
+    name : 'PasswordReset',
     data(){
     return {
       formData : {
-        email: '',
-        username: '',
+        password: '',
+        password2: '',
       },
     }
   },

@@ -2,6 +2,7 @@
     <LoginPost/>
     <OTPPost/>
     <account-recovery/>
+    <reset-password/>
 
 </template>
 
@@ -9,6 +10,7 @@
 import LoginPost from './components/LoginPost.vue'
 import OTPPost from './components/OneTimePass.vue'
 import AccountRecovery from './components/AccountRecovery.vue'
+import ResetPassword from './components/ResetPassword.vue'
 
 
 
@@ -18,6 +20,7 @@ export default {
     LoginPost ,
     OTPPost,
     AccountRecovery,
+    ResetPassword,
   },
 }
 </script>

@@ -288,7 +288,7 @@ public class AccountManager
         
     }
 
-    public string recoverAccount(AccountRecoveryModel arm)
+    public string RecoverAccount(AccountRecoveryModel arm)
     {
         if (_AS.ValidateEmail(arm.Email) == false || _AS.ValidateUsername(arm.Username) == "Invalid Username")
         {
@@ -320,6 +320,7 @@ public class AccountManager
 
         string r = _AS.GenerateRandomString();
         
+        /*
         string email = _AS.SendEmail(arm.Email, "Bit O Health Recovery", "Please click URL within 24 hours to recover your account" +
             "\n https://localhost:7011/Account/ResetPassword?r=" + r + "&u=" + arm.Username);
         
@@ -328,6 +329,7 @@ public class AccountManager
         {
             return email;
         }
+        */
        
         DateTime dateTime = DateTime.Now;
 
@@ -345,19 +347,19 @@ public class AccountManager
             string retry = _AS.SaveActivationCode(arm.Username, dateTime, r, "Recovery");
             if (retry.Contains("Database"))
             {
-                return _iDBErrors.DBErrorCheck(int.Parse(retry));
+                return retry;
             }
         }
         
         return "Recovery Link Sent To Email: " + arm.Email;
     }
-    public string ResetPassword(string u, string r, string p)
+    public string ResetPassword(string username, string randomString, string password)
     {
-        if (!_AS.ValidatePassword(p))
+        if (!_AS.ValidatePassword(password))
         {
             return "invalid password";
         }
-        string validateOTP = _AS.ValidateOTP(u, r);
+        string validateOTP = _AS.ValidateOTP(username, randomString);
         if (validateOTP != "valid")
         {
             if (validateOTP.Contains("Database"))
@@ -370,13 +372,13 @@ public class AccountManager
                 return validateOTP;
             }
         }
-        string sameDay = _AS.VerifySameDay(u, r);
+        string sameDay = _AS.VerifySameDay(username, randomString);
         if (sameDay != "1")
         {
             return _iDBErrors.DBErrorCheck(int.Parse(sameDay));
         }
         
-        string reset = _AS.ResetPassword(p, u);
+        string reset = _AS.ResetPassword(password, username);
         if (reset != "1")
         {
             return _iDBErrors.DBErrorCheck(int.Parse(reset));
