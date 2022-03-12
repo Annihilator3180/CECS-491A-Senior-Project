@@ -2,16 +2,17 @@
 using System.Text;
 using The6Bits.HashAndSaltService.Contract;
 
+
 namespace The6Bits.HashAndSaltService;
 
-public class HashAndSaltService
+public class HashNSaltService 
 {
     private readonly string _keyPath;
     private IHashDao _dao;
 
-    public HashAndSaltService( string path, IHashDao dao)
+    public HashNSaltService(  IHashDao dao)
     {
-        _keyPath = path;
+        _keyPath = Environment.GetEnvironmentVariable("jwt");
         _dao = dao;
     }
     

@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using The6Bits.Authentication.Contract;
 using The6Bits.Authentication.Implementations;
 using The6Bits.Authorization.Contract;
@@ -12,6 +13,7 @@ using The6Bits.Logging.DAL.Contracts;
 using The6Bits.Logging.DAL.Implementations;
 using The6Bits.DBErrors;
 using The6Bits.EmailService;
+using The6Bits.HashAndSaltService;
 using The6Bits.HashAndSaltService.Contract;
 using The6Bits.HashAndSaltService.Implementations;
 using WebAppMVC.Development;
@@ -25,7 +27,7 @@ builder.Services.AddControllers();
 //JSON Config
 builder.Configuration.GetConnectionString("DefaultConnection");
 
-string connstring  = builder.Configuration.GetConnectionString("DefaultConnection");
+var connstring  = builder.Configuration.GetConnectionString("DefaultConnection");
 var Configuration = builder.Configuration;
 
 
@@ -34,22 +36,30 @@ var Configuration = builder.Configuration;
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+builder.Configuration.AddJsonFile("secrets.json");
+
+
 //pass in conn string . IS there a better way to do this?
 builder.Services.AddScoped<IRepositoryUM<User>>(provider => new MsSqlUMDAO<User>(connstring));
 builder.Services.AddScoped<IRepositoryAuth<string>>(provider =>
     new AccountMsSqlDao(connstring));
-builder.Services.AddTransient<IAuthenticationService>(provider => new JWTAuthenticationService(builder.Configuration.GetSection("PKs")["JWT"]));
+builder.Services.AddScoped<IRepositoryMedication<string>>(provider =>
+    new MsSqlMedicationDAO(connstring));
+builder.Services.AddTransient<IDrugDataSet, OpenFDADAO>();
+builder.Services.AddTransient<IAuthenticationService>(provider => new JWTAuthenticationService(builder.Configuration["jwt"]));
 builder.Services.AddTransient<IDBErrors, MsSqlDerrorService>();
+
 builder.Services.AddTransient<ISMTPEmailService, AWSSesService>();
 builder.Services.AddScoped<ILogDal, SQLLogDAO>();
 builder.Services.AddSingleton<IConfiguration>(Configuration);
+builder.Services.AddTransient<HotTopicsService>(provider=>new HotTopicsService("0c0dc5fd4cc641a58578260b7e4815ff"));
 builder.Services.AddScoped<IAuthorizationDao>(provider => new MsSqlRoleAuthorizationDao(connstring));
 builder.Services.AddScoped<IHashDao>(provider=> new MsSqlHashDao(connstring));
 
 
 
 builder.Configuration.AddEnvironmentVariables();
-
 
 
 builder.Services.AddTransient<IRepositoryWeightManagementDao>(provider => new WeightManagementMsSqlDao(connstring));

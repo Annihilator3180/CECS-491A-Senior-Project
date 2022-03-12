@@ -16,7 +16,8 @@ using System.Web;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using The6Bits.EmailService;
-// using The6Bits.BitOHealth.ServiceLayer;
+using The6Bits.HashAndSaltService;
+using The6Bits.HashAndSaltService.Contract;
 
 namespace The6Bits.BitOHealth.ControllerLayer;
 [ApiController]
@@ -34,9 +35,9 @@ public class AccountController : ControllerBase
 
 
     public AccountController(IRepositoryAuth<string> authdao, ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors, 
-        ISMTPEmailService emailService, IConfiguration config)
+        ISMTPEmailService emailService, IConfiguration config, IHashDao hashDao)
     {
-        _AM = new AccountManager(authdao, authenticationService, dbErrors, emailService, config);
+        _AM = new AccountManager(authdao, authenticationService, dbErrors, emailService, config, hashDao);
         logService = new LogService(logDao);
         _dbErrors = dbErrors;
         _EmailService = emailService;
@@ -48,7 +49,7 @@ public class AccountController : ControllerBase
     public string Login(LoginModel acc)
     {
         var remoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
-
+        
 
         //HASH
         //DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
@@ -193,6 +194,7 @@ public class AccountController : ControllerBase
     [HttpGet("VerifyAccount")]
     public string VerifyAccount(String Code, String Username)
     {
+        
         String verfied = _AM.VerifyAccount(Code, Username);
         if (verfied.Contains("Database"))
         {
@@ -204,7 +206,7 @@ public class AccountController : ControllerBase
             logService.Log(Username, "Registration- Email Verified ", "Business", "Information");
             return verfied;
         }
-        logService.Log(Username, "Registration- Email Verified ", "Data Store", "Verified");
+        logService.Log(Username, "Registration- " + verfied, "Business", "Information");
         return verfied;
     }
 
@@ -215,7 +217,6 @@ public class AccountController : ControllerBase
 
         if (isValid)
         {
-            // if usernameExists(username) { return _AM.AcceptEULA(username) } return "invalid username";
             return _AM.AcceptEULA(username);
         }
         return "invalid token";
@@ -228,7 +229,6 @@ public class AccountController : ControllerBase
 
         if (isValid)
         {
-            //check username
             return _AM.DeclineEULA(username);
         }
         return "invalid token";

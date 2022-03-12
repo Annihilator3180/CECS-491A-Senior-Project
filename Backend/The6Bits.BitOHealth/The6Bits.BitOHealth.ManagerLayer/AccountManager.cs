@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using The6Bits.Authorization.Contract;
 using The6Bits.Authorization;
 using The6Bits.Authorization.Implementations;
+using The6Bits.HashAndSaltService;
+using The6Bits.HashAndSaltService.Contract;
 
 namespace The6Bits.BitOHealth.ManagerLayer;
 
@@ -20,15 +22,17 @@ public class AccountManager
     private IDBErrors _iDBErrors;
     private ISMTPEmailService _EmailService;
     private IConfiguration _config;
+    private HashNSaltService _hash;
 
 
 
-    public AccountManager(IRepositoryAuth<string> authdao, IAuthenticationService authenticationService, IDBErrors dbError, ISMTPEmailService email, IConfiguration config)
+    public AccountManager(IRepositoryAuth<string> authdao, IAuthenticationService authenticationService, IDBErrors dbError, ISMTPEmailService email, IConfiguration config, IHashDao dao)
     {
         _iDBErrors = dbError;
         _EmailService = email;
         _auth = authenticationService;
         _config = config;
+        _hash = new HashNSaltService( dao);
         _AS = new AccountService(authdao, dbError, email,config);
     }
 
@@ -103,8 +107,13 @@ public class AccountManager
         //VALIDATE OTP
 
         string otp = _AS.ValidateOTP(acc.Username, acc.Code);
-        
-        
+        if (otp == "valid")
+        {
+            otp = _AS.VerifyTwoMins(acc.Code,acc.Username);
+            string deletePastOtp = _AS.DeletePastOTP(acc.Username, "OTP");
+        }
+
+
         string checkPassword = _AS.CheckPassword(acc.Username, acc.Password);
         
         if (otp != "valid" || checkPassword != "credentials found")
@@ -158,6 +167,7 @@ public class AccountManager
             
 
             //DB ERRORS && INVALID PASS AND OTP RETURN
+
             return otp != "valid" ? otp : checkPassword;
         }
         AuthorizationService authentication = new AuthorizationService(new MsSqlRoleAuthorizationDao(_config.GetConnectionString("DefaultConnection")));
@@ -181,10 +191,17 @@ public class AccountManager
         _AS.DeleteCode(username, "Registration");
         if (DateCheck == "True")
         {
-            return "Account Verified";
+            return DateCheck;
         }
-        return "Code Expired";
+        string activated = _AS.ActivateUser(username);
+        if (activated.Contains("Database"))
+        {
+            return activated;
+        }
+        return "Account Verified";
+        
     }
+
 
 
 
@@ -225,6 +242,11 @@ public class AccountManager
             code+=chars[rnd.Next(0, 62)];
         }
 
+        string em = _EmailService.SendEmailNoReply(email, "ONE TIME PASSWORD", "YOUR ONE TIME PASSWORD IS : " + code);
+        if (em != "email sent")
+        {
+            return "Email Error " + em;
+        }
         
         //SEND CODE
 
@@ -275,6 +297,7 @@ public class AccountManager
         {
             return validUsername;
         }
+        user.Password= _hash.HashAndSalt(user.Password);
         String unactivated = _AS.SaveUnActivatedAccount(user);
         if (unactivated != "Saved")
         {

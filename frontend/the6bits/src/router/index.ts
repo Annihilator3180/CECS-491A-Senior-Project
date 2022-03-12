@@ -6,6 +6,8 @@ import UM from '@/components/UM.vue'
 import CreateGoal from '@/components/WeightManagement/CreateWeightGoal.vue'
 import ResetPassword from '@/components/ResetPassword.vue'
 
+import RegistrationGet from '@/components/Registration.vue'
+import MedSearch from '@/components/MedicationSearch.vue'
 
 import AccountRecovery from '@/components/AccountRecovery.vue'
 const routes: Array<RouteRecordRaw> = [
@@ -43,7 +45,17 @@ const routes: Array<RouteRecordRaw> = [
     path: '/ResetPassword',
     name: 'ResetPassword',
     component: ResetPassword
-  }
+  },
+  {
+    path:'/Registration',
+    name:'Registration' ,
+    component: RegistrationGet
+},
+{
+  path:'/MedicationSearch',
+  name: 'MedSearch',
+  component: MedSearch
+}
 ]
 
 const router = createRouter({

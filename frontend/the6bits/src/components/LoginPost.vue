@@ -3,7 +3,7 @@
         <form @submit.prevent="loginPost">
             <div>
                 <label for="userId">Username </label>
-                <input type="text" id="userId" v-model ="formData.userId" />
+                <input type="text" id="userId" v-model ="formData.userId" placeholder="username"/>
             </div>
             <div>
                 <label for="password">Password </label>
