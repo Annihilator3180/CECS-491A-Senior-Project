@@ -27,7 +27,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = "select MHRecords ";
+                string query = "";
                 return null;
             }
             catch (SqlException ex)
