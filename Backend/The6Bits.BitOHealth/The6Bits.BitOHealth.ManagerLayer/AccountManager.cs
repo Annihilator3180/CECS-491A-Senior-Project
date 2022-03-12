@@ -407,8 +407,9 @@ public class AccountManager
         {
             return _iDBErrors.DBErrorCheck(int.Parse(sameDay));
         }
+        string hash = _hash.HashAndSalt(password);
         
-        string reset = _AS.ResetPassword(password, username);
+        string reset = _AS.ResetPassword(hash, username);
         if (reset != "1")
         {
             return _iDBErrors.DBErrorCheck(int.Parse(reset));
