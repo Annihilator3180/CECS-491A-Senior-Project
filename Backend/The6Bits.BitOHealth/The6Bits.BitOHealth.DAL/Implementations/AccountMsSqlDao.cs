@@ -220,8 +220,8 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = "INSERT INTO VerifyCodes (username, time, code, codetype) " +
-                    "values(@username, @time, @code, @codeType)";
+                string query = "INSERT INTO VerifyCodes (username, codeDate, code, codetype) " +
+                    "values(@username, @codeDate, @code, @codeType)";
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
@@ -230,7 +230,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     new
                     {
                         Username = username,
-                        time = codeDate,
+                        codeDate = codeDate,
                         code = code,
                         codetype = codeType
                     }

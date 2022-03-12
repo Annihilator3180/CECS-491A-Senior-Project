@@ -1,9 +1,11 @@
 <template>
+               
+
     <div class="form">
             <div>
 
                 <label for="Enter a username">Username </label>
-                <input type="text" id="userId" v-model="formData.userId" />
+                <input type="text" id="userId" v-model="formData.userId"/>
             </div>
             <div className="username-description">
                     <p> Enter a usernameMust be 7-15 characters may contain 
@@ -41,6 +43,7 @@
                     </select>
         </div>
         <button @click = "RegistrationGet">Registration</button>
+         {{message}}
     </div>
 </template>
 
@@ -59,10 +62,11 @@
                 FirstName: "",
                 LastName: ""
             },
+            message : '',
         }
     },
     methods:{
-        async RegistrationGet(){
+         Registrationpost(){
             const requestOptions = {
                 method: "post",
                 credentials: 'include',
@@ -71,9 +75,9 @@
                 Email: this.formData.Email, PrivOption: this.formData.PrivOption,isEnabled:0,isAdmin:0,FirstName:this.formData.FirstName, 
                 LastName: this.formData.LastName  })
             };
-            const response= await fetch('https://localhost:7011/Account/Register',requestOptions)
-            const data= await response.json();
-            this.totalVuePackages=data.total;
+            const response= fetch('https://localhost:7011/Account/Register',requestOptions)                
+                .then(response =>  response.text())
+                .then(body => this.message = body)
         }
     }
 }

@@ -35,7 +35,7 @@ public class MedicationController : ControllerBase
     [HttpGet("Search")]
     public string FindDrug(string drugName)
     {
-        string token;
+        /**string token;
         try
         {
             token = Request.Cookies["token"];
@@ -48,7 +48,7 @@ public class MedicationController : ControllerBase
         {
             return "invalid token";
         }
-        //string username = _auth.getUsername(token);
+        string username = _auth.getUsername(token);**/
         List<DrugName> genericdrugNames = _MM.FindDrug(drugName);
         string jsonString = JsonSerializer.Serialize(genericdrugNames);
         return jsonString;

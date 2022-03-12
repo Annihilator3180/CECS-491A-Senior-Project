@@ -6,6 +6,7 @@
                 <input type="text" id="drugName" v-model="formData.drugName" />
             </div>
             <button @click = "FindDrug">Search</button>
+            {{message}}
     </div>
 
 </template>
@@ -17,6 +18,7 @@
             formData :{
                drugName: ""
             },
+             message : '',
         }
     },
     methods:{
@@ -27,7 +29,9 @@
 
             };
             fetch('https://localhost:7011/Medication/Search?drugName='+this.formData.drugName,requestOptions)
-                .then(response => console.log(response))
+                .then(response => console.log(response.json()))
+                .then(body => this.message = body)
+                .then(body =>console.log(body))
         }
     }
 }

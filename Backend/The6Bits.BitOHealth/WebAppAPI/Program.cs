@@ -39,14 +39,12 @@ builder.Services.AddScoped<IRepositoryAuth<string>>(provider =>
 builder.Services.AddScoped<IRepositoryMedication<string>>(provider =>
     new MsSqlMedicationDAO(connstring));
 builder.Services.AddTransient<IDrugDataSet, OpenFDADAO>();
-builder.Services.AddTransient<IAuthenticationService, JWTAuthenticationService>();
 builder.Services.AddTransient<IAuthenticationService>(provider => new JWTAuthenticationService(builder.Configuration.GetSection("PKs")["JWT"]));
 builder.Services.AddTransient<IDBErrors, MsSqlDerrorService>();
 builder.Services.AddTransient<ISMTPEmailService, AWSSesService>();
 builder.Services.AddScoped<ILogDal, SQLLogDAO>();
 builder.Services.AddSingleton<IConfiguration>(Configuration);
 builder.Services.AddScoped<IAuthorizationDao>(provider => new MsSqlRoleAuthorizationDao(connstring));
-
 
 
 
