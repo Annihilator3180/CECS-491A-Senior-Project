@@ -30,7 +30,7 @@ namespace The6Bits.BitOHealth.DAL.Tests
                 Test.IsAdmin = 0;
                 Test.Password = "testPass123!";
                 Test.IsEnabled = 1;
-            Test.privOption = 1;
+                Test.privOption = 1;
                 Stopwatch stopwatch = Stopwatch.StartNew();
                 bool valid = UmDAO.Create(Test);
                 stopwatch.Stop();

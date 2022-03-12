@@ -16,7 +16,7 @@ using System.Web;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using The6Bits.EmailService;
-// using The6Bits.BitOHealth.ServiceLayer;
+using The6Bits.HashAndSaltService;
 
 namespace The6Bits.BitOHealth.ControllerLayer;
 [ApiController]
@@ -30,15 +30,17 @@ public class AccountController : ControllerBase
     private ISMTPEmailService _EmailService;
     private IConfiguration _config;
     private IAuthenticationService _auth;
+    private IHashAndSalt _hash;
     public AccountController(IRepositoryAuth<string> authdao, ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors, 
-        ISMTPEmailService emailService, IConfiguration config)
+        ISMTPEmailService emailService, IConfiguration config, IHashAndSalt hash)
     {
-        _AM = new AccountManager(authdao, authenticationService, dbErrors, emailService, config);
+        _AM = new AccountManager(authdao, authenticationService, dbErrors, emailService, config,hash);
         logService = new LogService(logDao);
         _dbErrors = dbErrors;
         _EmailService = emailService;
         _auth = authenticationService;
         _config = config;
+        _hash = hash;
     }
 
     [HttpPost("Login")]
@@ -70,6 +72,7 @@ public class AccountController : ControllerBase
                 Secure = true,
                 Expires = DateTime.UtcNow.AddDays(14),
                 SameSite = SameSiteMode.None,
+                HttpOnly = true,
             };
             Response.Cookies.Append(
                 "token",
@@ -124,7 +127,7 @@ public class AccountController : ControllerBase
     {
 
         string del =  _AM.DeleteAccount(token);
-        Response.Cookies.Delete(token);
+        Response.Cookies.Delete("token");
         return del;
     }
 
@@ -168,6 +171,7 @@ public class AccountController : ControllerBase
     [HttpGet("VerifyAccount")]
     public string VerifyAccount(String Code, String Username)
     {
+        
         String verfied = _AM.VerifyAccount(Code, Username);
         if (verfied.Contains("Database"))
         {
@@ -179,7 +183,7 @@ public class AccountController : ControllerBase
             logService.Log(Username, "Registration- Email Verified ", "Business", "Information");
             return verfied;
         }
-        logService.Log(Username, "Registration- Email Verified ", "Data Store", "Verified");
+        logService.Log(Username, "Registration- " + verfied, "Business", "Information");
         return verfied;
     }
 
@@ -213,7 +217,7 @@ public class AccountController : ControllerBase
 
     public string AccountRecovery(AccountRecoveryModel arm)
     {
-        string start = _AM.recoverAccount(arm);
+        string start = _AM.RecoverAccount(arm);
 
         if (start.Contains("Database"))
         {
@@ -227,16 +231,16 @@ public class AccountController : ControllerBase
 
     }
     [HttpPost("ResetPassword")]
-    public string ResetPassword(string r, string u, string p)
+    public string ResetPassword(string randomString, string username, string password)
     {
-        string reset = _AM.ResetPassword(u, r, p);
+        string reset = _AM.ResetPassword(username, randomString, password);
 
         if (reset.Contains("Database"))
         {
-            logService.Log(u, " Password Reset ", reset, "Error");
+            logService.Log(username, " Password Reset ", reset, "Error");
             return "Database Error";
         }
-        logService.Log(u, " Password Reset ", "Password Change ", "Information");
+        logService.Log(username, " Password Reset ", "Password Change ", "Information");
 
         return reset;
     }
