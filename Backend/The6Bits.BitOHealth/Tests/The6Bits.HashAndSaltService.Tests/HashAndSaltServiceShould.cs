@@ -14,4 +14,7 @@ public class HashAndSaltServiceShould : TestsBase
         _service = new HashAndSaltService("",new MsSqlHashDao(conn));
     }
     
+    
+    
+    
 }
