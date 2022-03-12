@@ -26,14 +26,12 @@ namespace The6Bits.BitOHealth.ControllerLayer
         private IDBErrors _dBErrors;
         private IConfiguration _config;
         private IAuthenticationService _auth;
-        public DietRecommendationsController(IRepositoryDietRecommendations DietDao, ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors,
-             IConfiguration config)
+        public DietRecommendationsController(IRepositoryDietRecommendations DietDao, ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors)
         {
-            _DRM = new DietRecommendationsManager(DietDao, authenticationService, dbErrors, config);
+            _DRM = new DietRecommendationsManager(DietDao, authenticationService, dbErrors);
             _logService = new LogService(logDao);
             _dBErrors = dbErrors;
             _auth = authenticationService;
-            _config = config;
         }
 
         [HttpGet("Create")]

@@ -16,11 +16,10 @@ namespace The6Bits.BitOHealth.ServiceLayer
         private IDBErrors _DBErrors;
         private IConfiguration _config;
         private IRepositoryDietRecommendations _DietDao;
-        public DietRecommendationsService(IRepositoryDietRecommendations DietDao, IDBErrors DbError,IConfiguration config)
+        public DietRecommendationsService(IRepositoryDietRecommendations DietDao, IDBErrors DbError)
         {
             _DietDao = DietDao; 
             _DBErrors = DbError;
-            _config = config;
         }
 
         public string SaveDietResponses(DietR d)

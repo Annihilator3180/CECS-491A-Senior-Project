@@ -21,12 +21,11 @@ namespace The6Bits.BitOHealth.ManagerLayer
         private IConfiguration _config;
 
 
-        public DietRecommendationsManager(IRepositoryDietRecommendations DietDao, IAuthenticationService authenticationService, IDBErrors dbError, IConfiguration config)
+        public DietRecommendationsManager(IRepositoryDietRecommendations DietDao, IAuthenticationService authenticationService, IDBErrors dbError)
         {
             _iDBErrors = dbError;
             _auth = authenticationService;
-            _config = config;
-            _DRS = new DietRecommendationsService(DietDao, dbError,config);
+            _DRS = new DietRecommendationsService(DietDao, dbError);
             
         }
         public string SaveDietRespones(DietR d)
