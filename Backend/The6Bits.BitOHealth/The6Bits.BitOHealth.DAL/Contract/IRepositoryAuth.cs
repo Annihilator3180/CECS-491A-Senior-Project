@@ -51,6 +51,8 @@ namespace The6Bits.BitOHealth.DAL.Contract
         public string GetTime(string code, string username);
         public string VerifySameDay(string username, string code);
 
+
+        public string VerifyTwoMins(string username, string code);
         public string ResetPassword(string password, string username);
         public string ValidateRecoveryAttempts(string username);
         public string UsernameAndEmailExists(string username, string email);

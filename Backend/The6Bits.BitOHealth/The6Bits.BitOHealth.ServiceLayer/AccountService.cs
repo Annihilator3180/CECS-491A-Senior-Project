@@ -206,6 +206,35 @@ namespace The6Bits.BitOHealth.ServiceLayer
             }
             
         }
+        
+        
+        
+        public string VerifyTwoMins(string code, string username)
+        {
+            String res=_AD.VerifyTwoMins(username,code);
+            if (res == "1")
+            {
+                return "valid";
+            }
+            else if (res == "0")
+            {
+                return "Code Expired";
+            }
+            else
+            {
+               return  _DBErrors.DBErrorCheck(Int32.Parse(res));
+            }
+
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
         public async Task<String> DeleteCode(string username,string codeType)
         {
