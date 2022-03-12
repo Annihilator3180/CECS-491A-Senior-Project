@@ -45,6 +45,8 @@ builder.Services.AddScoped<IAuthorizationDao>(provider => new MsSqlRoleAuthoriza
 
 
 
+builder.Configuration.AddEnvironmentVariables();
+
 
 
 builder.Services.AddTransient<IRepositoryWeightManagementDao>(provider => new WeightManagementMsSqlDao(connstring));
@@ -80,7 +82,6 @@ app.UseCors(x => x
     .AllowAnyHeader()
     .SetIsOriginAllowed(origin => true) // allow any origin
     .AllowCredentials()); // allow credentials
-
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
