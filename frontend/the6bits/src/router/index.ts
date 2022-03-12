@@ -5,6 +5,7 @@ import OTPPost from '@/components/OneTimePass.vue'
 import UM from '@/components/UM.vue'
 import CreateGoal from '@/components/WeightManagement/CreateWeightGoal.vue'
 import ResetPassword from '@/components/ResetPassword.vue'
+import TrackingLog from '@/components/TrackingLog.vue'
 
 import RegistrationGet from '@/components/Registration.vue'
 import MedSearch from '@/components/MedicationSearch.vue'
@@ -30,6 +31,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/UM',
     name: 'UM',
     component: UM
+  },
+  {
+    path: '/getTLogs',
+    name: 'getTLogs',
+    component: TrackingLog
   },
   {
     path: '/AccountRecovery',
