@@ -1,29 +1,30 @@
 <template>
-    <LoginPost/>
+    <!-- <LoginPost/>
     <OTPPost/>
-    <account-recovery/>
+    //<account-recovery/>
+    
+    <medSearch/> -->
     <RegistrationPost/>
-    <medSearch/>
 
 </template>
 
 <script>
-import LoginPost from './components/LoginPost.vue'
+/*import LoginPost from './components/LoginPost.vue'
 import OTPPost from './components/OneTimePass.vue'
-import AccountRecovery from './components/AccountRecovery.vue'
+import AccountRecovery from './components/AccountRecovery.vue'*/
 import RegistrationPost from './components/Registration.vue'
-import MedSearch from './components/MedicationSearch.vue'
+//import MedSearch from './components/MedicationSearch.vue'
 
 
 
 export default {
   name: 'app',
   components: {
-    LoginPost ,
+    /**LoginPost ,
     OTPPost,
-   AccountRecovery,
+   AccountRecovery,**/
     RegistrationPost,
-    MedSearch
+    //MedSearch
   },
 }
 </script>

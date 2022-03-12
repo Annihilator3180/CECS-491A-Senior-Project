@@ -1,22 +1,32 @@
 <template>
     <div class="form">
             <div>
-                <p> Enter a username <br>Must be 7-15 characters<br>may contain <br>lowercase letters <br>uppercase letters <br>numbers <br>special characters . , @ !  </p>
+
                 <label for="Enter a username">Username </label>
                 <input type="text" id="userId" v-model="formData.userId" />
             </div>
-             <div>
-                <label for="First name">First name </label>
-                <input type="text" id="FirstName" v-model="formData.FirstName" />
+            <div className="username-description">
+                    <p> Enter a usernameMust be 7-15 characters may contain 
+                    lowercase letters, uppercase letters, numbers, . , @ !  </p>
             </div>
-            <div>
-                <label for="Enter Last Name">last name </label>
+             <div className="user-name">    
+                <div class="user-name-labels">
+                    <label for="First name">First name </label>
+                    <label for="Enter Last Name">last name </label>
+                    
+                </div>
+                <input type="text" id="FirstName" v-model="formData.FirstName" />
+                
                 <input type="text" id="LastName" v-model="formData.LastName" />
             </div>
-            <div>
-                <p> Enter a password <br>Must be 8-30 characters<br>must contain one of each<br>lowercase letters <br>uppercase letters <br>numbers <br>special characters . , @ !  </p>
+            <div className="password">
+              
                 <label for="password">Password </label>
                 <input type="text" id="password" v-model="formData.password" />
+            </div>
+                                <div className="password-description">
+                <p> Enter a usernameMust be 7-15 characters must contain a
+                lowercase letter, uppercase letter, a number, and one of following symbols . , @ !  </p>
             </div>
             <div>
                 <label for="Enter an email">Email </label>
@@ -52,7 +62,7 @@
         }
     },
     methods:{
-        RegistrationGet(){
+        async RegistrationGet(){
             const requestOptions = {
                 method: "post",
                 credentials: 'include',
@@ -61,16 +71,42 @@
                 Email: this.formData.Email, PrivOption: this.formData.PrivOption,isEnabled:0,isAdmin:0,FirstName:this.formData.FirstName, 
                 LastName: this.formData.LastName  })
             };
-            fetch('https://localhost:7011/Account/Register',requestOptions)
-                .then(response => console.log(response))
+            const response= await fetch('https://localhost:7011/Account/Register',requestOptions)
+            const data= await response.json();
+            this.totalVuePackages=data.total;
         }
     }
 }
 </script>
 
 <style scoped>
-    .form {
+    .form 
+    {
         width: 300px;
-        margin: 0 auto
+        margin: -1 auto
+    }
+    .user-name-labels
+    {
+        width: 70%;
+        max-width: 1000px;
+        display: flex;
+        padding-top: 5%;
+        justify-content: space-between;
+        
+    }
+    .username-description
+    {
+        font-size: 8px;
+    
+    }
+    .password
+    {
+        padding-top:5%;
+        
+    }
+    .password-description{
+    padding-bottom:5%;
+    font-size: 8px;
+        
     }
 </style>
