@@ -189,7 +189,7 @@ public class AccountManager
         }
         String DateCheck = _AS.VerifySameDay(code, username, DateTime.Now);
         _AS.DeleteCode(username, "Registration");
-        if (DateCheck == "True")
+        if (DateCheck != "True")
         {
             return DateCheck;
         }
