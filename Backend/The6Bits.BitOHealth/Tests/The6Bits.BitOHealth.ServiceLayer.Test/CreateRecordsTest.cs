@@ -133,7 +133,7 @@ namespace The6Bits.BitOHealth.ServiceLayer.Test
             //act
             string returnString = _MHS.CreateRecords(recordName, username);
             //assert
-            
+            Assert.Equal("Valid record name", returnString);
 
         }
 
@@ -141,40 +141,40 @@ namespace The6Bits.BitOHealth.ServiceLayer.Test
         public void InvalidCreateRecords()
         {
             //arrange
-
+            string recordName = "";
+            string username = "username";
             //act
-
+            string returnString = _MHS.CreateRecords(recordName, username);
             //assert
-
+            Assert.Equal("Invalid record name. Record name needs to be 1-100 chars long.", returnString);
         }
 
         [Fact]
         public void ValidUploadRecords()
         {
             //arrange
-
+            string FileName = "Test.pdf";
+            string username = "username";
+            string filePath = "C:\\Users\\Owner\\Documents\\";
             //act
-
+            string returnString = _MHS.UploadRecordsWinDao(FileName, username, filePath);
             //assert
-
+            Assert.Equal("Uploaded successful to Win DAO", returnString);
         }
 
         [Fact]
         public void InvalidUploadRecords()
         {
             //arrange
-
+            string FileName = "Test.docx";
+            string username = "username";
+            string filePath = "C:\\Users\\Owner\\Documents\\";
             //act
-
+            string returnString = _MHS.UploadRecordsWinDao(FileName, username, filePath);
             //assert
+            Assert.Equal("Uploaded failed to Win DAO", returnString);
 
         }
-
-
-
-
-
-
 
     }
 }
