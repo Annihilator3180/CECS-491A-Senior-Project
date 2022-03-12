@@ -40,7 +40,8 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = "";
+                string query = "Insert into MHRecords (Username, Records) " +
+                    "values (@Username, @Records)";
                 return null;
             }
             catch (SqlException ex)

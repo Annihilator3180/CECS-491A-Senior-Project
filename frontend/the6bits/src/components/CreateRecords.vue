@@ -26,12 +26,12 @@
         }
     },
     methods:{
-        otpPost(){
+        records(){
             const requestOptions = {
-                method: "POST",
+                method: "GET",
                 credentials: 'include',
             };
-            fetch('https://localhost:7011/Account/CreateRecords' + this.formData.userId ,requestOptions)
+            fetch('https://localhost:7011/Records/CreateRecords' + this.formData.userId ,requestOptions)
                 .then(response => console.log(response))
             // axios
             // .post('https://localhost:7011/Account/Login',{Username : this.formData.userId, Password : this.formData.password, Code:this.formData.otp})
