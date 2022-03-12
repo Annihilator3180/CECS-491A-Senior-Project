@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using The6Bits.Authentication.Contract;
 using The6Bits.Authentication.Implementations;
 using The6Bits.Authorization.Contract;
@@ -36,9 +37,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-
 builder.Configuration.AddJsonFile("secrets.json");
-
 
 
 //pass in conn string . IS there a better way to do this?
@@ -48,7 +47,7 @@ builder.Services.AddScoped<IRepositoryAuth<string>>(provider =>
 builder.Services.AddScoped<IRepositoryMedication<string>>(provider =>
     new MsSqlMedicationDAO(connstring));
 builder.Services.AddTransient<IDrugDataSet, OpenFDADAO>();
-builder.Services.AddTransient<IAuthenticationService>(provider => new JWTAuthenticationService(builder.Configuration.GetSection("PKs")["JWT"]));
+builder.Services.AddTransient<IAuthenticationService>(provider => new JWTAuthenticationService(builder.Configuration["jwt"]));
 builder.Services.AddTransient<IDBErrors, MsSqlDerrorService>();
 
 builder.Services.AddTransient<ISMTPEmailService, AWSSesService>();

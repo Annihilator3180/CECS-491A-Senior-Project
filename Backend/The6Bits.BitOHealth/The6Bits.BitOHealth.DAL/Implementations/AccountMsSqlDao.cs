@@ -247,10 +247,11 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 
         public string ValidateOTP(string username, string code)
         {
-
+            
             try
             {
-                string query = "select count(username) from VerifyCodes where username = @Username AND code = @Code ";
+                string query = "select count(username) from VerifyCodes where username = @Username "+
+                "AND code = @Code " ;
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
@@ -728,6 +729,31 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 return ex.Message;
             }
         }
+
+
+        public string VerifyTwoMins(string username, string code){
+            try
+            {
+                
+                DateTime dt = DateTime.UtcNow;
+                dt = dt.AddMinutes(-2);
+                string query = "select count(username) from VerifyCodes where username = @Username "+
+                               "AND code = @Code AND CodeDate > @Dt" ;
+
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int lines = connection.ExecuteScalar<int>(query, new { Username = username, Code = code, Dt = dt });
+                    return lines.ToString();
+                }
+            }
+            catch (SqlException ex)
+            {
+                return ex.Number.ToString();
+            }
+        }
+
+
         public string ActivateUser(string username)
         {
             try
@@ -752,6 +778,11 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
 
         }
+
+
+
+
+
 
 
 
