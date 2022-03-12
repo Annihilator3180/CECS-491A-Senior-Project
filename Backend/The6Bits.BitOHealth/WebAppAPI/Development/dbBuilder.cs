@@ -7,7 +7,10 @@ namespace WebAppMVC.Development
 
         public bool builAccountdDB(string connStr)
         {
-            var AccountsStr = "If not exists (select name from sysobjects where name = 'Accounts') CREATE TABLE Accounts ( Username VARCHAR(30) NOT NULL, Email VARCHAR(255), Password VARCHAR(30),FirstName VARCHAR(20),LastName VARCHAR(20),IsEnabled BIT, IsAdmin BIT , privOption BIT)";
+            var AccountsStr = "If not exists (select name from sysobjects where name = 'Accounts') " +
+                "CREATE TABLE Accounts ( Username VARCHAR(30) NOT NULL, Email VARCHAR(255), " +
+                "Password VARCHAR(255),FirstName VARCHAR(20),LastName VARCHAR(20),IsEnabled BIT, " +
+                "IsAdmin BIT , privOption BIT)";
             var conn = new SqlConnection(connStr);
             using (SqlCommand command = new SqlCommand(AccountsStr, conn))
             {
@@ -31,7 +34,8 @@ namespace WebAppMVC.Development
         
         public bool buildVerifyCodes(string connStr)
         {
-            var AccountsStr = "If not exists (select name from sysobjects where name = 'VerifyCodes')CREATE TABLE VerifyCodes ( username VARCHAR(30),time DateTime,code VARCHAR(30),codeType VARCHAR(30),primary key(username, codeType)); ";
+            var AccountsStr = "If not exists (select name from sysobjects where name = 'VerifyCodes') CREATE TABLE VerifyCodes ( username VARCHAR(30) NOT NULL, " +
+                "CodeDate DateTime, code VARCHAR(40), codeType VARCHAR(30))";
             var conn = new SqlConnection(connStr);
             using (SqlCommand command = new SqlCommand(AccountsStr, conn))
             {
@@ -52,9 +56,29 @@ namespace WebAppMVC.Development
             }
             return false;
         }
-        public bool buildRecoveryDB(string connStr)
+        
+        public bool buildRecovery(string connStr)
         {
-            var RecoveryStr = "If not exists (select name from sysobjects where name = 'Recovery') CREATE TABLE Recovery ( Username VARCHAR(30) NOT NULL, Email VARCHAR(255) NOT NULL, RecoveryAttempts int)";
+            var RecoverysStr = "If not exists (select name from sysobjects where name = 'Recovery') CREATE TABLE Recovery ( Username VARCHAR(30) NOT NULL," +
+                " email varchar(100), recoveryAttempt DateTime, primary key (username, recoveryAttempt))";
+            var conn = new SqlConnection(connStr);
+            using (SqlCommand command = new SqlCommand(RecoverysStr, conn))
+            {
+                conn.Open();
+                command.ExecuteNonQuery();
+            }
+            return false;
+        }
+
+
+
+
+
+
+
+        public bool buildTrackerLogs(string connStr)
+        {
+            var RecoveryStr = "If not exists (select name from sysobjects where name = 'TrackerLogs') CREATE TABLE TrackerLogs ( count int, dateTime VARCHAR(30), logType VARCHAR(30))";
             var conn = new SqlConnection(connStr);
             using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
             {
@@ -66,14 +90,35 @@ namespace WebAppMVC.Development
 
 
         }
-        public bool buildTrackerLogs(string connStr)
+
+        public bool buildWMGoals(string connStr)
         {
-            var RecoveryStr = "If not exists (select name from sysobjects where name = 'TrackerLogs') CREATE TABLE TrackerLogs ( count int, dateTime VARCHAR(30), logType VARCHAR(30))";
+            var RecoveryStr = "If not exists (select name from sysobjects where name = 'WMGoals') CREATE TABLE WMGoals (Username VARCHAR(30), Goal int)";
             var conn = new SqlConnection(connStr);
             using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
             {
                 conn.Open();
                 command.ExecuteNonQuery();
+            }
+            return false;
+
+
+
+        }
+
+
+        public bool addBossAdmin(string connStr)
+        {
+            var RecoveryStr = "BEGIN IF NOT EXISTS (Select * From Accounts where Username = 'bossadmin12')  " +
+                " BEGIN INSERT  INTO Accounts " +
+            "(Username, Email, Password, FirstName, LastName, IsEnabled, IsAdmin, privOption)"+
+            "values('bossadmin12', 'boof@kizmoz.com', 'JJsZQkSJ1WeC/t0cw+8w093KvafOvQ9umEwRJhZpvnE=.LNdXDlkAGS', 'admin', 'boss', 1, 1,1) " +
+            "END END";
+            var conn = new SqlConnection(connStr);
+            using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
+            {
+                conn.Open();
+                command.ExecuteScalar();
             }
             return false;
 

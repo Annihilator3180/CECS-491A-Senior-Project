@@ -9,10 +9,9 @@ using System.Threading.Tasks;
 using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.BitOHealth.Models;
 using The6Bits.DBErrors;
-
-
 using The6Bits.EmailService;
 using The6Bits.BitOHealth.DAL.Implementations;
+using Microsoft.Extensions.Configuration;
 
 namespace The6Bits.BitOHealth.ServiceLayer
 {
@@ -20,12 +19,15 @@ namespace The6Bits.BitOHealth.ServiceLayer
     {
         private IRepositoryAuth<string> _AD;
         private IDBErrors _DBErrors;
-        private ISMTPEmailServiceShould _EmailService;
-        public AccountService(IRepositoryAuth<string> daotype,IDBErrors DbError, ISMTPEmailServiceShould EmailService)
+        private ISMTPEmailService _EmailService;
+        private IConfiguration _config;
+        public AccountService(IRepositoryAuth<string> daotype,IDBErrors DbError, 
+            ISMTPEmailService EmailService, IConfiguration config)
         {
              _DBErrors= DbError;
             _AD = daotype;
             _EmailService= EmailService;
+            _config = config;
 
 
 
@@ -33,6 +35,8 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
         public AccountService(AccountMsSqlDao accountMsSqlDao)
         {
+            _AD = accountMsSqlDao;
+
         }
 
         public string UsernameExists(string username) 
@@ -143,15 +147,18 @@ namespace The6Bits.BitOHealth.ServiceLayer
         {
             try
             {
-                if ((password.Length >= 8 & password.Length <= 30) & (password.Contains('.') || password.Contains(',') || password.Contains('!') || password.Contains('@')))
+                if ((password.Length >= 8 & password.Length <= 30) & (password.Contains('.') || 
+                    password.Contains(',') || password.Contains('!') || password.Contains('@')))
                 {
-                    password = password.Replace("@", string.Empty).Replace(",", String.Empty).Replace("!", String.Empty).Replace(".", String.Empty);
+                    password = password.Replace("@", string.Empty).Replace(",", String.Empty).Replace("!", 
+                        String.Empty).Replace(".", String.Empty);
                 }
                 else
                 {
                     return false;
                 }
-                return password.All(char.IsLetterOrDigit) && password.Any(char.IsUpper) && password.Any(char.IsLower) && password.Any(char.IsDigit);
+                return password.All(char.IsLetterOrDigit) && password.Any(char.IsUpper) &&
+                    password.Any(char.IsLower) && password.Any(char.IsDigit);
             }
             catch
             {
@@ -162,10 +169,9 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
         public string ValidateUsername(string username)
         {
-            List<char> charsToRemove = new List<char>() { '@', '!', ',', '.' };
-            string usernametest = username.Replace("@", string.Empty).Replace(",", String.Empty).Replace("!", String.Empty).Replace(".", String.Empty);
+            string usernameTest = username.Replace("@", string.Empty).Replace(",", String.Empty).Replace("!", String.Empty).Replace(".", String.Empty);
             String daoResult = _AD.UsernameExists(username);
-            if (!usernametest.All(Char.IsLetterOrDigit) || username.Length > 16 || username.Length <= 6)
+            if (!usernameTest.All(Char.IsLetterOrDigit) || username.Length > 16 || username.Length <= 6)
             {
                 return "Invalid Username";
             }
@@ -179,6 +185,19 @@ namespace The6Bits.BitOHealth.ServiceLayer
             }
 
             return "new username";
+        }
+
+        public string ActivateUser(string username)
+        {
+            String activated = _AD.ActivateUser(username);
+            if (activated == "activated")
+            {
+                return "activated";
+            }
+            else
+            {
+                return _DBErrors.DBErrorCheck(int.Parse(activated));
+            }
         }
 
         public string VerifySameDay(string code, string username, DateTime now)
@@ -200,6 +219,35 @@ namespace The6Bits.BitOHealth.ServiceLayer
             }
             
         }
+        
+        
+        
+        public string VerifyTwoMins(string code, string username)
+        {
+            String res=_AD.VerifyTwoMins(username,code);
+            if (res == "1")
+            {
+                return "valid";
+            }
+            else if (res == "0")
+            {
+                return "Code Expired";
+            }
+            else
+            {
+               return  _DBErrors.DBErrorCheck(Int32.Parse(res));
+            }
+
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
         public async Task<String> DeleteCode(string username,string codeType)
         {
@@ -209,12 +257,12 @@ namespace The6Bits.BitOHealth.ServiceLayer
         public string VerifyAccount(string username)
         {
 
-           string codeinDB = _AD.getCode(username, "Registration");
-            if (codeinDB.Length < 10)
+           string codeInDB = _AD.getCode(username, "Registration");
+            if (codeInDB.Length < 10)
             {
-                return _DBErrors.DBErrorCheck(int.Parse(codeinDB));
+                return _DBErrors.DBErrorCheck(int.Parse(codeInDB));
             }
-            return codeinDB;
+            return codeInDB;
         }
 
         public string ValidateOTP(string username, string code)
@@ -292,10 +340,10 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
         public async Task<string> EmailFailed(User user)
         {
-            String DeletionStatus=_AD.DeleteUnActivated(user);
-            if (DeletionStatus != "1")
+            String deletionStatus=_AD.DeleteUnActivated(user);
+            if (deletionStatus != "1")
             {
-                return _DBErrors.DBErrorCheck(int.Parse(DeletionStatus));
+                return _DBErrors.DBErrorCheck(int.Parse(deletionStatus));
             }
             return "True";
         }
@@ -303,16 +351,18 @@ namespace The6Bits.BitOHealth.ServiceLayer
   
         public string VerifyEmail(string username, string email, DateTime now)
         {
-            String code=Guid.NewGuid().ToString("N");
-            String saveStatus=_AD.SaveActivationCode(username, now, code, "Registration");
+            string code=Guid.NewGuid().ToString("N");
+            string saveStatus=_AD.SaveActivationCode(username, now, code, "Registration");
             if (saveStatus != "Saved")
             {
                 return _DBErrors.DBErrorCheck(int.Parse(saveStatus));
             }
 
-            String Subject = "Verify your account";
-            String Body = "Please use this link to verify your account https://localhost:7011/Account/VerifyAccount?Code=" + code + "&&Username=" + username;
-            String EmailStatus = _EmailService.SendEmail(email,Subject,Body);
+            const string SUBJECT = "Verify your account";
+            string Body = "Please use this link to verify your account "+ 
+                _config.GetSection("URL")["url"] + "/Account/VerifyAccount?Code=" + code +
+                "&&Username=" + username;
+            String EmailStatus = _EmailService.SendEmailNoReply(email,SUBJECT,Body);
             if (EmailStatus != "email sent")
             {
                 return EmailStatus;
@@ -377,7 +427,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
             Random random = new Random();
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefhijklmnopqrstuvwxyz0123456789";
             var builder = new StringBuilder();
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 10;i++)
             {
                 char c = chars[random.Next(chars.Length)];
                 builder.Append(c);
@@ -392,38 +442,54 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
         public string UsernameAndEmailExists(string username, string email)
         {
-            return _AD.UsernameAndEmailExists(username, email);
+            string exists = _AD.UsernameAndEmailExists(username, email);
+            if (exists == "Email and Username found" || exists == "incorrect")
+            {
+                return exists;
+            }
+            return _DBErrors.DBErrorCheck(int.Parse(exists));
         }
 
         public string ValidateRecoveryAttempts(string username)
         {
+
             return _AD.ValidateRecoveryAttempts(username);
         }
 
         public string SendEmail(string email, string subject, string body)
         {
-            SMTPEmailService sMTPEmailService = new SMTPEmailService();
-            return sMTPEmailService.SendEmail(email, subject, body);
+            return _EmailService.SendEmailNoReply(email, subject, body);
         }
 
-        public string UpdateRecoveryAttempts(string username)
+        public string UpdateRecoveryAttempts(string username, DateTime dT)
         {
-            return _AD.UpdateRecoveryAttempts(username);
+           string ura = _AD.UpdateRecoveryAttempts(username, dT);
+           if (ura == "1" || ura == "0")
+            {
+                return ura;
+            }
+            return _DBErrors.DBErrorCheck(int.Parse(ura));
         }
 
         public string VerifySameDay(string username, string code)
         {
+
             string sd = _AD.VerifySameDay(username, code);
             if (sd != "1")
             {
-                return "expired link";
+                return _DBErrors.DBErrorCheck(int.Parse(sd));
             }
             return sd;
 
         }
         public string ResetPassword(string password, string username)
         {
-            return _AD.ResetPassword(password, username);
+            string rp = _AD.ResetPassword(password, username);
+            if (rp != "1")
+            {
+                return _DBErrors.DBErrorCheck(int.Parse(rp));
+            }
+            return rp;
 
         }
 

@@ -1,10 +1,13 @@
 using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
 using System.Reflection;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using System.Web;
+using Microsoft.Extensions.Configuration;
 using The6Bits.Authentication.Contract;
 using The6Bits.BitOHealth.Models;
 
@@ -13,32 +16,33 @@ namespace The6Bits.Authentication.Implementations;
 public class JWTAuthenticationService : IAuthenticationService
 {
 
-    private static string Base64UrlEncode(byte[] input)
+
+    private readonly string _key;
+
+
+    public JWTAuthenticationService(string configuration)
     {
-        var output = Convert.ToBase64String(input);
-        output = output.Split('=')[0]; // Remove any trailing '='s
-        output = output.Replace('+', '-'); // 62nd char of encoding
-        output = output.Replace('/', '_'); // 63rd char of encoding
-        return output;
+        _key = configuration;
     }
 
-    public string generateToken(string data)
+
+
+    public string generateToken(string data, ClaimsIdentity claimsIdentity)
     {
-        DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
-        string p = di.Parent.ToString();
-        string mySecret = File.ReadAllText(Path.GetFullPath(p + @"/Keys/private-key.pem"));
-        //var mySecret = "asdv234234^&%&^%&^hjsdfb2%%%";
-        byte[] keyBytes = Encoding.UTF8.GetBytes(mySecret);
+        byte[] keyBytes = Encoding.UTF8.GetBytes(_key);
         var segments = new List<string>();
 
+        claimsIdentity.AddClaim(new Claim("username", data));
+        claimsIdentity.AddClaim(new Claim("iat", DateTimeOffset.Now.ToUnixTimeSeconds().ToString()));
 
         var header = new { alg = "HS256", typ = "JWT" };
-        var payload = new { username = data, iat = DateTimeOffset.Now.ToUnixTimeSeconds().ToString() };
         byte[] headerBytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(header));
-        byte[] payloadBytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(payload));
+        JwtPayload payload = new JwtPayload(claimsIdentity.Claims);
 
-        segments.Add(Base64UrlEncode(headerBytes));
-        segments.Add(Base64UrlEncode(payloadBytes));
+        byte[] payloadBytes = Encoding.UTF8.GetBytes(payload.SerializeToJson());
+
+        segments.Add(Convert.ToBase64String(headerBytes));
+        segments.Add(Convert.ToBase64String(payloadBytes));
         //segments.Add(Encoding.UTF8.GetString(Base64UrlDecode(BYTE ARRAY OF THE DATA STRING HERE)));
 
         var stringToSign = string.Join(".", segments.ToArray());
@@ -47,7 +51,7 @@ public class JWTAuthenticationService : IAuthenticationService
 
         var sha = new HMACSHA256(keyBytes);
         byte[] signature = sha.ComputeHash(bytesToSign);
-        segments.Add(Base64UrlEncode(signature));
+        segments.Add(Convert.ToBase64String(signature));
 
         return string.Join(".", segments.ToArray());
     }
@@ -57,21 +61,16 @@ public class JWTAuthenticationService : IAuthenticationService
         try
         {
             
-            //DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
-            //string p = di.Parent.ToString();
-            var code = Assembly.GetExecutingAssembly().CodeBase;
-            var root = Path.GetDirectoryName(Uri.UnescapeDataString((new UriBuilder(code)).Path));
-            string key = File.ReadAllText(Path.GetFullPath(root + @"/Keys/private-key.pem"));
 
             var parts = token.Split('.');
             var header = parts[0];
             var payload = parts[1];
-            byte[] crypto = Base64UrlDecode(parts[2]);
+            byte[] crypto = Convert.FromBase64String(parts[2]);
 
 
 
             var bytesToSign = Encoding.UTF8.GetBytes(string.Concat(header, ".", payload));
-            var keyBytes = Encoding.UTF8.GetBytes(key);
+            var keyBytes = Encoding.UTF8.GetBytes(_key);
 
             var sha = new HMACSHA256(keyBytes);
             byte[] signature = sha.ComputeHash(bytesToSign);
@@ -103,33 +102,9 @@ public class JWTAuthenticationService : IAuthenticationService
         return "";
     }
 
-    private static byte[] Base64UrlDecode(string input)
-    {
-        var output = input;
-        output = output.Replace('-', '+'); // 62nd char of encoding
-        output = output.Replace('_', '/'); // 63rd char of encoding
-        switch (output.Length % 4) // Pad with trailing '='s
-        {
-            case 0: break; // No pad chars in this case
-            case 2: output += "=="; break; // Two pad chars
-            case 3: output += "="; break; // One pad char
-            default: throw new System.Exception("Illegal base64url string!");
-        }
-        var converted = Convert.FromBase64String(output); // Standard base64 decoder
-        return converted;
-    }
-
 
     public string getUsername(string token)
     {
-
-        DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
-        //string p = di.Parent.ToString();
-        //string key = File.ReadAllText(Path.GetFullPath(p + @"/Keys/private-key.pem"));
-
-        var code= Assembly.GetExecutingAssembly().CodeBase;
-        var root = Path.GetDirectoryName(Uri.UnescapeDataString((new UriBuilder(code)).Path));
-        string key = File.ReadAllText(Path.GetFullPath(root + @"/Keys/private-key.pem"));
 
         var parts = token.Split('.');
         var header = parts[0];
@@ -139,8 +114,15 @@ public class JWTAuthenticationService : IAuthenticationService
 
         var dataString = Encoding.UTF8.GetString(data);
 
-        var user = JsonSerializer.Deserialize<JwtPayloadModel>(dataString);
-
-       return user.username;
+        var obj = JwtPayload.Deserialize(dataString);
+        foreach (Claim claim in obj.Claims)
+        {
+            if(claim.Type == "username")
+            {
+                return claim.Value; 
+            }
+        }
+        return "";
+     
     }
 }

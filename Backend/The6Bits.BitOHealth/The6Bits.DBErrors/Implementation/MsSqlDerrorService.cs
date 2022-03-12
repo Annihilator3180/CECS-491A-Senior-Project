@@ -24,7 +24,7 @@ namespace The6Bits.DBErrors
             }
             else
             {
-                return "Database Other Error ";
+                return ErrorNumber.ToString()+"Database Other Error ";
             }
         }
     }

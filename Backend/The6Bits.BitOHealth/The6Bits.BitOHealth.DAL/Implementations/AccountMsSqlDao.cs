@@ -127,6 +127,30 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
 
         }
+        public string UpdateRecoveryAttempts(string username, DateTime recoveryAttempt)
+        {
+            try
+            {
+
+                string query = "INSERT Recovery(username,email, recoveryAttempt) values(@username,'angelcueva47@gmail.com', @recoveryAttempt)";
+
+                using (SqlConnection conn = new SqlConnection(_connectString))
+                {
+                    int lines = conn.Execute(query, new { Username = username, recoveryAttempt = recoveryAttempt });;
+                    conn.Close();
+
+                    return lines.ToString();
+
+                }
+
+            }
+            catch (SqlException e)
+            {
+                return e.Number.ToString();
+            }
+        }
+        
+
 
         public User Read(User user)
         {
@@ -196,8 +220,8 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = "INSERT INTO VerifyCodes (username, time, code, codetype) " +
-                    "values(@username, @time, @code, @codeType)";
+                string query = "INSERT INTO VerifyCodes (username, codeDate, code, codetype) " +
+                    "values(@username, @codeDate, @code, @codeType)";
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
@@ -206,7 +230,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     new
                     {
                         Username = username,
-                        time = codeDate,
+                        codeDate = codeDate,
                         code = code,
                         codetype = codeType
                     }
@@ -223,10 +247,11 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 
         public string ValidateOTP(string username, string code)
         {
-
+            
             try
             {
-                string query = "select count(username) from VerifyCodes where username = @Username AND code = @Code ";
+                string query = "select count(username) from VerifyCodes where username = @Username "+
+                "AND code = @Code " ;
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
@@ -353,7 +378,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             try
             {
                 string query = "INSERT into ACCOUNTS(Username,Email,Password,FirstName,LastName,IsEnabled,IsAdmin,privOption) " +
-                               " values (@Username, @Email, @Password, @FirstName,@LastName, 0,0,0) ";
+                                " values (@Username, @Email, @Password, @FirstName,@LastName, 0,0, @privOption) ";
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     int lines_modified = connection.Execute(query,
@@ -364,7 +389,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                             Password = user.Password,
                             FirstName = user.FirstName,
                             LastName = user.LastName,
-                            privOption = user.privOption
+                            privOption=user.privOption
                         });
                     connection.Close();
 
@@ -384,7 +409,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = "Select time FROM VerifyCodes WHERE Username = @Username and code =@code ";
+                string query = "Select CodeDate FROM VerifyCodes WHERE Username = @Username and code =@code ";
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
@@ -521,25 +546,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 return false;
             }
         }
-        public string UpdateRecoveryAttempts(string username)
-        {
-            try
-            {
-                string query = "update Recovery set RecoveryAttempts = RecoveryAttempts + 1 where Username =  @Username";
-
-                using (SqlConnection conn = new SqlConnection(_connectString))
-                {
-                    conn.Open();
-                    int lines = conn.Execute(query, new { Username = username });
-                    return lines.ToString();
-                }
-            }
-            catch (Exception e)
-            {
-                return e.Message;
-            }
-        }
-
+        
 
         public string AcceptEULA(string username)
         {
@@ -598,9 +605,9 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 }
 
             }
-            catch
+            catch (SqlException ex)
             {
-                return "Db error";
+                return ex.Number.ToString();
             }
         }
 
@@ -608,21 +615,24 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = $"select RecoveryAttempts from Recovery where username = '{username}';";
+                string query = "select count(recoveryAttempt) from Recovery where username = @username";
                 using (SqlConnection conn = new SqlConnection(_connectString))
                 {
                     conn.Open();
-                    int recoveryAttempts = conn.ExecuteScalar<int>(query);
+                    int recoveryAttempts = conn.ExecuteScalar<int>(query, new {username = username});
+                    
                     if (recoveryAttempts < 5)
                     {
                         return "under";
                     }
                     return "over";
+                    
+                    //return recoveryAttempts.ToString();
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                return ex.Message;
+                return ex.Number.ToString();
             }
 
 
@@ -632,7 +642,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = "select count(time) from VerifyCodes where Username = @Username and Code = @Code and time >= DATEADD(day, -1, GETDATE())";
+                string query = "select count(CodeDate) from VerifyCodes where Username = @Username and Code = @Code and CodeDate >= DATEADD(day, -1, GETDATE())";
                 using (SqlConnection conn = new SqlConnection(_connectString))
                 {
                     conn.Open();
@@ -640,9 +650,9 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     return time.ToString();
                 }
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
-                return e.Message;
+                return e.Number.ToString();
             }
         }
 
@@ -660,9 +670,9 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 }
 
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                return ex.Message;
+                return ex.Number.ToString();
             }
 
         }
@@ -719,6 +729,61 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 return ex.Message;
             }
         }
+
+
+        public string VerifyTwoMins(string username, string code){
+            try
+            {
+                
+                DateTime dt = DateTime.UtcNow;
+                dt = dt.AddMinutes(-2);
+                string query = "select count(username) from VerifyCodes where username = @Username "+
+                               "AND code = @Code AND CodeDate > @Dt" ;
+
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int lines = connection.ExecuteScalar<int>(query, new { Username = username, Code = code, Dt = dt });
+                    return lines.ToString();
+                }
+            }
+            catch (SqlException ex)
+            {
+                return ex.Number.ToString();
+            }
+        }
+
+
+        public string ActivateUser(string username)
+        {
+            try
+            {
+                string query = "UPDATE Accounts SET IsEnabled = 1 WHERE Username = @Username";
+
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int lines = connection.Execute(query, new
+                    {
+                        Username = username
+                    });
+                }
+
+                return "activated";
+            }
+
+            catch (SqlException ex)
+            {
+                return ex.Number.ToString();
+            }
+
+        }
+
+
+
+
+
+
 
 
     }

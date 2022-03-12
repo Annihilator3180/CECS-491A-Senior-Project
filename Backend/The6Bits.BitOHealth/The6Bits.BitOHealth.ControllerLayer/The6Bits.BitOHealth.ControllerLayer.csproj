@@ -7,6 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Core\**" />
+    <Compile Remove="Features\**" />
+    <EmbeddedResource Remove="Core\**" />
+    <EmbeddedResource Remove="Features\**" />
+    <None Remove="Core\**" />
+    <None Remove="Features\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.AspNetCore.Routing" Version="2.2.2" />
@@ -21,6 +30,7 @@
     <ProjectReference Include="..\The6Bits.BitOHealth.ManagerLayer\The6Bits.BitOHealth.ManagerLayer.csproj" />
     <ProjectReference Include="..\The6Bits.DBErrors\The6Bits.DBErrors.csproj" />
     <ProjectReference Include="..\The6Bits.EmailService\The6Bits.SMTPEmailService.csproj" />
+    <ProjectReference Include="..\The6Bits.HashAndSaltService\The6Bits.HashAndSaltService.csproj" />
   </ItemGroup>
 
 </Project>
