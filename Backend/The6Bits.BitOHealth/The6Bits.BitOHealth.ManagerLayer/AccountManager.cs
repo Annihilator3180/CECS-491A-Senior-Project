@@ -323,7 +323,7 @@ public class AccountManager
         string ra = _AS.UsernameAndEmailExists(arm.Username, arm.Email);
         if (ra.Contains("Database"))
         {
-            return _iDBErrors.DBErrorCheck(int.Parse(ra));
+            return ra;
         }
         else if(ra == "incorrect")
         {
@@ -349,7 +349,7 @@ public class AccountManager
         const string subject = "Bit O Health Recovery";
 
         string body = "Please click this link within 24 hours to recover your account "+
-                "http://192.168.0.2:8080/ResetPassword?randomString=" + randomString + "&username=" + arm.Username;
+                "http://localhost:8080/ResetPassword?randomString=" + randomString + "&username=" + arm.Username;
         
         
         string email = _AS.SendEmail(arm.Email, subject, body);
@@ -394,25 +394,22 @@ public class AccountManager
         {
             if (validateOTP.Contains("Database"))
             {
-                return _iDBErrors.DBErrorCheck(int.Parse(validateOTP));
+                return validateOTP;
 
             }
-            else
-            {
-                return validateOTP;
-            }
+            
         }
         string sameDay = _AS.VerifySameDay(username, randomString);
         if (sameDay != "1")
         {
-            return _iDBErrors.DBErrorCheck(int.Parse(sameDay));
+            return sameDay;
         }
-        string hash = _hash.HashAndSalt(password);
+        string hashPassword = _hash.HashAndSalt(password);
         
-        string reset = _AS.ResetPassword(hash, username);
-        if (reset != "1")
+        string reset = _AS.ResetPassword(hashPassword, username);
+        if (reset.Contains("Database"))
         {
-            return _iDBErrors.DBErrorCheck(int.Parse(reset));
+            return reset;
         }
         return "Account Recovery Completed Successfully";
 

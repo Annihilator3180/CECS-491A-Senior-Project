@@ -25,9 +25,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 //JSON Config
-builder.Configuration.GetConnectionString("Connection2");
+builder.Configuration.GetConnectionString("DefaultConnection");
 
-var connstring  = builder.Configuration.GetConnectionString("Connection2");
+var connstring  = builder.Configuration.GetConnectionString("DefaultConnection");
 var Configuration = builder.Configuration;
 
 
@@ -76,7 +76,7 @@ var archive = new ArchivingController();
 archive.Archive();
 
 var recoveryReset = new RecoveryResetController();
-recoveryReset.ResetRecovery();
+recoveryReset.ResetRecovery(connstring);
 
 
 
