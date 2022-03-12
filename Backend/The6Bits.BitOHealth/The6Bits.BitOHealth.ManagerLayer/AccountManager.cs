@@ -370,7 +370,7 @@ public class AccountManager
             }
         }
         
-        return "Recovery Link Sent To Email: " + arm.Email;
+        return "Recovery Link Sent To Email: " + email;
     }
     public string ResetPassword(string username, string randomString, string password)
     {
