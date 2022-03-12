@@ -5,49 +5,43 @@
     </h1>
     <form method = "get" id = "form1">
       <label for = "Password"> Password: </label><br>
-      <input type = "text" id = "Password" v-model="formData.password" placeholder="New Password"> <br>
+      <input type = "text" name = "Password" v-model="formData.password" placeholder="New Password"> <br>
 
       <label for = "Password2"> Verify Password: </label><br>
-      <input type = "text" id = "Password2" v-model="formData.password2" placeholder="Re-Enter Password"><br>
+      <input type = "text" name = "Password2" v-model="formData.password2" placeholder="Re-Enter Password"><br>
       </form>
 
       <button @click = "PasswordReset"> Reset Password </button>
+      {{message}}
   </div>
 </template>
 
 <script>
+
   export default{
     name : 'PasswordReset',
     data(){
     return {
       formData : {
         password: '',
-        password2: '',
+        username: this.$route.query.username,
+        randomString: this.$route.query.randomString
       },
+      message:"",
     }
   },
   methods:{
-    AccountRecovery(){
+    PasswordReset(){
       const requestOptions = {
         method: "POST",
         credentials : 'include',
-        headers: {"Content-Type": "application/json",
-        'Accept': 'application/json'},
-        body: JSON.stringify(
-        { username : this.formData.username,
-          email : this.formData.email
-          })
       };
-      fetch('https://localhost:7011/Account/Recovery',requestOptions)
+      fetch('https://localhost:7011/Account/ResetPassword?randomString=' + this.formData.randomString + '&username=' + this.formData.username + '&password=' +  this.formData.password,requestOptions)
       
-                .then((response) => {
-                   return response.json();
-                })
-                .then ((myJson) => {
-                  console.log(myJson)
-                  window.alert(myJson)
-                });
-    }
+              .then(response =>  response.text())
+              .then(body => this.message = body) 
+                 }
+  
   }
 }
 </script>

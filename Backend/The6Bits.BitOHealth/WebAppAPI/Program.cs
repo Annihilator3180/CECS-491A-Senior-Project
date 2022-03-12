@@ -58,6 +58,9 @@ var app = builder.Build();
 var archive = new ArchivingController();
 archive.Archive();
 
+var recoveryReset = new RecoveryResetController();
+recoveryReset.ResetRecovery();
+
 
 
 // Configure the HTTP request pipeline.

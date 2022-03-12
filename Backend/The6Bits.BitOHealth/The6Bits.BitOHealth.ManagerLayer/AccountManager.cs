@@ -321,18 +321,22 @@ public class AccountManager
             return "Account Recovery Error";
         }
 
-        string r = _AS.GenerateRandomString();
+        string randomString = _AS.GenerateRandomString();
+
+        const string subject = "Bit O Health Recovery";
+
+        string body = "Please click this link within 24 hours to recover your account "+
+                "http://192.168.0.2:8080/ResetPassword?randomString=" + randomString + "&username=" + arm.Username;
         
-        /*
-        string email = _AS.SendEmail(arm.Email, "Bit O Health Recovery", "Please click URL within 24 hours to recover your account" +
-            "\n https://localhost:7011/Account/ResetPassword?r=" + r + "&u=" + arm.Username);
+        
+        string email = _AS.SendEmail(arm.Email, subject, body);
         
 
         if (email != "email sent") 
         {
             return email;
         }
-        */
+        
        
         DateTime dateTime = DateTime.Now;
 
@@ -343,11 +347,11 @@ public class AccountManager
         {
             return _iDBErrors.DBErrorCheck(int.Parse(updateRecoveryAttempts));
         }
-        string saveCode = _AS.SaveActivationCode(arm.Username, dateTime, r, "Recovery");
+        string saveCode = _AS.SaveActivationCode(arm.Username, dateTime, randomString, "Recovery");
         if (saveCode != "saved")
         {
             _AS.DeletePastOTP(arm.Username, "Recovery");
-            string retry = _AS.SaveActivationCode(arm.Username, dateTime, r, "Recovery");
+            string retry = _AS.SaveActivationCode(arm.Username, dateTime, randomString, "Recovery");
             if (retry.Contains("Database"))
             {
                 return retry;
