@@ -113,6 +113,7 @@ public class AccountManager
             string deletePastOtp = _AS.DeletePastOTP(acc.Username, "OTP");
         }
 
+        acc.Password = _hash.HashAndSalt(acc.Password, _hash.GetSalt(acc.Username));
 
         string checkPassword = _AS.CheckPassword(acc.Username, acc.Password);
         
