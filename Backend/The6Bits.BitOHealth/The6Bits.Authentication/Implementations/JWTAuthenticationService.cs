@@ -17,22 +17,19 @@ public class JWTAuthenticationService : IAuthenticationService
 {
 
 
-    private readonly string _keyPath;
+    private readonly string _key;
 
 
     public JWTAuthenticationService(string configuration)
     {
-        _keyPath = configuration;
+        _key = configuration;
     }
 
 
 
     public string generateToken(string data, ClaimsIdentity claimsIdentity)
     {
-        DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
-        string p = di.Parent.ToString();
-        string mySecret = File.ReadAllText(Path.GetFullPath(p + _keyPath));
-        byte[] keyBytes = Encoding.UTF8.GetBytes(mySecret);
+        byte[] keyBytes = Encoding.UTF8.GetBytes(_key);
         var segments = new List<string>();
 
         claimsIdentity.AddClaim(new Claim("username", data));
@@ -63,13 +60,7 @@ public class JWTAuthenticationService : IAuthenticationService
     {
         try
         {
-
-
-            //DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
-            //string p = di.Parent.ToString();
-            DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
-            string p = di.Parent.ToString();
-            string key = File.ReadAllText(Path.GetFullPath(p + _keyPath));
+            
 
             var parts = token.Split('.');
             var header = parts[0];
@@ -79,7 +70,7 @@ public class JWTAuthenticationService : IAuthenticationService
 
 
             var bytesToSign = Encoding.UTF8.GetBytes(string.Concat(header, ".", payload));
-            var keyBytes = Encoding.UTF8.GetBytes(key);
+            var keyBytes = Encoding.UTF8.GetBytes(_key);
 
             var sha = new HMACSHA256(keyBytes);
             byte[] signature = sha.ComputeHash(bytesToSign);

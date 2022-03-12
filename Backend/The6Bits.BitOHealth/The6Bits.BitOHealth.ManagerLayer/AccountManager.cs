@@ -107,8 +107,13 @@ public class AccountManager
         //VALIDATE OTP
 
         string otp = _AS.ValidateOTP(acc.Username, acc.Code);
-        
-        
+        if (otp == "valid")
+        {
+            otp = _AS.VerifyTwoMins(acc.Code,acc.Username);
+            string deletePastOtp = _AS.DeletePastOTP(acc.Username, "OTP");
+        }
+
+
         string checkPassword = _AS.CheckPassword(acc.Username, acc.Password);
         
         if (otp != "valid" || checkPassword != "credentials found")
@@ -162,6 +167,7 @@ public class AccountManager
             
 
             //DB ERRORS && INVALID PASS AND OTP RETURN
+
             return otp != "valid" ? otp : checkPassword;
         }
         AuthorizationService authentication = new AuthorizationService(new MsSqlRoleAuthorizationDao(_config.GetConnectionString("DefaultConnection")));
@@ -236,6 +242,11 @@ public class AccountManager
             code+=chars[rnd.Next(0, 62)];
         }
 
+        string em = _EmailService.SendEmailNoReply(email, "ONE TIME PASSWORD", "YOUR ONE TIME PASSWORD IS : " + code);
+        if (em != "email sent")
+        {
+            return "Email Error " + em;
+        }
         
         //SEND CODE
 
