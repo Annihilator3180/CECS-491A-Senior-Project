@@ -12,7 +12,6 @@ using The6Bits.Logging.DAL.Contracts;
 using The6Bits.Logging.DAL.Implementations;
 using The6Bits.DBErrors;
 using The6Bits.EmailService;
-using The6Bits.HashAndSaltService.Contract;
 using The6Bits.HashAndSaltService;
 using WebAppMVC.Development;
 
@@ -44,7 +43,7 @@ builder.Services.AddTransient<IDrugDataSet, OpenFDADAO>();
 builder.Services.AddTransient<IAuthenticationService>(provider => new JWTAuthenticationService(builder.Configuration.GetSection("PKs")["JWT"]));
 builder.Services.AddTransient<IDBErrors, MsSqlDerrorService>();
 builder.Services.AddTransient<ISMTPEmailService, AWSSesService>();
-builder.Services.AddTransient<IHashAndSalt, AWSSesService>();
+builder.Services.AddTransient<IHashAndSalt, HashAndSaltService>();
 builder.Services.AddScoped<ILogDal, SQLLogDAO>();
 builder.Services.AddSingleton<IConfiguration>(Configuration);
 builder.Services.AddScoped<IAuthorizationDao>(provider => new MsSqlRoleAuthorizationDao(connstring));

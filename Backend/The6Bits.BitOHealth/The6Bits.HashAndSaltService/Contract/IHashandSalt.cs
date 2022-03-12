@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace The6bits.HashAndSaltService
-{
+namespace The6Bits.HashAndSaltService;
+
     public interface IHashAndSalt
     {
         public string HashAndSalt(string password);
@@ -13,4 +13,4 @@ namespace The6bits.HashAndSaltService
         public string GetSalt(string username);
 
     }
-}
+
