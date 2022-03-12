@@ -8,7 +8,7 @@ import ResetPassword from '@/components/ResetPassword.vue'
 
 import RegistrationGet from '@/components/Registration.vue'
 import MedSearch from '@/components/MedicationSearch.vue'
-
+import viewHT from '@/components/viewHotTopics.vue'
 import AccountRecovery from '@/components/AccountRecovery.vue'
 const routes: Array<RouteRecordRaw> = [
   {
@@ -55,6 +55,11 @@ const routes: Array<RouteRecordRaw> = [
   path:'/MedicationSearch',
   name: 'MedSearch',
   component: MedSearch
+},
+{
+  path:'/HotTopics',
+  name: 'HotTopics',
+  component:viewHT
 }
 ]
 
