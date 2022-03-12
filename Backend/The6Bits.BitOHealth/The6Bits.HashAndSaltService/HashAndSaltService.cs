@@ -1,8 +1,8 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
-using HashAndSaltService.Contract;
+using The6Bits.HashAndSaltService.Contract;
 
-namespace HashAndSaltService;
+namespace The6Bits.HashAndSaltService;
 
 public class HashAndSaltService
 {
@@ -105,7 +105,7 @@ public class HashAndSaltService
         }
         catch
         {
-            //return db error
+            //this returns db error
             return pass;
         }
     }

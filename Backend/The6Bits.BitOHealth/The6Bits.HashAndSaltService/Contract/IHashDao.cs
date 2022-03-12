@@ -1,4 +1,4 @@
-﻿namespace HashAndSaltService.Contract;
+﻿namespace The6Bits.HashAndSaltService.Contract;
 
 public interface IHashDao
 {
