@@ -61,6 +61,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.SMTPEmailService",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "The6Bits.Authentication.Tests", "Tests\The6Bits.Authentication.Tests\The6Bits.Authentication.Tests.csproj", "{FE1CBE8E-4CFE-46E7-AEEB-0F2775D203B1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashAndSaltService", "HashAndSaltService\HashAndSaltService.csproj", "{97955FFB-21D4-44B1-94D2-0527FC0D1DB5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -135,6 +137,10 @@ Global
 		{FE1CBE8E-4CFE-46E7-AEEB-0F2775D203B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE1CBE8E-4CFE-46E7-AEEB-0F2775D203B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE1CBE8E-4CFE-46E7-AEEB-0F2775D203B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97955FFB-21D4-44B1-94D2-0527FC0D1DB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97955FFB-21D4-44B1-94D2-0527FC0D1DB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97955FFB-21D4-44B1-94D2-0527FC0D1DB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97955FFB-21D4-44B1-94D2-0527FC0D1DB5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
