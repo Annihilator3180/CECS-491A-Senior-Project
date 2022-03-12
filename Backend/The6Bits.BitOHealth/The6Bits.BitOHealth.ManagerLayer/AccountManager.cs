@@ -26,13 +26,13 @@ public class AccountManager
 
 
 
-    public AccountManager(IRepositoryAuth<string> authdao, IAuthenticationService authenticationService, IDBErrors dbError, ISMTPEmailService email, IConfiguration config, IHashDao dao)
+    public AccountManager(IRepositoryAuth<string> authdao, IAuthenticationService authenticationService, IDBErrors dbError, ISMTPEmailService email, IConfiguration config, IHashDao dao, string key)
     {
         _iDBErrors = dbError;
         _EmailService = email;
         _auth = authenticationService;
         _config = config;
-        _hash = new HashNSaltService( dao);
+        _hash = new HashNSaltService( dao, key);
         _AS = new AccountService(authdao, dbError, email,config);
     }
 
