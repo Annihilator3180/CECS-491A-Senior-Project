@@ -89,6 +89,41 @@ namespace WebAppMVC.Development
 
         }
 
+        public bool buildWMGoals(string connStr)
+        {
+            var RecoveryStr = "If not exists (select name from sysobjects where name = 'WMGoals') CREATE TABLE WMGoals (Username VARCHAR(30), Goal int)";
+            var conn = new SqlConnection(connStr);
+            using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
+            {
+                conn.Open();
+                command.ExecuteNonQuery();
+            }
+            return false;
+
+
+
+        }
+
+
+        public bool addBossAdmin(string connStr)
+        {
+            var RecoveryStr = "BEGIN IF NOT EXISTS (Select * From Accounts where Username = 'bossadmin12')  " +
+                " BEGIN INSERT  INTO Accounts " +
+            "(Username, Email, Password, FirstName, LastName, IsEnabled, IsAdmin, privOption)"+
+            "values('bossadmin12', 'cbass@gmail.com', 'Password!1', 'admin', 'boss', 1, 1,1) " +
+            "END END";
+            var conn = new SqlConnection(connStr);
+            using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
+            {
+                conn.Open();
+                command.ExecuteScalar();
+            }
+            return false;
+
+
+
+        }
+
 
     }
 }

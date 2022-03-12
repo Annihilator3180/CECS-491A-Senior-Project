@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace The6Bits.BitOHealth.ServiceLayer.Test
+namespace The6Bits.BitOHealth.DAL
 {
-    internal class Class1
+    public interface IRepositoryMedication<T>
     {
+
     }
 }
