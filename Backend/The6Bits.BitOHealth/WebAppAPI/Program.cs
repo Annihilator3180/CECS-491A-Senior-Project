@@ -92,6 +92,7 @@ if (app.Environment.IsDevelopment())
     b.buildRecovery(connstring);
     b.buildWMGoals(connstring);
     b.addBossAdmin(connstring);
+    b.BuildHealthRecorder(connstring);
     //app.UseSwagger();
     //app.UseSwaggerUI();
 }

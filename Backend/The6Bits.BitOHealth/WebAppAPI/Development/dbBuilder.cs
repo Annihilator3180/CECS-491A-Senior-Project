@@ -69,6 +69,18 @@ namespace WebAppMVC.Development
             }
             return false;
         }
+        public bool BuildHealthRecorder(string connStr)
+        {
+            var healthRecorderStr = "If not exists (select name from sysobjects where name = 'HealthRecorder') create table HealthRecorder(record varchar(max)," +
+                "username varchar(30),timeSaved DateTime, categoryName varchar(50), recordName varchar(50))";
+            var conn = new SqlConnection(connStr);
+            using (SqlCommand command = new SqlCommand(healthRecorderStr, conn))
+            {
+                conn.Open();
+                command.ExecuteNonQuery();
+            }
+            return false;
+        }
 
 
 
@@ -125,6 +137,7 @@ namespace WebAppMVC.Development
 
 
         }
+     
 
 
     }

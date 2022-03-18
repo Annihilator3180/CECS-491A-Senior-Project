@@ -11,6 +11,7 @@ using The6Bits.BitOHealth.DAL.Contract;
 
 using The6Bits.Logging.Implementations;
 using The6Bits.Logging.DAL.Contracts;
+using Microsoft.AspNetCore.Http;
 
 namespace The6Bits.BitOHealth.ControllerLayer
 {
@@ -32,10 +33,39 @@ namespace The6Bits.BitOHealth.ControllerLayer
         }
 
         [HttpPost("CreateRecord")]
-
-        public string CreateRecord()
+        //how can you pass 1 or 2 files
+        public string CreateRecord(string recordName, string categoryName, IFormFile file, IFormFile? file2)
         {
+           
+            var test = HttpContext.Request.Form["file"];
+            //starts here
+            string token = "";
+            DateTime dateTime = DateTime.Now;
 
+            try
+            {
+                token = Request.Cookies["token"];
+            }
+            catch
+            {
+                return "No Token";
+            }
+
+            bool isValid = _authentication.ValidateToken(token);
+           
+
+            if (!isValid)
+            {
+                _ = logService.Log("None", "Invalid Token @ Health Recorder", "Info", "Buisness");
+                return "Invalid Token";
+            }
+
+            string username = _authentication.getUsername(token);
+
+            string createRecord = _HRM.CreateRecord(username, dateTime, categoryName, recordName, file, file2);
+            //end here
+           
+            return createRecord;
         }
 
 

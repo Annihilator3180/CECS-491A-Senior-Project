@@ -242,12 +242,13 @@ public class AccountManager
         {
             code+=chars[rnd.Next(0, 62)];
         }
-
+        /*
         string em = _EmailService.SendEmailNoReply(email, "ONE TIME PASSWORD", "YOUR ONE TIME PASSWORD IS : " + code);
         if (em != "email sent")
         {
             return "Email Error " + em;
         }
+        */
         
         //SEND CODE
 
