@@ -59,11 +59,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.DBErrors", "The6Bi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.SMTPEmailService", "The6Bits.EmailService\The6Bits.SMTPEmailService.csproj", "{2AA2FFCB-096E-48F8-A272-C611EC9A39E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "The6Bits.Authentication.Tests", "Tests\The6Bits.Authentication.Tests\The6Bits.Authentication.Tests.csproj", "{FE1CBE8E-4CFE-46E7-AEEB-0F2775D203B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.Authentication.Tests", "Tests\The6Bits.Authentication.Tests\The6Bits.Authentication.Tests.csproj", "{FE1CBE8E-4CFE-46E7-AEEB-0F2775D203B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "The6Bits.HashAndSaltService", "The6Bits.HashAndSaltService\The6Bits.HashAndSaltService.csproj", "{97955FFB-21D4-44B1-94D2-0527FC0D1DB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.HashAndSaltService", "The6Bits.HashAndSaltService\The6Bits.HashAndSaltService.csproj", "{97955FFB-21D4-44B1-94D2-0527FC0D1DB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "The6Bits.HashAndSaltService.Tests", "Tests\The6Bits.HashAndSaltService.Tests\The6Bits.HashAndSaltService.Tests.csproj", "{F2D52A85-D7DB-40E9-909A-C798AAC61B90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.HashAndSaltService.Tests", "Tests\The6Bits.HashAndSaltService.Tests\The6Bits.HashAndSaltService.Tests.csproj", "{F2D52A85-D7DB-40E9-909A-C798AAC61B90}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.URLService", "The6Bits.URLService\The6Bits.URLService.csproj", "{0101C093-5C41-469D-A3D6-AFC308709A0F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.BitOHealth.Demo", "The6Bits.BitOHealth.Demo\The6Bits.BitOHealth.Demo.csproj", "{2EC28E51-E9F2-44C7-8F98-AAE9FF80D1E6}"
+EndProject
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "The6Bits.BitOHealth.API", "The6Bits.BitOHealth.API\The6Bits.BitOHealth.API.fsproj", "{4301858A-1B74-410C-A646-C136E212DB78}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.API", "API\The6Bits.API.csproj", "{363CDEC1-D7CC-4D4B-9205-21EB08BDC378}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -147,6 +155,22 @@ Global
 		{F2D52A85-D7DB-40E9-909A-C798AAC61B90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2D52A85-D7DB-40E9-909A-C798AAC61B90}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2D52A85-D7DB-40E9-909A-C798AAC61B90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0101C093-5C41-469D-A3D6-AFC308709A0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0101C093-5C41-469D-A3D6-AFC308709A0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0101C093-5C41-469D-A3D6-AFC308709A0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0101C093-5C41-469D-A3D6-AFC308709A0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EC28E51-E9F2-44C7-8F98-AAE9FF80D1E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EC28E51-E9F2-44C7-8F98-AAE9FF80D1E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EC28E51-E9F2-44C7-8F98-AAE9FF80D1E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EC28E51-E9F2-44C7-8F98-AAE9FF80D1E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4301858A-1B74-410C-A646-C136E212DB78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4301858A-1B74-410C-A646-C136E212DB78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4301858A-1B74-410C-A646-C136E212DB78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4301858A-1B74-410C-A646-C136E212DB78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{363CDEC1-D7CC-4D4B-9205-21EB08BDC378}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{363CDEC1-D7CC-4D4B-9205-21EB08BDC378}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{363CDEC1-D7CC-4D4B-9205-21EB08BDC378}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{363CDEC1-D7CC-4D4B-9205-21EB08BDC378}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
