@@ -244,10 +244,7 @@ public class AccountManager
         }
 
         string em = _EmailService.SendEmailNoReply(email, "ONE TIME PASSWORD", "YOUR ONE TIME PASSWORD IS : " + code);
-        if (em != "email sent")
-        {
-            return "Email Error " + em;
-        }
+        
         
         //SEND CODE
 
@@ -305,12 +302,8 @@ public class AccountManager
             return unactivated;
         }
         String sentCode = _AS.VerifyEmail(user.Username, user.Email, DateTime.Now);
-        if (sentCode != "True")
-        {
-            _AS.EmailFailed(user);
-            return sentCode;
-        }
-        return "Email Pending Confirmation";
+        
+        return sentCode;
 
         
     }
@@ -356,11 +349,6 @@ public class AccountManager
         string email = _AS.SendEmail(arm.Email, subject, body);
         
 
-        if (email != "email sent") 
-        {
-            return email;
-        }
-        
        
         DateTime dateTime = DateTime.Now;
 
@@ -382,7 +370,7 @@ public class AccountManager
             }
         }
         
-        return "Recovery Link Sent To Email: " + arm.Email;
+        return "Recovery Link Sent To Email: " + email;
     }
     public string ResetPassword(string username, string randomString, string password)
     {

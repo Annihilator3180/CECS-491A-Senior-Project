@@ -28,8 +28,8 @@ namespace The6Bits.EmailService
                 client.EnableSsl = true;
                 try
                 {
-                    client.Send(message);
-                    return "email sent";
+                    //client.Send(message);
+                    return message.Body;
                 }
                 catch (Exception ex)
                 {

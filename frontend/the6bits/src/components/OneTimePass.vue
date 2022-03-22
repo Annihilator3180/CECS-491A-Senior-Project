@@ -1,8 +1,9 @@
 <template>
     <div  class="form">
-        <form  @submit.prevent="TrackerPost">
+        <form  @submit.prevent="otpPost">
             <div >
-                <label   for="userId">racker </label>
+                <label   for="userId">Username </label>
+                <input type="text" id="userId" v-model ="formData.userId" />
             </div>
             <button>Send OTP</button>
                             {{message}}
@@ -12,7 +13,7 @@
 
 <script>
     export default {
-        name : 'TrackingLog',
+        name : 'OTPPost',
         data() {
         return {
             formData :{ 
