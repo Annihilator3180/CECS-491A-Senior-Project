@@ -240,7 +240,27 @@
       "ProjectGuid": "072ba63e-5de3-456e-b94e-8b1339a52c32",
       "DisplayName": "The6Bits.URLService",
       "ColorIndex": 14
+    },
+    "0101c093-5c41-469d-a3d6-afc308709a0f": {
+      "ProjectGuid": "0101c093-5c41-469d-a3d6-afc308709a0f",
+      "DisplayName": "The6Bits.URLService",
+      "ColorIndex": 15
+    },
+    "363cdec1-d7cc-4d4b-9205-21eb08bdc378": {
+      "ProjectGuid": "363cdec1-d7cc-4d4b-9205-21eb08bdc378",
+      "DisplayName": "The6Bits.API",
+      "ColorIndex": 0
+    },
+    "2ec28e51-e9f2-44c7-8f98-aae9ff80d1e6": {
+      "ProjectGuid": "2ec28e51-e9f2-44c7-8f98-aae9ff80d1e6",
+      "DisplayName": "The6Bits.BitOHealth.Demo",
+      "ColorIndex": 1
+    },
+    "9938f0fb-9451-439b-ae2b-a040ce0f8a9a": {
+      "ProjectGuid": "9938f0fb-9451-439b-ae2b-a040ce0f8a9a",
+      "DisplayName": "The6Bits.BitOHealth.API",
+      "ColorIndex": 2
     }
   },
-  "NextColorIndex": 15
+  "NextColorIndex": 3
 }
