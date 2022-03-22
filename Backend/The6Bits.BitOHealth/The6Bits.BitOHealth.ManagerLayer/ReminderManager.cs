@@ -31,5 +31,11 @@ namespace The6Bits.BitOHealth.ManagerLayer
             return _DBErrors.DBErrorCheck(int.Parse(res));
 
         }
+        public string ViewAllReminders()
+        {
+            string res = _RS.ViewAllReminders();
+            return res;
+        }
+
     }
 }

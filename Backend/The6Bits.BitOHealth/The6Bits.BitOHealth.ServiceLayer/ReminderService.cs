@@ -18,7 +18,14 @@ namespace The6Bits.BitOHealth.ServiceLayer
         }
         public string CreateReminder(string username, string name, string description, string date, string time, string repeat)
         {
-            return _Rdao.CreateReminder(username, name, description, date, time, repeat);
+
+            int count = _Rdao.GetCount(username);
+            return _Rdao.CreateReminder(count, username, name, description, date, time, repeat);
+        }
+
+        public string ViewAllReminders()
+        {
+            return _Rdao.ViewAllReminders();
         }
     }
 }

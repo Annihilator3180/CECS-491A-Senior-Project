@@ -17,14 +17,37 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             _connectString = connectstring;
         }
-        public string CreateReminder(string username, string name, string description, string date, string time, string repeat)
+        public int GetCount(string username)
+        {
+            int res = 0;
+            try
+            {
+
+                string query = $"SELECT count(username) FROM Reminders WHERE username = '{username}';";
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    res = connection.ExecuteScalar<int>(query);
+                    if (res == 0)
+                    {
+                        return res;
+                    }
+                }
+                return res;
+            }
+            catch
+            {
+                return res;
+            }
+        }
+        public string CreateReminder(int count, string username, string name, string description, string date, string time, string repeat)
         {
 
             //insert into table
             try
             {
                 //change values
-                String query = $"INSERT INTO Reminders (username, name, description, date, time, repeat) values ('{username}', '{name}', '{description}', '{date}', '{time}', '{repeat}')";
+                String query = $"INSERT INTO Reminders (R_SK, username, name, description, date, time, repeat) values ('{count}', '{username}', '{name}', '{description}', '{date}', '{time}', '{repeat}')";
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
@@ -43,5 +66,11 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
 
         }
+        public string ViewAllReminders()
+        {
+
+            return "";
+        }
+
     }
 }

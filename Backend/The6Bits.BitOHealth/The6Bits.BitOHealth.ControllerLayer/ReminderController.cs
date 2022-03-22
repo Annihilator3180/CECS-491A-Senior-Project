@@ -34,6 +34,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
         [HttpPost("CreateReminder")]
         public string CreateReminder(string name, string description, string date, string time, string repeat)
         {
+            /*
             String token = "";
             try
             {
@@ -49,8 +50,10 @@ namespace The6Bits.BitOHealth.ControllerLayer
                 _ = logservice.Log("None", "Invalid Token - Create Reminder", "Info", "Business");
                 return "Invalid Token";
             }
-
+            
             String username = _authentication.getUsername(token);
+            */
+            String username = "bossadmin12";
             string res = _RM.CreateReminder(username, name, description, date, time, repeat);
 
             if (res.Contains("Database"))
@@ -67,6 +70,41 @@ namespace The6Bits.BitOHealth.ControllerLayer
             _ = logservice.Log(username, "Reminder Created", "Info", "Business");
 
             return res;
+        }
+
+        public string ViewReminder()
+        {
+
+            return "";
+        }
+
+        public string ViewAllReminders()
+        {
+            string s = _RM.ViewAllReminders();
+            string[] subs = s.Split(' ');
+            string holder = "";
+            int counter = 0;
+            foreach (var sub in subs)
+            {
+                if (counter == 0)
+                {
+                    holder = sub;
+                }
+                else if (counter != 0)
+                {
+                    if (counter == 4)
+                    {
+                        holder += "," + sub;
+                        counter = 1;
+                    }
+                    else
+                    {
+                        holder += " " + sub;
+                    }
+                }
+                counter++;
+            }
+            return holder;
         }
     }
 }
