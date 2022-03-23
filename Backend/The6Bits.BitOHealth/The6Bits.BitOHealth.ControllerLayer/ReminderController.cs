@@ -80,7 +80,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
             {
                 string holder = ViewHelper(username);
                 string res = "";
-                string[] subs = holder.Split('.');
+                string[] subs = holder.Split("ENDING");
                 int counter = 1;
                 foreach (var sub in subs)
                 {

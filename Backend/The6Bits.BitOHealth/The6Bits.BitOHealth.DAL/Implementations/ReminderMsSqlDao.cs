@@ -102,7 +102,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     string s = "";
                     foreach (ReminderModel remindermodel in str)
                     {
-                        s += $"{remindermodel.R_SK} {remindermodel.name} {remindermodel.description}";
+                        s += $"{remindermodel.name} {remindermodel.description} {remindermodel.date} {remindermodel.time} {remindermodel.repeat}{"ENDING"}";
 
                     }
 
