@@ -39,7 +39,8 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         }
         public string CreateReminder(int count, string username, string name, string description, string date, string time, string repeat)
         {
-
+            //FIX ME: if description has '.' leave alone, else add '.' to end
+            description = description + ".";
             //insert into table
             try
             {
@@ -63,6 +64,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
 
         }
+
         public string ViewAllReminders(string username)
         {
 
@@ -71,11 +73,36 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
-                    IEnumerable<ReminderModel> str = connection.Query<ReminderModel>($"select * from Reminders;");
+                    IEnumerable<ReminderModel> str = connection.Query<ReminderModel>($"select * from Reminders where username = '{username}';");
                     string s = "";
                     foreach (ReminderModel remindermodel in str)
                     {
-                        s += $" {remindermodel.name} {remindermodel.description}";
+                        s += $"{remindermodel.name}{":"} {remindermodel.description}";
+
+                    }
+
+                    return s;
+
+                }
+            }
+            catch
+            {
+                return "";
+            }
+        }
+
+        public string ViewHelper(string username)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    IEnumerable<ReminderModel> str = connection.Query<ReminderModel>($"select * from Reminders where username = '{username}';");
+                    string s = "";
+                    foreach (ReminderModel remindermodel in str)
+                    {
+                        s += $"{remindermodel.R_SK} {remindermodel.name} {remindermodel.description}";
 
                     }
 

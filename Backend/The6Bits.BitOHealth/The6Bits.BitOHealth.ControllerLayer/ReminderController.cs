@@ -75,22 +75,52 @@ namespace The6Bits.BitOHealth.ControllerLayer
         [HttpPost("ViewReminder")]
         public string ViewReminder(string index)
         {
-            if(index != null)
+            string username = "bossadmin12";
+            if (index != null)
             {
-
+                string holder = ViewHelper(username);
+                string res = "";
+                string[] subs = holder.Split('.');
+                int counter = 1;
+                foreach (var sub in subs)
+                {
+                    if (counter == Int32.Parse(index))
+                    {
+                        return sub;
+                    }
+                    else
+                    {
+                        counter += 1;
+                    }
+                }
+                return "Incorrect index";
             }
             else
             {
+                return ViewAllReminders(username);
 
             }
-            return "";
+        }
+        public string ViewHelper(string username)
+        {
+            return _RM.VewHelper(username);
         }
 
         [HttpPost("ViewAllReminders")]
-        public string ViewAllReminders()
+        public string ViewAllReminders(string username)
         {
-            string s = _RM.ViewAllReminders("bossadmin12");
-            return s;
+            string s = _RM.ViewAllReminders(username);
+            string[] subs = s.Split('.');
+            int counter = 1;
+            string holder = "";
+            foreach (var sub in subs)
+            {
+                holder += counter + "." + sub + ".  ";
+                counter++;
+            }
+            int size = holder.Length - 5;
+            holder = holder.Remove(size);
+            return holder;
         }
     }
 }

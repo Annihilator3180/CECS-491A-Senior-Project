@@ -27,5 +27,10 @@ namespace The6Bits.BitOHealth.ServiceLayer
         {
             return _Rdao.ViewAllReminders(username);
         }
+
+        public string ViewHelper(string username)
+        {
+            return _Rdao.ViewHelper(username);
+        }
     }
 }
