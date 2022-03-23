@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using The6Bits.BitOHealth.DAL.Contract;
+using The6Bits.BitOHealth.Models;
 
 namespace The6Bits.BitOHealth.DAL.Implementations
 {
@@ -28,12 +29,8 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 {
                     connection.Open();
                     res = connection.ExecuteScalar<int>(query);
-                    if (res == 0)
-                    {
-                        return res;
-                    }
+                    return (res + 1);
                 }
-                return res;
             }
             catch
             {
@@ -66,10 +63,30 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
 
         }
-        public string ViewAllReminders()
+        public string ViewAllReminders(string username)
         {
 
-            return "";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    IEnumerable<ReminderModel> str = connection.Query<ReminderModel>($"select * from Reminders;");
+                    string s = "";
+                    foreach (ReminderModel remindermodel in str)
+                    {
+                        s += $" {remindermodel.name} {remindermodel.description}";
+
+                    }
+
+                    return s;
+
+                }
+            }
+            catch
+            {
+                return "";
+            }
         }
 
     }

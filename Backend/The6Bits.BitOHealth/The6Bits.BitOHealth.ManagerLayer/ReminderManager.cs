@@ -31,9 +31,9 @@ namespace The6Bits.BitOHealth.ManagerLayer
             return _DBErrors.DBErrorCheck(int.Parse(res));
 
         }
-        public string ViewAllReminders()
+        public string ViewAllReminders(string username)
         {
-            string res = _RS.ViewAllReminders();
+            string res = _RS.ViewAllReminders(username);
             return res;
         }
 

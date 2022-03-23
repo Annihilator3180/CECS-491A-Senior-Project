@@ -50,7 +50,7 @@ namespace The6Bits.Logging.DAL.Implementations
 
 
                     connection.Open();
-                    IEnumerable<TrackerLog> str = connection.Query<TrackerLog>($"select * from trackerLogs ;");
+                    IEnumerable<TrackerLog> str = connection.Query<TrackerLog>($"select * from trackerLogs;");
                     string s = "";
                     foreach (TrackerLog trackerlog in str)
                     {

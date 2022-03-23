@@ -72,39 +72,25 @@ namespace The6Bits.BitOHealth.ControllerLayer
             return res;
         }
 
-        public string ViewReminder()
+        [HttpPost("ViewReminder")]
+        public string ViewReminder(string index)
         {
+            if(index != null)
+            {
 
+            }
+            else
+            {
+
+            }
             return "";
         }
 
+        [HttpPost("ViewAllReminders")]
         public string ViewAllReminders()
         {
-            string s = _RM.ViewAllReminders();
-            string[] subs = s.Split(' ');
-            string holder = "";
-            int counter = 0;
-            foreach (var sub in subs)
-            {
-                if (counter == 0)
-                {
-                    holder = sub;
-                }
-                else if (counter != 0)
-                {
-                    if (counter == 4)
-                    {
-                        holder += "," + sub;
-                        counter = 1;
-                    }
-                    else
-                    {
-                        holder += " " + sub;
-                    }
-                }
-                counter++;
-            }
-            return holder;
+            string s = _RM.ViewAllReminders("bossadmin12");
+            return s;
         }
     }
 }
