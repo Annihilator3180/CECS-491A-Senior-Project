@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace The6Bits.BitOHealth.ServiceLayer
+namespace The6Bits.BitOHealth.ServiceLayer;
+public class HealthLocatorService
 {
-    internal class Class1
-    {
-    }
+    
 }
