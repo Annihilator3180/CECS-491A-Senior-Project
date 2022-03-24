@@ -34,7 +34,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
         [HttpPost("CreateRecord")]
         //how can you pass 1 or 2 files
-        public string CreateRecord(string recordName, string categoryName, IFormFile file, IFormFile? file2)
+        public string CreateRecord([FromForm]string recordName, [FromForm]string categoryName, IFormFile file, IFormFile? file2)
         {
            
             var test = HttpContext.Request.Form["file"];
