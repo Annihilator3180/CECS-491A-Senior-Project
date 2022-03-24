@@ -54,4 +54,23 @@ public class MedicationController : ControllerBase
         return jsonString;
 
     }
+    public string AddFavorites(string genericName, string brandName, string productID)
+    {
+        string token;
+        try
+        {
+            token = Request.Cookies["token"];
+        }
+        catch
+        {
+            return "invalid token";
+        }
+        if (!_auth.ValidateToken(token))
+        {
+            return "invalid token";
+        }
+        string username = _auth.getUsername(token);
+        DrugName drugName = new DrugName(genericName,productID,brandName);
+        string favoriteAddResult= _MM.addFavorite(drugName, username);
+    }
 }

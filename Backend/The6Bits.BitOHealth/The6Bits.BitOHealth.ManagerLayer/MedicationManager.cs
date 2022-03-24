@@ -34,4 +34,29 @@ public class MedicationManager
         List<DrugName> drugNames = _MS.CheckDuplicates(genericDrugNames, brandDrugNames);
         return drugNames;
     }
+
+    public string addFavorite(DrugName drug, string username)
+    {
+        try
+        {
+            bool isValidCount=_MS.getFavoriteCount(username);
+            if (!isValidCount)
+            {
+                return "Favorite Limit Reached";
+            }
+        }
+        catch(Exception ex)
+        {
+            return "Database Error";
+        }
+        try
+        {
+           _MS.addFavorite(username,drug);
+        }
+        catch (Exception ex)
+        {
+            return "Database Error";
+        }
+        return "Favorited";
+    }
 }

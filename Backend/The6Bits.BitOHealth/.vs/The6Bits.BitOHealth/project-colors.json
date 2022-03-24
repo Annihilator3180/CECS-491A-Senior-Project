@@ -210,7 +210,12 @@
       "ProjectGuid": "5c85ca0c-9442-4807-b053-5a7825cd83eb",
       "DisplayName": "The6Bits.Authorization",
       "ColorIndex": 8
+    },
+    "97955ffb-21d4-44b1-94d2-0527fc0d1db5": {
+      "ProjectGuid": "97955ffb-21d4-44b1-94d2-0527fc0d1db5",
+      "DisplayName": "The6Bits.HashAndSaltService",
+      "ColorIndex": 9
     }
   },
-  "NextColorIndex": 9
+  "NextColorIndex": 10
 }

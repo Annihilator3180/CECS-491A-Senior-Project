@@ -6,7 +6,6 @@ using The6Bits.DBErrors;
 using The6Bits.EmailService;
 using Microsoft.Extensions.Configuration;
 
-
 namespace The6Bits.BitOHealth.ServiceLayer
 {
     public class MedicationService
@@ -65,6 +64,22 @@ namespace The6Bits.BitOHealth.ServiceLayer
             }
             return drugNames;
 
+        }
+
+        public bool addFavorite(string username, DrugName drug)
+        {
+            return _MedicationDao.addFavorite(username, drug);
+        }
+
+        public bool getFavoriteCount(string username)
+        {
+            int favoriteCount = _MedicationDao.getFavoriteCount(username);
+            if (favoriteCount > 9)
+            {
+                return false;
+            }
+            return true;
+                
         }
     }
 }
