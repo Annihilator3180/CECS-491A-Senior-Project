@@ -1,4 +1,6 @@
 using System.Runtime.CompilerServices;
+using FoodAPI;
+using FoodAPI.Contracts;
 using The6Bits.Authentication.Contract;
 using The6Bits.Authentication.Implementations;
 using The6Bits.Authorization.Contract;
@@ -60,6 +62,14 @@ builder.Services.AddScoped<IAuthorizationDao>(provider => new MsSqlRoleAuthoriza
 builder.Services.AddScoped<IHashDao>(provider=> new MsSqlHashDao(connstring));
 
 
+
+//Weight Management
+builder.Services.AddScoped<IFoodAPI<Parsed>, EdamamAPIService<Parsed>>();
+builder.Services.AddHttpClient<EdamamAPIService<Parsed>>();
+builder.Services.AddSingleton(new EdamamConfig {
+    AppKey = builder.Configuration["Edamam_Key"], 
+    AppId = builder.Configuration["Edamam_ID"],
+});
 
 builder.Configuration.AddEnvironmentVariables();
 
