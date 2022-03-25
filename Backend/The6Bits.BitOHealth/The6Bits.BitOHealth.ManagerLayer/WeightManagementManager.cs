@@ -55,5 +55,12 @@ namespace The6Bits.BitOHealth.ManagerLayer
             return await _foodAPI.QueryFoods(queryString);
         }
 
+
+        public async Task<string> UpdateGoal(int goalNum,string username)
+        {
+            return await _WMS.UpdateGoal(goalNum, username);
+        }
+
+
     }
 }

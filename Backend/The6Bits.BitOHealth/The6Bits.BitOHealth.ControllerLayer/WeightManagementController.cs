@@ -88,6 +88,15 @@ namespace The6Bits.BitOHealth.ControllerLayer.Features
 
 
 
+        [HttpGet("UpdateGoal")]
+        public async Task<ActionResult> UpdateGoal(int goalNum, string username)
+        {
+
+            return Ok(await _weightManagementManager.UpdateGoal(goalNum, username));
+
+        }
+
+
 
     }
 }

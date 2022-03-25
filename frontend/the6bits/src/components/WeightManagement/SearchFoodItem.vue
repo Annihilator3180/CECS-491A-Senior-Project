@@ -5,6 +5,20 @@
                 <label for="Search Food">Enter Food : </label>
                 <input type="text" id="food" v-model ="formData.food" />
                 {{message}}
+                <tbody>
+                    <tr v-for="f in formData.foods" :key="f">
+                        <td>{{f.food.label}}</td>
+                        <td>{{f.food.nutrients.enerC_KCAL}}</td>
+                        <td>{{f.food.nutrients.procnt}}</td>
+                        <td>{{f.food.nutrients.fat}}</td>
+                        <td>{{f.food.nutrients.chocdf}}</td>
+                        <td>{{f.food.nutrients.fibtg}}</td>
+
+
+
+                    </tr>
+
+                </tbody>
             </div>
             <button @click = "SearchFood">Search</button>
 
@@ -19,6 +33,7 @@
         return {
             formData :{ 
                 food: '',
+                foods: [],
             },
             message : '',
         }
@@ -32,7 +47,7 @@
             };
             fetch('https://localhost:7011/WeightManagement/SearchFood?queryString=' +this.formData.food ,requestOptions)
                 .then(response =>  response.text())
-                .then(body => this.message = body)
+                .then(body => this.formData.foods = JSON.parse(body))
         }
 
         

@@ -225,7 +225,12 @@
       "ProjectGuid": "fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1",
       "DisplayName": "The6Bits.Authentication.Tests",
       "ColorIndex": 11
+    },
+    "6f5aee68-f998-4a26-8aa8-ac2a7bf0c423": {
+      "ProjectGuid": "6f5aee68-f998-4a26-8aa8-ac2a7bf0c423",
+      "DisplayName": "FoodAPI",
+      "ColorIndex": 12
     }
   },
-  "NextColorIndex": 12
+  "NextColorIndex": 13
 }

@@ -34,6 +34,10 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
         }
 
+        public async Task<string> UpdateGoal(int goalNum, string username)
+        {
+            return _WMD.Update(goalNum, username);
+        }
 
 
 
