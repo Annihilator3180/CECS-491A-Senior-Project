@@ -18,6 +18,7 @@ using The6Bits.EmailService;
 using The6Bits.HashAndSaltService;
 using The6Bits.HashAndSaltService.Contract;
 using The6Bits.HashAndSaltService.Implementations;
+using The6Bits.SMTPEmailService.Implementation;
 using WebAppMVC.Development;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -71,6 +72,16 @@ builder.Services.AddSingleton(new EdamamConfig {
     AppId = builder.Configuration["Edamam_ID"],
 });
 
+
+
+//SES
+
+builder.Services.AddSingleton(new SESConfig()
+{
+    SMTP_USERNAME = builder.Configuration["AWSUser"],
+    SMTP_PASSWORD = builder.Configuration["AWSPass"],
+
+});
 builder.Configuration.AddEnvironmentVariables();
 
 
