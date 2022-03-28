@@ -5,12 +5,14 @@ import OTPPost from '@/components/OneTimePass.vue'
 import UM from '@/components/UM.vue'
 import CreateGoal from '@/components/WeightManagement/CreateWeightGoal.vue'
 import ResetPassword from '@/components/ResetPassword.vue'
+import TrackingLog from '@/components/TrackingLog.vue'
 
 import RegistrationPost from '@/components/Registration.vue'
 import MedSearch from '@/components/MedicationSearch.vue'
 import viewHT from '@/components/viewHotTopics.vue'
 import AccountRecovery from '@/components/AccountRecovery.vue'
 import CreateRecords from '@/components/CreateRecords.vue'
+import SearchFood from '@/components/WeightManagement/SearchFoodItem.vue'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -31,6 +33,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/UM',
     name: 'UM',
     component: UM
+  },
+  {
+    path: '/getTLogs',
+    name: 'getTLogs',
+    component: TrackingLog
   },
   {
     path: '/AccountRecovery',
@@ -66,7 +73,12 @@ const routes: Array<RouteRecordRaw> = [
   path:'/CreateRecords',
   name: 'CreateRecords',
   component:CreateRecords
-}
+},
+{
+  path: '/SearchFood',
+  name: 'SearchFood',
+  component: SearchFood
+},
 ]
 
 const router = createRouter({

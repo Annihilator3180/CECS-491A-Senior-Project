@@ -1,231 +1,56 @@
 {
   "Version": 1,
   "ProjectMap": {
-    "56ab64f0-28a5-4502-bced-414a4476ec77": {
-      "ProjectGuid": "56ab64f0-28a5-4502-bced-414a4476ec77",
-      "DisplayName": "The6Bits.Logging",
-      "ColorIndex": 0
-    },
-    "a6baa465-d55d-4675-a0aa-43a23cd28f9c": {
-      "ProjectGuid": "a6baa465-d55d-4675-a0aa-43a23cd28f9c",
-      "DisplayName": "The6Bits.Logging.Tests",
-      "ColorIndex": 1
-    },
-    "435e8a39-7e58-49c2-9544-c774c969da20": {
-      "ProjectGuid": "435e8a39-7e58-49c2-9544-c774c969da20",
-      "DisplayName": "The6Bits.BitOHealth.DAL",
-      "ColorIndex": 2
-    },
-    "3e3a7cd8-b760-4342-b6a0-04dc6e9e2f1b": {
-      "ProjectGuid": "3e3a7cd8-b760-4342-b6a0-04dc6e9e2f1b",
-      "DisplayName": "Managers",
-      "ColorIndex": 3
-    },
-    "a144f31f-27d8-4811-b108-6f24d73400a7": {
-      "ProjectGuid": "a144f31f-27d8-4811-b108-6f24d73400a7",
-      "DisplayName": "The6Bits.BitOHealth.ManagerLayer",
-      "ColorIndex": 4
-    },
-    "33862884-aaf5-4a55-a9d3-b3c0dccf3449": {
-      "ProjectGuid": "33862884-aaf5-4a55-a9d3-b3c0dccf3449",
-      "DisplayName": "The6Bits.BitOHealth.ControllerLayer",
-      "ColorIndex": 5
-    },
-    "163b4aca-fc98-4d80-a7b9-f61bf753ce90": {
-      "ProjectGuid": "163b4aca-fc98-4d80-a7b9-f61bf753ce90",
-      "DisplayName": "The6Bits.Logging.Manager",
-      "ColorIndex": 6
-    },
-    "6d4e270e-a74b-4615-8a64-64decb8865f1": {
-      "ProjectGuid": "6d4e270e-a74b-4615-8a64-64decb8865f1",
-      "DisplayName": "The6Bits.Logging.Tests",
-      "ColorIndex": 7
-    },
-    "54b24c94-87dc-4b48-b133-2e9e29ff1b81": {
-      "ProjectGuid": "54b24c94-87dc-4b48-b133-2e9e29ff1b81",
-      "DisplayName": "The6Bits.BitOHealth.ServiceLayer",
-      "ColorIndex": 8
-    },
-    "2f0a5a06-b58d-46b2-a2ce-0370f1a46e71": {
-      "ProjectGuid": "2f0a5a06-b58d-46b2-a2ce-0370f1a46e71",
-      "DisplayName": "The6Bits.BitOHealth.DAL",
-      "ColorIndex": 9
-    },
-    "2439e255-e821-40c6-b416-f8b1a86d0251": {
-      "ProjectGuid": "2439e255-e821-40c6-b416-f8b1a86d0251",
-      "DisplayName": "Controllers",
-      "ColorIndex": 10
-    },
-    "03463b54-4a54-4422-8c7c-d59cc07d1ad6": {
-      "ProjectGuid": "03463b54-4a54-4422-8c7c-d59cc07d1ad6",
-      "DisplayName": "Managers",
-      "ColorIndex": 11
-    },
-    "d7327072-6523-48c9-8198-f4b48c666604": {
-      "ProjectGuid": "d7327072-6523-48c9-8198-f4b48c666604",
-      "DisplayName": "The6Bits.BitOHealth.ControllerLayer",
-      "ColorIndex": 12
-    },
-    "e536d54f-fda6-4962-9086-3da3c06b3d9c": {
-      "ProjectGuid": "e536d54f-fda6-4962-9086-3da3c06b3d9c",
-      "DisplayName": "WindowsFormsApp1",
-      "ColorIndex": 13
-    },
-    "7e8b630e-9460-4545-81a0-9226dec38766": {
-      "ProjectGuid": "7e8b630e-9460-4545-81a0-9226dec38766",
-      "DisplayName": "Solution Items",
-      "ColorIndex": 14
-    },
-    "445216f7-730f-4498-9e75-fc687bea775f": {
-      "ProjectGuid": "445216f7-730f-4498-9e75-fc687bea775f",
-      "DisplayName": "The6Bits.BitOHealth.ManagerLayer",
-      "ColorIndex": 15
-    },
-    "2893112d-af13-4e02-bc7c-041f6b8df95b": {
-      "ProjectGuid": "2893112d-af13-4e02-bc7c-041f6b8df95b",
-      "DisplayName": "The6Bits.BitOHealth.DAL.Tests",
-      "ColorIndex": 0
-    },
     "341827c8-53ae-4f45-a74d-27e2efcf1c73": {
       "ProjectGuid": "341827c8-53ae-4f45-a74d-27e2efcf1c73",
       "DisplayName": "The6Bits.BitOHealth.Models",
-      "ColorIndex": 1
-    },
-    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
-      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
-      "DisplayName": "Miscellaneous Files",
-      "ColorIndex": -1
-    },
-    "af19ac61-c862-4a74-8caf-b92cf6a99452": {
-      "ProjectGuid": "af19ac61-c862-4a74-8caf-b92cf6a99452",
-      "DisplayName": "The6Bits.BitOHealth.DAL",
-      "ColorIndex": 2
-    },
-    "da32fad8-b48d-40b6-84ef-d8f192b1e517": {
-      "ProjectGuid": "da32fad8-b48d-40b6-84ef-d8f192b1e517",
-      "DisplayName": "The6Bits.BitOHealth.WebAPI",
-      "ColorIndex": 3
-    },
-    "58570285-e2fc-4bda-9e85-f922b5071f3a": {
-      "ProjectGuid": "58570285-e2fc-4bda-9e85-f922b5071f3a",
-      "DisplayName": "The6Bits.BitOHealth.API",
-      "ColorIndex": 4
-    },
-    "4b581ca6-51c5-408a-9cbd-933e779412d6": {
-      "ProjectGuid": "4b581ca6-51c5-408a-9cbd-933e779412d6",
-      "DisplayName": "The6Bits.BitOHealth.WebAPI",
-      "ColorIndex": 5
-    },
-    "10305673-fc2b-45ca-a4ab-4684ebe6afb4": {
-      "ProjectGuid": "10305673-fc2b-45ca-a4ab-4684ebe6afb4",
-      "DisplayName": "The6Bits.Logging.DAL",
-      "ColorIndex": 6
-    },
-    "d79c8cd7-e325-41e1-bd71-5ffcefff0b6d": {
-      "ProjectGuid": "d79c8cd7-e325-41e1-bd71-5ffcefff0b6d",
-      "DisplayName": "The6Bits.Logging.Models",
-      "ColorIndex": 7
-    },
-    "49d89a92-3a2d-486e-839f-e3327257b35a": {
-      "ProjectGuid": "49d89a92-3a2d-486e-839f-e3327257b35a",
-      "DisplayName": "The6Bits.BitOHealth.Archiving",
-      "ColorIndex": 8
-    },
-    "53c24895-bc8a-4ab4-bef1-b0cd483fbe50": {
-      "ProjectGuid": "53c24895-bc8a-4ab4-bef1-b0cd483fbe50",
-      "DisplayName": "The6Bits.BitOHealth.Authorization",
-      "ColorIndex": 9
-    },
-    "76154a5c-0843-4cf7-81a7-f7df3123fb64": {
-      "ProjectGuid": "76154a5c-0843-4cf7-81a7-f7df3123fb64",
-      "DisplayName": "The6BitsOHealth.Authorization.Tests",
-      "ColorIndex": 10
-    },
-    "1b83558a-43d4-422a-9ee9-9132fc3b581a": {
-      "ProjectGuid": "1b83558a-43d4-422a-9ee9-9132fc3b581a",
-      "DisplayName": "The6Bits.BitOHealth.Authorization.Tests",
-      "ColorIndex": 11
-    },
-    "69b5c933-77b8-46f5-9a28-217483f8032e": {
-      "ProjectGuid": "69b5c933-77b8-46f5-9a28-217483f8032e",
-      "DisplayName": "The6Bits.BitOHealth.ServiceLayer.Tests",
-      "ColorIndex": 12
-    },
-    "1166ba7c-a3a8-4c86-b9b4-86591743597d": {
-      "ProjectGuid": "1166ba7c-a3a8-4c86-b9b4-86591743597d",
-      "DisplayName": "The6Bits.BitOHealth.Demo",
-      "ColorIndex": 13
-    },
-    "a5578da2-0cf4-403e-9247-80ace57ef89b": {
-      "ProjectGuid": "a5578da2-0cf4-403e-9247-80ace57ef89b",
-      "DisplayName": "The6Bits.Authorization.Tests",
-      "ColorIndex": 14
-    },
-    "5a8cc4c0-a900-478c-8320-a3565336a2ce": {
-      "ProjectGuid": "5a8cc4c0-a900-478c-8320-a3565336a2ce",
-      "DisplayName": "The6Bits.DBErrors",
-      "ColorIndex": 15
-    },
-    "dd54b656-0f37-4227-8469-f21c9d44dd52": {
-      "ProjectGuid": "dd54b656-0f37-4227-8469-f21c9d44dd52",
-      "DisplayName": "The6Bits.DBErrors",
       "ColorIndex": 0
-    },
-    "2f46774b-4c38-4202-9ff8-522280b27b7a": {
-      "ProjectGuid": "2f46774b-4c38-4202-9ff8-522280b27b7a",
-      "DisplayName": "The6Bits.BitOHealth.DAL.Tests",
-      "ColorIndex": 1
-    },
-    "119ce180-1661-4091-91e6-acbe39d37091": {
-      "ProjectGuid": "119ce180-1661-4091-91e6-acbe39d37091",
-      "DisplayName": "The6Bits.BitOHealth.ServiceLayer.Test",
-      "ColorIndex": 2
-    },
-    "b9e84952-e4b2-48bb-a7cd-89197f6b5a77": {
-      "ProjectGuid": "b9e84952-e4b2-48bb-a7cd-89197f6b5a77",
-      "DisplayName": "The6Bits.Authorization.Tests",
-      "ColorIndex": 3
-    },
-    "132f4ef6-f6af-4a9b-8c30-ba5a0e912648": {
-      "ProjectGuid": "132f4ef6-f6af-4a9b-8c30-ba5a0e912648",
-      "DisplayName": "WebAppAPI",
-      "ColorIndex": 4
-    },
-    "2aa2ffcb-096e-48f8-a272-c611ec9a39e1": {
-      "ProjectGuid": "2aa2ffcb-096e-48f8-a272-c611ec9a39e1",
-      "DisplayName": "The6Bits.SMTPEmailService",
-      "ColorIndex": 5
-    },
-    "6baa515f-55e7-4ba9-9150-a36b473de2c1": {
-      "ProjectGuid": "6baa515f-55e7-4ba9-9150-a36b473de2c1",
-      "DisplayName": "TestData",
-      "ColorIndex": 6
-    },
-    "cc1e728b-e33d-45d5-999b-55acd879391c": {
-      "ProjectGuid": "cc1e728b-e33d-45d5-999b-55acd879391c",
-      "DisplayName": "The6Bits.Authentication",
-      "ColorIndex": 7
-    },
-    "5c85ca0c-9442-4807-b053-5a7825cd83eb": {
-      "ProjectGuid": "5c85ca0c-9442-4807-b053-5a7825cd83eb",
-      "DisplayName": "The6Bits.Authorization",
-      "ColorIndex": 8
-    },
-    "d5e79cb9-fce4-43f6-97d0-b19d4ea953f5": {
-      "ProjectGuid": "d5e79cb9-fce4-43f6-97d0-b19d4ea953f5",
-      "DisplayName": "MapAPI",
-      "ColorIndex": 9
-    },
-    "002f303e-9f86-42f9-9efd-b336267f12ef": {
-      "ProjectGuid": "002f303e-9f86-42f9-9efd-b336267f12ef",
-      "DisplayName": "Contracts",
-      "ColorIndex": 10
     },
     "ba688079-14db-470d-a656-7f4983299c1c": {
       "ProjectGuid": "ba688079-14db-470d-a656-7f4983299c1c",
       "DisplayName": "Implementations",
-      "ColorIndex": 11
+      "ColorIndex": 1
+    },
+    "002f303e-9f86-42f9-9efd-b336267f12ef": {
+      "ProjectGuid": "002f303e-9f86-42f9-9efd-b336267f12ef",
+      "DisplayName": "Contracts",
+      "ColorIndex": 2
+    },
+    "d5e79cb9-fce4-43f6-97d0-b19d4ea953f5": {
+      "ProjectGuid": "d5e79cb9-fce4-43f6-97d0-b19d4ea953f5",
+      "DisplayName": "MapAPI",
+      "ColorIndex": 3
+    },
+    "d7327072-6523-48c9-8198-f4b48c666604": {
+      "ProjectGuid": "d7327072-6523-48c9-8198-f4b48c666604",
+      "DisplayName": "The6Bits.BitOHealth.ControllerLayer",
+      "ColorIndex": 4
+    },
+    "445216f7-730f-4498-9e75-fc687bea775f": {
+      "ProjectGuid": "445216f7-730f-4498-9e75-fc687bea775f",
+      "DisplayName": "The6Bits.BitOHealth.ManagerLayer",
+      "ColorIndex": 5
+    },
+    "54b24c94-87dc-4b48-b133-2e9e29ff1b81": {
+      "ProjectGuid": "54b24c94-87dc-4b48-b133-2e9e29ff1b81",
+      "DisplayName": "The6Bits.BitOHealth.ServiceLayer",
+      "ColorIndex": 6
+    },
+    "af19ac61-c862-4a74-8caf-b92cf6a99452": {
+      "ProjectGuid": "af19ac61-c862-4a74-8caf-b92cf6a99452",
+      "DisplayName": "The6Bits.BitOHealth.DAL",
+      "ColorIndex": 7
+    },
+    "132f4ef6-f6af-4a9b-8c30-ba5a0e912648": {
+      "ProjectGuid": "132f4ef6-f6af-4a9b-8c30-ba5a0e912648",
+      "DisplayName": "WebAppAPI",
+      "ColorIndex": 8
+    },
+    "119ce180-1661-4091-91e6-acbe39d37091": {
+      "ProjectGuid": "119ce180-1661-4091-91e6-acbe39d37091",
+      "DisplayName": "The6Bits.BitOHealth.ServiceLayer.Test",
+      "ColorIndex": 9
     }
   },
-  "NextColorIndex": 12
+  "NextColorIndex": 10
 }

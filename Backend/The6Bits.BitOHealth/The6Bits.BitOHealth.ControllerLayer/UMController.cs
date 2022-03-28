@@ -50,18 +50,20 @@ namespace The6Bits.BitOHealth.ControllerLayer
         //specify form body
         public string CreateAccount(User u)
         {
-            string token = "";
+            isValid = _authentication.ValidateToken(Request.Cookies["token"]);
 
-            isValid = _authentication.ValidateToken(token);
-            
-            if (!isValid)
+
+            if (isValid)
             {
 
-                string adminUsername = "dsa";
-                //if (!_authorization.VerifyClaim(token, "IsAdmin")){
-                //    logService.Log(adminUsername, "Account creation-Claims Denied", "Info", "Business");
-                //    return "InvalidClaims";
-                //}
+                string token = Request.Cookies["token"];
+
+                string adminUsername = _authentication.getUsername(token);
+                if (!_authorization.VerifyClaim(token, "IsAdmin"))
+                {
+                    logService.Log(adminUsername, "Account creation-Claims Denied", "Info", "Business");
+                    return "InvalidClaims";
+                }
                 
                 
                 string res = _UMM.CreateAccount(u);

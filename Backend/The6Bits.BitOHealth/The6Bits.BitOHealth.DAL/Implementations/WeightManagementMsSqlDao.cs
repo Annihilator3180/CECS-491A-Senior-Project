@@ -89,6 +89,34 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
         }
 
+        public string Update(int goalNum, string username)
+        {
+            string query = "UPDATE WMGoals SET Goal = @Goal where Username = @Username";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int count = connection.Execute(query, 
+                    new
+                    {
+                        Goal = goalNum,
+                        Username = username
+                    });
+                    if (count != 0)
+                    {
+                        return "udpated Weight Goal";
+                    }
+
+                    return "Weight Goal not updated";
+                }
+            }
+            catch (SqlException ex)
+            {
+                return ex.Number.ToString();
+            }
+        }
+
 
     }
 }

@@ -6,9 +6,6 @@
     <form method = "get" id = "form1">
       <label for = "Password"> Password: </label><br>
       <input type = "text" name = "Password" v-model="formData.password" placeholder="New Password"> <br>
-
-      <label for = "Password2"> Verify Password: </label><br>
-      <input type = "text" name = "Password2" v-model="formData.password2" placeholder="Re-Enter Password"><br>
       </form>
 
       <button @click = "PasswordReset"> Reset Password </button>

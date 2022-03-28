@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FoodAPI;
+using FoodAPI.Contracts;
 using The6Bits.BitOHealth.DAL;
+using The6Bits.BitOHealth.Models;
 using The6Bits.BitOHealth.ServiceLayer;
 using The6Bits.DBErrors;
+using System.Collections.Generic;
+
 
 namespace The6Bits.BitOHealth.ManagerLayer
 {
@@ -16,11 +21,15 @@ namespace The6Bits.BitOHealth.ManagerLayer
         private IRepositoryWeightManagementDao _dao;
         private WeightManagementService _WMS;
         private IDBErrors _dbErrors;
-        public WeightManagementManager(IRepositoryWeightManagementDao dao, IDBErrors dbErrors)
+        private readonly IFoodAPI<Parsed> _foodAPI;
+
+
+        public WeightManagementManager(IRepositoryWeightManagementDao dao, IDBErrors dbErrors, IFoodAPI<Parsed> foodApiService)
         {
             _dao = dao;
             _WMS = new WeightManagementService(dao);
             _dbErrors = dbErrors;
+            _foodAPI = foodApiService;
         }
 
         public string CreateGoal(int goalNum, string username)
@@ -38,6 +47,20 @@ namespace The6Bits.BitOHealth.ManagerLayer
             return res;
 
         }
+
+
+
+        public async Task<IEnumerable<Parsed>> SearchFood(string queryString)
+        {
+            return await _foodAPI.QueryFoods(queryString);
+        }
+
+
+        public async Task<string> UpdateGoal(int goalNum,string username)
+        {
+            return await _WMS.UpdateGoal(goalNum, username);
+        }
+
 
     }
 }
