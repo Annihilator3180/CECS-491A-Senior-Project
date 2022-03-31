@@ -1,3 +1,6 @@
+using System.Runtime.CompilerServices;
+using FoodAPI;
+using FoodAPI.Contracts;
 using The6Bits.Authentication.Contract;
 using The6Bits.Authentication.Implementations;
 using The6Bits.Authorization.Contract;
@@ -15,6 +18,7 @@ using The6Bits.EmailService;
 using The6Bits.HashAndSaltService;
 using The6Bits.HashAndSaltService.Contract;
 using The6Bits.HashAndSaltService.Implementations;
+using The6Bits.SMTPEmailService.Implementation;
 using WebAppMVC.Development;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,9 +40,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-
 builder.Configuration.AddJsonFile("secrets.json");
-
 
 
 //pass in conn string . IS there a better way to do this?
@@ -48,18 +50,38 @@ builder.Services.AddScoped<IRepositoryAuth<string>>(provider =>
 builder.Services.AddScoped<IRepositoryMedication<string>>(provider =>
     new MsSqlMedicationDAO(connstring));
 builder.Services.AddTransient<IDrugDataSet, OpenFDADAO>();
-builder.Services.AddTransient<IAuthenticationService>(provider => new JWTAuthenticationService(builder.Configuration.GetSection("PKs")["JWT"]));
+builder.Services.AddTransient<IAuthenticationService>(provider => new JWTAuthenticationService(builder.Configuration["jwt"]));
 builder.Services.AddTransient<IDBErrors, MsSqlDerrorService>();
 
 builder.Services.AddTransient<ISMTPEmailService, AWSSesService>();
 builder.Services.AddScoped<ILogDal, SQLLogDAO>();
 builder.Services.AddSingleton<IConfiguration>(Configuration);
 builder.Services.AddTransient<HotTopicsService>(provider=>new HotTopicsService("0c0dc5fd4cc641a58578260b7e4815ff"));
+builder.Services.AddTransient<HashNSaltService>(provider => new HashNSaltService(new MsSqlHashDao(connstring), builder.Configuration["jwt"]));
+
 builder.Services.AddScoped<IAuthorizationDao>(provider => new MsSqlRoleAuthorizationDao(connstring));
 builder.Services.AddScoped<IHashDao>(provider=> new MsSqlHashDao(connstring));
 
 
 
+//Weight Management
+builder.Services.AddScoped<IFoodAPI<Parsed>, EdamamAPIService<Parsed>>();
+builder.Services.AddHttpClient<EdamamAPIService<Parsed>>();
+builder.Services.AddSingleton(new EdamamConfig {
+    AppKey = builder.Configuration["Edamam_Key"], 
+    AppId = builder.Configuration["Edamam_ID"],
+});
+
+
+
+//SES
+
+builder.Services.AddSingleton(new SESConfig()
+{
+    SMTP_USERNAME = builder.Configuration["AWSUser"],
+    SMTP_PASSWORD = builder.Configuration["AWSPass"],
+
+});
 builder.Configuration.AddEnvironmentVariables();
 
 
@@ -75,7 +97,7 @@ var archive = new ArchivingController();
 archive.Archive();
 
 var recoveryReset = new RecoveryResetController();
-recoveryReset.ResetRecovery();
+recoveryReset.ResetRecovery(connstring);
 
 
 

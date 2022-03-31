@@ -18,6 +18,8 @@ using Microsoft.Extensions.Configuration;
 using The6Bits.EmailService;
 using The6Bits.HashAndSaltService;
 using The6Bits.HashAndSaltService.Contract;
+using System.Data.SqlClient;
+using Dapper;
 
 namespace The6Bits.BitOHealth.ControllerLayer;
 [ApiController]
@@ -31,10 +33,13 @@ public class AccountController : ControllerBase
     private ISMTPEmailService _EmailService;
     private IConfiguration _config;
     private IAuthenticationService _auth;
-    public AccountController(IRepositoryAuth<string> authdao, ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors, 
+    private bool isValid;
+
+
+    public AccountController(IRepositoryAuth<string> authdao, ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors,
         ISMTPEmailService emailService, IConfiguration config, IHashDao hashDao)
     {
-        _AM = new AccountManager(authdao, authenticationService, dbErrors, emailService, config, hashDao);
+        _AM = new AccountManager(authdao, authenticationService, dbErrors, emailService, config, hashDao, config.GetSection("jwt").Value);
         logService = new LogService(logDao);
         _dbErrors = dbErrors;
         _EmailService = emailService;
@@ -64,7 +69,7 @@ public class AccountController : ControllerBase
         var jwt = _AM.Login(acc);
         var parts = jwt.Split('.');
 
-        if (parts.Length==3)
+        if (parts.Length == 3)
         {
             var cookieOptions = new CookieOptions()
             {
@@ -77,7 +82,7 @@ public class AccountController : ControllerBase
                 "token",
                 jwt, cookieOptions);
 
-            logService.LoginLog(acc.Username + remoteIpAddress, "Logged In", "Info","Business" );
+            logService.LoginLog(acc.Username + remoteIpAddress, "Logged In", "Info", "Business");
         }
         else
         {
@@ -85,11 +90,11 @@ public class AccountController : ControllerBase
             string loginfail = "Log In Fail";
             if (jwt.Contains("Database"))
             {
-                logService.LoginLog(acc.Username + remoteIpAddress, loginfail+" "+jwt, "Error","Data Store" );
+                logService.LoginLog(acc.Username + remoteIpAddress, loginfail + " " + jwt, "Error", "Data Store");
             }
             else
             {
-                logService.LoginLog(acc.Username + remoteIpAddress, loginfail+" "+jwt, "Info","Business" );
+                logService.LoginLog(acc.Username + remoteIpAddress, loginfail + " " + jwt, "Info", "Business");
             }
 
         }
@@ -98,14 +103,62 @@ public class AccountController : ControllerBase
 
     }
 
+    [HttpPost("getTLogs")]
+    public string getTrackerLogs()
+    {
+        /*
+        String token = "";
+        try
+        {
+            token = Request.Cookies["token"];
+        }
+        catch
+        {
+            return "No token";
+        }
+        isValid = authenticationService1.ValidateToken(token);
+        if (!isValid)
+        {
+            _ = logService.Log("None", "Invalid Token - Get Tracker Logs", "Info", "Business");
+            return "Invalid Token";
+        }
+        */
+        string s = logService.getAllTrackerLogs();
+        string[] subs = s.Split(' ');
+        string holder = "";
+        int counter = 0;
+        foreach (var sub in subs)
+        {
+            if(counter == 0)
+            {
+                holder = sub;
+            }
+            else if(counter != 0)
+            {
+                if (counter == 4)
+                {
+                    holder += "," + sub;
+                    counter = 1;
+                }
+                else
+                {
+                    holder += " " + sub;
+                }
+            }
+            counter++;
+        }
+        return holder;
+
+    }
+
     [HttpPost("OTP")]
     public string SendOTP(string username)
     {
-        
-        var otp =  _AM.SendOTP(username);
+
+        var otp = _AM.SendOTP(username);
         if (otp.Contains("Database"))
         {
-            logService.Log(username, otp , "OTP Error " + "Error", "Data Store");
+            logService.Log(username, otp, "OTP Error " + "Error", "Data Store");
         }
         else
         {
@@ -125,7 +178,7 @@ public class AccountController : ControllerBase
     public string DeleteAccount(string token)
     {
 
-        string del =  _AM.DeleteAccount(token);
+        string del = _AM.DeleteAccount(token);
         Response.Cookies.Delete("token");
         return del;
     }
@@ -157,9 +210,10 @@ public class AccountController : ControllerBase
             logService.RegistrationLog(user.Username, "Registration- Email Failed To Send", "Business", "Error");
             return "Email Failed To Send";
         }
-        else if (creationStatus != "Email Pending Confirmation") {
-            logService.RegistrationLog(user.Username, "Registration- "+creationStatus, "Business", "Information");
-                }
+        else if (creationStatus != "Email Pending Confirmation")
+        {
+            logService.RegistrationLog(user.Username, "Registration- " + creationStatus, "Business", "Information");
+        }
         else
         {
             logService.RegistrationLog(user.Username, "Verfication Email Sent", "Business", "Information");
@@ -170,7 +224,7 @@ public class AccountController : ControllerBase
     [HttpGet("VerifyAccount")]
     public string VerifyAccount(String Code, String Username)
     {
-        
+
         String verfied = _AM.VerifyAccount(Code, Username);
         if (verfied.Contains("Database"))
         {

@@ -15,6 +15,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
 
         private IRepositoryWeightManagementDao _WMD;
+        
         public WeightManagementService(IRepositoryWeightManagementDao dao)
         {
             _WMD = dao;
@@ -32,6 +33,13 @@ namespace The6Bits.BitOHealth.ServiceLayer
             return _WMD.Create(goalNum,username);
 
         }
+
+        public async Task<string> UpdateGoal(int goalNum, string username)
+        {
+            return _WMD.Update(goalNum, username);
+        }
+
+
 
 
     }

@@ -42,14 +42,14 @@
                         <option value=0>No</option>
                     </select>
         </div>
-        <button @click = "RegistrationGet">Registration</button>
+        <button @click = "RegistrationPost">Registration</button>
          {{message}}
     </div>
 </template>
 
 <script>
     export default {
-        name: 'RegistrationGet',
+        name: 'RegistrationPost',
         data() {
         return {
             formData :{
@@ -66,7 +66,7 @@
         }
     },
     methods:{
-         Registrationpost(){
+         RegistrationPost(){
             const requestOptions = {
                 method: "post",
                 credentials: 'include',

@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Mail;
+using The6Bits.SMTPEmailService.Implementation;
 
 namespace The6Bits.EmailService
 {
@@ -10,8 +11,15 @@ namespace The6Bits.EmailService
         readonly private string DO_NOT_REPLY_SENDER = "do not reply";
         readonly private int PORT = 587;
         readonly private string HOST = "email-smtp.us-east-1.amazonaws.com";
-        readonly private string SMTP_USERNAME = "AKIAUE7KDTT3NT6LWEDD";
-        readonly string SMTP_PASSWORD = "BAcAcIHFgOSqH+z6kSbAVb34DlEMnm9oJBUbPJIZevZQ";
+        readonly private string SMTP_USERNAME;
+        readonly string SMTP_PASSWORD;
+
+        public AWSSesService(SESConfig config)
+        {
+            SMTP_USERNAME = config.SMTP_USERNAME;
+            SMTP_PASSWORD = config.SMTP_PASSWORD;
+        }
+
 
         public string SendEmailNoReply(string email, string subject, string body)
         {
@@ -29,7 +37,7 @@ namespace The6Bits.EmailService
                 try
                 {
                     client.Send(message);
-                    return "email sent";
+                    return message.Body;
                 }
                 catch (Exception ex)
                 {
