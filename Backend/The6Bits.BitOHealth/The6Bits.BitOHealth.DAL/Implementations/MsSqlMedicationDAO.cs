@@ -30,7 +30,7 @@ namespace The6Bits.BitOHealth.DAL
                     int favCount = connection.Execute(query,
                         new
                         {
-                            Username = username,
+                            username = username,
                         }); ;
                     connection.Close();
                     return favCount;
@@ -79,6 +79,32 @@ namespace The6Bits.BitOHealth.DAL
                     connection.Open();
                     IEnumerable<FavoriteDrug> str = connection.Query<FavoriteDrug>(query, new { username = username });
                     return str.ToList();
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception(ex.Number.ToString());
+            }
+        }
+        public int RemoveFavorite(string drugProductID, string username)
+        {
+            try
+            {
+
+                string query = "delete * from favoriteMedication where username=@username and MedicineProductID=@DrugProductID";
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int favCount = connection.Execute(query,
+                        new
+                        {
+                            username = username,
+                            drugProductID = drugProductID,
+
+
+                        }); ;
+                    connection.Close();
+                    return favCount;
                 }
             }
             catch (SqlException ex)

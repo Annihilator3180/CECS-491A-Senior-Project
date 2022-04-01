@@ -85,5 +85,21 @@ public class MedicationManager
         }
         
     }
+
+    public string RemoveFavorite(string drugProductID, string username)
+    {
+        try
+        {
+            string favoriteRemoved= _MS.RemoveFavorite(drugProductID, username);
+            _ = _log.Log(username, favoriteRemoved +drugProductID, "Manager", "Business");
+            return favoriteRemoved;
+        }
+        catch (Exception ex)
+        {
+            string dbError = _iDBErrors.DBErrorCheck(int.Parse(ex.Message));
+            _log.Log(username, "Delete Favorite Drugs Database Error " + dbError, "Data Store", "Error");
+            return "Database Error";
+        }
+    }
 }
 

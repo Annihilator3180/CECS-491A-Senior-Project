@@ -13,19 +13,18 @@ namespace The6Bits.BitOHealth.DAL
     public class OpenFDADAO : IDrugDataSet
     {
 
-        private static HttpClient api { get; set; }
-        public OpenFDADAO()
+        private static HttpClient _httpClient;
+
+        public OpenFDADAO(HttpClient httpClient)
         {
+            _httpClient = new HttpClient();
         }
 
 
         public async Task<List<DrugName>> GetGenericDrugName(string drugName)
         {
-            api = new HttpClient();
-            api.DefaultRequestHeaders.Accept.Clear();
-            api.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            string url = "https://api.fda.gov/drug/ndc.json?api_key="+Environment.GetEnvironmentVariable("OpenFda")+"&search=generic_name:%22" + drugName+"%22&limit=3";
-            using (HttpResponseMessage response = await api.GetAsync(url))
+            string url = $"https://api.fda.gov/drug/ndc.json?api_key={Environment.GetEnvironmentVariable("OpenFda")}&search=generic_name:%22{drugName}%22&limit=3";
+            using (HttpResponseMessage response = await _httpClient.GetAsync(url))
             {
                 if (response.IsSuccessStatusCode)
                 {
@@ -49,11 +48,8 @@ namespace The6Bits.BitOHealth.DAL
         }
         public async Task<List<DrugName>> GetBrandDrugName(string drugName)
         {
-            api = new HttpClient();
-            api.DefaultRequestHeaders.Accept.Clear();
-            api.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            string url = "https://api.fda.gov/drug/ndc.json?api_key=" + Environment.GetEnvironmentVariable("OpenFda") + "&search=brand_name:%22" + drugName + "%22&limit=3";
-            using (HttpResponseMessage response = await api.GetAsync(url))
+            string url = $"https://api.fda.gov/drug/ndc.json?api_key={Environment.GetEnvironmentVariable("OpenFda")}&search=brand_name:%22{drugName}%22&limit=3";
+            using (HttpResponseMessage response = await _httpClient.GetAsync(url))
             {
                 if (response.IsSuccessStatusCode)
                 {

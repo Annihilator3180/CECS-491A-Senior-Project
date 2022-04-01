@@ -42,6 +42,8 @@ namespace The6Bits.BitOHealth.ServiceLayer
         public List<DrugName> CheckDuplicates(List<DrugName> genericDrugNames, List<DrugName> brandDrugNames)
         {
             List<string> uniqueDrugIDs=new List<string>();
+            List<string> uniqueGenericName=new List<string>(); 
+            List<string> uniqueBrandName=new List<string>();
             if (genericDrugNames.Count == 1 && genericDrugNames[0].product_id=="")
             {
                 genericDrugNames.Clear();
@@ -51,15 +53,20 @@ namespace The6Bits.BitOHealth.ServiceLayer
                 brandDrugNames.Clear();
             }
             List<DrugName> drugNames = genericDrugNames.Concat(brandDrugNames).ToList();
-            for (int i = 0;i<drugNames.Count; i++)
+            int i=0;
+            while(i<drugNames.Count)
             {
-                if (uniqueDrugIDs.Contains(drugNames[i].product_id))
+                if (uniqueDrugIDs.Contains(drugNames[i].product_id)|| uniqueGenericName.Contains(drugNames[i].generic_name)
+                    || uniqueBrandName.Contains(drugNames[i].brand_name))
                 {
                     drugNames.RemoveAt(i);
                 }
                 else
                 {
                     uniqueDrugIDs.Add(drugNames[i].product_id);
+                    uniqueBrandName.Add(drugNames[i].brand_name);
+                    uniqueGenericName.Add(drugNames[i].generic_name);
+                    i++;
                 }
             }
             return drugNames;
@@ -74,6 +81,16 @@ namespace The6Bits.BitOHealth.ServiceLayer
                 throw new Exception("no drugs found");
             }
             return favDrug;
+        }
+
+        public string RemoveFavorite(string drugProductID, string username)
+        {
+            int favoriteRemovalResult = _MedicationDao.RemoveFavorite(drugProductID, username);
+            if (favoriteRemovalResult == 1)
+            {
+                return "Deleted Favorite";
+            }
+            return "no matches found";
         }
 
         public bool addFavorite(string username, DrugName drug)

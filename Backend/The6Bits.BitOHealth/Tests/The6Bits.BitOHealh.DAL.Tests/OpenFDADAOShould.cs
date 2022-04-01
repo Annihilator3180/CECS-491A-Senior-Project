@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.BitOHealth.DAL.Implementations;
 using The6Bits.BitOHealth.Models;
+using System.Net.Http;
 using Xunit;
 
 namespace The6Bits.BitOHealth.DAL.Tests;
@@ -19,7 +20,7 @@ public class OpenFDADAOShould : TestsBase
 
     public OpenFDADAOShould()
     {
-        _MedicationDao = new OpenFDADAO();
+        _MedicationDao = new OpenFDADAO(new HttpClient());
     }
     [Fact]
     public async void ValidGenericNameTest()

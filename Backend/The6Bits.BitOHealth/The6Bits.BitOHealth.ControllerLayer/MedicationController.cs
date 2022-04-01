@@ -37,8 +37,8 @@ public class MedicationController : ControllerBase
     [HttpGet("Search")]
     public string FindDrug(string drugName)
     {
-        string token;
-        /**try
+        /**string token;
+        try
         {
             token = Request.Cookies["token"];
 
@@ -105,11 +105,7 @@ public class MedicationController : ControllerBase
         }
         catch (Exception ex)
         {
-            if (ex.Message == "no drugs found")
-            {
-                return "no drugs found";
-            }
-            return "database error";
+            return ex.Message;
         }
         
     }
