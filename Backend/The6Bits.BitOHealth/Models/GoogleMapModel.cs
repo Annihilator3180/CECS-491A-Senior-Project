@@ -6,29 +6,23 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace The6Bits.BitOHealth.Models
-{
+{   // Todo: Fix
     public class GoogleMapModel
     {
 
     }
-    public class Nutrients
+    public class Address
     {
-        public double ENERC_KCAL { get; set; }
-        public double PROCNT { get; set; }
-        public double FAT { get; set; }
-        public double CHOCDF { get; set; }
-        public double FIBTG { get; set; }
+        public string str_address { get; set; }
+        public string apt_num { get; set; }
+        public string city { get; set; }
+        public string state { get; set; }
+        public double zipcode { get; set; }
     }
-    public class Food
+    public class Location
     {
-        public string foodId { get; set; }
-        public string label { get; set; }
-        public Nutrients nutrients { get; set; }
-        public string category { get; set; }
-        public string categoryLabel { get; set; }
-        public string image { get; set; }
-        public string brand { get; set; }
-        public string foodContentsLabel { get; set; }
+        public string typeOfPlace { get; set; }
+
 
     }
 

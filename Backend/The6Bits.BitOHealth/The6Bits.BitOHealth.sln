@@ -80,9 +80,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Implementations", "Implemen
 	ProjectSection(SolutionItems) = preProject
 		GoogleMapsAPIService.cs = GoogleMapsAPIService.cs
 	EndProjectSection
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "APIS", "APIS", "{7CDBA9F0-FA15-4208-B10B-FBBA352FE18C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodAPI", "FoodAPI\FoodAPI.csproj", "{6F5AEE68-F998-4A26-8AA8-AC2A7BF0C423}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodAPI", "FoodAPI\FoodAPI.csproj", "{6F5AEE68-F998-4A26-8AA8-AC2A7BF0C423}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

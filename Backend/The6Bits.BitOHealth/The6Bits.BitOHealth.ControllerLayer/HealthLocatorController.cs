@@ -33,19 +33,19 @@ public class HealthLocatorController : ControllerBase
     public HealthLocatorController(IAuthenticationService _authenticationService, ILogDal logDao, HealthLocatorService healthLocator)
     {
         _HLM = new HealthLocatorManager(healthLocator);
-        LogService = new LogService(logDao);
+        _logService = new LogService(logDao);
     }
 
     // Todo: Fix
     [HttpGet("searchHL")]
     public async Task<string> viewLocation()
     {
-        var location = _HLM.viewLocation();
+        var location = _HLM.ViewHL();
         return await location;
     }
 
     // Todo: Fix
-    public async Task<string> ViewHT()
+    public async Task<string> ViewHL()
     {
         bool isValid = _authenticationService.ValidateToken(Request.Headers["Authorization"]);
         string username = _authenticationService.getUsername(Request.Headers["Authorization"]);
@@ -54,6 +54,6 @@ public class HealthLocatorController : ControllerBase
         {
             return "invalid token";
         }
-        return await _HLM.ViewHT();
+        return await _HLM.ViewHL();
     }
 }

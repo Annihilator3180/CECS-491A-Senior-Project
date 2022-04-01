@@ -15,6 +15,13 @@ public class HealthLocatorManager
     private IAuthenticationService _authenticationService;
     private HealthLocatorService _HLS;
 
-    public HealthLocatorManager()
+    public HealthLocatorManager(HealthLocatorService healthLocation)
+    {
+        _HLS = healthLocation;
+    }
     
+    public async Task<string> ViewHL()
+    {
+        return await _HLS.viewHL();
+    }
 }

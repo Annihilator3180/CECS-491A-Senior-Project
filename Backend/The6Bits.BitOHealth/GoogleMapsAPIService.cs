@@ -12,6 +12,7 @@ namespace MapAPI
         private readonly string _appId;
         private readonly string _appKey;
 
+        // Todo: Fix
         public GoogleMapsAPIService(HttpClient httpClient, GoogleMapConfig config)
         {
             _client = httpClient;
@@ -19,6 +20,7 @@ namespace MapAPI
             _appKey = config.AppKey;
         }
 
+        // Todo: Fix
         public async Task<IEnumerable<Parsed>> QueryLocations(string queryString)
         {
             string url = "https://api.edamam.com/api/food-database/v2/parser?app_id="+ _appId + "&app_key="+ _appKey + "&ingr="+ queryString;

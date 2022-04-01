@@ -7,6 +7,7 @@ using System.Collections.Generic;
 
 namespace MapAPI.Contracts
 {
+    // Todo: Fix
     public interface IMapAPI<T>
     {
         public Task<IEnumerable<T>> QueryLocations(string queryString);
