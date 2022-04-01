@@ -17,7 +17,7 @@ namespace The6Bits.BitOHealth.AccountRecovery.Test
 
         public EmailServiceShould()
         {
-            _ES = new AWSSesService();
+           // _ES = new AWSSesService();
 
         }
         [Fact]

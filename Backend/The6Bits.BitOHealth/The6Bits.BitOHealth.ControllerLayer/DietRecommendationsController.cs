@@ -61,7 +61,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
                 _logService.Log("NO", "Save User Diet", "Info", "Business");
 
-            List<Recipe> recipes = await _DRM.getRecommendedRecipies(userResponses); 
+            List<Recipe> recipes = await _DRM.getRecommendedRecipies(userResponses);
             string recipeList = JsonSerializer.Serialize(recipes);
             return recipeList;
             bool isEmpty = !recipeList.Any();
