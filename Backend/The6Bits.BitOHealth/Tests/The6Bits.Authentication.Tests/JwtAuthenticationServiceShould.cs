@@ -4,6 +4,9 @@ using Xunit;
 using The6Bits.Authentication.Contract;
 using The6Bits.Authentication.Implementations;
 using The6Bits.BitOHealth.DAL.Tests;
+using Microsoft.AspNetCore.Http;
+using System.Web;
+using Microsoft.AspNetCore.Mvc;
 
 
 namespace The6Bits.Authentication.Tests
@@ -67,5 +70,6 @@ namespace The6Bits.Authentication.Tests
 
             Assert.NotEqual(userName, user);
         }
+
     }
 }

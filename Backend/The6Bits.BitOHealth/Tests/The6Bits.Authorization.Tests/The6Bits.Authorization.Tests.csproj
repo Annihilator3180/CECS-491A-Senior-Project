@@ -22,6 +22,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\The6Bits.Authentication\The6Bits.Authentication.csproj" />
+		<ProjectReference Include="..\..\The6Bits.BitOHealth.ControllerLayer\The6Bits.BitOHealth.ControllerLayer.csproj" />
 		<ProjectReference Include="..\The6Bits.BitOHealh.DAL.Tests\The6Bits.BitOHealth.DAL.Tests.csproj" />
 	</ItemGroup>
 
