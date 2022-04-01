@@ -19,26 +19,29 @@ public class MedicationController : ControllerBase
 {
     
     private MedicationManager _MM;
-    private LogService logService;
+    private LogService _logService;
     private IDBErrors _dbErrors;
     private IConfiguration _config;
     private IAuthenticationService _auth;
-    public MedicationController(IRepositoryMedication<string> MedicationDao,IDrugDataSet _drugDataSet, ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors,
+    public MedicationController(IRepositoryMedication<string> MedicationDao,IDrugDataSet _drugDataSet, ILogDal logDao,
+        IAuthenticationService authenticationService, IDBErrors dbErrors,
          IConfiguration config)
     {
-        _MM = new MedicationManager(MedicationDao,_drugDataSet, authenticationService, dbErrors, config);
-        logService = new LogService(logDao);
+        _MM = new MedicationManager(MedicationDao,_drugDataSet, authenticationService, dbErrors, config, logDao);
+        _logService = new LogService(logDao);
         _dbErrors = dbErrors;
         _auth = authenticationService;
         _config = config;
+        _logService = new LogService(logDao); 
     }
     [HttpGet("Search")]
     public string FindDrug(string drugName)
     {
         string token;
-        try
+        /**try
         {
             token = Request.Cookies["token"];
+
         }
         catch
         {
@@ -48,12 +51,13 @@ public class MedicationController : ControllerBase
         {
             return "invalid token";
         }
-        string username = _auth.getUsername(token);
+        string username = _auth.getUsername(token);**/
         List<DrugName> genericdrugNames = _MM.FindDrug(drugName);
         string jsonString = JsonSerializer.Serialize(genericdrugNames);
         return jsonString;
 
     }
+    [HttpPost("FavoriteAdd")]
     public string AddFavorites(string genericName, string brandName, string productID)
     {
         string token;
@@ -72,5 +76,41 @@ public class MedicationController : ControllerBase
         string username = _auth.getUsername(token);
         DrugName drugName = new DrugName(genericName,productID,brandName);
         string favoriteAddResult= _MM.addFavorite(drugName, username);
+        return favoriteAddResult;
+    }
+
+    [HttpPost("FavoriteView")]
+    public string ViewFavorites()
+    {
+        string token;
+        try
+        {
+            token = Request.Cookies["token"];
+        }
+        catch
+        {
+            return "invalid token";
+        }
+        if (!_auth.ValidateToken(token))
+        {
+            return "invalid token";
+        }
+
+        string username = _auth.getUsername(token);
+        try
+        {
+            List<FavoriteDrug> favoriteDrugsList = _MM.ViewFavorite(username);
+            string favoriteDrugs = JsonSerializer.Serialize(favoriteDrugsList);
+            return favoriteDrugs;
+        }
+        catch (Exception ex)
+        {
+            if (ex.Message == "no drugs found")
+            {
+                return "no drugs found";
+            }
+            return "database error";
+        }
+        
     }
 }

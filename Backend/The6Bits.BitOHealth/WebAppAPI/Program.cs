@@ -28,9 +28,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 //JSON Config
-builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Configuration.GetConnectionString("Connection2");
 
-var connstring  = builder.Configuration.GetConnectionString("DefaultConnection");
+var connstring  = builder.Configuration.GetConnectionString("Connection2");
 var Configuration = builder.Configuration;
 
 

@@ -11,6 +11,6 @@ namespace The6Bits.BitOHealth.DAL
     {
         public int getFavoriteCount(string username);
         public bool addFavorite(string username, DrugName drug);
-        List<FavoriteDrug> ViewFavorites(string username);
+        public List<FavoriteDrug> ViewFavorites(string username);
     }
 }

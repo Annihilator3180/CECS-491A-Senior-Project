@@ -22,10 +22,11 @@ namespace The6Bits.BitOHealth.DAL
         {
             try
             {
-                string query = "INSERT ACCOUNTS (Username,Email,Password,FirstName,LastName,IsEnabled,IsAdmin,privOption) " +
-                               " values (@Username, @Email, @Password, @FirstName,@LastName, @IsEnabled,@IsAdmin,@privOption) ";
+             
+                string query = "select count(*) from favoriteMedication where username=@username";
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
+                    connection.Open();
                     int favCount = connection.Execute(query,
                         new
                         {
@@ -50,6 +51,7 @@ namespace The6Bits.BitOHealth.DAL
                     "values(@Username, @MedicineProductID, @MedicineGenericName @MedicineBrandName,0, 0)";
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
+                    connection.Open();
                     connection.Execute(query,
                         new
                         {
@@ -60,6 +62,23 @@ namespace The6Bits.BitOHealth.DAL
                         }); ;
                     connection.Close();
                     return true;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception(ex.Number.ToString());
+            }
+        }
+        public List<FavoriteDrug> ViewFavorites(string username)
+        {
+            try
+            {
+                string query = "select * from favoriteMedication where username= @username";
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    IEnumerable<FavoriteDrug> str = connection.Query<FavoriteDrug>(query, new { username = username });
+                    return str.ToList();
                 }
             }
             catch (SqlException ex)

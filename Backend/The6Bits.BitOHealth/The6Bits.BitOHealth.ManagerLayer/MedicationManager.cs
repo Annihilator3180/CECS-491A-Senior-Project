@@ -7,6 +7,8 @@ using The6Bits.EmailService;
 using System.Text;
 using System.Security.Cryptography;
 using Microsoft.Extensions.Configuration;
+using The6Bits.Logging.DAL.Contracts;
+using The6Bits.Logging.Implementations;
 
 namespace The6Bits.BitOHealth.ManagerLayer;
 
@@ -16,15 +18,18 @@ public class MedicationManager
     private MedicationService _MS;
     private IDBErrors _iDBErrors;
     private IConfiguration _config;
+    private LogService _log;
 
 
 
-    public MedicationManager(IRepositoryMedication<string> MedicationDao,IDrugDataSet _drugDataSet, IAuthenticationService authenticationService, IDBErrors dbError, IConfiguration config)
+    public MedicationManager(IRepositoryMedication<string> MedicationDao, IDrugDataSet _drugDataSet, IAuthenticationService authenticationService, 
+        IDBErrors dbError, IConfiguration config, ILogDal logDao)
     {
         _iDBErrors = dbError;
         _auth = authenticationService;
         _config = config;
-        _MS = new MedicationService(MedicationDao,_drugDataSet, dbError, config);
+        _log= new LogService(logDao); ;
+        _MS = new MedicationService(MedicationDao, _drugDataSet, dbError, config);
     }
 
     public List<DrugName> FindDrug(string drugName)
@@ -39,19 +44,19 @@ public class MedicationManager
     {
         try
         {
-            bool isValidCount=_MS.getFavoriteCount(username);
+            bool isValidCount = _MS.getFavoriteCount(username);
             if (!isValidCount)
             {
                 return "Favorite Limit Reached";
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             return "Database Error";
         }
         try
         {
-           _MS.addFavorite(username,drug);
+            _MS.addFavorite(username, drug);
         }
         catch (Exception ex)
         {
@@ -59,4 +64,26 @@ public class MedicationManager
         }
         return "Favorited";
     }
+
+    public List<FavoriteDrug> ViewFavorite(string username)
+    {
+        try
+        {
+            return _MS.ViewFavorites(username);
+         }
+        catch(Exception ex)
+        {
+            if (ex.Message == "no drugs found")
+            {
+                _ = _log.Log(username, "no Favorited Drugs", "Manager", "Business");
+                throw new Exception(ex.Message);
+            }
+            string dbError = _iDBErrors.DBErrorCheck(int.Parse(ex.Message));
+            _log.Log(username, "FavoriteDrugs Database Error "+ dbError, "Data Store", "Error");
+            throw new Exception("Database Error");
+            
+        }
+        
+    }
 }
+

@@ -66,6 +66,16 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
         }
 
+        public List<FavoriteDrug> ViewFavorites(string username)
+        {
+            List<FavoriteDrug> favDrug=  _MedicationDao.ViewFavorites(username);
+            if (favDrug.Count == 0)
+            {
+                throw new Exception("no drugs found");
+            }
+            return favDrug;
+        }
+
         public bool addFavorite(string username, DrugName drug)
         {
             return _MedicationDao.addFavorite(username, drug);
@@ -74,11 +84,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
         public bool getFavoriteCount(string username)
         {
             int favoriteCount = _MedicationDao.getFavoriteCount(username);
-            if (favoriteCount > 9)
-            {
-                return false;
-            }
-            return true;
+            return favoriteCount < 10;
                 
         }
     }
