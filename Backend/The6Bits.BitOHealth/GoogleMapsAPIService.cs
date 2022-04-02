@@ -1,6 +1,6 @@
-﻿uusing System.Net.Http;
+﻿using System.Net.Http;
 using System.Text.Json;
-using FoodAPI.Contracts;
+using MapAPI.Contracts;
 using The6Bits.BitOHealth.Models;
 
 
@@ -23,7 +23,7 @@ namespace MapAPI
         // Todo: Fix
         public async Task<IEnumerable<Parsed>> QueryLocations(string queryString)
         {
-            string url = "https://www.google.com/maps/embed/v1/view?key="+ _appKey + "&" + queryString;
+            string url = "https://www.google.com/maps/embed/v1/search?q="+ queryString + "&key=" + _appKey;
             //API Key: 
             //   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3ZXQrC6k4_x2gZ0x1wBtWCmm0BCP7dPs&callback=initMap"></script>
             var response = await _client.GetStringAsync(url);
