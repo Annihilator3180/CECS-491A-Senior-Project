@@ -71,6 +71,26 @@ namespace The6Bits.BitOHealth.DAL
 
 
         }
+        public async Task<DrugInfo> GetDrugInfo(string generic_name)
+        {
+            string url = $"https://api.fda.gov/drug/label.json?api_key={Environment.GetEnvironmentVariable("OpenFda")}&search=openfda.generic_name:%22{generic_name}%22&limit=1";
+            using (HttpResponseMessage response = await _httpClient.GetAsync(url))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    var doc = JsonDocument.Parse(result);
+                    var popupJson = doc.RootElement.GetProperty("results");
+                    DrugInfo values = JsonSerializer.Deserialize<DrugInfo>(popupJson);
+                    return values;
+                }
+                else
+                {
+                    throw new Exception("Error getting drug information");
+
+                }
+            }
+        }
 
     }
 }

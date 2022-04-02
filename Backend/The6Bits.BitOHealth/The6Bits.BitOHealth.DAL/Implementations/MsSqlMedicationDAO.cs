@@ -47,7 +47,8 @@ namespace The6Bits.BitOHealth.DAL
         {
             try
             {
-                string query = "INSERT INTO favoriteMedication(username, MedicineProductID, MedicineGenericName, MedicineBrandName, lowestPrice, lowestFoundPrice)" +
+                string query = "INSERT INTO favoriteMedication(username, MedicineProductID, " +
+                    "MedicineGenericName, MedicineBrandName, lowestPrice, lowestFoundPrice)" +
                     "values(@Username, @MedicineProductID, @MedicineGenericName @MedicineBrandName,0, 0)";
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
@@ -112,6 +113,35 @@ namespace The6Bits.BitOHealth.DAL
                 throw new Exception(ex.Number.ToString());
             }
         }
+        public int UpdateFavorite(string username, FavoriteDrug drug)
+        {
+            try
+            {
+
+                string query = "update favoriteMedication " +
+                    "set(username = @username, lowestPrice = @lowestPrice, lowestFoundPrice = @lowestFoundPrice) " +
+                    "where username = @username and DrugProductID = @DrugProductID";
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int favCount = connection.Execute(query,
+                        new
+                        {
+                            username = username,
+                            drugProductID = drug.product_id,
+                            lowestPrice=drug.lowestprice,
+                            lowestFoundPrice=drug.lowestPriceLocation
+                        }); ;
+                    connection.Close();
+                    return favCount;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception(ex.Number.ToString());
+            }
+        }
+
 
     }
 }

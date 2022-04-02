@@ -37,7 +37,7 @@ public class MedicationController : ControllerBase
     [HttpGet("Search")]
     public string FindDrug(string drugName)
     {
-        /**string token;
+        string token;
         try
         {
             token = Request.Cookies["token"];
@@ -51,7 +51,7 @@ public class MedicationController : ControllerBase
         {
             return "invalid token";
         }
-        string username = _auth.getUsername(token);**/
+        string username = _auth.getUsername(token);
         List<DrugName> genericdrugNames = _MM.FindDrug(drugName);
         string jsonString = JsonSerializer.Serialize(genericdrugNames);
         return jsonString;
@@ -108,5 +108,93 @@ public class MedicationController : ControllerBase
             return ex.Message;
         }
         
+    }
+    [HttpPost("DeleteFavorite")]
+    public string RemoveFavorite(FavoriteDrug favoriteMedication)
+    {
+        string token;
+        try
+        {
+            token = Request.Cookies["token"];
+        }
+        catch
+        {
+            return "invalid token";
+        }
+        if (!_auth.ValidateToken(token))
+        {
+            return "invalid token";
+        }
+
+        string username = _auth.getUsername(token);
+        try
+        {
+            string updatedFavorite = _MM.RemoveFavorite(username, favoriteMedication.product_id);
+            return updatedFavorite;
+        }
+        catch (Exception ex)
+        {
+            return ex.Message;
+        }
+
+    }
+    [HttpPost("viewDrug")]
+    public string ViewDrug(string generic_name)
+    {
+        /**string token;
+        try
+        {
+            token = Request.Cookies["token"];
+        }
+        catch
+        {
+            return "invalid token";
+        }
+        if (!_auth.ValidateToken(token))
+        {
+            return "invalid token";
+        }
+
+        string username = _auth.getUsername(token);**/
+        try
+        {
+            DrugInfo drugInfo = _MM.ViewDrug("hello", generic_name);
+            return JsonSerializer.Serialize(drugInfo);
+        }
+        catch (Exception ex)
+        {
+            return ex.Message;
+        }
+
+    }
+
+    [HttpPost("UpdateFavorite")]
+    public string UpdateFavorite(FavoriteDrug favoriteMedication)
+    {
+        string token;
+        try
+        {
+            token = Request.Cookies["token"];
+        }
+        catch
+        {
+            return "invalid token";
+        }
+        if (!_auth.ValidateToken(token))
+        {
+            return "invalid token";
+        }
+
+        string username = _auth.getUsername(token);
+        try
+        {
+            string updatedFavorite = _MM.UpdateFavorite(username,favoriteMedication);
+            return updatedFavorite;
+        }
+        catch (Exception ex)
+        {
+            return ex.Message;
+        }
+
     }
 }

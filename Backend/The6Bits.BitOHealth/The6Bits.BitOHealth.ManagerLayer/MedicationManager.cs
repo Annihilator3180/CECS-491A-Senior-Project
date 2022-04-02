@@ -101,5 +101,42 @@ public class MedicationManager
             return "Database Error";
         }
     }
+
+    public string UpdateFavorite(string username, FavoriteDrug favoriteMedication)
+    {
+        bool isValidLocation = _MS.ValidateLocation(favoriteMedication.lowestPriceLocation);
+        if (!isValidLocation)
+        {
+            _log.Log(username, "Invalid Location", "Front End", "Business");
+            return "Invalid Location";
+        }
+        bool isValidPrice = _MS.ValidatePrice(favoriteMedication.lowestprice);
+        if (!isValidPrice)
+        {
+            _log.Log(username, "Invalid Price", "Front End", "Business");
+            return "Invalid Price";
+        }
+        try
+        {
+            string updatedFavorite = _MS.updateFavorite(username, drug: favoriteMedication);
+            _log.Log(username, updatedFavorite, "Front End", "Business");
+            return updatedFavorite;
+        }
+        catch( Exception ex)
+        {
+            string dbError = _iDBErrors.DBErrorCheck(int.Parse(ex.Message));
+            _log.Log(username, "Favorite Medicine Database Error" + dbError, "Data Store", "Error");
+            return "Database Error";
+        }
+
+
+
+
+    }
+
+    public DrugInfo ViewDrug(string username, string generic_name)
+    {
+        return _MS.ViewDrug(generic_name);
+    }
 }
 

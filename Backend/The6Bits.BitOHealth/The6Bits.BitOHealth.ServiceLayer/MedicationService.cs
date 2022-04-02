@@ -98,11 +98,36 @@ namespace The6Bits.BitOHealth.ServiceLayer
             return _MedicationDao.addFavorite(username, drug);
         }
 
+        public bool ValidatePrice(int lowestprice)
+        {
+            return lowestprice <9000000 && lowestprice >-1;
+        }
+
+        public bool ValidateLocation(string lowestPriceLocation)
+        {
+            return lowestPriceLocation.Length < 151;
+        }
+
         public bool getFavoriteCount(string username)
         {
             int favoriteCount = _MedicationDao.getFavoriteCount(username);
             return favoriteCount < 10;
                 
+        }
+
+        public string updateFavorite(string username, FavoriteDrug drug)
+        {
+            int updatedFavorite = _MedicationDao.UpdateFavorite(username, drug);
+            if (updatedFavorite == 1)
+            {
+                return "updated favorite";
+            }
+            return "No matches found";
+        }
+
+        public DrugInfo ViewDrug(string generic_name)
+        {
+            return _drugDataSet.GetDrugInfo(generic_name).Result;
         }
     }
 }
