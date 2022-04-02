@@ -23,7 +23,8 @@ namespace MapAPI
         // Todo: Fix
         public async Task<IEnumerable<Parsed>> QueryLocations(string queryString)
         {
-            string url = "https://api.edamam.com/api/food-database/v2/parser?app_id="+ _appId + "&app_key="+ _appKey + "&ingr="+ queryString;
+            string url = "https://www.google.com/maps/embed/v1/view?key="+ _appKey + "&" + queryString;
+            //API Key: 
             //   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3ZXQrC6k4_x2gZ0x1wBtWCmm0BCP7dPs&callback=initMap"></script>
             var response = await _client.GetStringAsync(url);
             Root myDeserializedClass = JsonSerializer.Deserialize<Root>(response);

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MapAPI
 {
-    // Todo: Fix
+    // Todo: Done
     public class GoogleMapsConfig
     {
         public string AppId { get; set; }

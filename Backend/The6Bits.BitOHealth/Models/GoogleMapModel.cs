@@ -39,11 +39,7 @@ namespace The6Bits.BitOHealth.Models
     {
         public Next next { get; set; }
     }
-    public class Hint
-    {
-        public Food food { get; set; }
-        public List<Measure> measures { get; set; }
-    }
+    
     public class Root
     {
         public string text { get; set; }
