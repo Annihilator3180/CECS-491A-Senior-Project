@@ -25,7 +25,7 @@ namespace MapAPI
         {
             string url = "https://www.google.com/maps/embed/v1/search?q="+ queryString + "&key=" + _appKey;
             //API Key: 
-            //   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3ZXQrC6k4_x2gZ0x1wBtWCmm0BCP7dPs&callback=initMap"></script>
+            //   <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
             var response = await _client.GetStringAsync(url);
             Root myDeserializedClass = JsonSerializer.Deserialize<Root>(response);
 
