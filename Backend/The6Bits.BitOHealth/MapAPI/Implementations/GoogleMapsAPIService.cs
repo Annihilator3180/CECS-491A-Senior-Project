@@ -13,7 +13,7 @@ namespace MapAPI
         private readonly string _appKey;
 
         // Todo: Fix
-        public GoogleMapsAPIService(HttpClient httpClient, GoogleMapConfig config)
+        public GoogleMapsAPIService(HttpClient httpClient, GoogleMapsConfig config)
         {
             _client = httpClient;
             _appId = config.AppId;

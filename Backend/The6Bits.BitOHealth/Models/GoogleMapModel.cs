@@ -28,7 +28,7 @@ namespace The6Bits.BitOHealth.Models
 
     public class Parsed
     {
-        public Food food { get; set; }
+        public Location location { get; set; }
     }
     public class Next
     {
