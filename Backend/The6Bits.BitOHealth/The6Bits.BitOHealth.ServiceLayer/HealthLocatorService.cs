@@ -18,10 +18,10 @@ public class HealthLocatorService
     // Todo: Fix
     public async Task<string> viewHL()
     {
-        string baseurl = "";
+        string baseurl = "https://www.google.com/maps/embed/v1/view";
 
         //PARAM FOR SEARCH QUERY
-        string qParam = "";
+        string qParam = "&q=Cal State Long Beach";
 
         var client = new HttpClient();
 
