@@ -60,25 +60,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.SMTPEmailService", "The6Bits.EmailService\The6Bits.SMTPEmailService.csproj", "{2AA2FFCB-096E-48F8-A272-C611EC9A39E1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MapAPI", "MapAPI", "{D5E79CB9-FCE4-43F6-97D0-B19D4EA953F5}"
-	ProjectSection(SolutionItems) = preProject
-		GoogleMapsConfig.cs = GoogleMapsConfig.cs
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.Authentication.Tests", "Tests\The6Bits.Authentication.Tests\The6Bits.Authentication.Tests.csproj", "{FE1CBE8E-4CFE-46E7-AEEB-0F2775D203B1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.HashAndSaltService", "The6Bits.HashAndSaltService\The6Bits.HashAndSaltService.csproj", "{97955FFB-21D4-44B1-94D2-0527FC0D1DB5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.HashAndSaltService.Tests", "Tests\The6Bits.HashAndSaltService.Tests\The6Bits.HashAndSaltService.Tests.csproj", "{F2D52A85-D7DB-40E9-909A-C798AAC61B90}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Contracts", "Contracts", "{002F303E-9F86-42F9-9EFD-B336267F12EF}"
-	ProjectSection(SolutionItems) = preProject
-		IMapAPI.cs = IMapAPI.cs
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Implementations", "Implementations", "{BA688079-14DB-470D-A656-7F4983299C1C}"
-	ProjectSection(SolutionItems) = preProject
-		GoogleMapsAPIService.cs = GoogleMapsAPIService.cs
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "APIS", "APIS", "{7CDBA9F0-FA15-4208-B10B-FBBA352FE18C}"
 EndProject
@@ -190,8 +177,6 @@ Global
 		{6BAA515F-55E7-4BA9-9150-A36B473DE2C1} = {FA5BFC28-6E48-4A14-8698-79CA6508D73A}
 		{FE1CBE8E-4CFE-46E7-AEEB-0F2775D203B1} = {FA5BFC28-6E48-4A14-8698-79CA6508D73A}
 		{F2D52A85-D7DB-40E9-909A-C798AAC61B90} = {FA5BFC28-6E48-4A14-8698-79CA6508D73A}
-		{002F303E-9F86-42F9-9EFD-B336267F12EF} = {D5E79CB9-FCE4-43F6-97D0-B19D4EA953F5}
-		{BA688079-14DB-470D-A656-7F4983299C1C} = {D5E79CB9-FCE4-43F6-97D0-B19D4EA953F5}
 		{6F5AEE68-F998-4A26-8AA8-AC2A7BF0C423} = {7CDBA9F0-FA15-4208-B10B-FBBA352FE18C}
 		{01749568-E190-4BD3-9483-B701B84A1D5E} = {D5E79CB9-FCE4-43F6-97D0-B19D4EA953F5}
 	EndGlobalSection
