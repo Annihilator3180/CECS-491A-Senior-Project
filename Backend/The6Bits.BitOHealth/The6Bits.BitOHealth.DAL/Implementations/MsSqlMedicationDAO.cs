@@ -23,15 +23,15 @@ namespace The6Bits.BitOHealth.DAL
             try
             {
              
-                string query = "select count(*) from favoriteMedication where username=@username";
+                string query = $"select Count(@username) from favoriteMedication where Username=@username";
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
-                    int favCount = connection.Execute(query,
+                    int favCount = connection.ExecuteScalar<int>(query,
                         new
                         {
                             username = username,
-                        }); ;
+                        }); 
                     connection.Close();
                     return favCount;
                 }
@@ -47,7 +47,9 @@ namespace The6Bits.BitOHealth.DAL
         {
             try
             {
-                string query = "INSERT favoriteMedication(Username, MedicineProductID, MedicineGenericName, MedicineBrandName, lowestPrice, lowestPricefound)values(@Username, @MedicineProductID, @MedicineGenericName @MedicineBrandName,0, \"\")";
+                string query = "INSERT favoriteMedication(Username, MedicineProductID , MedicineGenericName ," +
+                    " MedicineBrandName , lowestPrice  , lowestPriceFound )values(@Username, @MedicineProductID, " +
+                    "@MedicineGenericName, @MedicineBrandName,0, @lowestPricefound)";
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
@@ -58,7 +60,8 @@ namespace The6Bits.BitOHealth.DAL
                             MedicineProductID = drug.product_id,
                             MedicineGenericName = drug.generic_name,
                             MedicineBrandName = drug.brand_name,
-                        }); ;
+                            lowestPricefound = ""
+                        }); 
                     connection.Close();
                     return true;
                 }

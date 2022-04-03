@@ -23,9 +23,9 @@ namespace The6Bits.BitOHealth.DAL.Tests
             DrugName testDrug=new DrugName("generic drug test","test id", "brand name test");
             string username = "test";
             //act
-            bool isAdded = medicationDAO.addFavorite(username, testDrug);
+            int isAdded = medicationDAO.getFavoriteCount(username);
             //asset
-            Assert.True(isAdded);
+            Assert.Equal(5, isAdded);
 
         }
     }

@@ -114,8 +114,9 @@ if (app.Environment.IsDevelopment())
     b.buildTrackerLogs(connstring);
     b.buildRecovery(connstring);
     b.buildWMGoals(connstring);
-    b.addBossAdmin(connstring);
     b.buildFavoriteMedication(connstring);
+    b.addBossAdmin(connstring);
+    
     //app.UseSwagger();
     //app.UseSwaggerUI();
 }

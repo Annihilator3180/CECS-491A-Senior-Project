@@ -107,11 +107,11 @@ namespace WebAppMVC.Development
         }
         public bool buildFavoriteMedication(string connStr)
         {
-            var RecoveryStr = "If not exists (select name from sysobjects where name = 'favoriteMedication') " +
+            var FavoriteStr = "If not exists (select name from sysobjects where name = 'favoriteMedication') " +
                 "CREATE TABLE favoriteMedication (Username VARCHAR(30), MedicineProductID VARCHAR(100), " +
-                "MedicineGenericName VARCHAR(100), MedicineBrandName VARCHAR(100), lowestPrice Int, lowestPriceFound VARCHAR(150))";
+                "MedicineGenericName VARCHAR(100), MedicineBrandName VARCHAR(100), lowestPrice int, lowestPriceFound VARCHAR(150))";
             var conn = new SqlConnection(connStr);
-            using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
+            using (SqlCommand command = new SqlCommand(FavoriteStr, conn))
             {
                 conn.Open();
                 command.ExecuteNonQuery();
