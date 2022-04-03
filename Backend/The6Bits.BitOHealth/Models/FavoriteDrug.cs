@@ -25,5 +25,14 @@ namespace The6Bits.BitOHealth.Models
             lowestprice = 0;
             lowestPriceLocation = "";
         }
+        public FavoriteDrug(string userName, string genericName, string productID, string brandName, int lowestPrice, string lowestpriceLocation)
+        {
+            username = userName;
+            generic_name = genericName;
+            product_id = productID;
+            brand_name = brandName;
+            lowestprice = lowestPrice;
+            lowestPriceLocation = lowestpriceLocation;
+        }
     }
 }

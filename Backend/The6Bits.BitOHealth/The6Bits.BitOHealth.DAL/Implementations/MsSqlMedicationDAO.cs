@@ -47,9 +47,7 @@ namespace The6Bits.BitOHealth.DAL
         {
             try
             {
-                string query = "INSERT INTO favoriteMedication(username, MedicineProductID, " +
-                    "MedicineGenericName, MedicineBrandName, lowestPrice, lowestFoundPrice)" +
-                    "values(@Username, @MedicineProductID, @MedicineGenericName @MedicineBrandName,0, 0)";
+                string query = "INSERT favoriteMedication(Username, MedicineProductID, MedicineGenericName, MedicineBrandName, lowestPrice, lowestPricefound)values(@Username, @MedicineProductID, @MedicineGenericName @MedicineBrandName,0, \"\")";
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
