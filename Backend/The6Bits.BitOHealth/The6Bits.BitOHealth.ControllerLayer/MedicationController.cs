@@ -46,7 +46,7 @@ public class MedicationController : ControllerBase
         
         try
         {
-            token = Request.Headers["token"];
+            token = Request.Cookies["token"];
         }
         catch (Exception ex)
         {

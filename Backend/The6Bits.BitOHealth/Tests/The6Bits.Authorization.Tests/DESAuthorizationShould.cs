@@ -50,11 +50,12 @@ namespace The6Bits.Authorization.Tests
             IAuthenticationService _auth;**/
             JWTAuthenticationService _authenticationService = new JWTAuthenticationService(keyPath);
             MedicationController controller = new MedicationController(_authenticationService);
-            DefaultHttpContext mycock = new DefaultHttpContext();
-            //mycock.Request.Cookies.Append("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZpcnN0dXNlcjI5IiwiaWF0IjoiMTY0NTg2ODc4NCJ9.D6CaUg_WOE4UxSPljdxb90B3bvCnm9u8IFL9dVM-viw",
+            DefaultHttpContext context = new DefaultHttpContext();
+            //context.Request.Cookies.Append("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZpcnN0dXNlcjI5IiwiaWF0IjoiMTY0NTg2ODc4NCJ9.D6CaUg_WOE4UxSPljdxb90B3bvCnm9u8IFL9dVM-viw",
             //  option);
-            mycock.Request.Headers.Add("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZpcnN0dXNlcjI5IiwiaWF0IjoiMTY0NTg2ODc4NCJ9.D6CaUg_WOE4UxSPljdxb90B3bvCnm9u8IFL9dVM-viw");
-            controller.ControllerContext.HttpContext = mycock;
+            controller.ControllerContext.HttpContext.Items["token"] = "hello";
+            //context.Request.Headers.Add("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZpcnN0dXNlcjI5IiwiaWF0IjoiMTY0NTg2ODc4NCJ9.D6CaUg_WOE4UxSPljdxb90B3bvCnm9u8IFL9dVM-viw");
+            //controller.ControllerContext.HttpContext = context;
             string s = controller.FindDrug("adderall");
             Assert.Equal("progress",s);
 
