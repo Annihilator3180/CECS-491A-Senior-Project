@@ -14,5 +14,7 @@ namespace The6Bits.BitOHealth.DAL
         public List<FavoriteDrug> ViewFavorites(string username);
         public int UpdateFavorite(string username, FavoriteDrug drug);
         public int RemoveFavorite(string drugProductID, string username);
+        public FavoriteDrug Read(string username, string drugName);
+
     }
 }

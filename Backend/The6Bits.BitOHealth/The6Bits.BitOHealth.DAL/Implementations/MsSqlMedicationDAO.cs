@@ -47,9 +47,9 @@ namespace The6Bits.BitOHealth.DAL
         {
             try
             {
-                string query = "INSERT favoriteMedication(Username, MedicineProductID , MedicineGenericName ," +
-                    " MedicineBrandName , lowestPrice  , lowestPriceFound )values(@Username, @MedicineProductID, " +
-                    "@MedicineGenericName, @MedicineBrandName,0, @lowestPricefound)";
+                string query = "INSERT favoriteMedication(Username, product_id , generic_name ," +
+                    " brand_name, lowestPrice , lowestPriceLocation)values(@Username, @product_id, " +
+                    "@generic_name, @generic_name,0, @lowestPriceLocation)";
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
@@ -57,10 +57,10 @@ namespace The6Bits.BitOHealth.DAL
                         new
                         {
                             Username = username,
-                            MedicineProductID = drug.product_id,
-                            MedicineGenericName = drug.generic_name,
-                            MedicineBrandName = drug.brand_name,
-                            lowestPricefound = ""
+                            product_id = drug.product_id,
+                            generic_name = drug.generic_name,
+                            brand_name = drug.brand_name,
+                            lowestPriceLocation = ""
                         }); 
                     connection.Close();
                     return true;
@@ -93,7 +93,7 @@ namespace The6Bits.BitOHealth.DAL
             try
             {
 
-                string query = "delete * from favoriteMedication where username=@username and MedicineProductID=@DrugProductID";
+                string query = "delete from favoriteMedication where username=@username and product_id=@product_id";
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
@@ -101,10 +101,10 @@ namespace The6Bits.BitOHealth.DAL
                         new
                         {
                             username = username,
-                            drugProductID = drugProductID,
+                            product_id = drugProductID,
 
 
-                        }); ;
+                        }); 
                     connection.Close();
                     return favCount;
                 }
@@ -120,8 +120,10 @@ namespace The6Bits.BitOHealth.DAL
             {
 
                 string query = "update favoriteMedication " +
-                    "set(username = @username, lowestPrice = @lowestPrice, lowestFoundPrice = @lowestFoundPrice) " +
-                    "where username = @username and DrugProductID = @DrugProductID";
+                    "set username = @username, " +
+                    "lowestPrice = @lowestPrice, " +
+                    "lowestPriceLocation = @lowestPriceLocation " +
+                    "where username = @username and product_id = @product_id";
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
@@ -129,9 +131,9 @@ namespace The6Bits.BitOHealth.DAL
                         new
                         {
                             username = username,
-                            drugProductID = drug.product_id,
+                            product_id = drug.product_id,
                             lowestPrice=drug.lowestprice,
-                            lowestFoundPrice=drug.lowestPriceLocation
+                            lowestPriceLocation = drug.lowestPriceLocation
                         }); ;
                     connection.Close();
                     return favCount;
@@ -142,7 +144,32 @@ namespace The6Bits.BitOHealth.DAL
                 throw new Exception(ex.Number.ToString());
             }
         }
+        public FavoriteDrug Read(string username, string drugName)
+        {
+            try
+            {
+                string query = $"Select * from favoriteMedication " +
+                       "where username = @username and product_id = @product_id";
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    IEnumerable<FavoriteDrug> favDrug = connection.Query<FavoriteDrug>(query,
+                        new
+                        {
+                            username = username,
+                            product_id = drugName
+                        });
+                    connection.Close();
+                    return favDrug.First();
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception(ex.Number.ToString());
+            }
+        }
+}
 
 
     }
-}
+

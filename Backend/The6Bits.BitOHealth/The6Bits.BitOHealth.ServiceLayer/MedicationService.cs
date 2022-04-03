@@ -129,5 +129,9 @@ namespace The6Bits.BitOHealth.ServiceLayer
         {
             return _drugDataSet.GetDrugInfo(generic_name).Result;
         }
+        public FavoriteDrug Read(string username, string drugName)
+        {
+            return _MedicationDao.Read(username, drugName); 
+        }
     }
 }
