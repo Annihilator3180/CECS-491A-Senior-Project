@@ -8,8 +8,7 @@ namespace The6Bits.BitOHealth.DAL.Contract
 {
     public interface IRepositoryHealthRecorderDAO
     {
-        public string ValidateUserRecordLimit(string username);
-        public string ValidateUserDailyRecordLimit(string username, DateTime now);
+        public string ValidateUserRecordLimits(string username);
 
         public string SaveRecord(string record, DateTime now, string username, string categoryName, string recordName);
     }

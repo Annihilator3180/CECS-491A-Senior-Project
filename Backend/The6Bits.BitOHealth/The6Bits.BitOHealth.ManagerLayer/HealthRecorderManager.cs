@@ -15,54 +15,50 @@ namespace The6Bits.BitOHealth.ManagerLayer
     {
         private IDBErrors _dbErrors;
         private IRepositoryHealthRecorderDAO _dao;
-        private HealthRecorderService _HRS;
+        private HealthRecorderService _HealthRecorderService;
 
         public HealthRecorderManager(IDBErrors dBErrors, IRepositoryHealthRecorderDAO dao)
         {
             _dbErrors = dBErrors;
             _dao = dao;
-            _HRS = new HealthRecorderService(dao, dBErrors);
+            _HealthRecorderService = new HealthRecorderService(dao, dBErrors);
         }
 
         public string CreateRecord(string username, DateTime now, string categoryName, string recordName, IFormFile file, IFormFile? file2 = null)
         {
-            if (!_HRS.ValidateCategoryName(categoryName) || !_HRS.ValidateRecordName(recordName))
+            if (!_HealthRecorderService.ValidateCategoryName(categoryName) || !_HealthRecorderService.ValidateRecordName(recordName))
             {
                 return "invalid category/record name";
             }
-            string userLimitCheck = _HRS.ValidateUserRecordLimit(username);
-            if (userLimitCheck.Contains("Database") || userLimitCheck.Contains("over"))
-            {
-                return userLimitCheck;
-            }
-            string userDailyLimitCheck = _HRS.ValidateUserDailyRecordLimit(username, now);
-            if(userDailyLimitCheck.Contains("Database") || userDailyLimitCheck.Contains("over"))
-            {
-                return userDailyLimitCheck;
-            }
-            if (!_HRS.ValidateFileLength(file))
+            
+            if (!_HealthRecorderService.ValidateFileLength(file))
             {
                 return "file too big";
             }
             
 
-            if (!_HRS.ValidateFileType(file))
+            if (!_HealthRecorderService.ValidateFileType(file))
             {
                 return "invalid file type";
             }
             if (file2 != null)
             {
-                if (!_HRS.ValidateFileLength(file2))
+                if (!_HealthRecorderService.ValidateFileLength(file2))
                 {
                     return "file 2 too big";
                 }
-                if (!_HRS.ValidateFileType(file2))
+                if (!_HealthRecorderService.ValidateFileType(file2))
                 {
                     return "invalid file 2 type";
                 }
             }
+            string userLimitCheck = _HealthRecorderService.ValidateUserRecordLimit(username);
+            if (userLimitCheck.Contains("Database") || userLimitCheck != "under limit")
+            {
+                return userLimitCheck;
+            }
 
-            string savedRecord = _HRS.SaveRecord(file,now,username, categoryName, recordName, file2);
+            string savedRecord = _HealthRecorderService.SaveRecord(file,now,username, categoryName, recordName, file2);
 
             if (savedRecord.Contains("Database"))
             {

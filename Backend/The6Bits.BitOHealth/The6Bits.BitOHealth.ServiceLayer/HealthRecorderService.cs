@@ -11,12 +11,12 @@ namespace The6Bits.BitOHealth.ServiceLayer
 {
     public class HealthRecorderService
     {
-        private IRepositoryHealthRecorderDAO _HRD;
+        private IRepositoryHealthRecorderDAO _HealthRecorderDao;
         private IDBErrors _dbError;
 
         public HealthRecorderService(IRepositoryHealthRecorderDAO dao, IDBErrors dBErrors)
         {
-            _HRD = dao;
+            _HealthRecorderDao = dao;
             _dbError = dBErrors;
         }
         public bool ValidateRecordName(string recordName)
@@ -30,22 +30,15 @@ namespace The6Bits.BitOHealth.ServiceLayer
         }
         public string ValidateUserRecordLimit(string username) 
         {
-            string result = _HRD.ValidateUserRecordLimit(username);
-            if (result == "under" || result.Contains("over"))
+            string result = _HealthRecorderDao.ValidateUserRecordLimits(username);
+            
+            if (result == "over record limit" || result == "over daily limit" || result == "under limit")
             {
                 return result;
             }
             return _dbError.DBErrorCheck(int.Parse(result));
         }
-        public string ValidateUserDailyRecordLimit(string username, DateTime now)
-        {
-            string result = _HRD.ValidateUserDailyRecordLimit(username, now);
-            if (result == "under" || result.Contains("over"))
-            {
-                return result;
-            }
-            return _dbError.DBErrorCheck(int.Parse(result));
-        }
+   
         public bool ValidateFileLength(IFormFile file)
         {
             double maxSize = 16;
@@ -75,7 +68,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
                 string temp = conversion + " *****SecondFile***** " + secondConversion;
                 conversion = temp;
             }
-            string result = _HRD.SaveRecord(conversion, now, username, categoryName, recordName);
+            string result = _HealthRecorderDao.SaveRecord(conversion, now, username, categoryName, recordName);
             if(result == "saved")
             {
                 return result;

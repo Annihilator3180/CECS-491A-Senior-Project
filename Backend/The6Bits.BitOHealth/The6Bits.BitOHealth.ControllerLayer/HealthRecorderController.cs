@@ -12,6 +12,7 @@ using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.Logging.Implementations;
 using The6Bits.Logging.DAL.Contracts;
 using Microsoft.AspNetCore.Http;
+using System.Net;
 
 namespace The6Bits.BitOHealth.ControllerLayer
 {
@@ -21,20 +22,20 @@ namespace The6Bits.BitOHealth.ControllerLayer
     {
         private IAuthenticationService _authentication;
         private LogService logService;
-        private HealthRecorderManager _HRM;
+        private HealthRecorderManager _HealthRecorderManager;
         private IRepositoryHealthRecorderDAO _dao;
 
         public HealthRecorderController(IAuthenticationService authentication, ILogDal logDal, IDBErrors dBErrors, IRepositoryHealthRecorderDAO dao)
         {
             _authentication = authentication;
             logService = new LogService(logDal);
-            _HRM = new HealthRecorderManager(dBErrors, dao);
+            _HealthRecorderManager = new HealthRecorderManager(dBErrors, dao);
             _dao = dao;
         }
 
         [HttpPost("CreateRecord")]
         //how can you pass 1 or 2 files
-        public string CreateRecord([FromForm]string recordName, [FromForm]string categoryName, IFormFile file, IFormFile? file2)
+        public HttpResponseMessage CreateRecord([FromForm]string recordName, [FromForm]string categoryName, IFormFile file, IFormFile? file2)
         {
            
             var test = HttpContext.Request.Form["file"];
@@ -48,7 +49,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
             }
             catch
             {
-                return "No Token";
+                return new HttpResponseMessage(HttpStatusCode.Unauthorized);
             }
 
             bool isValid = _authentication.ValidateToken(token);
@@ -57,15 +58,32 @@ namespace The6Bits.BitOHealth.ControllerLayer
             if (!isValid)
             {
                 _ = logService.Log("None", "Invalid Token @ Health Recorder", "Info", "Buisness");
-                return "Invalid Token";
+                return new HttpResponseMessage(HttpStatusCode.Unauthorized);
             }
 
             string username = _authentication.getUsername(token);
 
-            string createRecord = _HRM.CreateRecord(username, dateTime, categoryName, recordName, file, file2);
-            //end here
-           
-            return createRecord;
+            string createRecord = _HealthRecorderManager.CreateRecord(username, dateTime, categoryName, recordName, file, file2);
+            //ask in office hours how to include custom message
+
+            if (createRecord.Contains("Database"))
+            {
+                _ = logService.Log(username, "Database Error" + createRecord, "Database", "Buisness");
+                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+            }
+            if (createRecord != "Record Saved")
+            {
+                _ = logService.Log(username, "User Error" + createRecord, "Info", "Buisness");
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+
+            }
+            else
+            {
+                _ = logService.Log(username, createRecord, "Info", "Buisness");
+
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+
         }
 
 

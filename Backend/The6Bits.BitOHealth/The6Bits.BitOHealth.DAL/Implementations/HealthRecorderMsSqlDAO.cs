@@ -17,43 +17,30 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             _connectionString = conn;
         }
-        public string ValidateUserRecordLimit(string username)
+
+        public string ValidateUserRecordLimits(string username)
         {
             try
             {
-                string query = "select count(record) from HealthRecorder where username = @username";
+                string query = "select count(record) as totalRecord, sum (case when timeSaved >= DATEADD(day, -1, GETDATE()) then 1 else 0 end) as dailyRecord" +
+                    " from HealthRecorder where username = @username";
                 using (SqlConnection conn = new SqlConnection(_connectionString))
                 {
-                    int recordCount = conn.ExecuteScalar<int>(query, new {username = username}) ;
-                    conn.Close();
-                    
-                    if (recordCount < 1000)
-                    {
-                        return "under";
-                    }
-                    return "User over total record limit";
+                    //query return an enumerable , we only want one row so we put .single at the end,
+                    //return type is dynamic so we can refer to column name defined in select statement
+                    var limits = conn.Query(query, new { username = username}).Single();
+                    var totalRecord = limits.totalRecord;
+                    var dailyRecord  = limits.dailyRecord;
 
-                }
-
-            }
-            catch(SqlException ex)
-            {
-                return ex.Number.ToString();
-            }
-        }
-        public string ValidateUserDailyRecordLimit(string username, DateTime now)
-        {
-            try
-            {
-                string query = "select count(record) from HealthRecorder where username = @username AND @now >= DATEADD (day, -1, GETDATE())";
-                using (SqlConnection conn = new SqlConnection(_connectionString))
-                {
-                    int dailyRecordCount = conn.ExecuteScalar<int>(query, new { username = username, now = now });
-                    if (dailyRecordCount < 2)
+                    if (totalRecord > 1000)
                     {
-                        return "under";
+                        return "over record limit";
                     }
-                    return "User over daily record limit";
+                    else if (dailyRecord > 2)
+                    {
+                        return "over daily limit";
+                    }
+                    return "under limit";
                 }
             }
             catch(SqlException ex)
