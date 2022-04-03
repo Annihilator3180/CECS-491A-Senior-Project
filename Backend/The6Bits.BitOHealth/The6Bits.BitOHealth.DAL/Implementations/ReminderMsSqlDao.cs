@@ -17,6 +17,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             _connectString = connectstring;
         }
+
         public string CreateReminder(string username, string name, string description, string date, string time, string repeat)
         {
 

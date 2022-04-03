@@ -211,24 +211,24 @@
       "DisplayName": "The6Bits.Authorization",
       "ColorIndex": 8
     },
-    "f2d52a85-d7db-40e9-909a-c798aac61b90": {
-      "ProjectGuid": "f2d52a85-d7db-40e9-909a-c798aac61b90",
-      "DisplayName": "The6Bits.HashAndSaltService.Tests",
-      "ColorIndex": 9
-    },
-    "97955ffb-21d4-44b1-94d2-0527fc0d1db5": {
-      "ProjectGuid": "97955ffb-21d4-44b1-94d2-0527fc0d1db5",
-      "DisplayName": "The6Bits.HashAndSaltService",
-      "ColorIndex": 10
-    },
-    "fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1": {
-      "ProjectGuid": "fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1",
-      "DisplayName": "The6Bits.Authentication.Tests",
-      "ColorIndex": 11
-    },
     "6f5aee68-f998-4a26-8aa8-ac2a7bf0c423": {
       "ProjectGuid": "6f5aee68-f998-4a26-8aa8-ac2a7bf0c423",
       "DisplayName": "FoodAPI",
+      "ColorIndex": 9
+    },
+    "7cdba9f0-fa15-4208-b10b-fbba352fe18c": {
+      "ProjectGuid": "7cdba9f0-fa15-4208-b10b-fbba352fe18c",
+      "DisplayName": "APIS",
+      "ColorIndex": 10
+    },
+    "598bf68e-a9be-44c3-8b1a-c69a61d35bc4": {
+      "ProjectGuid": "598bf68e-a9be-44c3-8b1a-c69a61d35bc4",
+      "DisplayName": "ClassLibrary1",
+      "ColorIndex": 11
+    },
+    "c18a8fb3-7555-4fbb-933c-7972e669dc0f": {
+      "ProjectGuid": "c18a8fb3-7555-4fbb-933c-7972e669dc0f",
+      "DisplayName": "NewsAPI",
       "ColorIndex": 12
     }
   },

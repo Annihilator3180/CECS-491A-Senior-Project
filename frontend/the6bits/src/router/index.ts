@@ -9,7 +9,7 @@ import TrackingLog from '@/components/TrackingLog.vue'
 
 import RegistrationPost from '@/components/Registration.vue'
 import MedSearch from '@/components/MedicationSearch.vue'
-import viewHT from '@/components/viewHotTopics.vue'
+import ViewHT from '@/components/HotTopics.vue'
 import AccountRecovery from '@/components/AccountRecovery.vue'
 import SearchFood from '@/components/WeightManagement/SearchFoodItem.vue'
 const routes: Array<RouteRecordRaw> = [
@@ -66,7 +66,7 @@ const routes: Array<RouteRecordRaw> = [
 {
   path:'/HotTopics',
   name: 'HotTopics',
-  component:viewHT
+  component:ViewHT
 },
 {
     path: '/SearchFood',

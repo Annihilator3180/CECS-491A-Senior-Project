@@ -40,7 +40,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-builder.Configuration.AddJsonFile("secrets.json");
+builder.Configuration.AddJsonFile("json.json");
 
 
 //pass in conn string . IS there a better way to do this?
