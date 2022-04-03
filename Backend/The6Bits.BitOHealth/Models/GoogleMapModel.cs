@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
 namespace The6Bits.BitOHealth.Models
 {   // Todo: Fix
     public class GoogleMapModel
@@ -25,6 +28,16 @@ namespace The6Bits.BitOHealth.Models
 
 
     }
+    public class GoogleMapModel2 
+    {
+        public List<Location> Locations { get; set; }
+        public SelectList? LocationType { get; set; }
+        public string? LocationType { get; set; }
+        public string? SearchString { get; set; }
+    }
+
+    
+
 
     public class Parsed
     {

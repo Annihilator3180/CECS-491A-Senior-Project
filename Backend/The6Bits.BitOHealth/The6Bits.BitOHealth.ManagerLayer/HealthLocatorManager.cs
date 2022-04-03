@@ -24,4 +24,9 @@ public class HealthLocatorManager
     {
         return await _HLS.viewHL();
     }
+
+    public async Task<string> SearchHL()
+    {
+        return await _HLS.searchHL();
+    }
 }

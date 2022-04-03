@@ -36,4 +36,13 @@ public class HealthLocatorService
         var contentString = await res.Content.ReadAsStringAsync();
         return contentString;
     }
+
+    // Todo: Fix
+    public async Task<string> searchHL()
+    {
+        string baseurl = "https://www.google.com/maps/embed/v1/search";
+
+        //PARAM FOR SEARCH QUERY
+        return null;
+    }
 }

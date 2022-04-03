@@ -38,6 +38,14 @@ public class HealthLocatorController : ControllerBase
 
     // Todo: Fix
     [HttpGet("searchHL")]
+    public async Task<string> searchLocation()
+    {
+        var queryString = _HLM.SearchHL();
+        return await queryString;
+    }
+
+    // Todo: Fix
+    [HttpGet("viewHL")]
     public async Task<string> viewLocation()
     {
         var location = _HLM.ViewHL();
