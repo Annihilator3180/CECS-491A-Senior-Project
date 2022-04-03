@@ -36,28 +36,4 @@ namespace The6Bits.BitOHealth.Models
         public string? SearchString { get; set; }
     }
 
-    
-
-
-    public class Parsed
-    {
-        public Location location { get; set; }
-    }
-    public class Next
-    {
-        public string title { get; set; }
-        public string href { get; set; }
-    }
-    public class Links
-    {
-        public Next next { get; set; }
-    }
-    
-    public class Root
-    {
-        public string text { get; set; }
-        public List<Parsed> parsed { get; set; }
-        public List<Hint> hints { get; set; }
-        public Links _links { get; set; }
-    }
 }
