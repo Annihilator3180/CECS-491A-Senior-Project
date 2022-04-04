@@ -73,10 +73,10 @@ namespace The6Bits.BitOHealth.ControllerLayer
         }
 
         [HttpPost("ViewReminder")]
-        public string ViewReminder(string index)
+        public string ViewReminder(string reminderID)
         {
             string username = "bossadmin12";
-            if (index != null)
+            if (reminderID != null)
             {
                 string holder = ViewHelper(username);
                 string res = "";
@@ -84,7 +84,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
                 int counter = 1;
                 foreach (var sub in subs)
                 {
-                    if (counter == Int32.Parse(index))
+                    if (counter == Int32.Parse(reminderID))
                     {
                         return sub;
                     }
@@ -97,13 +97,18 @@ namespace The6Bits.BitOHealth.ControllerLayer
             }
             else
             {
-                return ViewAllReminders(username);
+                return ViewAllHelper(username);
 
             }
         }
         public string ViewHelper(string username)
         {
-            return _RM.VewHelper(username);
+            return _RM.ViewHelper(username);
+        }
+
+        public string ViewAllHelper(string username)
+        {
+            return _RM.ViewAllHelper(username);
         }
 
         [HttpPost("ViewAllReminders")]
@@ -121,6 +126,12 @@ namespace The6Bits.BitOHealth.ControllerLayer
             int size = holder.Length - 5;
             holder = holder.Remove(size);
             return holder;
+        }
+
+        public string EditReminder(string reminderID, string name, string description, string date, string time, string repeat)
+        {
+            string username = "bossadmin12";
+            return _RM.EditReminder(username, reminderID, name, description, date, time, repeat);
         }
     }
 }

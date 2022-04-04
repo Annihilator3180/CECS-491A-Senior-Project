@@ -91,6 +91,31 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
         }
 
+        public string ViewAllHelper(string username)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    IEnumerable<ReminderModel> str = connection.Query<ReminderModel>($"select * from Reminders where username = '{username}';");
+                    string s = "";
+                    foreach (ReminderModel remindermodel in str)
+                    {
+                        s += $"{remindermodel.name}{":"} {remindermodel.description}";
+
+                    }
+
+                    return s;
+
+                }
+            }
+            catch
+            {
+                return "";
+            }
+        }
+
         public string ViewHelper(string username)
         {
             try
@@ -114,6 +139,15 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             {
                 return "";
             }
+        }
+
+        public string EditReminder(string username, string reminderID, List<string> edit)
+        {
+            for(int i = 0; i < edit.Count; i++)
+            {
+                //
+            }
+            return "";
         }
 
     }

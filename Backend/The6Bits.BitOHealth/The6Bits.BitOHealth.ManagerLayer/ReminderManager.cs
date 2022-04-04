@@ -37,9 +37,19 @@ namespace The6Bits.BitOHealth.ManagerLayer
             return res;
         }
 
-        public string VewHelper(string username)
+        public string ViewHelper(string username)
         {
             return _RS.ViewHelper(username);
+        }
+
+        public string ViewAllHelper(string username)
+        {
+            return _RS.ViewAllHelper(username);
+        }
+
+        public string EditReminder(string username, string reminderID, string name, string description, string date, string time, string repeat)
+        {
+            return _RS.EditReminder(username, reminderID, name, description, date, time, repeat);
         }
     }
 }

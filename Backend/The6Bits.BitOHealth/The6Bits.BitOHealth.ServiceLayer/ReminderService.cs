@@ -32,5 +32,27 @@ namespace The6Bits.BitOHealth.ServiceLayer
         {
             return _Rdao.ViewHelper(username);
         }
+
+        public string ViewAllHelper(string username)
+        {
+            string s = _Rdao.ViewAllHelper(username);
+            string[] subs = s.Split('.');
+            int counter = 1;
+            string holder = "";
+            foreach (var sub in subs)
+            {
+                holder += counter + "." + sub + ".  ";
+                counter++;
+            }
+            int size = holder.Length - 5;
+            holder = holder.Remove(size);
+            return holder;
+        }
+
+        public string EditReminder(string username, string reminderID, string name, string description, string date, string time, string repeat)
+        {
+            List<string> edit = new List<string> { name, description, date, time, repeat };
+            return _Rdao.EditReminder(username, reminderID, edit);
+        }
     }
 }
