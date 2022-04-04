@@ -128,6 +128,11 @@ namespace The6Bits.BitOHealth.ControllerLayer
             return holder;
         }
 
+        public string DeleteReminder(string reminderID)
+        {
+            return "";
+        }
+
         public string EditReminder(string reminderID, string name, string description, string date, string time, string repeat)
         {
             string username = "bossadmin12";
