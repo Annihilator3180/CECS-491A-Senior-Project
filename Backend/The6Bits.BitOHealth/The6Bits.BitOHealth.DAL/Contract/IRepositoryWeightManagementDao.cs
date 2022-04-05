@@ -10,10 +10,12 @@ namespace The6Bits.BitOHealth.DAL
     public interface IRepositoryWeightManagementDao
     {
         public string Delete(string username);
-        public string Create(int goalNum, string username);
+        public string Create(GoalWeightModel goal, string username);
         public GoalWeightModel Read(string username);
 
-        public string Update(int goalNum, string username);
+        public string Update(GoalWeightModel goal, string username);
 
+
+        public string CreateFoodLog(FoodModel food, string username);
     }
 }

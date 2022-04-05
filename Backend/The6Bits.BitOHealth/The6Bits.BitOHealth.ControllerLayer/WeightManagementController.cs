@@ -39,7 +39,7 @@ namespace The6Bits.BitOHealth.ControllerLayer.Features
 
         [HttpPost("CreateGoal")]
 
-        public async Task<ActionResult> CreateGoal(GoalWeightModel goalWeight, IFormFile file)
+        public async Task<ActionResult> CreateGoal(GoalWeightModel goal)
         {
             string token = "";
             try
@@ -65,7 +65,7 @@ namespace The6Bits.BitOHealth.ControllerLayer.Features
 
             string username = _authentication.getUsername(token);
 
-            string res = _weightManagementManager.CreateGoal(goalWeight.Goal, username);
+            string res = _weightManagementManager.CreateGoal(goal, username);
 
             if (res.Contains("Database"))
             {
@@ -92,13 +92,20 @@ namespace The6Bits.BitOHealth.ControllerLayer.Features
 
 
         [HttpGet("UpdateGoal")]
-        public async Task<ActionResult> UpdateGoal(int goalNum, string username)
+        public async Task<ActionResult> UpdateGoal(GoalWeightModel goal, string username)
         {
 
-            return Ok(await _weightManagementManager.UpdateGoal(goalNum, username));
+            return Ok(await _weightManagementManager.UpdateGoal(goal, username));
 
         }
+        
+        [HttpGet("UpdateGoal")]
+        public async Task<ActionResult> StoreFoodLog(FoodModel food, string username)
+        {
 
+            return Ok(await _weightManagementManager.StoreFoodLog(food, username));
+
+        }
 
 
     }

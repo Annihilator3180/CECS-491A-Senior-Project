@@ -9,18 +9,18 @@ namespace The6Bits.BitOHealth.Models
     public class GoalWeightModel
     {
         public string Username { get; set; }
-        public int Goal { get; set; }
+        public int GoalWeight { get; set; }
 
         public DateTime GoalDate { get; set; }
 
-        public string PictureName { get; set; }
+        public string ExerciseLevel { get; set; }
 
-        public GoalWeightModel(string username, int goal, DateTime goalDate, string pictureName)
+        public GoalWeightModel(string username, int goalWeight, DateTime goalDate, string exerciseLevel)
         {
             Username = username;
-            Goal = goal;
+            GoalWeight = goalWeight;
             GoalDate = goalDate;
-            PictureName = pictureName;
+            ExerciseLevel = exerciseLevel;
         }
     }
 }
