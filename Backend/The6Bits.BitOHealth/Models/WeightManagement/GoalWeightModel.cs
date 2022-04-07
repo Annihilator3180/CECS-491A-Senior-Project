@@ -8,7 +8,6 @@ namespace The6Bits.BitOHealth.Models
 {
     public class GoalWeightModel
     {
-        public string Username { get; set; }
         public int GoalWeight { get; set; }
 
         public DateTime GoalDate { get; set; }
@@ -17,7 +16,6 @@ namespace The6Bits.BitOHealth.Models
 
         public GoalWeightModel(string username, int goalWeight, DateTime goalDate, string exerciseLevel)
         {
-            Username = username;
             GoalWeight = goalWeight;
             GoalDate = goalDate;
             ExerciseLevel = exerciseLevel;
