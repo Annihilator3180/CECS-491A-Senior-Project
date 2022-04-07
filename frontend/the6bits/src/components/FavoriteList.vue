@@ -1,31 +1,30 @@
 <template>
             
     <div class="form">
-        <button @click = "FavoriteListPost">Favorites List</button>
-         {{message}}
+         {{formData}}
     </div>
 
 </template>
 <script>
     export default {
-        name: 'FavoriteListPost',
+        name: 'FavoriteDrugListPost',
+        created(){
+            this.FavoriteDrugListPost()
+        },
         data() {
         return {
             formData :{
-                userId: '',
-                password: '',
-                Email: '',
-                PrivOption: 0,
-                isEnabled: 0,
-                isAdmin: 0,
-                FirstName: "",
-                LastName: ""
+                generic_name: '',
+                product_id: '',
+                brand_name: '',
+                lowestprice: 0,
+                lowestPriceLocation: ""
             },
             message : '',
         }
     },
     methods:{
-         FavoriteListPost(){
+         FavoriteDrugListPost(){
             const requestOptions = {
                 method: "post",
                 credentials: 'include',

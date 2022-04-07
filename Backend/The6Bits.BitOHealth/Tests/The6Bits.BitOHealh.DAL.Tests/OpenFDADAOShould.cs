@@ -66,5 +66,17 @@ public class OpenFDADAOShould : TestsBase
         //assert
         Assert.Contains("", badNameResponse);
     }
+
+    [Fact]
+    public async void GetDrugInfo()
+    {
+        //arrange
+        string caffeineTest = "caffeine";
+        //act
+        drugInfo testdrugNames = await _MedicationDao.GetDrugInfo(caffeineTest);
+        
+        //assert
+        Assert.Contains(caffeineTest, testdrugNames.openfda.generic_name[0].ToLower());
+    }
 }
 

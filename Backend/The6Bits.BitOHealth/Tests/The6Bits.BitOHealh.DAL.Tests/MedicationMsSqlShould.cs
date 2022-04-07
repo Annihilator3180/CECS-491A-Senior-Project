@@ -76,7 +76,7 @@ namespace The6Bits.BitOHealth.DAL.Tests
             bool isAdded = medicationDAO.addFavorite(username, testDrug);
             //act
             medicationDAO.UpdateFavorite(username, testFavoriteDrug);
-            FavoriteDrug readTest = medicationDAO.Read(username, testDrug.product_id);
+            FavoriteDrug readTest = medicationDAO.Read(username, testDrug.generic_name);
             //assert
             Assert.Equal(readTest.lowestprice,testFavoriteDrug.lowestprice);
             Assert.Equal(testFavoriteDrug.lowestPriceLocation, readTest.lowestPriceLocation);

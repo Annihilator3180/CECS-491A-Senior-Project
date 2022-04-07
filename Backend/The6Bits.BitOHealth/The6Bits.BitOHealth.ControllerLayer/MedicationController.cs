@@ -37,7 +37,7 @@ public class MedicationController : ControllerBase
     [HttpGet("Search")]
     public string FindDrug(string drugName)
     {
-        /**
+        
         string token;
         try
         {
@@ -52,7 +52,7 @@ public class MedicationController : ControllerBase
         {
             return "invalid token";
         }
-        string username = _auth.getUsername(token);**/
+        string username = _auth.getUsername(token);
         List<DrugName> genericdrugNames = _MM.FindDrug(drugName);
         string jsonString = JsonSerializer.Serialize(genericdrugNames);
         return jsonString;
@@ -101,7 +101,7 @@ public class MedicationController : ControllerBase
         try
         {
             List<FavoriteDrug> favoriteDrugsList = _MM.ViewFavorite(username);
-            string favoriteDrugs = JsonSerializer.Serialize(favoriteDrugsList);
+            string favoriteDrugs = JsonSerializer.Serialize(favoriteDrugsList[0]);
             return favoriteDrugs;
         }
         catch (Exception ex)
@@ -159,7 +159,7 @@ public class MedicationController : ControllerBase
         string username = _auth.getUsername(token);
         try
         {
-            DrugInfo drugInfo = _MM.ViewDrug("hello", generic_name);
+            drugInfo drugInfo = _MM.ViewDrug(username, generic_name);
             return JsonSerializer.Serialize(drugInfo);
         }
         catch (Exception ex)

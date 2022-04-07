@@ -134,9 +134,11 @@ public class MedicationManager
 
     }
 
-    public DrugInfo ViewDrug(string username, string generic_name)
+    public drugInfo ViewDrug(string username, string generic_name)
     {
-        return _MS.ViewDrug(generic_name);
+        drugInfo drug= _MS.ViewDrug(generic_name);
+        drugInfo Favorited = _MS.makeFavorite(username, drug);
+        return drug;
     }
 }
 

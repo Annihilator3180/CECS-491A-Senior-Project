@@ -125,13 +125,28 @@ namespace The6Bits.BitOHealth.ServiceLayer
             return "No matches found";
         }
 
-        public DrugInfo ViewDrug(string generic_name)
+        public drugInfo ViewDrug(string generic_name)
         {
             return _drugDataSet.GetDrugInfo(generic_name).Result;
         }
-        public FavoriteDrug Read(string username, string drugName)
+        public FavoriteDrug Read(string username, string genericdrugName)
         {
-            return _MedicationDao.Read(username, drugName); 
+            return _MedicationDao.Read(username, genericdrugName); 
+        }
+
+        public drugInfo makeFavorite(string username, drugInfo drug)
+        {
+            FavoriteDrug favorited = _MedicationDao.Read(username,drug.openfda.generic_name[0]);
+            if(favorited.generic_name != null)
+            {
+                drug.isFavorited = true;   
+                drug.favoriteDrug = favorited;
+            }
+            else
+            {
+                drug.isFavorited = false;
+            }
+            return drug;
         }
     }
 }

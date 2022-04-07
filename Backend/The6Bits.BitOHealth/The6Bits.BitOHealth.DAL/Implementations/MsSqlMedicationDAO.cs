@@ -149,7 +149,7 @@ namespace The6Bits.BitOHealth.DAL
             try
             {
                 string query = $"Select * from favoriteMedication " +
-                       "where username = @username and product_id = @product_id";
+                       "where username = @username and generic_name = @generic_name";
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
@@ -157,7 +157,7 @@ namespace The6Bits.BitOHealth.DAL
                         new
                         {
                             username = username,
-                            product_id = drugName
+                            generic_name = drugName
                         });
                     connection.Close();
                     return favDrug.First();

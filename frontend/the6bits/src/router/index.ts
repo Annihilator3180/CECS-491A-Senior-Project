@@ -6,7 +6,7 @@ import UM from '@/components/UM.vue'
 import CreateGoal from '@/components/WeightManagement/CreateWeightGoal.vue'
 import ResetPassword from '@/components/ResetPassword.vue'
 import TrackingLog from '@/components/TrackingLog.vue'
-import FavoriteListPost from '@/components/FavoriteList.vue'
+import FavoriteDrugListPost from '@/components/FavoriteList.vue'
 import RegistrationPost from '@/components/Registration.vue'
 import MedSearch from '@/components/MedicationSearch.vue'
 import viewHT from '@/components/viewHotTopics.vue'
@@ -76,8 +76,13 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/FavoriteFood',
     name: 'FavoriteList',
-    component: FavoriteListPost
+    component: FavoriteDrugListPost
   },
+  {
+    path: '/FavoriteDrug',
+    name: 'FavoriteDrugListPost',
+    component: FavoriteDrugListPost
+  }
 ]
 
 const router = createRouter({

@@ -13,6 +13,6 @@ namespace The6Bits.BitOHealth.DAL
 
         public Task<List<DrugName>> GetGenericDrugName(string drugName);
         public Task<List<DrugName>> GetBrandDrugName(string drugName);
-        public Task<DrugInfo> GetDrugInfo(string generic_name);
+        public Task<drugInfo> GetDrugInfo(string generic_name);
     }
 }
