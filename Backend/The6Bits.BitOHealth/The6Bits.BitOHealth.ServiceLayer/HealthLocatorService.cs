@@ -43,6 +43,6 @@ public class HealthLocatorService
         string baseurl = "https://www.google.com/maps/embed/v1/search";
 
         //PARAM FOR SEARCH QUERY
-        return null;
+        return baseurl + "testingg testing";
     }
 }

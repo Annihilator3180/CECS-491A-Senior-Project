@@ -21,7 +21,7 @@ using The6Bits.HashAndSaltService.Contract;
 
 namespace The6Bits.BitOHealth.ControllerLayer;
 [ApiController]
-[Route("Health Locator")]
+[Route("HealthLocator")]
 public class HealthLocatorController : ControllerBase
 {
     // Todo: Fix code

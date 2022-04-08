@@ -32,7 +32,7 @@ namespace The6Bits.BitOHealth.Models
     {
         public List<Location> Locations { get; set; }
         public SelectList? LocationType { get; set; }
-        public string? LocationType { get; set; }
+        //public string? LocationType { get; set; }
         public string? SearchString { get; set; }
     }
 

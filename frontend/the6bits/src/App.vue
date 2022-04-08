@@ -10,8 +10,10 @@
     <router-link :to="{ name: 'Registration' }"> Registration</router-link> |
     <router-link :to="{ name: 'MedSearch' }"> MedSearch</router-link>|
     <router-link :to="{ name: 'HotTopics' }"> HotTopics</router-link>|
+    <router-link :to="{name: 'HealthLocator'}"> HealthLocator</router-link>|
     <router-link :to="{name: 'getTLogs'}"> TrackingLog</router-link>
-    <router-link :to="{name: 'SearchFood'}"> SearchFood</router-link>
+    <router-link :to="{name: 'SearchFood'}"> SearchFood</router-link>|
+    
 
   </nav>
   <router-view />
