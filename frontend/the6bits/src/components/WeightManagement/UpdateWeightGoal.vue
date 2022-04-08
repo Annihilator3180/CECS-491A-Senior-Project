@@ -1,9 +1,11 @@
 <template>
     <div  class="form">
+
             <div >
-                <H1>Create Goal</H1>
+                <H1>Update Weight Goal</H1>
                 <label for="lbs">Weight Goal in Lbs: </label>
                 <input type="int" id="username" v-model ="formData.weight" />
+
 
                 <label for="lbs">Goal Date:</label>
                 <input type="date" id="start" name="goal-date"  min=Date.now() v-model ="formData.goaldate">
@@ -21,7 +23,9 @@
 
                 {{message}}
             </div>
-            <button @click = "CreateGoal">Save</button>
+            <button @click = "UpdateGoal">Save</button>
+
+
     </div>
 </template>
 
@@ -31,21 +35,20 @@ import { GoalRequest }  from './WeightManagement'
 
 
     export default {
-        name : 'CreateGoal',
+        name : 'UpdateGoal',
         data() {
         return {
-            res :{},
             formData :{ 
-                goalWeight: 0,
-                goalDate: '',
-                exerciseLevel: 0,
+                weight: 0,
+                goaldate: '',
+                calories: 0,
             },
             message : '',
         }
     },
     methods:{
-        CreateGoal(){
-            GoalRequest(this.formData,"CreateGoal")
+        UpdateGoal(){
+            GoalRequest(this.formData,"UpdateGoal")
                 .then(value => this.message = value)
         },
         GoalRequest,
@@ -58,11 +61,6 @@ import { GoalRequest }  from './WeightManagement'
                 document.getElementById('custom-exercise').style.display='none'; 
         },
 
-        onChildLoad (val) {
-            this.res=val
-            this.formData = val
-            console.log(val) // someValue
-        },
 
     },
     
@@ -79,5 +77,10 @@ label {
     float:left;
     margin-right:15px;
 }
-
+.my-custom-class {
+  position: absolute;
+  right: 0;
+  width: 300px;
+  border: solid red 2px;
+}
 </style>

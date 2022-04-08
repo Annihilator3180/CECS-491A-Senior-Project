@@ -60,7 +60,15 @@ namespace The6Bits.BitOHealth.ManagerLayer
         {
             return await _WMS.UpdateGoal(goal, username);
         }
-        
+
+
+        //TODO:ASK ABOUT THIS
+        public async Task<GoalWeightModel> ReadGoal(string username)
+        {
+            return await _WMS.ReadGoal( username);
+        }
+
+
         public async Task<string> StoreFoodLog(FoodModel food,string username)
         {
             return await _WMS.StoreFoodLog(food, username);

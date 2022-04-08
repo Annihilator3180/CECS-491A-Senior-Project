@@ -39,7 +39,14 @@ namespace The6Bits.BitOHealth.ServiceLayer
         {
             return _WMD.Update(goal, username);
         }
-        
+
+        public async Task<GoalWeightModel> ReadGoal( string username)
+        {
+            return _WMD.Read(username);
+        }
+
+
+
         public async Task<string> StoreFoodLog(FoodModel food, string username)
         {
             return _WMD.CreateFoodLog(food, username);

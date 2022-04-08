@@ -79,21 +79,26 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
-                    IEnumerable<GoalWeightModel> mod = connection.Query<GoalWeightModel>("select * from WMGoals where Username = @Username", new { Username = username });
-                    return mod.First();
+                    IEnumerable<GoalWeightModel> responseEnumerable = connection.Query<GoalWeightModel>("select * from WMGoals where Username = @Username", new { Username = username });
+                    if (responseEnumerable == null || !responseEnumerable.Any())
+                    {
+                        return new GoalWeightModel();
+                    }
+
+                    return responseEnumerable.First();
                 }
             }
             catch (Exception ex)
             {
                 //LOG
 
-                return new GoalWeightModel("100", 1, DateTime.Now, "");
+                return new GoalWeightModel( 1, DateTime.Now, 0);
             }
         }
 
         public string Update(GoalWeightModel goal, string username)
         {
-            string query = "UPDATE WMGoals SET GoalWeight = @GoalWeight, SET GoalDate = @GoalDate, SET ExerciseLevel = @ExerciseLevel where Username = @Username";
+            string query = "UPDATE WMGoals SET GoalWeight = @GoalWeight, GoalDate = @GoalDate, ExerciseLevel = @ExerciseLevel where Username = @Username";
             try
             {
                 using (SqlConnection connection = new SqlConnection(_connectString))
