@@ -10,10 +10,12 @@
     <router-link :to="{ name: 'Registration' }"> Registration</router-link> |
     <router-link :to="{ name: 'MedSearch' }"> MedSearch</router-link>|
     <router-link :to="{ name: 'HotTopics' }"> HotTopics</router-link>|
-    <router-link :to="{name: 'getTLogs'}"> TrackingLog</router-link>
-    <router-link :to="{name: 'SearchFood'}"> SearchFood</router-link>
-   <!-- <router-link :to="{name: 'FavoriteList'}"> Favorite List</router-link> -->
+    <router-link :to="{name: 'getTLogs'}"> TrackingLog</router-link>|
+    <router-link :to="{name: 'SearchFood'}"> SearchFood</router-link> |
+   <router-link :to="{name: 'FavoriteList'}"> Favorite List</router-link> |
+   <router-link :to="{name: 'FavoriteDrugListPost'}"> Favorite Drugs List </router-link> 
   </nav>
+    <router-view />
 </template>
 
 <script>

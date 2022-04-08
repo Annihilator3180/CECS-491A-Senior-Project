@@ -101,7 +101,7 @@ public class MedicationController : ControllerBase
         try
         {
             List<FavoriteDrug> favoriteDrugsList = _MM.ViewFavorite(username);
-            string favoriteDrugs = JsonSerializer.Serialize(favoriteDrugsList[0]);
+            string favoriteDrugs = JsonSerializer.Serialize(favoriteDrugsList);
             return favoriteDrugs;
         }
         catch (Exception ex)

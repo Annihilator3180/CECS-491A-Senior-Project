@@ -51,6 +51,8 @@ namespace The6Bits.BitOHealth.Models
         public string effective_time { get; set; }
         public string version { get; set; }
         public Openfda openfda { get; set; }
+        public bool isFavorited { get; set; }
+        public FavoriteDrug favoriteDrug { get; set; }
     }
 
 
