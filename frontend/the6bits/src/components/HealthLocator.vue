@@ -23,12 +23,12 @@ export default {
     };
   },
   methods: {
-    news() {
+    locations() {
       const requestOptions = {
         method: "GET",
         credentials: "include",
       };
-      fetch("https://localhost:7011/News/viewHL", requestOptions)
+      fetch("https://localhost:7011/HealthLocator/viewHL", requestOptions)
         .then((response) => response.json())
         // .then((data) => data.value[index].url);
         .then((body) => (this.message = body));

@@ -43,6 +43,13 @@ public class HealthLocatorService
         string baseurl = "https://www.google.com/maps/embed/v1/search";
 
         //PARAM FOR SEARCH QUERY
-        return baseurl + "testingg testing";
+        string qParam = "q=long+beach+state";
+
+        var client = new HttpClient();
+
+
+        client.DefaultRequestHeaders.Add("", apiKey);
+
+        return 
     }
 }
