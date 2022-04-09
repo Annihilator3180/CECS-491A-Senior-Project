@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using The6Bits.BitOHealth.DAL.Contract;
+using The6Bits.BitOHealth.Models;
 
 namespace The6Bits.BitOHealth.DAL.Implementations
 {
@@ -36,7 +37,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     {
                         return "over record limit";
                     }
-                    else if (dailyRecord > 2)
+                    else if (dailyRecord > 10)
                     {
                         return "over daily limit";
                     }
@@ -48,15 +49,16 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 return ex.Number.ToString();
             }
         }
-        public string SaveRecord(string record, DateTime timeSaved, string username, string categoryName, string recordName)
+        public string SaveRecord(string record, DateTime timeSaved, string username, string categoryName, string recordName, string secondRecord)
         {
+            //consider unique record names
             try
             {
-                string query = "INSERT INTO HealthRecorder(record, timeSaved, username, categoryName, recordName) values(@record," +
+                string query = "INSERT INTO HealthRecorder(record, secondRecord, timeSaved, username, categoryName, recordName) values(@record, @secondRecord," +
                     "@timeSaved, @username, @categoryName, @recordName)";
                 using (SqlConnection conn = new SqlConnection(_connectionString))
                 {
-                    int result = conn.Execute(query, new {record = record, timeSaved = timeSaved, 
+                    int result = conn.Execute(query, new {record = record, secondRecord = secondRecord, timeSaved = timeSaved, 
                         username = username, categoryName = categoryName, recordName = recordName});
                     conn.Close();
 
@@ -68,16 +70,25 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 return ex.Number.ToString();
             }
         }
-        public List<string> GetRecords(string username, int lastRecordIndex)
+        public List<HealthRecorderRecordModel> GetRecords(string username, int lastRecordIndex)
         {
-            List<string> records = new List<string>();
+            /*
+            maybe return list of record objects
+            select each column of data and then create new object, insert into list
+            https://www.learndapper.com/selecting-multiple-rows
+            select* from HealthRecorder
+            ORDER BY timeSaved ASC 
+            OFFSET 1 ROWS
+            FETCH NEXT 2 ROWS ONLY
+            */
+            List<HealthRecorderRecordModel> records = new List<HealthRecorderRecordModel>();
             try
             {
                 string query = "Select* from HealthRecorder where username = @username";
                 using (SqlConnection conn = new SqlConnection(_connectionString))
                 {
-                    var getRecords = conn.Query<string>(query, new {username = username});
-                    foreach(string r in getRecords)
+                    var getRecords = conn.Query<HealthRecorderRecordModel>(query, new {username = username});
+                    foreach(var r in getRecords)
                     {
                         records.Add(r);
                     }
@@ -87,9 +98,10 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             catch(SqlException ex)
             {
                 string errorCode = ex.Number.ToString();
-                List<string> list = new List<string>();
-                list.Add(errorCode);
-                return list;
+                HealthRecorderRecordModel error = new HealthRecorderRecordModel();
+                error.ErrorCode = errorCode;
+                records.Add(error);
+                return records;
             }
         }
 

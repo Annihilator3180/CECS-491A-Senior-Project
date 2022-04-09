@@ -87,9 +87,13 @@ namespace The6Bits.BitOHealth.ControllerLayer
             
         }
         [HttpGet("ViewRecord")]
+        //https://stackoverflow.com/questions/381508/can-a-byte-array-be-written-to-a-file-in-c
+        //add each http response
+        //db can have blob data type
         public string ViewRecord([FromForm] int lastRecordIndex)
         {
             string token = "";
+            HealthRecorderViewRecordModel response = new HealthRecorderViewRecordModel();
 
             try
             {
@@ -97,7 +101,9 @@ namespace The6Bits.BitOHealth.ControllerLayer
             }
             catch
             {
-                return "no";
+                response.HttpResponse = new HttpResponseMessage(HttpStatusCode.Unauthorized);
+                response.ErrorMessage = "No Token";
+                return response.ToString();
             }
 
             bool isValid = _authentication.ValidateToken(token);
@@ -106,12 +112,26 @@ namespace The6Bits.BitOHealth.ControllerLayer
             if (!isValid)
             {
                 _ = logService.Log("None", "Invalid Token @ Health Recorder", "Info", "Buisness");
-                return "no";
+                response.HttpResponse = new HttpResponseMessage(HttpStatusCode.Unauthorized);
+                response.ErrorMessage = "Invalid Token";
+                return response.ToString();
             }
 
             string username = _authentication.getUsername(token);
             HealthRecorderViewRecordModel a = _HealthRecorderManager.ViewRecord(username, lastRecordIndex);
-            return a.ToString();
+
+            if (a.ErrorMessage != null)
+            {
+                _ = logService.Log(username, "DB Error", a.ErrorMessage, "Buisness");
+                a.HttpResponse = new HttpResponseMessage(HttpStatusCode.InternalServerError);
+                return a.ToString();
+            }
+            else
+            {
+                a.HttpResponse = new HttpResponseMessage(HttpStatusCode.OK);
+                return a.ToString();
+
+            }
         }
          
 

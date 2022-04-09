@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using The6Bits.BitOHealth.DAL.Contract;
+using The6Bits.BitOHealth.Models;
 using The6Bits.DBErrors;
 
 namespace The6Bits.BitOHealth.ServiceLayer
@@ -62,13 +63,12 @@ namespace The6Bits.BitOHealth.ServiceLayer
         {
             //add string to separate 2 records and parse later
             string conversion = ConvertFileToString(file);
+            string secondConversion = string.Empty;
             if (file2 != null)
             {
-                string secondConversion = ConvertFileToString(file2);
-                string temp = conversion + " *****SecondFile***** " + secondConversion;
-                conversion = temp;
+                secondConversion = ConvertFileToString(file2);
             }
-            string result = _HealthRecorderDAO.SaveRecord(conversion, now, username, categoryName, recordName);
+            string result = _HealthRecorderDAO.SaveRecord(conversion, now, username, categoryName, recordName, secondConversion);
             if(result == "saved")
             {
                 return result;
@@ -88,9 +88,16 @@ namespace The6Bits.BitOHealth.ServiceLayer
             }
             return s;
         }
-        public List<string> ViewRecord(string username, int lastRecordIndex)
+        public List<HealthRecorderRecordModel> ViewRecord(string username, int lastRecordIndex)
         {
-            return _HealthRecorderDAO.GetRecords(username, lastRecordIndex);
+           List<HealthRecorderRecordModel> records =  _HealthRecorderDAO.GetRecords(username, lastRecordIndex);
+            string errorCode = records[0].ErrorCode;
+            if (errorCode == null)
+            {
+                return records;
+            }
+            records[0].ErrorCode = _dbError.DBErrorCheck(int.Parse((errorCode)));
+            return records;
         }
 
     }

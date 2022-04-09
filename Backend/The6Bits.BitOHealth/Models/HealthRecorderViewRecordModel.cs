@@ -11,25 +11,19 @@ namespace The6Bits.BitOHealth.Models
     //this model can consist of a list another "view" object with all things you need
 
     {
-        private HttpResponseMessage httpResponse;
-        private List<string> records = new List<string>();
+        private HttpResponseMessage httpResponse = null;
+        private List<HealthRecorderRecordModel> records = new List<HealthRecorderRecordModel>();
+        private string errorMessage;
 
-        public HealthRecorderViewRecordModel(List<string> records)
-        {
-            this.records = records;
-        }
-        public HealthRecorderViewRecordModel(HttpResponseMessage response)
-        {
-            httpResponse = response;
-        }
+        public List<HealthRecorderRecordModel>? Records { get; set; }
 
-        public void SetHttpResponse(HttpResponseMessage response)
-        {
-            httpResponse = response;
-        }
+        public HttpResponseMessage? HttpResponse { get; set; }
+
+        public string? ErrorMessage { get; set; }
         public string ToString()
         {
-            return JsonConvert.SerializeObject(this.records);
+            //still need to return 
+            return JsonConvert.SerializeObject(this);
 
         }
     }
