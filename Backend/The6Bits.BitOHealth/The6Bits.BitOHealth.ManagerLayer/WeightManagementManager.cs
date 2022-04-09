@@ -32,14 +32,14 @@ namespace The6Bits.BitOHealth.ManagerLayer
             _foodAPI = foodApiService;
         }
 
-        public string CreateGoal(int goalNum, string username)
+        public string CreateGoal(GoalWeightModel goal, string username)
         {
             string del = _WMS.DeleteGoal(username);
             if (!del.Contains("Weight"))
             {
                 return "Error Deleting Goal" + _dbErrors.DBErrorCheck(Int32.Parse(del));
             }
-            string res = _WMS.CreateGoal(goalNum,username);
+            string res = _WMS.CreateGoal(goal,username);
             if (!res.Contains("Weight"))
             {
                 return "Error Creating Goal" + _dbErrors.DBErrorCheck(Int32.Parse(res));
@@ -56,9 +56,22 @@ namespace The6Bits.BitOHealth.ManagerLayer
         }
 
 
-        public async Task<string> UpdateGoal(int goalNum,string username)
+        public async Task<string> UpdateGoal(GoalWeightModel goal,string username)
         {
-            return await _WMS.UpdateGoal(goalNum, username);
+            return await _WMS.UpdateGoal(goal, username);
+        }
+
+
+        //TODO:ASK ABOUT THIS
+        public async Task<GoalWeightModel> ReadGoal(string username)
+        {
+            return await _WMS.ReadGoal( username);
+        }
+
+
+        public async Task<string> StoreFoodLog(FoodModel food,string username)
+        {
+            return await _WMS.StoreFoodLog(food, username);
         }
 
 
