@@ -44,6 +44,7 @@ builder.Configuration.AddJsonFile("secrets.json");
 
 
 //pass in conn string . IS there a better way to do this?
+builder.Services.AddScoped<IRepositoryDietRecommendations, DietRecommendationsMsSqlDao>(provider => new DietRecommendationsMsSqlDao(connstring));
 builder.Services.AddScoped<IRepositoryUM<User>>(provider => new MsSqlUMDAO<User>(connstring));
 builder.Services.AddScoped<IRepositoryAuth<string>>(provider =>
     new AccountMsSqlDao(connstring));
@@ -119,7 +120,8 @@ if (app.Environment.IsDevelopment())
     b.buildFavoriteMedication(connstring);
     b.addBossAdmin(connstring);
     b.BuildHealthRecorder(connstring);
-    
+    b.buildDiet(connstring);
+    b.buildRemiders(connstring);
     //app.UseSwagger();
     //app.UseSwaggerUI();
 }

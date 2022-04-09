@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ad3a07c5-89e1-403f-be78-712e22add47d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/.vs/The6Bits.BitOHealth/config/applicationhost.config" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/.vs/The6Bits.BitOHealth/v17/TestStore/0/017.testlog" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/.vs/The6Bits.BitOHealth/v17/TestStore/0/020.testlog" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/.vs/The6Bits.BitOHealth/v17/TestStore/0/021.testlog" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Models/ClaimsDBModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Models/DrugName.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Models/GoalWeightModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Tests/The6Bits.Authentication.Tests/JwtAuthenticationServiceShould.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Tests/The6Bits.Authentication.Tests/The6Bits.Authentication.Tests.csproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Tests/The6Bits.Authentication.Tests/appsettings.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Tests/The6Bits.Authorization.Tests/MsSqlRoleAuthorizationDaoShould.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Tests/The6Bits.Authorization.Tests/appsettings.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Tests/The6Bits.BitOHealh.DAL.Tests/CreateReminderShould.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Tests/The6Bits.BitOHealh.DAL.Tests/OpenFDADAOShould.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Tests/The6Bits.BitOHealh.DAL.Tests/WeightManagementMsSqlDaoShould.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Tests/The6Bits.BitOHealth.ServiceLayer.Test/AccountRecoveryShould.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Tests/The6Bits.BitOHealth.ServiceLayer.Test/AccountServiceShould.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Tests/The6Bits.BitOHealth.ServiceLayer.Test/EmailServiceShould.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Tests/The6Bits.BitOHealth.ServiceLayer.Test/HotTopicsTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Tests/The6Bits.BitOHealth.ServiceLayer.Test/MedicationServiceShould.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Tests/The6Bits.BitOHealth.ServiceLayer.Test/WeightManagementServiceShould.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Tests/The6Bits.BitOHealth.ServiceLayer.Test/appsettings.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Tests/The6Bits.HashAndSaltService.Tests/HashAndSaltServiceShould.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Tests/The6Bits.HashAndSaltService.Tests/The6Bits.HashAndSaltService.Tests.csproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.Authorization/AuthorizationService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.Authorization/Contract/IAuthorizationDao.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.Authorization/Implementations/MsSqlRoleAuthorizationDao.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.ControllerLayer/HotTopicsController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.ControllerLayer/MedicationController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.ControllerLayer/ReminderController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.ControllerLayer/WeightManagementController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.DAL/Contract/IDrugDataSet.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.DAL/Contract/IReminderDatabase.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.DAL/Contract/IRepositoryWeightManagementDao.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.DAL/Implementations/MsSqlMedicationDAO.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.DAL/Implementations/OpenFDADAO.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.DAL/Implementations/ReminderMsSqlDao.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.DAL/Implementations/WeightManagementMsSqlDao.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.ManagerLayer/HotTopicsManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.ManagerLayer/MedicationManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.ManagerLayer/ReminderManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.ManagerLayer/WeightManagementManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.ServiceLayer/HotTopicsService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.ServiceLayer/MedicationService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.ServiceLayer/ReminderService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.ServiceLayer/WeightManagementService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.HashAndSaltService/Contract/IHashDao.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.HashAndSaltService/HashAndSaltService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.HashAndSaltService/Implementations/MsSqlHashDao.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.HashAndSaltService/The6Bits.HashAndSaltService.csproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Documents/Features/Feature-Medication Lookup/MedicationSearch-No brand name.drawio.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Documents/Features/Feature-Medication Lookup/MedicationSearch-No generic Names.drawio.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Documents/Features/Feature-Medication Lookup/MedicationSearch-findDrug InvalidToken.drawio.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Documents/HashAndSaltService.drawio" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Frontend/the6bits/src/components/ResetPassword.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/.vs/VSWorkspaceState.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/.vs/frontend/config/applicationhost.config" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/.vs/frontend/project-colors.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/.vs/frontend/v17/.suo" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/.vs/slnx.sqlite" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/the6bits/src/components/BulkUM/bulkActions.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/the6bits/src/components/Home.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/the6bits/src/components/MedicationSearch.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/the6bits/src/components/Registration.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/the6bits/src/components/TrackingLog.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/the6bits/src/components/UM.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/the6bits/src/components/UMComponents/UMFunctions.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/the6bits/src/components/UMComponents/UMUserObj.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/the6bits/src/components/UMComponents/UMUsername.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/the6bits/src/components/WeightManagement/CreateWeightGoal.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/the6bits/src/components/viewHotTopics.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/the6bits/src/router/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/slnx.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/slnx.sqlite" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/.vs/The6Bits.BitOHealth/DesignTimeBuild/.dtbcache.v2" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/.vs/The6Bits.BitOHealth/DesignTimeBuild/.dtbcache.v2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/.vs/The6Bits.BitOHealth/v17/.futdcache.v1" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/.vs/The6Bits.BitOHealth/v17/.futdcache.v1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/.vs/The6Bits.BitOHealth/v17/HierarchyCache.v1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/.vs/The6Bits.BitOHealth/v17/HierarchyCache.v1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/.vs/The6Bits.BitOHealth/v17/TestStore/0/016.testlog" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/.vs/The6Bits.BitOHealth/v17/TestStore/0/016.testlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/.vs/The6Bits.BitOHealth/v17/TestStore/0/018.testlog" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/.vs/The6Bits.BitOHealth/v17/TestStore/0/018.testlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/.vs/The6Bits.BitOHealth/v17/TestStore/0/testlog.manifest" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/.vs/The6Bits.BitOHealth/v17/TestStore/0/testlog.manifest" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Models/JwtModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Models/JwtModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Tests/The6Bits.Authorization.Tests/The6Bits.Authorization.Tests.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Tests/The6Bits.Authorization.Tests/The6Bits.Authorization.Tests.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Tests/The6Bits.BitOHealh.DAL.Tests/AccountMsSqlDaoShould.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Tests/The6Bits.BitOHealh.DAL.Tests/AccountMsSqlDaoShould.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Tests/The6Bits.BitOHealh.DAL.Tests/OTPShould.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Tests/The6Bits.BitOHealh.DAL.Tests/OTPShould.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Tests/The6Bits.BitOHealh.DAL.Tests/TestsBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Tests/The6Bits.BitOHealh.DAL.Tests/TestsBase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Tests/The6Bits.BitOHealh.DAL.Tests/UMDaoShould.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Tests/The6Bits.BitOHealh.DAL.Tests/UMDaoShould.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Tests/The6Bits.BitOHealh.DAL.Tests/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Tests/The6Bits.BitOHealh.DAL.Tests/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Tests/The6Bits.BitOHealth.ServiceLayer.Test/AccountRecoveryServiceShould.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Tests/The6Bits.BitOHealth.ServiceLayer.Test/AuthenticationServiceTest.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Tests/The6Bits.BitOHealth.ServiceLayer.Test/Class1.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.DAL/Contract/IRepositoryMedication.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Tests/The6Bits.BitOHealth.ServiceLayer.Test/The6Bits.BitOHealth.ServiceLayer.Test.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/Tests/The6Bits.BitOHealth.ServiceLayer.Test/The6Bits.BitOHealth.ServiceLayer.Test.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.Authentication/Contract/IAuthenticationService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.Authentication/Contract/IAuthenticationService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.Authentication/Implementations/JWTAuthenticationService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.Authentication/Implementations/JWTAuthenticationService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.Authentication/Implementations/JwtPayloadModel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.Authorization/Contract/IAuthorizationService.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.Authorization/Implementations/MsSqlRoleAuthorizationService.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.Authorization/The6Bits.Authorization.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.Authorization/The6Bits.Authorization.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.ControllerLayer/AccountController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.ControllerLayer/AccountController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.ControllerLayer/RecoveryResetController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.ControllerLayer/RecoveryResetController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.ControllerLayer/The6Bits.BitOHealth.ControllerLayer.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.ControllerLayer/The6Bits.BitOHealth.ControllerLayer.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.ControllerLayer/UMController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.ControllerLayer/UMController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.DAL/Contract/IRepositoryAuth.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.DAL/Contract/IRepositoryAuth.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.DAL/Implementations/AccountMsSqlDao.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.DAL/Implementations/AccountMsSqlDao.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.DAL/Implementations/MsSqlUMDAO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.DAL/Implementations/MsSqlUMDAO.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.Demo/Demo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.Demo/Demo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.Logging/LogService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.Logging/LogService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.ManagerLayer/AccountManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.ManagerLayer/AccountManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.ManagerLayer/The6Bits.BitOHealth.ManagerLayer.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.ManagerLayer/The6Bits.BitOHealth.ManagerLayer.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.ManagerLayer/UMManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.ManagerLayer/UMManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.ServiceLayer/AccountService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.ServiceLayer/AccountService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.sln" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.BitOHealth.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.EmailService/Contracts/ISMTPEmailService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/The6Bits.EmailService/Contracts/ISMTPEmailService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/WebAppAPI/Development/dbBuilder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/WebAppAPI/Development/dbBuilder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/WebAppAPI/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/WebAppAPI/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/WebAppAPI/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/WebAppAPI/Properties/launchSettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/WebAppAPI/WebAppAPI.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/WebAppAPI/WebAppAPI.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/WebAppAPI/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/The6Bits.BitOHealth/WebAppAPI/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documents/Features/Feature _ Weight Management-Calorie counter/Create Goal Weight.drawio" beforeDir="false" afterPath="$PROJECT_DIR$/Documents/Features/Feature _ Weight Management-Calorie counter/Create Goal Weight.drawio" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documents/Features/Feature-Medication Lookup/Medication.drawio.png" beforeDir="false" afterPath="$PROJECT_DIR$/Documents/Features/Feature-Medication Lookup/Medication.drawio.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documents/Milestone 3/LL Drawio/Login.drawio" beforeDir="false" afterPath="$PROJECT_DIR$/Documents/Milestone 3/LL Drawio/Login.drawio" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/the6bits/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/the6bits/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/the6bits/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/the6bits/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/the6bits/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/the6bits/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/the6bits/src/components/AccountRecovery.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/the6bits/src/components/AccountRecovery.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/the6bits/src/components/HelloWorld.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/the6bits/src/components/LoginPost.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/the6bits/src/components/LoginPost.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/the6bits/src/components/OneTimePass.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/the6bits/src/components/OneTimePass.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/the6bits/src/components/UserManagement.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/the6bits/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/the6bits/src/main.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/the6bits/src/shims-vue.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/the6bits/src/shims-vue.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/the6bits/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/the6bits/tsconfig.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="26HkfuWnky6ZwCekvPkgt0yrunG" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ad3a07c5-89e1-403f-be78-712e22add47d" name="Changes" comment="" />
+      <created>1647088016373</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1647088016373</updated>
+      <workItem from="1647088020749" duration="8000" />
+    </task>
+    <servers />
+  </component>
+</project>
