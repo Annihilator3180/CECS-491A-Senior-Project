@@ -13,6 +13,10 @@ import MedSearch from '@/components/MedicationSearch.vue'
 import viewHT from '@/components/viewHotTopics.vue'
 import AccountRecovery from '@/components/AccountRecovery.vue'
 import SearchFood from '@/components/WeightManagement/SearchFoodItem.vue'
+import DeleteAccount from '@/components/DeleteAccount.vue'
+import DietRecommendation from '@/components/DietRecommendation.vue'
+
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -73,6 +77,20 @@ const routes: Array<RouteRecordRaw> = [
     path: '/SearchFood',
     name: 'SearchFood',
     component: SearchFood
+    },
+    {
+        path: '/DeleteAccount',
+        name: 'DeleteAccount',
+        component: DeleteAccount
+    },
+
+    {
+        path: '/DietRecommendation',
+        name: 'DietRecommendation',
+        component: DietRecommendation
+    },
+
+
 },
 {
   path: '/HealthRecorder',

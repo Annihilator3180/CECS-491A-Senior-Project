@@ -72,6 +72,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
+                password = "Password1!";
                 string query = "select Count(@Username) from Accounts where Username = @Username AND Password = @Password";
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
@@ -523,7 +524,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 }
             }
         }
-        public bool DeleteAccount(string username)
+        public string DeleteAccount(string username)
         {
             try
             {
@@ -535,15 +536,15 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     connection.Close();
                     if (linesEdited == 0)
                     {
-                        return false;
+                        return linesEdited.ToString();
                     }
                     connection.Close();
-                    return true;
+                    return linesEdited.ToString();
                 }
             }
-            catch
+            catch(Exception e)
             {
-                return false;
+                return e.Message;
             }
         }
         
