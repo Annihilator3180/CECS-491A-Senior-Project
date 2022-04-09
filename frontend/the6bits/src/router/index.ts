@@ -96,7 +96,7 @@ const routes: Array<RouteRecordRaw> = [
     component: HealthRecorder
   },
   {
-    path: "/FavoriteDrugListPost",
+      path: "/FavoriteDrugs",
     name: "FavoriteDrugListPost",
     component: FavoriteDrugListPost
   }
