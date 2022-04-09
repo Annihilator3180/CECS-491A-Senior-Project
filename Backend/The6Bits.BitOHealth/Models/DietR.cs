@@ -4,6 +4,7 @@ namespace The6Bits.BitOHealth.Models
 {
     public class DietR
     {
+
         public string Diet { get; set; }
         public string Health { get; set; }
         public double Ingr { get; set; }

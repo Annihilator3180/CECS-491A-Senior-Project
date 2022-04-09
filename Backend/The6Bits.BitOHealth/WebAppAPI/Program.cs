@@ -120,6 +120,7 @@ if (app.Environment.IsDevelopment())
     b.buildFavoriteMedication(connstring);
     b.addBossAdmin(connstring);
     b.BuildHealthRecorder(connstring);
+    b.buildDiet(connstring);
     
     //app.UseSwagger();
     //app.UseSwaggerUI();
