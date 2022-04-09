@@ -87,15 +87,16 @@ public class MedicationController : ControllerBase
         try
         {
             token = Request.Cookies["token"];
+            if (!_auth.ValidateToken(token))
+            {
+                return "invalid token";
+            }
         }
         catch
         {
             return "invalid token";
         }
-        if (!_auth.ValidateToken(token))
-        {
-            return "invalid token";
-        }
+
 
         string username = _auth.getUsername(token);
         try
