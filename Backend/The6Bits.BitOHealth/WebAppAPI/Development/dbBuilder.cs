@@ -115,6 +115,22 @@ namespace WebAppMVC.Development
 
 
         }
+        public bool buildFavoriteMedication(string connStr)
+        {
+            var FavoriteStr = "If not exists (select name from sysobjects where name = 'favoriteMedication') " +
+                "CREATE TABLE favoriteMedication (Username VARCHAR(30), product_id VARCHAR(100), " +
+                "generic_name VARCHAR(100), brand_name VARCHAR(100), lowestPrice int, lowestPriceLocation VARCHAR(150))";
+            var conn = new SqlConnection(connStr);
+            using (SqlCommand command = new SqlCommand(FavoriteStr, conn))
+            {
+                conn.Open();
+                command.ExecuteNonQuery();
+            }
+            return false;
+
+
+
+        }
 
 
         public bool addBossAdmin(string connStr)

@@ -13,19 +13,18 @@ namespace The6Bits.BitOHealth.DAL
     public class OpenFDADAO : IDrugDataSet
     {
 
-        private static HttpClient api { get; set; }
-        public OpenFDADAO()
+        private static HttpClient _httpClient;
+
+        public OpenFDADAO(HttpClient httpClient)
         {
+            _httpClient = httpClient;
         }
 
 
         public async Task<List<DrugName>> GetGenericDrugName(string drugName)
         {
-            api = new HttpClient();
-            api.DefaultRequestHeaders.Accept.Clear();
-            api.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            string url = "https://api.fda.gov/drug/ndc.json?api_key="+Environment.GetEnvironmentVariable("OpenFda")+"&search=generic_name:%22" + drugName+"%22&limit=3";
-            using (HttpResponseMessage response = await api.GetAsync(url))
+            string url = $"?api_key={Environment.GetEnvironmentVariable("OpenFda")}&search=generic_name:%22{drugName}%22&limit=3";
+            using (HttpResponseMessage response = await _httpClient.GetAsync(url))
             {
                 if (response.IsSuccessStatusCode)
                 {
@@ -49,11 +48,8 @@ namespace The6Bits.BitOHealth.DAL
         }
         public async Task<List<DrugName>> GetBrandDrugName(string drugName)
         {
-            api = new HttpClient();
-            api.DefaultRequestHeaders.Accept.Clear();
-            api.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            string url = "https://api.fda.gov/drug/ndc.json?api_key=" + Environment.GetEnvironmentVariable("OpenFda") + "&search=brand_name:%22" + drugName + "%22&limit=3";
-            using (HttpResponseMessage response = await api.GetAsync(url))
+            string url = $"?api_key={Environment.GetEnvironmentVariable("OpenFda")}&search=brand_name:%22{drugName}%22&limit=3";
+            using (HttpResponseMessage response = await _httpClient.GetAsync(url))
             {
                 if (response.IsSuccessStatusCode)
                 {
@@ -74,6 +70,30 @@ namespace The6Bits.BitOHealth.DAL
             }
 
 
+        }
+        public async Task<drugInfo> GetDrugInfo(string generic_name)
+        {
+            string url = $"https://api.fda.gov/drug/label.json?api_key={Environment.GetEnvironmentVariable("OpenFda")}&search=openfda.generic_name:%22{generic_name}%22&limit=1";
+            using (var response = await _httpClient.GetAsync(url))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    drugInfos values = JsonSerializer.Deserialize<drugInfos>(await response.Content.ReadAsStringAsync());
+                    try
+                    {
+                        return values.results[0];
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Error getting drug information");
+                    }
+                }
+                else
+                {
+                    throw new Exception("Error getting drug information");
+
+                }
+            }
         }
 
     }
