@@ -6,7 +6,7 @@ import UM from '@/components/UM.vue'
 import CreateGoal from '@/components/WeightManagement/CreateWeightGoal.vue'
 import ResetPassword from '@/components/ResetPassword.vue'
 import TrackingLog from '@/components/TrackingLog.vue'
-
+import HealthRecorder from '@/components/HealthRecorder.vue'
 import RegistrationPost from '@/components/Registration.vue'
 import MedSearch from '@/components/MedicationSearch.vue'
 import viewHT from '@/components/viewHotTopics.vue'
@@ -72,7 +72,12 @@ const routes: Array<RouteRecordRaw> = [
     path: '/SearchFood',
     name: 'SearchFood',
     component: SearchFood
-  },
+},
+{
+  path: '/HealthRecorder',
+  name: 'HealthRecorder',
+  component: HealthRecorder
+}
 ]
 
 const router = createRouter({
