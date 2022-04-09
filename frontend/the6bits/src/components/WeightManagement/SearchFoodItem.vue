@@ -8,11 +8,11 @@
                 <tbody>
                     <tr v-for="f in formData.foods" :key="f">
                         <td>{{f.food.label}}</td>
-                        <td>{{f.food.nutrients.enerC_KCAL}}</td>
-                        <td>{{f.food.nutrients.procnt}}</td>
-                        <td>{{f.food.nutrients.fat}}</td>
-                        <td>{{f.food.nutrients.chocdf}}</td>
-                        <td>{{f.food.nutrients.fibtg}}</td>
+                        <td>Calories : {{f.food.nutrients.enerC_KCAL}}</td>
+                        <td>Protein :{{f.food.nutrients.procnt}}</td>
+                        <td>Fat :{{f.food.nutrients.fat}}</td>
+                        <td>Carbs :{{f.food.nutrients.chocdf}}</td>
+                        <td>Fiber :{{f.food.nutrients.fibtg}}</td>
 
 
 

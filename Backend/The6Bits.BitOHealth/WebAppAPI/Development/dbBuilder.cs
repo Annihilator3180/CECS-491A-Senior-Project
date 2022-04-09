@@ -87,8 +87,6 @@ namespace WebAppMVC.Development
             }
             return false;
 
-
-
         }
 
         public bool buildWMGoals(string connStr)

@@ -10,7 +10,7 @@ namespace The6Bits.BitOHealth.Models
     {
         public int? GoalWeight { get; set; }
 
-        public DateTime GoalDate { get; set; }
+        public DateTime? GoalDate { get; set; }
 
         public int ExerciseLevel { get; set; }
 
