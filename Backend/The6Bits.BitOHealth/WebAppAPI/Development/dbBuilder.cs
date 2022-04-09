@@ -99,13 +99,11 @@ namespace WebAppMVC.Development
             }
             return false;
 
-
-
         }
 
         public bool buildWMGoals(string connStr)
         {
-            var RecoveryStr = "If not exists (select name from sysobjects where name = 'WMGoals') CREATE TABLE WMGoals (Username VARCHAR(30), Goal int)";
+            var RecoveryStr = "If not exists (select name from sysobjects where name = 'WMGoals') CREATE TABLE WMGoals (Username VARCHAR(30), GoalWeight int, GoalDate DateTime, exerciseLevel int )";
             var conn = new SqlConnection(connStr);
             using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
             {

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FoodAPI;
 using FoodAPI.Contracts;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using The6Bits.Authentication.Contract;
 using The6Bits.BitOHealth.DAL;
@@ -38,7 +39,7 @@ namespace The6Bits.BitOHealth.ControllerLayer.Features
 
         [HttpPost("CreateGoal")]
 
-        public string CreateGoal(int goalNum)
+        public async Task<ActionResult> CreateGoal(GoalWeightModel goal)
         {
             string token = "";
             try
@@ -47,7 +48,7 @@ namespace The6Bits.BitOHealth.ControllerLayer.Features
             }
             catch
             {
-                return "NoToken";
+                return BadRequest("No Token");
             }
 
             isValid = _authentication.ValidateToken(token);
@@ -56,24 +57,26 @@ namespace The6Bits.BitOHealth.ControllerLayer.Features
             {
 
                 _ = _logService.Log("None", "Invalid Token - Weight Goal", "Info", "Business");
-                return "InvalidToken";
-
+                return BadRequest("Invalid Token");
             }
+
+
+
 
             string username = _authentication.getUsername(token);
 
-            string res = _weightManagementManager.CreateGoal(goalNum, username);
+            string res = _weightManagementManager.CreateGoal(goal, username);
 
             if (res.Contains("Database"))
             {
                 _ = _logService.Log(username, "Create Weight Goal" + res, "DataStore", "Error");
-                return res;
+                return Ok(res);
             }
 
             _ = _logService.Log(username, "Saved Weight Goal", "Info", "Business");
 
 
-            return res;
+            return Ok(res);
 
         }
 
@@ -88,13 +91,90 @@ namespace The6Bits.BitOHealth.ControllerLayer.Features
 
 
 
-        [HttpGet("UpdateGoal")]
-        public async Task<ActionResult> UpdateGoal(int goalNum, string username)
+        [HttpPost("UpdateGoal")]
+        public async Task<ActionResult> UpdateGoal(GoalWeightModel goal)
         {
 
-            return Ok(await _weightManagementManager.UpdateGoal(goalNum, username));
+
+            string token = "";
+            try
+            {
+                token = Request.Cookies["token"];
+            }
+            catch
+            {
+                return BadRequest("No Token");
+            }
+
+            isValid = _authentication.ValidateToken(token);
+
+            if (!isValid)
+            {
+
+                _ = _logService.Log("None", "Invalid Token - Weight Goal", "Info", "Business");
+                return BadRequest("Invalid Token");
+            }
+
+
+
+
+            string username = _authentication.getUsername(token);
+
+            return Ok(await _weightManagementManager.UpdateGoal(goal, username));
 
         }
+
+
+        [HttpGet("ReadGoal")]
+        public async Task<ActionResult> ReadGoal()
+        {
+
+            string token = "";
+            try
+            {
+                token = Request.Cookies["token"];
+            }
+            catch
+            {
+                return BadRequest("No Token");
+            }
+
+            isValid = _authentication.ValidateToken(token);
+
+            if (!isValid)
+            {
+
+                _ = _logService.Log("None", "Invalid Token - Weight Goal", "Info", "Business");
+                return BadRequest("Invalid Token");
+            }
+
+
+
+
+            string username = _authentication.getUsername(token);
+            GoalWeightModel goal = await _weightManagementManager.ReadGoal(username);
+
+
+            //TODO:Better way to do this?
+            if (goal.GoalWeight == null)
+            {
+                return Ok("{}");
+            }
+
+            return Ok(goal);
+
+        }
+
+
+        [HttpGet("UpdateGoal")]
+        public async Task<ActionResult> StoreFoodLog(FoodModel food, string username)
+        {
+
+            return Ok(await _weightManagementManager.StoreFoodLog(food, username));
+
+        }
+
+
 
 
 

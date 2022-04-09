@@ -3,7 +3,7 @@ import homeShit from '@/components/Home.vue'
 import LoginPost from '@/components/LoginPost.vue'
 import OTPPost from '@/components/OneTimePass.vue'
 import UM from '@/components/UM.vue'
-import CreateGoal from '@/components/WeightManagement/CreateWeightGoal.vue'
+import GoalView from '@/components/WeightManagement/WeightGoalView.vue'
 import ResetPassword from '@/components/ResetPassword.vue'
 import TrackingLog from '@/components/TrackingLog.vue'
 import HealthRecorder from '@/components/HealthRecorder.vue'
@@ -46,7 +46,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/WeightManagement',
     name: 'WeightManagement',
-    component: CreateGoal
+    component: GoalView
   },
   {
     path: '/ResetPassword',

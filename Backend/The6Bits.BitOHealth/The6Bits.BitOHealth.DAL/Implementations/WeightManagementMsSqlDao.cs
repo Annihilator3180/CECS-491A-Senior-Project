@@ -42,18 +42,20 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
         }
 
-        public string Create(int goalNum, string username)
+        public string Create(GoalWeightModel goal, string username)
         {
             try
             {
-                string query = $"INSERT INTO WMGoals (Username, Goal) values (@Username, @Goal)";
+                string query = $"INSERT INTO WMGoals (Username, GoalWeight, GoalDate, ExerciseLevel ) values (@Username, @GoalWeight, @GoalDate, @ExerciseLevel)";
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
                     int count = connection.Execute(query, new
                     {
                         Username = username,
-                        Goal = goalNum
+                        GoalWeight = goal.GoalWeight,
+                        GoalDate = goal.GoalDate,
+                        ExerciseLevel = goal.ExerciseLevel
                     });
                     if (count != 0)
                     {
@@ -77,21 +79,26 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
-                    IEnumerable<GoalWeightModel> mod = connection.Query<GoalWeightModel>("select * from WMGoals where Username = @Username", new { Username = username });
-                    return mod.First();
+                    IEnumerable<GoalWeightModel> responseEnumerable = connection.Query<GoalWeightModel>("select * from WMGoals where Username = @Username", new { Username = username });
+                    if (responseEnumerable == null || !responseEnumerable.Any())
+                    {
+                        return new GoalWeightModel();
+                    }
+
+                    return responseEnumerable.First();
                 }
             }
             catch (Exception ex)
             {
-                
+                //LOG
 
-                return new GoalWeightModel("100", 1);
+                return new GoalWeightModel( 1, DateTime.Now, 0);
             }
         }
 
-        public string Update(int goalNum, string username)
+        public string Update(GoalWeightModel goal, string username)
         {
-            string query = "UPDATE WMGoals SET Goal = @Goal where Username = @Username";
+            string query = "UPDATE WMGoals SET GoalWeight = @GoalWeight, GoalDate = @GoalDate, ExerciseLevel = @ExerciseLevel where Username = @Username";
             try
             {
                 using (SqlConnection connection = new SqlConnection(_connectString))
@@ -100,7 +107,9 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     int count = connection.Execute(query, 
                     new
                     {
-                        Goal = goalNum,
+                        GoalWeight = goal.GoalWeight,
+                        GoalDate = goal.GoalDate,
+                        ExerciseLevel = goal.ExerciseLevel,
                         Username = username
                     });
                     if (count != 0)
@@ -115,7 +124,15 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             {
                 return ex.Number.ToString();
             }
+            
+            
         }
+
+        public string CreateFoodLog(FoodModel food, string username)
+        {
+            return "";
+        }
+        
 
 
     }
