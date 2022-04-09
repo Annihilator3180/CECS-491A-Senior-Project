@@ -9,7 +9,8 @@ namespace MapAPI
     // Todo: Done
     public class GoogleMapsConfig
     {
-        public string AppId { get; set; }
         public string AppKey { get; set; }
+
+       
     }
 }

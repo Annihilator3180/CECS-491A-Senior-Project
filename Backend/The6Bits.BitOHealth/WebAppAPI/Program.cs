@@ -20,6 +20,7 @@ using The6Bits.HashAndSaltService.Contract;
 using The6Bits.HashAndSaltService.Implementations;
 using The6Bits.SMTPEmailService.Implementation;
 using WebAppMVC.Development;
+using MapAPI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -71,6 +72,19 @@ builder.Services.AddSingleton(new EdamamConfig {
     AppKey = builder.Configuration["Edamam_Key"], 
     AppId = builder.Configuration["Edamam_ID"],
 });
+
+
+
+
+//Google Map
+builder.Services.AddScoped<IMapAPI<Parsed>, GoogleMapsAPIService<Parsed>>();
+builder.Services.AddHttpClient<GoogleMapsAPIService<Parsed>>();
+builder.Services.AddSingleton(new GoogleMapsConfig
+{
+    AppKey = builder.Configuration["GoogleMaps_Key"],
+    
+});
+
 
 
 
