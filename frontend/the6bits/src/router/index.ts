@@ -15,6 +15,7 @@ import AccountRecovery from '@/components/AccountRecovery.vue'
 import SearchFood from '@/components/WeightManagement/SearchFoodItem.vue'
 import DeleteAccount from '@/components/DeleteAccount.vue'
 import DietRecommendation from '@/components/DietRecommendation.vue'
+import FavoriteList from '@/components/FavoriteList.vue'
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -59,44 +60,47 @@ const routes: Array<RouteRecordRaw> = [
     component: ResetPassword
   },
   {
-    path:'/Registration',
-    name:'Registration' ,
+    path: '/Registration',
+    name: 'Registration',
     component: RegistrationPost
-},
-{
-  path:'/MedicationSearch',
-  name: 'MedSearch',
-  component: MedSearch
-},
-{
-  path:'/HotTopics',
-  name: 'HotTopics',
-  component:viewHT
-},
-{
+  },
+  {
+    path: '/MedicationSearch',
+    name: 'MedSearch',
+    component: MedSearch
+  },
+  {
+    path: '/HotTopics',
+    name: 'HotTopics',
+    component: viewHT
+  },
+  {
     path: '/SearchFood',
     name: 'SearchFood',
     component: SearchFood
-    },
-    {
-        path: '/DeleteAccount',
-        name: 'DeleteAccount',
-        component: DeleteAccount
-    },
+  },
+  {
+    path: '/DeleteAccount',
+    name: 'DeleteAccount',
+    component: DeleteAccount
+  },
 
-    {
-        path: '/DietRecommendation',
-        name: 'DietRecommendation',
-        component: DietRecommendation
-    },
+  {
+    path: '/DietRecommendation',
+    name: 'DietRecommendation',
+    component: DietRecommendation
+  },
+  {
+    path: '/HealthRecorder',
+    name: 'HealthRecorder',
+    component: HealthRecorder
+  },
+  {
+    path: "/FavoriteDrugListPost",
+    name: "FavoriteDrugListPost",
+    component: FavoriteDrugListPost
+  }
 
-
-},
-{
-  path: '/HealthRecorder',
-  name: 'HealthRecorder',
-  component: HealthRecorder
-}
 ]
 
 const router = createRouter({

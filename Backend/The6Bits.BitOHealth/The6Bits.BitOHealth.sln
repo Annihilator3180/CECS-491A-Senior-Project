@@ -72,7 +72,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodAPI", "FoodAPI\FoodAPI.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "APITests", "APITests", "{62678971-AD11-466A-A5FB-222ABFC0B446}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "The6bits.FoodAPI.Tests", "The6bits.FoodAPI.Tests\The6bits.FoodAPI.Tests.csproj", "{C648EFFD-8A2D-448F-B7B0-F746133FE820}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6bits.FoodAPI.Tests", "The6bits.FoodAPI.Tests\The6bits.FoodAPI.Tests.csproj", "{C648EFFD-8A2D-448F-B7B0-F746133FE820}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.API", "API\The6Bits.API.csproj", "{6BE7E65D-5330-4A0C-85E3-3A14A54CB455}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -164,6 +166,10 @@ Global
 		{C648EFFD-8A2D-448F-B7B0-F746133FE820}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C648EFFD-8A2D-448F-B7B0-F746133FE820}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C648EFFD-8A2D-448F-B7B0-F746133FE820}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BE7E65D-5330-4A0C-85E3-3A14A54CB455}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BE7E65D-5330-4A0C-85E3-3A14A54CB455}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BE7E65D-5330-4A0C-85E3-3A14A54CB455}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BE7E65D-5330-4A0C-85E3-3A14A54CB455}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
