@@ -68,6 +68,30 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 return ex.Number.ToString();
             }
         }
+        public List<string> GetRecords(string username, int lastRecordIndex)
+        {
+            List<string> records = new List<string>();
+            try
+            {
+                string query = "Select* from HealthRecorder where username = @username";
+                using (SqlConnection conn = new SqlConnection(_connectionString))
+                {
+                    var getRecords = conn.Query<string>(query, new {username = username});
+                    foreach(string r in getRecords)
+                    {
+                        records.Add(r);
+                    }
+                    return records;
+                }
+            }
+            catch(SqlException ex)
+            {
+                string errorCode = ex.Number.ToString();
+                List<string> list = new List<string>();
+                list.Add(errorCode);
+                return list;
+            }
+        }
 
     }
 }

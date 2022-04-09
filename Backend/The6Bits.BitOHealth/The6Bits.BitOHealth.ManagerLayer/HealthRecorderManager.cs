@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using The6Bits.BitOHealth.DAL.Contract;
+using The6Bits.BitOHealth.Models;
 using The6Bits.BitOHealth.ServiceLayer;
 using The6Bits.DBErrors;
 
@@ -65,6 +66,11 @@ namespace The6Bits.BitOHealth.ManagerLayer
                 return savedRecord;
             }
             return "Record Saved";
+        }
+    public HealthRecorderViewRecordModel ViewRecord(string username, int lastRecordIndex)
+        {
+            List<string> rawData = _HealthRecorderService.ViewRecord(username, lastRecordIndex);
+            return new HealthRecorderViewRecordModel(rawData);
         }
     }
 }

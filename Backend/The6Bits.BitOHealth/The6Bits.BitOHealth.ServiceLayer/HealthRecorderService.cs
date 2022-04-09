@@ -11,12 +11,12 @@ namespace The6Bits.BitOHealth.ServiceLayer
 {
     public class HealthRecorderService
     {
-        private IRepositoryHealthRecorderDAO _HealthRecorderDao;
+        private IRepositoryHealthRecorderDAO _HealthRecorderDAO;
         private IDBErrors _dbError;
 
         public HealthRecorderService(IRepositoryHealthRecorderDAO dao, IDBErrors dBErrors)
         {
-            _HealthRecorderDao = dao;
+            _HealthRecorderDAO = dao;
             _dbError = dBErrors;
         }
         public bool ValidateRecordName(string recordName)
@@ -30,7 +30,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
         }
         public string ValidateUserRecordLimit(string username) 
         {
-            string result = _HealthRecorderDao.ValidateUserRecordLimits(username);
+            string result = _HealthRecorderDAO.ValidateUserRecordLimits(username);
             
             if (result == "over record limit" || result == "over daily limit" || result == "under limit")
             {
@@ -68,7 +68,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
                 string temp = conversion + " *****SecondFile***** " + secondConversion;
                 conversion = temp;
             }
-            string result = _HealthRecorderDao.SaveRecord(conversion, now, username, categoryName, recordName);
+            string result = _HealthRecorderDAO.SaveRecord(conversion, now, username, categoryName, recordName);
             if(result == "saved")
             {
                 return result;
@@ -87,6 +87,10 @@ namespace The6Bits.BitOHealth.ServiceLayer
                 s = Convert.ToBase64String(bytes);
             }
             return s;
+        }
+        public List<string> ViewRecord(string username, int lastRecordIndex)
+        {
+            return _HealthRecorderDAO.GetRecords(username, lastRecordIndex);
         }
 
     }

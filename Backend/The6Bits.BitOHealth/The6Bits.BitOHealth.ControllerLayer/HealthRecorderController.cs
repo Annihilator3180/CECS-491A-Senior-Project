@@ -13,6 +13,7 @@ using The6Bits.Logging.Implementations;
 using The6Bits.Logging.DAL.Contracts;
 using Microsoft.AspNetCore.Http;
 using System.Net;
+using The6Bits.BitOHealth.Models;
 
 namespace The6Bits.BitOHealth.ControllerLayer
 {
@@ -83,8 +84,36 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
-
+            
         }
+        [HttpGet("ViewRecord")]
+        public string ViewRecord([FromForm] int lastRecordIndex)
+        {
+            string token = "";
+
+            try
+            {
+                token = Request.Cookies["token"];
+            }
+            catch
+            {
+                return "no";
+            }
+
+            bool isValid = _authentication.ValidateToken(token);
+
+
+            if (!isValid)
+            {
+                _ = logService.Log("None", "Invalid Token @ Health Recorder", "Info", "Buisness");
+                return "no";
+            }
+
+            string username = _authentication.getUsername(token);
+            HealthRecorderViewRecordModel a = _HealthRecorderManager.ViewRecord(username, lastRecordIndex);
+            return a.ToString();
+        }
+         
 
 
     }

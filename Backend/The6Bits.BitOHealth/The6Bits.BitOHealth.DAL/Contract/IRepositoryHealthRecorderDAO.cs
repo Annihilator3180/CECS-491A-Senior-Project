@@ -11,5 +11,7 @@ namespace The6Bits.BitOHealth.DAL.Contract
         public string ValidateUserRecordLimits(string username);
 
         public string SaveRecord(string record, DateTime now, string username, string categoryName, string recordName);
+
+        public List<string> GetRecords(string username, int lastRecordIndex);
     }
 }
