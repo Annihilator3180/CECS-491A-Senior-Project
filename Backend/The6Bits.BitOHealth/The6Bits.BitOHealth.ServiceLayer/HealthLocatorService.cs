@@ -15,13 +15,18 @@ public class HealthLocatorService
         apiKey = key;
     }
 
+    public HealthLocatorService()
+    {
+
+    }
     // Todo: Fix
     public async Task<string> viewHL()
     {
-        string baseurl = "https://www.google.com/maps/embed/v1/view";
-
+        string baseurl = "https://maps.googleapis.com/maps/api/staticmap?";
+        //string baseurl = "https://www.google.com/maps/embed/v1/view";
+        //https://maps.googleapis.com/maps/api/staticmap?center=Long+Beach,CA&zoom=14&size=400x400&key=YOUR_API_KEY&signature=YOUR_SIGNATURE
         //PARAM FOR SEARCH QUERY
-        string qParam = "&q=Cal State Long Beach";
+        string qParam = "?center=Long+Beach,CA&zoom=14&size=400x400";
 
         var client = new HttpClient();
 
@@ -35,6 +40,7 @@ public class HealthLocatorService
         //GET jSON Data as String
         var contentString = await res.Content.ReadAsStringAsync();
         return contentString;
+        
     }
 
     // Todo: Fix
@@ -50,6 +56,6 @@ public class HealthLocatorService
 
         client.DefaultRequestHeaders.Add("", apiKey);
 
-        return 
+        return "testing";
     }
 }

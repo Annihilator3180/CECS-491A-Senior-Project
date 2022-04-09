@@ -23,7 +23,8 @@ namespace MapAPI
         // Todo: Fix
         public async Task<IEnumerable<Parsed>> QueryLocations(string queryString)
         {
-            string url = "https://www.google.com/maps/embed/v1/search?q="+ queryString + "&key=" + _appKey;
+            string url = "https://maps.googleapis.com/maps/api/staticmap?center=Long+Beach,CA&zoom=14&size=400x400&key=YOUR_API_KEY&signature=YOUR_SIGNATURE";
+            //string url = "https://www.google.com/maps/embed/v1/search?q="+ queryString + "&key=" + _appKey;
             //API Key: 
             //   <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
             var response = await _client.GetStringAsync(url);

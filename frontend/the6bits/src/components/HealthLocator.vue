@@ -1,16 +1,14 @@
 <template>
-  <div class="viewHL">
+  <div class="form">
     <div>
     
       <H1>View Health Location</H1>
       {{ message }}
     </div>
-    <!-- <ul id="example-1">
-      <li v-for="index in items" :key="index.message">
-        {{ index.message }}
-      </li>
-    </ul> -->
+
     <button @click="view">View</button>
+
+    <button @click="locations">Search</button>
   </div>
 </template>
 

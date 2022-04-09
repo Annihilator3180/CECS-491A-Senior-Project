@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FoodAPI\FoodAPI.csproj" />
+    <ProjectReference Include="..\MapAPI\MapAPI.csproj" />
     <ProjectReference Include="..\Models\The6Bits.BitOHealth.Models.csproj" />
     <ProjectReference Include="..\The6Bits.Authentication\The6Bits.Authentication.csproj" />
     <ProjectReference Include="..\The6Bits.Authorization\The6Bits.Authorization.csproj" />

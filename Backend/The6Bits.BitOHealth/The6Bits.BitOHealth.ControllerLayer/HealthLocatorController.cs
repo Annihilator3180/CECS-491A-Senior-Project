@@ -13,6 +13,8 @@ using The6Bits.Logging.DAL.Contracts;
 using The6Bits.Logging.Implementations;
 using The6Bits.DBErrors;
 using System.Web;
+using MapAPI;
+using MapAPI.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using The6Bits.EmailService;
@@ -30,10 +32,11 @@ public class HealthLocatorController : ControllerBase
     private LogService _logService;
 
     // Todo: Fix HLController
-    public HealthLocatorController(IAuthenticationService _authenticationService, ILogDal logDao, HealthLocatorService healthLocator)
+    public HealthLocatorController(IAuthenticationService _authenticationService, ILogDal logDao, IMapAPI<Parsed> mapAPI)
     {
-        _HLM = new HealthLocatorManager(healthLocator);
+        
         _logService = new LogService(logDao);
+        _HLM = new HealthLocatorManager(mapAPI);
     }
 
     // Todo: Fix
@@ -42,6 +45,14 @@ public class HealthLocatorController : ControllerBase
     {
         var queryString = _HLM.SearchHL();
         return await queryString;
+        
+    }
+
+    //Todo: Fix
+    [HttpGet("searchHL")]
+    public async Task<ActionResult> SearchHL(string queryString)
+    {
+        return Ok(await _HLM.SearchHL(queryString));
     }
 
     // Todo: Fix
@@ -57,7 +68,7 @@ public class HealthLocatorController : ControllerBase
     {
         bool isValid = _authenticationService.ValidateToken(Request.Headers["Authorization"]);
         string username = _authenticationService.getUsername(Request.Headers["Authorization"]);
-
+        
         if (!isValid)
         {
             return "invalid token";
