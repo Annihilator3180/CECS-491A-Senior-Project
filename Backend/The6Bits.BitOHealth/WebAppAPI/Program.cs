@@ -54,6 +54,7 @@ builder.Services.AddTransient<IAuthenticationService>(provider => new JWTAuthent
 builder.Services.AddTransient<IDBErrors, MsSqlDerrorService>();
 
 builder.Services.AddTransient<ISMTPEmailService, AWSSesService>();
+builder.Services.AddScoped<IReminderDatabase>(provider => new ReminderMsSqlDao(connstring));
 builder.Services.AddScoped<ILogDal, SQLLogDAO>();
 builder.Services.AddSingleton<IConfiguration>(Configuration);
 builder.Services.AddTransient<HotTopicsService>(provider=>new HotTopicsService("0c0dc5fd4cc641a58578260b7e4815ff"));
