@@ -147,6 +147,24 @@ namespace WebAppMVC.Development
         }
 
 
+
+
+
+        public bool buildRemiders(string connStr)
+        {
+            var RecoveryStr = "If not exists (select name from sysobjects where name = 'Reminders') CREATE TABLE Reminders (R_SK VARCHAR(30), username VARCHAR(30), name VARCHAR(30), description VARCHAR(30), date VARCHAR(30), time VARCHAR(30), repeat VARCHAR(30))";
+            var conn = new SqlConnection(connStr);
+            using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
+            {
+                conn.Open();
+                command.ExecuteNonQuery();
+            }
+            return false;
+
+        }
+
+
+
         public bool addBossAdmin(string connStr)
         {
             var RecoveryStr = "BEGIN IF NOT EXISTS (Select * From Accounts where Username = 'bossadmin12')  " +
