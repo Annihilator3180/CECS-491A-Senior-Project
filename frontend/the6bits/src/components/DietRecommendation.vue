@@ -24,7 +24,8 @@
         <p>ex: (Balanced, Low-card)</p>
         <input type="text" id="diet" v-model="formData.diet" />
       </div>
-      <div>
+      
+        <div>
         <p>Do you follow any dietary plans?</p>
         <p>ex: (Vegan, Dairy-free)</p>
         <input type="text" id="health" v-model="formData.health" />
@@ -53,12 +54,16 @@
       <button @click="onLoadMore" type="button">Load more</button>
     </form>
   </div>
+
+
+
 </template>
 
 <script>
 var allData = [];
 var skip = 0;
 var take = 5;
+
 
 export default {
   name: "DietRecommendation",
@@ -141,6 +146,7 @@ export default {
           document.getElementById("DietRecommendation").innerHTML = data1;
         });
     },
+    
   },
 };
 </script>
