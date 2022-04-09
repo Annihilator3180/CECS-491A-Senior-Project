@@ -78,22 +78,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
             string username = "bossadmin12";
             if (reminderID != null)
             {
-                string holder = ViewHelper(username);
-                string res = "";
-                string[] subs = holder.Split("ENDING");
-                int counter = 1;
-                foreach (var sub in subs)
-                {
-                    if (counter == Int32.Parse(reminderID))
-                    {
-                        return sub;
-                    }
-                    else
-                    {
-                        counter += 1;
-                    }
-                }
-                return "Incorrect index";
+                return ViewHelper(username, reminderID);
             }
             else
             {
@@ -101,9 +86,25 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
             }
         }
-        public string ViewHelper(string username)
+        public string ViewHelper(string username, string reminderID)
         {
-            return _RM.ViewHelper(username);
+
+            string holder = _RM.ViewHelper(username);
+            string[] subs = holder.Split("ENDING");
+            int counter = 1;
+            foreach (var sub in subs)
+            {
+                if (counter == Int32.Parse(reminderID))
+                {
+                    return sub;
+                }
+                else
+                {
+                    counter += 1;
+                }
+            }
+            return "Incorrect index";
+
         }
 
         public string ViewAllHelper(string username)
@@ -128,9 +129,19 @@ namespace The6Bits.BitOHealth.ControllerLayer
             return holder;
         }
 
+        [HttpPost("DeleteReminder")]
         public string DeleteReminder(string reminderID)
         {
-            return "";
+            string username = "bossadmin12";
+            if(reminderID != null)
+            {
+                return _RM.DeleteReminder(username, reminderID);
+                
+            }
+            else
+            {
+                return ViewAllHelper(username);
+            }
         }
 
         public string EditReminder(string reminderID, string name, string description, string date, string time, string repeat)

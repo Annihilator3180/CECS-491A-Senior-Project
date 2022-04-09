@@ -141,6 +141,30 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
         }
 
+        public string DeleteReminder(string username, string reminderID)
+        {
+            try
+            {
+                //Delete Reminder
+                String query = $"DELETE FROM Reminders WHERE R_SK = '{reminderID}' AND username = '{username}'";
+
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int s = connection.Execute(query);
+                    if (s == 1)
+                    {
+                        return "Reminder Deleted";
+                    }
+                    return "Reminder NOT Deleted";
+                }
+            }
+            catch (SqlException ex)
+            {
+                return ex.Number.ToString();
+            }
+        }
+
         public string EditReminder(string username, string reminderID, List<string> edit)
         {
             for(int i = 0; i < edit.Count; i++)

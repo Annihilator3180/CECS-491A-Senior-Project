@@ -54,5 +54,10 @@ namespace The6Bits.BitOHealth.ServiceLayer
             List<string> edit = new List<string> { name, description, date, time, repeat };
             return _Rdao.EditReminder(username, reminderID, edit);
         }
+
+        public string DeleteReminder(string username, string reminderID)
+        {
+            return _Rdao.DeleteReminder(username, reminderID);
+        }
     }
 }

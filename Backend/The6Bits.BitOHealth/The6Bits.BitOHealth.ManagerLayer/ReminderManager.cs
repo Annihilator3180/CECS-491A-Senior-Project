@@ -51,5 +51,10 @@ namespace The6Bits.BitOHealth.ManagerLayer
         {
             return _RS.EditReminder(username, reminderID, name, description, date, time, repeat);
         }
+
+        public string DeleteReminder(string username, string reminderID)
+        {
+            return _RS.DeleteReminder(username, reminderID);
+        }
     }
 }

@@ -14,5 +14,6 @@ namespace The6Bits.BitOHealth.DAL.Contract
         string ViewHelper(string username);
         string ViewAllHelper(string username);
         string EditReminder(string username, string reminderID, List<string> edit);
+        string DeleteReminder(string username, string reminderID);
     }
 }
