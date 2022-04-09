@@ -74,11 +74,6 @@ const routes: Array<RouteRecordRaw> = [
     component: SearchFood
   },
   {
-    path: '/FavoriteFood',
-    name: 'FavoriteList',
-    component: FavoriteDrugListPost
-  },
-  {
     path: '/FavoriteDrug',
     name: 'FavoriteDrugListPost',
     component: FavoriteDrugListPost
