@@ -78,6 +78,12 @@ const routes: Array<RouteRecordRaw> = [
   path: '/HealthRecorder',
   name: 'HealthRecorder',
   component: HealthRecorder
+},
+{
+  path:'/FavoriteDrugs',
+  name:"FavoriteDrugListPost",
+  component:FavoriteDrugListPost 
+
 }
 ]
 
