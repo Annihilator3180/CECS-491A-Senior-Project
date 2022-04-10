@@ -88,8 +88,8 @@ namespace The6Bits.BitOHealth.ControllerLayer
         }
         [HttpGet("ViewRecord")]
         //https://stackoverflow.com/questions/381508/can-a-byte-array-be-written-to-a-file-in-c
-        //add each http response
         //db can have blob data type
+        //to export pass in bytes and write bytes to path
         public string ViewRecord([FromForm] int lastRecordIndex)
         {
             string token = "";
@@ -122,6 +122,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
             if (response == null)
             {
+                _ = logService.Log(username, "View Request success, 0 records outputted", "Info", "Buisness");
                 response.HttpResponse = new HttpResponseMessage(HttpStatusCode.OK);
             }
 
@@ -132,6 +133,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
             }
             else
             {
+                _ = logService.Log(username, "View Request success, 10 or less outputted records ", "Info", "Buisness");
                 response.HttpResponse = new HttpResponseMessage(HttpStatusCode.OK);
             }
             return response.ToString();
