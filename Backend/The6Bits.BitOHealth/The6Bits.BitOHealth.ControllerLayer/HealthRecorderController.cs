@@ -118,20 +118,23 @@ namespace The6Bits.BitOHealth.ControllerLayer
             }
 
             string username = _authentication.getUsername(token);
-            HealthRecorderViewRecordModel a = _HealthRecorderManager.ViewRecord(username, lastRecordIndex);
+            response = _HealthRecorderManager.ViewRecord(username, lastRecordIndex);
 
-            if (a.ErrorMessage != null)
+            if (response == null)
             {
-                _ = logService.Log(username, "DB Error", a.ErrorMessage, "Buisness");
-                a.HttpResponse = new HttpResponseMessage(HttpStatusCode.InternalServerError);
-                return a.ToString();
+                response.HttpResponse = new HttpResponseMessage(HttpStatusCode.OK);
+            }
+
+            else if (response.ErrorMessage != null)
+            {
+                _ = logService.Log(username, "DB Error", response.ErrorMessage, "Buisness");
+                response.HttpResponse = new HttpResponseMessage(HttpStatusCode.InternalServerError);
             }
             else
             {
-                a.HttpResponse = new HttpResponseMessage(HttpStatusCode.OK);
-                return a.ToString();
-
+                response.HttpResponse = new HttpResponseMessage(HttpStatusCode.OK);
             }
+            return response.ToString();
         }
          
 

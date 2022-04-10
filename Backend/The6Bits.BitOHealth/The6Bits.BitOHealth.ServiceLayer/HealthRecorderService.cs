@@ -90,14 +90,22 @@ namespace The6Bits.BitOHealth.ServiceLayer
         }
         public List<HealthRecorderRecordModel> ViewRecord(string username, int lastRecordIndex)
         {
-           List<HealthRecorderRecordModel> records =  _HealthRecorderDAO.GetRecords(username, lastRecordIndex);
-            string errorCode = records[0].ErrorCode;
-            if (errorCode == null)
+           List<HealthRecorderRecordModel> records =  _HealthRecorderDAO.GetRecords(username, lastRecordIndex + 1);
+            if (records.Count == 0)
             {
+                return new List<HealthRecorderRecordModel>();
+            }
+            else
+            {
+                string errorCode = records[0].ErrorCode;
+
+                if (errorCode == null)
+                {
+                    return records;
+                }
+                records[0].ErrorCode = _dbError.DBErrorCheck(int.Parse((errorCode)));
                 return records;
             }
-            records[0].ErrorCode = _dbError.DBErrorCheck(int.Parse((errorCode)));
-            return records;
         }
 
     }

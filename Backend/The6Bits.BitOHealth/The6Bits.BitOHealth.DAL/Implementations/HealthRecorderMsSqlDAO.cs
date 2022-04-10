@@ -37,7 +37,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     {
                         return "over record limit";
                     }
-                    else if (dailyRecord > 10)
+                    else if (dailyRecord > 15)
                     {
                         return "over daily limit";
                     }
@@ -84,10 +84,10 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             List<HealthRecorderRecordModel> records = new List<HealthRecorderRecordModel>();
             try
             {
-                string query = "Select* from HealthRecorder where username = @username";
+                string query = "Select* from HealthRecorder where username = @username ORDER BY timeSaved DESC OFFSET @lastRecordIndex ROWS FETCH NEXT 10 ROWS ONLY";
                 using (SqlConnection conn = new SqlConnection(_connectionString))
                 {
-                    var getRecords = conn.Query<HealthRecorderRecordModel>(query, new {username = username});
+                    var getRecords = conn.Query<HealthRecorderRecordModel>(query, new {username = username, lastRecordIndex = lastRecordIndex});
                     foreach(var r in getRecords)
                     {
                         records.Add(r);

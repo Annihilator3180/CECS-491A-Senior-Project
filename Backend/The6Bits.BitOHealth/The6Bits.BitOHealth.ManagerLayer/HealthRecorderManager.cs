@@ -71,15 +71,22 @@ namespace The6Bits.BitOHealth.ManagerLayer
         {
             List<HealthRecorderRecordModel> rawData = _HealthRecorderService.ViewRecord(username, lastRecordIndex);
             HealthRecorderViewRecordModel wrapperData = new HealthRecorderViewRecordModel();
-            if (rawData[0].ErrorCode != null)
+            if (rawData.Count == 0)
             {
-                wrapperData.ErrorMessage = rawData[0].ErrorCode;
                 return wrapperData;
             }
             else
             {
-                wrapperData.Records = rawData;
-                return wrapperData;
+                if (rawData[0].ErrorCode != null)
+                {
+                    wrapperData.ErrorMessage = rawData[0].ErrorCode;
+                    return wrapperData;
+                }
+                else
+                {
+                    wrapperData.Records = rawData;
+                    return wrapperData;
+                }
             }
             
         }
