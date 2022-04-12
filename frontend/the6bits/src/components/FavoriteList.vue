@@ -45,6 +45,7 @@
                 .catch((error) =>{
                     this.message="Error retrieving favorite list"
                 });
+                console.log(this.formData.favoriteDrugsList.brand_name)
         }
     }
 }

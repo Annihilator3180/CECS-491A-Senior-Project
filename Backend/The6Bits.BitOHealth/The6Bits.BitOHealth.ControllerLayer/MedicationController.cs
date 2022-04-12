@@ -91,6 +91,17 @@ public class MedicationController : ControllerBase
             {
                 return "invalid token";
             }
+            string username = _auth.getUsername(token);
+            try
+            {
+                List<FavoriteDrug> favoriteDrugsList = _MM.ViewFavorite(username);
+                string favoriteDrugs = JsonSerializer.Serialize(favoriteDrugsList);
+                return favoriteDrugs;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
         }
         catch
         {
@@ -98,17 +109,7 @@ public class MedicationController : ControllerBase
         }
 
 
-        string username = _auth.getUsername(token);
-        try
-        {
-            List<FavoriteDrug> favoriteDrugsList = _MM.ViewFavorite(username);
-            string favoriteDrugs = JsonSerializer.Serialize(favoriteDrugsList);
-            return favoriteDrugs;
-        }
-        catch (Exception ex)
-        {
-            return ex.Message;
-        }
+
         
     }
     [HttpPost("DeleteFavorite")]

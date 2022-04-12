@@ -28,10 +28,13 @@
                 credentials: 'include',
 
             };
+            
             fetch('https://localhost:7011/Medication/Search?drugName='+this.formData.drugName,requestOptions)
-                .then(response => console.log(response.json()))
+                .then(response => response.text())
                 .then(body => this.message = body)
-                .then(body =>console.log(body))
+                .error("can't find result")
+                console.log("b")
+                console.log(this.message)
         }
     }
 }

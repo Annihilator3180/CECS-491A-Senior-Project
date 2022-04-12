@@ -12,7 +12,7 @@ import MedSearch from '@/components/MedicationSearch.vue'
 import viewHT from '@/components/viewHotTopics.vue'
 import AccountRecovery from '@/components/AccountRecovery.vue'
 import SearchFood from '@/components/WeightManagement/SearchFoodItem.vue'
-import viewDrug from '@/components/viewDrug.vue'
+import ViewDrug from '@/components/WeightManagement/viewDrug.vue'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -82,7 +82,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/viewDrug',
     name: 'ViewDrug',
-    component: viewDrug
+    component: ViewDrug
   }
 ]
 

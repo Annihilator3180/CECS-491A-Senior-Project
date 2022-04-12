@@ -160,7 +160,14 @@ namespace The6Bits.BitOHealth.DAL
                             generic_name = drugName
                         });
                     connection.Close();
-                    return favDrug.First();
+                    try
+                    {
+                        return favDrug.First();
+                    }
+                    catch(Exception ex)
+                    {
+                        return new FavoriteDrug();
+                    }
                 }
             }
             catch (SqlException ex)
