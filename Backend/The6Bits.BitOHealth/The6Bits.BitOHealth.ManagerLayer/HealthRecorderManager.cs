@@ -90,5 +90,41 @@ namespace The6Bits.BitOHealth.ManagerLayer
             }
             
         }
+        public HealthRecorderResponseModel DeleteRecord(HealthRecorderRequestModel request, HealthRecorderResponseModel response, string username)
+        {
+            response = _HealthRecorderService.ValidateRecordExists(request, response, username);
+            return response;
+            if (response.Data == "0" || response.Data == null)
+            {
+                if (response.ErrorMessage == null)
+                {
+                    response.Data = "Record does not exist";
+                    return response;
+                }
+                else
+                {
+                    response.Data = "Database Error";
+                    return response;
+                }
+            }
+            response.Data = null;
+            response = _HealthRecorderService.DeleteRecord(request, response, username);
+            if (response.Data == "0" || response.Data == null)
+            {
+                if (response.ErrorMessage == null)
+                {
+                    response.Data = "No Records Deleted";
+                    return response;
+                }
+                else
+                {
+                    response.Data = "Database Error";
+                    return response;
+                }
+            }
+            response.Data = "Record Deleted Successfully";
+
+            return response;
+        }
     }
 }

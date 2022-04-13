@@ -107,6 +107,36 @@ namespace The6Bits.BitOHealth.ServiceLayer
                 return records;
             }
         }
+        public HealthRecorderResponseModel ValidateRecordExists(HealthRecorderRequestModel request, HealthRecorderResponseModel response, string username)
+        {
+           response = _HealthRecorderDAO.ValidateRecordExists(request, response, username);
+
+            if(response.ErrorMessage == null)
+            {
+                return response;
+            }
+            else
+            {
+                response.ErrorMessage = _dbError.DBErrorCheck(int.Parse(response.ErrorMessage));
+                return response;
+
+            }
+        }
+        public HealthRecorderResponseModel DeleteRecord(HealthRecorderRequestModel request, HealthRecorderResponseModel response, string username)
+        {
+            response = _HealthRecorderDAO.DeleteRecord(request, response, username);
+
+            if (response.ErrorMessage == null)
+            {
+                return response;
+            }
+            else
+            {
+                response.ErrorMessage = _dbError.DBErrorCheck(int.Parse(response.ErrorMessage));
+                return response;
+
+            }
+        }
 
     }
 

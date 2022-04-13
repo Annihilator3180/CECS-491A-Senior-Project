@@ -14,5 +14,8 @@ namespace The6Bits.BitOHealth.DAL.Contract
         public string SaveRecord(string record, DateTime now, string username, string categoryName, string recordName, string secondRecord);
 
         public List<HealthRecorderRecordModel> GetRecords(string username, int lastRecordIndex);
+
+        public HealthRecorderResponseModel ValidateRecordExists(HealthRecorderRequestModel request, HealthRecorderResponseModel response, string username);
+        public HealthRecorderResponseModel DeleteRecord(HealthRecorderRequestModel request, HealthRecorderResponseModel response, string username);
     }
 }

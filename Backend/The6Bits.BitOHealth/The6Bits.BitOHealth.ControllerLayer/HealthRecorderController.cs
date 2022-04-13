@@ -138,6 +138,56 @@ namespace The6Bits.BitOHealth.ControllerLayer
             }
             return response.ToString();
         }
+        [HttpDelete("DeleteRecord")]
+        public string DeleteRecord(HealthRecorderDeleteModel request)
+        {
+            string token = "";
+            HealthRecorderResponseModel response = new HealthRecorderResponseModel();
+
+            try
+            {
+                token = Request.Cookies["token"];
+            }
+            catch
+            {
+                response.HttpResponse = new HttpResponseMessage(HttpStatusCode.Unauthorized);
+                response.ErrorMessage = "No Token";
+                return response.ToString();
+            }
+
+            bool isValid = _authentication.ValidateToken(token);
+
+
+            if (!isValid)
+            {
+                _ = logService.Log("None", "Invalid Token @ Health Recorder", "Info", "Buisness");
+                response.HttpResponse = new HttpResponseMessage(HttpStatusCode.Unauthorized);
+                response.ErrorMessage = "Invalid Token";
+                return response.ToString();
+            }
+
+            string username = _authentication.getUsername(token);
+            response = _HealthRecorderManager.DeleteRecord(request, response, username);
+
+            if (response.ErrorMessage != null)
+            {
+                _ = logService.Log(username, "DB Error", response.ErrorMessage, "Buisness");
+                response.HttpResponse = new HttpResponseMessage(HttpStatusCode.InternalServerError);
+            }
+            else if (response.Data.Contains("Record Deleted Successfully"))
+            {
+                _ = logService.Log(username, response.Data, "Info", "Buisness");
+                response.HttpResponse = new HttpResponseMessage(HttpStatusCode.OK);
+            }
+            else
+            {
+                _ = logService.Log(username, response.Data, "Info", "Buisness");
+                response.HttpResponse = new HttpResponseMessage(HttpStatusCode.NoContent);
+            }
+            
+
+            return response.ToString();
+        }
          
 
 

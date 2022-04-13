@@ -104,6 +104,47 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 return records;
             }
         }
+        public HealthRecorderResponseModel ValidateRecordExists(HealthRecorderRequestModel request, HealthRecorderResponseModel response, string username)
+        {
+            string recordName = request.RecordName;
+            string categoryName = request.CategoryName;
+            try
+            {
+                string query = "Select count(*) from HealthRecorder where username = @username AND recordName = @recordName AND categoryName = @categoryName";
+                using (SqlConnection conn = new SqlConnection(_connectionString)) { 
+                    int result = conn.ExecuteScalar<int>(query, new {username = username, recordName = recordName, categoryName = categoryName});
+                    conn.Close();
+                    response.Data = result.ToString();
+                    return response;
+                }
+            }
+            catch (SqlException ex)
+            {
+                response.ErrorMessage = ex.Number.ToString();
+                return response;
+            }
+        }
+        public HealthRecorderResponseModel DeleteRecord(HealthRecorderRequestModel request, HealthRecorderResponseModel response, string username)
+        {
+            string recordName = request.RecordName;
+            string categoryName = request.CategoryName;
+            try
+            {
+                string query = "delete from HealthRecorder where username = @username AND recordName = @recordName AND categoryName = @categoryName";
+                using (SqlConnection con = new SqlConnection(_connectionString))
+                {
+                    int result = con.Execute(query, new {username = username, recordName = recordName,categoryName = categoryName});
+                    con.Close();
+                    response.Data = result.ToString();
+                    return response;
+                }
+            }
+            catch(SqlException ex)
+            {
+                response.ErrorMessage = ex.Number.ToString();
+                return response;
+            }
+        }
 
     }
 }
