@@ -69,7 +69,7 @@ namespace The6Bits.BitOHealth.DAL.Tests
 
             //arrange 
             DrugName testDrug = new DrugName("generic drug test", "test id", "brand name test");
-            FavoriteDrug testFavoriteDrug = new FavoriteDrug("test", "generic drug test", "test id", "brand name test", 4, "test location");
+            FavoriteDrug testFavoriteDrug = new FavoriteDrug("generic drug test", "test id", "brand name test", 4, "test location");
             string username = "test";
             medicationDAO.RemoveFavorite(testDrug.product_id, username);
             

@@ -60,6 +60,8 @@ public class MedicationManager
         }
         catch (Exception ex)
         {
+            string dbError = _iDBErrors.DBErrorCheck(int.Parse(ex.Message));
+            _log.Log(username, "FavoriteDrugs Database Error " + dbError, "Data Store", "Error");
             return "Database Error";
         }
         return "Favorited";
@@ -78,7 +80,7 @@ public class MedicationManager
                 _ = _log.Log(username, "no Favorited Drugs", "Manager", "Business");
                 throw new Exception(ex.Message);
             }
-            string dbError = _iDBErrors.DBErrorCheck(int.Parse(ex.Message));
+            string dbError = _iDBErrors.DBErrorCheck(int.Parse(ex.Message)); 
             _log.Log(username, "FavoriteDrugs Database Error "+ dbError, "Data Store", "Error");
             throw new Exception("Database Error");
             

@@ -13,7 +13,7 @@
     <router-link :to="{name: 'getTLogs'}"> TrackingLog</router-link>|
     <router-link :to="{name: 'SearchFood'}"> SearchFood</router-link> |
    <router-link :to="{name: 'FavoriteDrugListPost'}"> Favorite Drugs List </router-link> |
-  <router-link :to="{name: 'ViewDrug'}"> view Drugs</router-link> 
+
   </nav>
     <router-view />
 </template>

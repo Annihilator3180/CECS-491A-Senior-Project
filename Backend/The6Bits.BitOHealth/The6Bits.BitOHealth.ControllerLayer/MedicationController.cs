@@ -113,7 +113,7 @@ public class MedicationController : ControllerBase
         
     }
     [HttpPost("DeleteFavorite")]
-    public string RemoveFavorite(FavoriteDrug favoriteMedication)
+    public string RemoveFavorite(string product_id)
     {
         string token;
         try
@@ -132,7 +132,7 @@ public class MedicationController : ControllerBase
         string username = _auth.getUsername(token);
         try
         {
-            string updatedFavorite = _MM.RemoveFavorite(username, favoriteMedication.product_id);
+            string updatedFavorite = _MM.RemoveFavorite(product_id, username);
             return updatedFavorite;
         }
         catch (Exception ex)

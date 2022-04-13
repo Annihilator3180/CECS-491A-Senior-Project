@@ -49,7 +49,7 @@ namespace The6Bits.BitOHealth.DAL
             {
                 string query = "INSERT favoriteMedication(Username, product_id , generic_name ," +
                     " brand_name, lowestPrice , lowestPriceLocation)values(@Username, @product_id, " +
-                    "@generic_name, @generic_name,0, @lowestPriceLocation)";
+                    "@generic_name, @brand_name,0, @lowestPriceLocation)";
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
@@ -97,7 +97,7 @@ namespace The6Bits.BitOHealth.DAL
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
-                    int favCount = connection.Execute(query,
+                    int deleted = connection.Execute(query,
                         new
                         {
                             username = username,
@@ -106,7 +106,7 @@ namespace The6Bits.BitOHealth.DAL
 
                         }); 
                     connection.Close();
-                    return favCount;
+                    return deleted;
                 }
             }
             catch (SqlException ex)

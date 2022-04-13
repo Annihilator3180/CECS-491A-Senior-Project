@@ -80,7 +80,7 @@ const routes: Array<RouteRecordRaw> = [
     component: FavoriteDrugListPost
   },
   {
-    path: '/viewDrug',
+    path: '/viewDrug/:id',
     name: 'ViewDrug',
     component: ViewDrug
   }

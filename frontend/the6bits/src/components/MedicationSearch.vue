@@ -1,12 +1,18 @@
 <template>
     <div class="form">
             <div>
+                
                 <p> Enter Drug Name</p>
+                
                 <label for="drugName">Drug name </label>
-                <input type="text" id="drugName" v-model="formData.drugName" />
+                <input type="text" id="drugName" v-model="drugName" />
             </div>
             <button @click = "FindDrug">Search</button>
-            {{message}}
+            {{formData.searchList.generic_name}}
+         <tr v-for="f in formData.searchList" :key="f">
+         <td>{{f.brand_name}}</td>
+        <button @click = "$router.push({name:'ViewDrug',params:{id: f.generic_name}})">View Drug</button>
+         </tr>
     </div>
 
 </template>
@@ -15,8 +21,10 @@
         name: 'MedSearch',
         data() {
         return {
+            drugName:"",
             formData :{
-               drugName: ""
+               searchList: [],
+               
             },
              message : '',
         }
@@ -29,12 +37,9 @@
 
             };
             
-            fetch('https://localhost:7011/Medication/Search?drugName='+this.formData.drugName,requestOptions)
+            fetch('https://localhost:7011/Medication/Search?drugName='+this.drugName,requestOptions)
                 .then(response => response.text())
-                .then(body => this.message = body)
-                .error("can't find result")
-                console.log("b")
-                console.log(this.message)
+                .then(body =>this.formData.searchList = JSON.parse(body))
         }
     }
 }

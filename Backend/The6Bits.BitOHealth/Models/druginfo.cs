@@ -50,7 +50,7 @@ namespace The6Bits.BitOHealth.Models
         public List<string> brand_name { get; set; }
         public List<string> generic_name { get; set; }
         //public List<string> manufacturer_name { get; set; }
-        //public List<string> product_ndc { get; set; }
+        public List<string> product_ndc { get; set; }
         //public List<string> product_type { get; set; }
         //public List<string> route { get; set; }
         //public List<string> substance_name { get; set; }
