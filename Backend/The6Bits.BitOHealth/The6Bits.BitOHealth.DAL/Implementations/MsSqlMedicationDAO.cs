@@ -144,6 +144,29 @@ namespace The6Bits.BitOHealth.DAL
                 throw new Exception(ex.Number.ToString());
             }
         }
+        public int DeleteUsersList(string username)
+        {
+            try
+            {
+
+                string query = "delete from favoriteMedication where username=@username";
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int deleted = connection.Execute(query,
+                        new
+                        {
+                            username = username
+                        });
+                    connection.Close();
+                    return deleted;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception(ex.Number.ToString());
+            }
+        }
         public FavoriteDrug Read(string username, string drugName)
         {
             try

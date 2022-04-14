@@ -1,14 +1,19 @@
 <template>
             
     <div class="form">
-        <tr v-for="f in formData.favoriteDrugsList" :key="f">
+        <div v-if="formData.ViewFavoriteRequest.isSuccess==false">
+            {{formData.ViewFavoriteRequest.error}}
+        </div>
+         <div v-else>
+        <tr v-for="f in formData.ViewFavoriteRequest.data" :key="f">
          <td>{{f.brand_name}}</td>
          <td>{{f.product_id}}</td>
-        <button @click = "$router.push({name:'ViewDrug',params:{id: f.generic_name}})">View Drug</button>
+        <button @click = "$router.push({name:'ViewDrug',params:{id: f.brand_name}})">View Drug</button>
         <button @click = "RemoveFavorite(f.product_id)">Remove Favorite</button>
-         
+          <button @click = "$router.push({name:'EditDrug',params:{id: f.brand_name}})">Edit Favorite</button>
         </tr>  
           </div>
+    </div>
 
 </template>
 <script>
@@ -20,7 +25,8 @@
         data() {
         return {
             formData :{
-                favoriteDrugsList: []
+                favoriteDrugsList: [],
+                ViewFavoriteRequest: []
             },
             message : '',
         }
@@ -36,11 +42,11 @@
             const response= fetch('https://localhost:7011/Medication/FavoriteView',requestOptions)                
                 .then(response =>  response.text())
                 .then(body => this.message =body)
-                .then(body=>this.formData.favoriteDrugsList= JSON.parse(body))
+                .then(body=>this.formData.ViewFavoriteRequest= JSON.parse(body))
                 .catch((error) =>{
                     this.message="Error retrieving favorite list"
                 });
-                console.log(this.formData.favoriteDrugsList.brand_name)
+
         },
         RemoveFavorite(product_id){
             const requestOptions = {

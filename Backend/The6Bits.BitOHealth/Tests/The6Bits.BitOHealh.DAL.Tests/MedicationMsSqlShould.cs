@@ -21,13 +21,13 @@ namespace The6Bits.BitOHealth.DAL.Tests
         {
 
             //arrange 
-            DrugName testDrug = new DrugName("generic drug test", "test id", "brand name test");
             string username = "test";
-            medicationDAO.RemoveFavorite(username, "test id");
+            medicationDAO.DeleteUsersList(username);
+            DrugName testDrug = new DrugName("generic drug test", "test id", "brand name test");
             //act
             bool isAdded = medicationDAO.addFavorite(username, testDrug);
             int count = medicationDAO.getFavoriteCount(username);
-            //asset
+            //assert
             Assert.Equal(1, count);
             medicationDAO.RemoveFavorite( "test id", username);
 
@@ -56,11 +56,11 @@ namespace The6Bits.BitOHealth.DAL.Tests
             medicationDAO.RemoveFavorite("test id", username);
             bool isAdded = medicationDAO.addFavorite(username, testDrug);
             //act
+
             int isRemoved = medicationDAO.RemoveFavorite("test id", username);
 
             //assert
             Assert.True(isRemoved >0);
-            //cleanup
 
         }
         [Fact]

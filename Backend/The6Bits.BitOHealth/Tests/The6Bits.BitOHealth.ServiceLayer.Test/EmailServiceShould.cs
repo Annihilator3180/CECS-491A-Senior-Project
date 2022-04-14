@@ -7,17 +7,19 @@ using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.BitOHealth.DAL.Implementations;
 using The6Bits.BitOHealth.ServiceLayer;
 using The6Bits.EmailService;
+using The6Bits.SMTPEmailService.Implementation;
 using Xunit;
 
 namespace The6Bits.BitOHealth.AccountRecovery.Test
 {
     public class EmailServiceShould
     {
+        SESConfig _config;
         ISMTPEmailService _ES;
 
         public EmailServiceShould()
         {
-            _ES = new AWSSesService();
+            _ES = new AWSSesService(_config);
 
         }
         [Fact]

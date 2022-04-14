@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using The6Bits.BitOHealth.Models;
 using System.Text.Json;
+using System.Net.Http;
 using Microsoft.Extensions.Configuration;
 
 namespace The6Bits.BitOHealth.DAL
@@ -71,9 +72,9 @@ namespace The6Bits.BitOHealth.DAL
 
 
         }
-        public async Task<drugInfo> GetDrugInfo(string generic_name)
+        public async Task<drugInfo> GetDrugInfo(string brand_name)
         {
-            string url = $"https://api.fda.gov/drug/label.json?api_key={Environment.GetEnvironmentVariable("OpenFda")}&search=openfda.generic_name:%22{generic_name}%22&limit=1";
+            string url = $"https://api.fda.gov/drug/label.json?api_key={Environment.GetEnvironmentVariable("OpenFda")}&search=openfda.brand_name:%22{brand_name}%22&limit=1";
             using (var response = await _httpClient.GetAsync(url))
             {
                 if (response.IsSuccessStatusCode)

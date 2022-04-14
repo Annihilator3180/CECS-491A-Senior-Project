@@ -13,6 +13,8 @@ import viewHT from '@/components/viewHotTopics.vue'
 import AccountRecovery from '@/components/AccountRecovery.vue'
 import SearchFood from '@/components/WeightManagement/SearchFoodItem.vue'
 import ViewDrug from '@/components/WeightManagement/viewDrug.vue'
+import EditFavoriteDrug from '@/components/EditFavoriteDrug.vue'
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -83,6 +85,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/viewDrug/:id',
     name: 'ViewDrug',
     component: ViewDrug
+  },
+  {
+    path: '/editFavoriteDrug/:id',
+    name: 'EditDrug',
+    component: EditFavoriteDrug
   }
 ]
 

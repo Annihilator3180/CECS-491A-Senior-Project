@@ -8,10 +8,9 @@
                 <input type="text" id="drugName" v-model="drugName" />
             </div>
             <button @click = "FindDrug">Search</button>
-            {{formData.searchList.generic_name}}
          <tr v-for="f in formData.searchList" :key="f">
          <td>{{f.brand_name}}</td>
-        <button @click = "$router.push({name:'ViewDrug',params:{id: f.generic_name}})">View Drug</button>
+        <button @click = "$router.push({name:'ViewDrug',params:{id: f.brand_name}})">View Drug</button>
          </tr>
     </div>
 

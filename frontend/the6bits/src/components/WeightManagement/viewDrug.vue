@@ -1,25 +1,28 @@
 <template>
     <div class="form">
-            <div>
-             {{formData.drugInfo.boxed_warning?.[0]}}
-             {{formData.drugInfo.pregnancy?.[0]}}
-             {{formData.drugInfo.indications_and_usage?.[0]}}
-             {{formData.drugInfo.warnings_and_cautions?.[0]}}
-             {{formData.drugInfo.inactive_ingredient?.[0]}}
-             {{formData.drugInfo.information_for_patients?.[0]}}
-             {{formData.drugInfo.isFavorited}}
-             ||{{formData.drugInfo.openfda?.generic_name?.[0]}}
-             ||{{formData.drugInfo.openfda?.brand_name?.[0]}}
-             ||{{formData.drugInfo.openfda?.product_ndc?.[0]}}
-            </div>
-             <div v-if="formData.drugInfo.isFavorited==false">
+        <div v-if="formData.drugInfoResponse.isSuccess==false">
+            {{formData.drugInfoResponse.error}}
+        </div>
+         <div v-else>
+             {{formData.drugInfoResponse.data.boxed_warning?.[0]}}
+             {{formData.drugInfoResponse.data.pregnancy?.[0]}}
+             {{formData.drugInfoResponse.data.indications_and_usage?.[0]}}
+             {{formData.drugInfoResponse.data.warnings_and_cautions?.[0]}}
+             {{formData.drugInfoResponse.data.inactive_ingredient?.[0]}}
+             {{formData.drugInfoResponse.data.information_for_patients?.[0]}}
+             {{formData.drugInfoResponse.data.isFavorited}}
+             {{formData.drugInfoResponse.data.openfda?.generic_name?.[0]}}
+             {{formData.drugInfoResponse.data.openfda?.brand_name?.[0]}}
+            
+             <div v-if="formData.drugInfoResponse.data.isFavorited==false">
                 <button @click = "addFavorite">Add to Favorite</button>
                 {{message}}
              </div>
              <div v-else>
-
+                    {{formData.drugInfoResponse.data.favoriteDrug.lowestPriceLocation}}
+                    {{formData.drugInfoResponse.data.favoriteDrug.lowestprice}}
                     <button @click = "RemoveFavorite(formData.drugInfo.openfda?.product_ndc?.[0])">Delete Favorite</button>
-             
+</div>
     </div>
     </div>
 
@@ -34,7 +37,8 @@
         return {
             drugName:this.$route.params.id,
             formData :{
-                ViewDrug: [],
+                drugInfo: [],
+                drugInfoResponse: []
             },
             
              message : '',
@@ -51,7 +55,7 @@
             };
             fetch('https://localhost:7011/Medication/viewDrug?generic_name='+this.drugName,requestOptions)
                 .then(response => response.text())
-                .then(body => this.formData.drugInfo = JSON.parse(body))
+                .then(body => this.formData.drugInfoResponse = JSON.parse(body))
         },
         addFavorite(){
         const requestOptions = {
@@ -78,7 +82,7 @@
             +product_id,requestOptions)                
                 .then(response =>  response.text())
                 .then(body => this.message = body)
-                .then(body=>this.formData.favoriteDrugsList = JSON.parse(body))
+                .then(body=>this.formData.drugInfoResponse = JSON.parse(body))
                 .catch((error) =>{
                     this.message="Error retrieving favorite list"
                 });
