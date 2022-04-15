@@ -25,7 +25,9 @@ public class JWTAuthenticationService : IAuthenticationService
         _key = configuration;
     }
 
-
+    public JWTAuthenticationService()
+    {
+    }
 
     public string generateToken(string data, ClaimsIdentity claimsIdentity)
     {
@@ -110,8 +112,11 @@ public class JWTAuthenticationService : IAuthenticationService
         var header = parts[0];
         var payload = parts[1];
 
+       if (payload.Length != 64)
+       {
+            return "Incorrect Payload format";
+        }
         var data = Convert.FromBase64String((string)payload);
-
         var dataString = Encoding.UTF8.GetString(data);
 
         var obj = JwtPayload.Deserialize(dataString);

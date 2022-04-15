@@ -1,4 +1,6 @@
 using System.Runtime.CompilerServices;
+using FoodAPI;
+using FoodAPI.Contracts;
 using The6Bits.Authentication.Contract;
 using The6Bits.Authentication.Implementations;
 using The6Bits.Authorization.Contract;
@@ -16,6 +18,7 @@ using The6Bits.EmailService;
 using The6Bits.HashAndSaltService;
 using The6Bits.HashAndSaltService.Contract;
 using The6Bits.HashAndSaltService.Implementations;
+using The6Bits.SMTPEmailService.Implementation;
 using WebAppMVC.Development;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -41,12 +44,16 @@ builder.Configuration.AddJsonFile("secrets.json");
 
 
 //pass in conn string . IS there a better way to do this?
+builder.Services.AddScoped<IRepositoryDietRecommendations, DietRecommendationsMsSqlDao>(provider => new DietRecommendationsMsSqlDao(connstring));
 builder.Services.AddScoped<IRepositoryUM<User>>(provider => new MsSqlUMDAO<User>(connstring));
 builder.Services.AddScoped<IRepositoryAuth<string>>(provider =>
     new AccountMsSqlDao(connstring));
 builder.Services.AddScoped<IRepositoryMedication<string>>(provider =>
     new MsSqlMedicationDAO(connstring));
-builder.Services.AddTransient<IDrugDataSet, OpenFDADAO>();
+builder.Services.AddHttpClient<IDrugDataSet, OpenFDADAO>(client =>
+{
+    client.BaseAddress = new Uri("https://api.fda.gov/drug/ndc.json");
+});
 builder.Services.AddTransient<IAuthenticationService>(provider => new JWTAuthenticationService(builder.Configuration["jwt"]));
 builder.Services.AddTransient<IDBErrors, MsSqlDerrorService>();
 
@@ -62,10 +69,29 @@ builder.Services.AddScoped<IHashDao>(provider=> new MsSqlHashDao(connstring));
 
 
 
+//Weight Management
+builder.Services.AddScoped<IFoodAPI<Parsed>, EdamamAPIService<Parsed>>();
+builder.Services.AddHttpClient<EdamamAPIService<Parsed>>();
+builder.Services.AddSingleton(new EdamamConfig {
+    AppKey = builder.Configuration["Edamam_Key"], 
+    AppId = builder.Configuration["Edamam_ID"],
+});
+
+
+
+//SES
+
+builder.Services.AddSingleton(new SESConfig()
+{
+    SMTP_USERNAME = builder.Configuration["AWSUser"],
+    SMTP_PASSWORD = builder.Configuration["AWSPass"],
+
+});
 builder.Configuration.AddEnvironmentVariables();
 
 
 builder.Services.AddTransient<IRepositoryWeightManagementDao>(provider => new WeightManagementMsSqlDao(connstring));
+builder.Services.AddTransient<IRepositoryHealthRecorderDAO>(provider => new HealthRecorderMsSqlDAO(connstring));
 //builder.Services.AddTransient<IAccountService, AccountService>();
 
 var app = builder.Build();
@@ -91,7 +117,11 @@ if (app.Environment.IsDevelopment())
     b.buildTrackerLogs(connstring);
     b.buildRecovery(connstring);
     b.buildWMGoals(connstring);
+    b.buildFavoriteMedication(connstring);
     b.addBossAdmin(connstring);
+    b.BuildHealthRecorder(connstring);
+    b.buildDiet(connstring);
+    b.buildRemiders(connstring);
     //app.UseSwagger();
     //app.UseSwaggerUI();
 }

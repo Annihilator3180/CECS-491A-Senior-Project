@@ -6,7 +6,6 @@ using The6Bits.DBErrors;
 using The6Bits.EmailService;
 using Microsoft.Extensions.Configuration;
 
-
 namespace The6Bits.BitOHealth.ServiceLayer
 {
     public class MedicationService
@@ -43,6 +42,8 @@ namespace The6Bits.BitOHealth.ServiceLayer
         public List<DrugName> CheckDuplicates(List<DrugName> genericDrugNames, List<DrugName> brandDrugNames)
         {
             List<string> uniqueDrugIDs=new List<string>();
+            List<string> uniqueGenericName=new List<string>(); 
+            List<string> uniqueBrandName=new List<string>();
             if (genericDrugNames.Count == 1 && genericDrugNames[0].product_id=="")
             {
                 genericDrugNames.Clear();
@@ -52,19 +53,100 @@ namespace The6Bits.BitOHealth.ServiceLayer
                 brandDrugNames.Clear();
             }
             List<DrugName> drugNames = genericDrugNames.Concat(brandDrugNames).ToList();
-            for (int i = 0;i<drugNames.Count; i++)
+            int i=0;
+            while(i<drugNames.Count)
             {
-                if (uniqueDrugIDs.Contains(drugNames[i].product_id))
+                if (uniqueDrugIDs.Contains(drugNames[i].product_id)|| uniqueGenericName.Contains(drugNames[i].generic_name)
+                    || uniqueBrandName.Contains(drugNames[i].brand_name))
                 {
                     drugNames.RemoveAt(i);
                 }
                 else
                 {
                     uniqueDrugIDs.Add(drugNames[i].product_id);
+                    uniqueBrandName.Add(drugNames[i].brand_name);
+                    uniqueGenericName.Add(drugNames[i].generic_name);
+                    i++;
                 }
             }
             return drugNames;
 
+        }
+
+        public List<FavoriteDrug> ViewFavorites(string username)
+        {
+            List<FavoriteDrug> favDrug=  _MedicationDao.ViewFavorites(username);
+            if (favDrug.Count == 0)
+            {
+                throw new Exception("no drugs found");
+            }
+            return favDrug;
+        }
+
+        public string RemoveFavorite(string drugProductID, string username)
+        {
+            int favoriteRemovalResult = _MedicationDao.RemoveFavorite(drugProductID, username);
+            if (favoriteRemovalResult == 1)
+            {
+                return "Deleted Favorite";
+            }
+            return "no matches found";
+        }
+
+        public bool addFavorite(string username, DrugName drug)
+        {
+            return _MedicationDao.addFavorite(username, drug);
+        }
+
+        public bool ValidatePrice(int lowestprice)
+        {
+            return lowestprice <9000000 && lowestprice >-1;
+        }
+
+        public bool ValidateLocation(string lowestPriceLocation)
+        {
+            return lowestPriceLocation.Length < 151;
+        }
+
+        public bool getFavoriteCount(string username)
+        {
+            int favoriteCount = _MedicationDao.getFavoriteCount(username);
+            return favoriteCount < 10;
+                
+        }
+
+        public string updateFavorite(string username, FavoriteDrug drug)
+        {
+            int updatedFavorite = _MedicationDao.UpdateFavorite(username, drug);
+            if (updatedFavorite == 1)
+            {
+                return "updated favorite";
+            }
+            return "No matches found";
+        }
+
+        public drugInfo ViewDrug(string generic_name)
+        {
+            return _drugDataSet.GetDrugInfo(generic_name).Result;
+        }
+        public FavoriteDrug Read(string username, string genericdrugName)
+        {
+            return _MedicationDao.Read(username, genericdrugName); 
+        }
+
+        public drugInfo makeFavorite(string username, drugInfo drug)
+        {
+            FavoriteDrug favorited = _MedicationDao.Read(username,drug.openfda.generic_name[0]);
+            if(favorited.generic_name != null)
+            {
+                drug.isFavorited = true;   
+                drug.favoriteDrug = favorited;
+            }
+            else
+            {
+                drug.isFavorited = false;
+            }
+            return drug;
         }
     }
 }

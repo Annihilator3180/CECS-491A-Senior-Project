@@ -175,13 +175,25 @@ public class AccountController : ControllerBase
     }
     // JSON 
     [HttpPost("Delete")]
-    public string DeleteAccount(string token)
+    public string DeleteAccount()
     {
+        string token = Request.Cookies["token"];
+        string username = _auth.getUsername(token);
+        string status = _AM.DeleteAccount(token);
 
-        string del = _AM.DeleteAccount(token);
+        if (status.Contains("Database"))
+        {
+            logService.Log(username, "Account Deletion- " + status, "Data Store ", "Error");
+        }
+        else
+        {
+            logService.Log(username, "Account Deletion- " + status, "Business", "Information");
+        }
+
         Response.Cookies.Delete("token");
-        return del;
+        return status;
     }
+
 
 
     //   public void deletecookie(object sender, eventargs e)
