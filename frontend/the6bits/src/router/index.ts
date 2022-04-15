@@ -3,9 +3,10 @@ import homeShit from '@/components/Home.vue'
 import LoginPost from '@/components/LoginPost.vue'
 import OTPPost from '@/components/OneTimePass.vue'
 import UM from '@/components/UM.vue'
-import CreateGoal from '@/components/WeightManagement/CreateWeightGoal.vue'
+import GoalView from '@/components/WeightManagement/WeightGoalView.vue'
 import ResetPassword from '@/components/ResetPassword.vue'
 import TrackingLog from '@/components/TrackingLog.vue'
+import HealthRecorder from '@/components/HealthRecorder.vue'
 import FavoriteDrugListPost from '@/components/FavoriteList.vue'
 import RegistrationPost from '@/components/Registration.vue'
 import MedSearch from '@/components/MedicationSearch.vue'
@@ -14,6 +15,10 @@ import AccountRecovery from '@/components/AccountRecovery.vue'
 import SearchFood from '@/components/WeightManagement/SearchFoodItem.vue'
 import ViewDrug from '@/components/WeightManagement/viewDrug.vue'
 import EditFavoriteDrug from '@/components/EditFavoriteDrug.vue'
+import DeleteAccount from '@/components/DeleteAccount.vue'
+import DietRecommendation from '@/components/DietRecommendation.vue'
+import FavoriteList from '@/components/FavoriteList.vue'
+
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -49,7 +54,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/WeightManagement',
     name: 'WeightManagement',
-    component: CreateGoal
+    component: GoalView
   },
   {
     path: '/ResetPassword',
@@ -57,28 +62,44 @@ const routes: Array<RouteRecordRaw> = [
     component: ResetPassword
   },
   {
-    path:'/Registration',
-    name:'Registration' ,
+    path: '/Registration',
+    name: 'Registration',
     component: RegistrationPost
-},
-{
-  path:'/MedicationSearch',
-  name: 'MedSearch',
-  component: MedSearch
-},
-{
-  path:'/HotTopics',
-  name: 'HotTopics',
-  component:viewHT
-},
-{
+  },
+  {
+    path: '/MedicationSearch',
+    name: 'MedSearch',
+    component: MedSearch
+  },
+  {
+    path: '/HotTopics',
+    name: 'HotTopics',
+    component: viewHT
+  },
+  {
     path: '/SearchFood',
     name: 'SearchFood',
     component: SearchFood
   },
   {
-    path: '/FavoriteDrug',
-    name: 'FavoriteDrugListPost',
+    path: '/DeleteAccount',
+    name: 'DeleteAccount',
+    component: DeleteAccount
+  },
+
+  {
+    path: '/DietRecommendation',
+    name: 'DietRecommendation',
+    component: DietRecommendation
+  },
+  {
+    path: '/HealthRecorder',
+    name: 'HealthRecorder',
+    component: HealthRecorder
+  },
+  {
+      path: "/FavoriteDrugs",
+    name: "FavoriteDrugListPost",
     component: FavoriteDrugListPost
   },
   {
@@ -91,6 +112,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'EditDrug',
     component: EditFavoriteDrug
   }
+
 ]
 
 const router = createRouter({

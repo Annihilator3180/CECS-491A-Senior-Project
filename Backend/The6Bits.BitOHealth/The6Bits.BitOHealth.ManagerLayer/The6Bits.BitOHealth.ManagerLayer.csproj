@@ -8,6 +8,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FoodAPI\FoodAPI.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.15" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Models\The6Bits.BitOHealth.Models.csproj" />
     <ProjectReference Include="..\The6Bits.Authentication\The6Bits.Authentication.csproj" />
     <ProjectReference Include="..\The6Bits.Authorization\The6Bits.Authorization.csproj" />

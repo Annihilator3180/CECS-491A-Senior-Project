@@ -44,6 +44,7 @@ builder.Configuration.AddJsonFile("secrets.json");
 
 
 //pass in conn string . IS there a better way to do this?
+builder.Services.AddScoped<IRepositoryDietRecommendations, DietRecommendationsMsSqlDao>(provider => new DietRecommendationsMsSqlDao(connstring));
 builder.Services.AddScoped<IRepositoryUM<User>>(provider => new MsSqlUMDAO<User>(connstring));
 builder.Services.AddScoped<IRepositoryAuth<string>>(provider =>
     new AccountMsSqlDao(connstring));
@@ -62,6 +63,7 @@ builder.Services.AddTransient<IAuthenticationService>(provider => new JWTAuthent
 builder.Services.AddTransient<IDBErrors, MsSqlDerrorService>();
 
 builder.Services.AddTransient<ISMTPEmailService, AWSSesService>();
+builder.Services.AddScoped<IReminderDatabase>(provider => new ReminderMsSqlDao(connstring));
 builder.Services.AddScoped<ILogDal, SQLLogDAO>();
 builder.Services.AddSingleton<IConfiguration>(Configuration);
 builder.Services.AddTransient<HotTopicsService>(provider=>new HotTopicsService("0c0dc5fd4cc641a58578260b7e4815ff"));
@@ -94,6 +96,7 @@ builder.Configuration.AddEnvironmentVariables();
 
 
 builder.Services.AddTransient<IRepositoryWeightManagementDao>(provider => new WeightManagementMsSqlDao(connstring));
+builder.Services.AddTransient<IRepositoryHealthRecorderDAO>(provider => new HealthRecorderMsSqlDAO(connstring));
 //builder.Services.AddTransient<IAccountService, AccountService>();
 
 var app = builder.Build();
@@ -121,7 +124,9 @@ if (app.Environment.IsDevelopment())
     b.buildWMGoals(connstring);
     b.buildFavoriteMedication(connstring);
     b.addBossAdmin(connstring);
-    
+    b.BuildHealthRecorder(connstring);
+    b.buildDiet(connstring);
+    b.buildRemiders(connstring);
     //app.UseSwagger();
     //app.UseSwaggerUI();
 }
