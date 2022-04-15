@@ -10,7 +10,11 @@
          <td>{{f.product_id}}</td>
         <button @click = "$router.push({name:'ViewDrug',params:{id: f.brand_name}})">View Drug</button>
         <button @click = "RemoveFavorite(f.product_id)">Remove Favorite</button>
-          <button @click = "$router.push({name:'EditDrug',params:{id: f.brand_name}})">Edit Favorite</button>
+        <button @click = "$router.push({name:'EditDrug',params:{id: f.brand_name}})">Edit Favorite</button>
+        <button @click = "UpdateClickCount">Create Reminder</button>
+        <div v-if="viewReminder==1">
+            asdasdasdssdaslda
+        </div>
         </tr>  
           </div>
     </div>
@@ -26,7 +30,8 @@
         return {
             formData :{
                 favoriteDrugsList: [],
-                ViewFavoriteRequest: []
+                ViewFavoriteRequest: [],
+                viewReminder:-1
             },
             message : '',
         }
@@ -55,7 +60,7 @@
                 headers: { "Content-Type": "application/json"},
                
             };
-            const response= fetch('https://localhost:7011/Medication/DeleteFavorite?product_id='
+            const response= fetch(process.env.backend + 'Medication/DeleteFavorite?product_id='
             +product_id,requestOptions)                
                 .then(response =>  response.text())
                 .then(body => this.message = body)

@@ -17,7 +17,7 @@ import ViewDrug from '@/components/WeightManagement/viewDrug.vue'
 import EditFavoriteDrug from '@/components/EditFavoriteDrug.vue'
 import DeleteAccount from '@/components/DeleteAccount.vue'
 import DietRecommendation from '@/components/DietRecommendation.vue'
-import FavoriteList from '@/components/FavoriteList.vue'
+
 
 
 const routes: Array<RouteRecordRaw> = [

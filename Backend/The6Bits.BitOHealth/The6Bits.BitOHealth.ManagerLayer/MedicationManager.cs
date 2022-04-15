@@ -19,19 +19,19 @@ public class MedicationManager
     private IDBErrors _iDBErrors;
     private IConfiguration _config;
     private LogService _log;
-    //private ReminderManager _reminderManager;
+    private ReminderManager _reminderManager;
 
 
 
     public MedicationManager(IRepositoryMedication<string> MedicationDao, IDrugDataSet _drugDataSet, IAuthenticationService authenticationService, 
-        IDBErrors dbError, IConfiguration config, ILogDal logDao/**,ReminderManager rm**/)
+        IDBErrors dbError, IConfiguration config, ILogDal logDao, ReminderManager rm)
     {
         _iDBErrors = dbError;
         _auth = authenticationService;
         _config = config;
         _log= new LogService(logDao); ;
         _MS = new MedicationService(MedicationDao, _drugDataSet, dbError, config);
-      //  _reminderManager = rm;
+        _reminderManager = rm;
     }
 
     public List<DrugName> FindDrug(string username,string drugName)
@@ -172,8 +172,8 @@ public class MedicationManager
     {
         name = _MS.CreateTitle(name);
         description = _MS.CreateDescrption(description);
-        //string reminderSuccess=_reminderManager.CreateReminder(username, name, description, date, time, repeat);
-        return description;
+        string reminderSuccess=_reminderManager.CreateReminder(username, name, description, date, time, repeat);
+        return reminderSuccess;
     }
 }
 

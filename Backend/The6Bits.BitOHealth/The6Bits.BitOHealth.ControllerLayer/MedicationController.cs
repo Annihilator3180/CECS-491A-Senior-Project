@@ -9,6 +9,7 @@ using The6Bits.Logging.Implementations;
 using The6Bits.DBErrors;
 using Microsoft.Extensions.Configuration;
 using System.Text.Json;
+using The6Bits.BitOHealth.DAL.Contract;
 
 // using The6Bits.BitOHealth.ServiceLayer;
 
@@ -23,17 +24,18 @@ public class MedicationController : ControllerBase
     private IDBErrors _dbErrors;
     private IConfiguration _config;
     private IAuthenticationService _auth;
-    //private ReminderManager _ReminderManager;
+    private ReminderManager _ReminderManager;
+    private IReminderDatabase _reminderDB;
     public MedicationController(IRepositoryMedication<string> MedicationDao,IDrugDataSet _drugDataSet, ILogDal logDao,
-        IAuthenticationService authenticationService, IDBErrors dbErrors, /**ReminderManager RM,**/
+        IAuthenticationService authenticationService, IDBErrors dbErrors, IReminderDatabase remindDB,
          IConfiguration config)
     {
-        _MM = new MedicationManager(MedicationDao,_drugDataSet, authenticationService, dbErrors, config, logDao/**,RM**/);
+        _ReminderManager = new ReminderManager(remindDB, dbErrors);
+        _MM = new MedicationManager(MedicationDao, _drugDataSet, authenticationService, dbErrors, config, logDao,_ReminderManager);//RM
         _logService = new LogService(logDao);
         _dbErrors = dbErrors;
         _auth = authenticationService;
         _config = config;
-        _logService = new LogService(logDao);
         //RM = _ReminderManager;
     }
     [HttpGet("Search")]
@@ -204,6 +206,7 @@ public class MedicationController : ControllerBase
     public string RefillMedication(string name, string description, string date, string time, string repeat)
     {
         string token;
+        
         try
         {
             token = Request.Cookies["token"];
@@ -216,7 +219,7 @@ public class MedicationController : ControllerBase
         {
             return "invalid token";
         }
-
+        
         string username = _auth.getUsername(token);
         try
         {

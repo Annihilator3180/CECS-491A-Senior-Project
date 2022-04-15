@@ -158,7 +158,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
         public string CreateDescrption(string description)
         {
-            var splitted=description.Split('+');
+            var splitted=description.Split('.');
             string location=splitted[0];
             string price=splitted[1];
             return "Cheapest reported price is " + price + " Found at " + location;
@@ -166,7 +166,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
         public string CreateTitle(string name)
         {
-            return "Reminder: " + name + "refill "; 
+            return "Reminder: " + name + " refill "; 
         }
     }
 }
