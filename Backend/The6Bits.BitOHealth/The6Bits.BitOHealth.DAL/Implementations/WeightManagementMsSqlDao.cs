@@ -130,7 +130,37 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 
         public string CreateFoodLog(FoodModel food, string username)
         {
-            return "";
+            try
+            {
+                string query = $"INSERT INTO FoodLog (Username, FoodName, Description, Calories, Carbs, Protein, Fat ) values (@Username, @FoodName, @Description, @Calories, @Carbs, @Protein, @Fat )";
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int count = connection.Execute(query, new
+                    {
+                        Username = username,
+                        FoodName = food.FoodName,
+                        Description = food.Description,
+                        Calories = food.Calories,
+                        Carbs = food.Carbs,
+                        Protein = food.Protein,
+                        Fat = food.Fat
+
+
+                    });
+                    if (count != 0)
+                    {
+                        return "saved foodlog";
+                    }
+
+                    return "food log not saved";
+                }
+            }
+            catch (SqlException ex)
+            {
+                //LOGG
+                throw ex;
+            }
         }
         
 

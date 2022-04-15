@@ -47,6 +47,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
 
 
+        //TODO:ADD TRY CATCH RETURN OBJECT?
         public async Task<string> StoreFoodLog(FoodModel food, string username)
         {
             return _WMD.CreateFoodLog(food, username);
