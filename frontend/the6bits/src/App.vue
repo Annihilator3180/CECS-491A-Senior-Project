@@ -25,6 +25,9 @@
 
 <script>
 export default {
+  mounted(){
+    console.log(process.env.VUE_APP_NOT_SECRET_CODE)
+  },
   name: "app",
   components: {},
 };

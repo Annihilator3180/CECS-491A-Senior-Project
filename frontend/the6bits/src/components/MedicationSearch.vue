@@ -8,7 +8,7 @@
                 <input type="text" id="drugName" v-model="drugName" />
             </div>
             <button @click = "FindDrug">Search</button>
-         <tr v-for="f in formData.searchList" :key="f">
+         <tr v-for="f in formData.FindDrugResponse.data" :key="f">
          <td>{{f.brand_name}}</td>
         <button @click = "$router.push({name:'ViewDrug',params:{id: f.brand_name}})">View Drug</button>
          </tr>
@@ -22,7 +22,7 @@
         return {
             drugName:"",
             formData :{
-               searchList: [],
+               FindDrugResponse: [],
                
             },
              message : '',
@@ -36,16 +36,16 @@
 
             };
             
-            fetch('https://localhost:7011/Medication/Search?drugName='+this.drugName,requestOptions)
+            fetch(process.env.VUE_APP_BACKEND+'Medication/Search?drugName='+this.drugName,requestOptions)
                 .then(response => response.text())
-                .then(body =>this.formData.searchList = JSON.parse(body))
+                .then(body =>this.formData.FindDrugResponse = JSON.parse(body))
         }
     }
 }
 </script>
 <style scoped>
     .form {
-        width: 300px;
+        width: 100%;
         margin: 0 auto
     }
 </style>

@@ -20,7 +20,7 @@ public class OpenFDADAOShould : TestsBase
 
     public OpenFDADAOShould()
     {
-        _MedicationDao = new OpenFDADAO(new HttpClient());
+        _MedicationDao = new OpenFDADAO(new HttpClient(), new openFDAConfig()) ;
     }
     [Fact]
     public async void ValidGenericNameTest()

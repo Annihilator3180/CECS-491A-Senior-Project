@@ -54,7 +54,7 @@
                 body: JSON.stringify({generic_name : this.drugName })
 
             };
-                fetch('https://localhost:7011/Medication/viewDrug?generic_name='+this.drugName,requestOptions)
+                fetch(process.env.VUE_APP_BACKEND+'Medication/viewDrug?generic_name='+this.drugName,requestOptions)
                 .then(response => response.text())
                 .then(body => this.formData.drugInfoResponse= JSON.parse(body))
         },
@@ -78,7 +78,7 @@
                 })
 
             };
-            fetch('https://localhost:7011/Medication/UpdateFavorite/',requestOptions)
+            fetch(process.env.VUE_APP_BACKEND+'Medication/UpdateFavorite/',requestOptions)
                 .then(response => response.text())
                 .then(body => this.formData.message=body)
                 .catch(()=>{

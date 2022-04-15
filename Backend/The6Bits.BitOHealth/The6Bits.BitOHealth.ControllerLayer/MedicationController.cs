@@ -39,27 +39,31 @@ public class MedicationController : ControllerBase
         //RM = _ReminderManager;
     }
     [HttpGet("Search")]
-    public string FindDrug(string drugName)
+    public FindDrugResponse FindDrug(string drugName)
     {
-        
+        FindDrugResponse drugResponse=new FindDrugResponse();
         string token;
         try
         {
+
             token = Request.Cookies["token"];
 
         }
         catch
         {
-            return "invalid token";
+            drugResponse.success = false;
+            drugResponse.error = "invalid token";
+            return drugResponse;
         }
         if (!_auth.ValidateToken(token))
         {
-            return "invalid token";
+            drugResponse.success = false;
+            drugResponse.error = "invalid token";
+            return drugResponse;
         }
         string username = _auth.getUsername(token);
-        List<DrugName> drugNames = _MM.FindDrug(username,drugName);
-        string jsonString = JsonSerializer.Serialize(drugNames);
-        return jsonString;
+        drugResponse = _MM.FindDrug(username,drugName);
+        return drugResponse;
 
     }
     [HttpPost("FavoriteAdd")]

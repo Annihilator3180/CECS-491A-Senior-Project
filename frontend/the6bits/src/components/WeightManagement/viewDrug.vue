@@ -1,7 +1,7 @@
 <template>
     <div id="drugName">
         {{drugName}}
-    </div>
+    
            
     <div class="accordion">
     <div v-if="formData.drugInfoResponse.data.isFavorited">
@@ -56,7 +56,7 @@
         <button @click = "addFavorite">Add to Favorite</button>
         </div>
     </div>
-  
+  </div>
 
 
 </template>
@@ -98,7 +98,7 @@
                 body: JSON.stringify({generic_name : this.drugName })
 
             };
-            fetch('https://localhost:7011/Medication/viewDrug?generic_name='+this.drugName,requestOptions)
+            fetch(process.env.VUE_APP_BACKEND+'Medication/viewDrug?generic_name='+this.drugName,requestOptions)
                 .then(response => response.text())
                 .then(body => this.formData.drugInfoResponse = JSON.parse(body))
         },
@@ -111,7 +111,7 @@
             brand_name: this.formData.drugInfo.openfda?.brand_name?.[0], productID: this.formData.drugInfo.openfda?.product_ndc?.[0] })**/
 
         };
-        fetch('https://localhost:7011/Medication/FavoriteAdd?genericName='+this.formData.drugInfoResponse.data.openfda?.generic_name?.[0]
+        fetch(process.env.VUE_APP_BACKEND+'Medication/FavoriteAdd?genericName='+this.formData.drugInfoResponse.data.openfda?.generic_name?.[0]
         + '&brandName=' + this.formData.drugInfoResponse.data.openfda?.brand_name?.[0]+'&productID='+
         this.formData.drugInfoResponse.data.openfda?.product_ndc?.[0],requestOptions)
             .then(response => response.text())

@@ -34,13 +34,22 @@ public class MedicationManager
         _reminderManager = rm;
     }
 
-    public List<DrugName> FindDrug(string username,string drugName)
+    public FindDrugResponse FindDrug(string username,string drugName)
     {
+        FindDrugResponse drugResponse=new FindDrugResponse();
         List<DrugName> genericDrugNames = _MS.GetGenericDrugName(drugName);
         List<DrugName> brandDrugNames = _MS.GetBrandDrugName(drugName);
         List<DrugName> drugNames = _MS.CheckDuplicates(genericDrugNames, brandDrugNames);
+        if (drugNames.Count == 0)
+        {
+            drugResponse.success = false;
+            drugResponse.error = "no drugs found";
+            return drugResponse;
+        }
         _ =_log.Log(username, "Searched for", "Front End", "Business");
-        return drugNames;
+        drugResponse.success = true;
+        drugResponse.data = drugNames;
+        return drugResponse;
     }
 
     public string addFavorite(DrugName drug, string username)
