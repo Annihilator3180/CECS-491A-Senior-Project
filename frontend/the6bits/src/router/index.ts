@@ -16,6 +16,7 @@ import SearchFood from '@/components/WeightManagement/SearchFoodItem.vue'
 import DeleteAccount from '@/components/DeleteAccount.vue'
 import DietRecommendation from '@/components/DietRecommendation.vue'
 import FavoriteList from '@/components/FavoriteList.vue'
+import ViewReminder from '@/components/Reminders/ViewReminder.vue'
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -99,6 +100,11 @@ const routes: Array<RouteRecordRaw> = [
       path: "/FavoriteDrugs",
     name: "FavoriteDrugListPost",
     component: FavoriteDrugListPost
+  },
+  {
+    path: "/ViewReminder",
+    name: "ViewReminder",
+    component: ViewReminder
   }
 
 ]
