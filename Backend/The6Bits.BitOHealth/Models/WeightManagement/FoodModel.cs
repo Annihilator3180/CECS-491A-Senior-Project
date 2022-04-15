@@ -4,16 +4,19 @@ public class FoodModel
 {
     public string FoodName { get; set; }
     public string Description { get; set; }
-    public int Calories { get; set; }
-    public int? Carbs { get; set; }
-    public int? Protein { get; set; }
-    public int? Fat { get; set; }
+    public float Calories { get; set; }
 
-    public FoodModel(string foodName, string description, int calories, int? carbs = null, int? protein = null, int?fat = null)
+    public DateTime FoodLogDate { get; set; }
+    public float? Carbs { get; set; }
+    public float? Protein { get; set; }
+    public float? Fat { get; set; }
+
+    public FoodModel(string foodName, string description, float calories, DateTime foodLogDate, float? carbs = null, float? protein = null, float? fat = null)
     {
         FoodName = foodName;
         Description = description;
         Calories = calories;
+        FoodLogDate = foodLogDate;
         Carbs = carbs;
         Protein = protein;
         Fat = fat;

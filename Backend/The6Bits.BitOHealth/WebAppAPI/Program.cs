@@ -122,6 +122,8 @@ if (app.Environment.IsDevelopment())
     b.BuildHealthRecorder(connstring);
     b.buildDiet(connstring);
     b.buildRemiders(connstring);
+    b.buildFoodLog(connstring);
+
     //app.UseSwagger();
     //app.UseSwaggerUI();
 }

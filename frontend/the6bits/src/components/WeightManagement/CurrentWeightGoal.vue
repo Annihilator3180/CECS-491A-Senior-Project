@@ -1,10 +1,9 @@
 <template>
-    <div class="row my-custom-class">
+    <div >
         <h1>Current Weight Goal</h1>
         <p>Goal Weight : {{this.currentGoal.goalWeight}}</p>
         <p>Goal Date : {{this.currentGoal.goalDate}}</p>
         <p>Calories Burned Per Day : {{this.currentGoal.exerciseLevel}}</p>
-        <button>Edit</button>
     </div> 
 </template>
 
@@ -39,19 +38,3 @@
 
 
 </script>
-
-<style scoped>   
-label {
-    /* Other styling... */
-    text-align: right;
-    clear: both;
-    float:left;
-    margin-right:15px;
-}
-.my-custom-class {
-  position: absolute;
-  right: 0;
-  width: 300px;
-  border: solid red 2px;
-}
-</style>
