@@ -53,6 +53,10 @@ namespace The6Bits.BitOHealth.ServiceLayer
             return _WMD.CreateFoodLog(food, username);
         }
 
+        public async Task<IEnumerable<FoodModel>> GetFoodLogs(string username)
+        {
+            return _WMD.GetFoodLogs(username);
+        }
 
 
 

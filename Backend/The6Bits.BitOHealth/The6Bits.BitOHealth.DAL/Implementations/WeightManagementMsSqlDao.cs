@@ -164,11 +164,11 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
         }
 
-        public IEnumerable<FoodModel> GetAllFoodLogs(FoodModel food, string username)
+        public IEnumerable<FoodModel> GetFoodLogs(string username)
         {
             try
             {
-                string query = $"Select * FROM FoodLog WHERE Username = @Username";
+                string query = $"Select FoodName, Description, Calories, FoodLogDate ,Carbs, Protein, Fat  FROM FoodLog WHERE Username = @Username";
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();

@@ -30,4 +30,18 @@ const GoalRequest = (goalModel, requestType) => {
 
 
 
-export {ReadGoal,GoalRequest,HasWeightGoal}
+const GetAllFoodLogs = () =>{
+            const requestOptions = {
+                method: "GET",
+                credentials: 'include',
+                headers: { "Content-Type": "application/json"},
+            };
+            return fetch(process.env.VUE_APP_BACKEND+'WeightManagement/GetFoodLogs' ,requestOptions)
+                .then(response => response.text())
+                .then(value =>  { 
+                    return JSON.parse(value)})   
+        }
+
+
+
+export {ReadGoal,GoalRequest,HasWeightGoal,GetAllFoodLogs}

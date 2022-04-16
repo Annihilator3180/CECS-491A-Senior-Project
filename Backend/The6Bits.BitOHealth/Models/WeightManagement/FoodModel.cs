@@ -2,16 +2,17 @@ namespace The6Bits.BitOHealth.Models;
 
 public class FoodModel
 {
+    public string? Username { get; set; }
     public string FoodName { get; set; }
     public string Description { get; set; }
-    public float Calories { get; set; }
+    public double Calories { get; set; }
 
     public DateTime FoodLogDate { get; set; }
-    public float? Carbs { get; set; }
-    public float? Protein { get; set; }
-    public float? Fat { get; set; }
+    public double? Carbs { get; set; }
+    public double? Protein { get; set; }
+    public double? Fat { get; set; }
 
-    public FoodModel(string foodName, string description, float calories, DateTime foodLogDate, float? carbs = null, float? protein = null, float? fat = null)
+    public FoodModel(string foodName, string description, double calories, DateTime foodLogDate, double? carbs = null, double? protein = null, double? fat = null)
     {
         FoodName = foodName;
         Description = description;
@@ -21,5 +22,7 @@ public class FoodModel
         Protein = protein;
         Fat = fat;
     }
+
+
 
 }

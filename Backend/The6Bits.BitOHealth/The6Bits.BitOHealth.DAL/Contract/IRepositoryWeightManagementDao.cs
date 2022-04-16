@@ -17,5 +17,7 @@ namespace The6Bits.BitOHealth.DAL
 
 
         public string CreateFoodLog(FoodModel food, string username);
+
+        public IEnumerable<FoodModel> GetFoodLogs(string username);
     }
 }

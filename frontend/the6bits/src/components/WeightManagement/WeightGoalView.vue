@@ -13,7 +13,7 @@
         <button @click="activeTab = 'SaveFoodLog'">Custom</button>
         <button @click="activeTab = 'SearchFood'">Search</button>
         <component :is="activeTab"/>
-
+        <FoodLogs/>
     </div>
 </template>
 
@@ -30,6 +30,7 @@ import CreateGoal from './CreateWeightGoal.vue'
 import UpdateGoal from './UpdateWeightGoal.vue'
 import SearchFood from './SearchFoodItem.vue'
 import SaveFoodLog from './SaveFoodLog.vue'
+import FoodLogs from './WMComponents/FoodLogRow.vue'
     export default {
         name : 'GoalView',
         data() {
@@ -51,7 +52,8 @@ import SaveFoodLog from './SaveFoodLog.vue'
         CreateGoal,
         UpdateGoal,
         SaveFoodLog,
-        SearchFood
+        SearchFood,
+        FoodLogs
     },
     methods:{
         getCookie() {

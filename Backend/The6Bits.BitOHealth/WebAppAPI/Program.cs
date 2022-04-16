@@ -33,7 +33,7 @@ builder.Configuration.GetConnectionString("DefaultConnection");
 var connstring  = builder.Configuration.GetConnectionString("DefaultConnection");
 var Configuration = builder.Configuration;
 
-
+Console.WriteLine(connstring);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

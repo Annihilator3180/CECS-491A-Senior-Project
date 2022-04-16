@@ -50,6 +50,7 @@
             fetch('https://localhost:7011/WeightManagement/SaveFood',requestOptions)
                 .then(response =>  response.text())
                 .then(body => this.formData.foods = JSON.parse(body))
+            window.location.reload();
         }
 
         
