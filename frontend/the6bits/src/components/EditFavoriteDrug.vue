@@ -18,8 +18,17 @@
             <p> Must be under 150 characters  Previous Location: {{formData.drugInfoResponse.data.favoriteDrug.lowestPriceLocation}}</p>
                 
             </div>
-            <button @click = "UpdateDrug()">Update Favorite</button> 
-            {{formData.message}}
+            <div>
+            <button @click = "UpdateDrug()">Update Favorite</button> {{formData.message}}
+            </div>
+            Enter a Reminder date
+             <div className="reminderdates">
+                
+                <label for="month">day</label>
+                <input type="date" id="month" min=1 max=31 v-model="formData.day"/>
+                {{formData.day}}
+            </div>
+
             </div>
 
     
@@ -39,7 +48,8 @@
                 drugInfoResponse: [],
                 lowestprice: null,
                 lowestpriceLocation: null,
-                message:""
+                message:"",
+                month:0
             },
             
         }

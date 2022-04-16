@@ -36,7 +36,6 @@ public class MedicationController : ControllerBase
         _dbErrors = dbErrors;
         _auth = authenticationService;
         _config = config;
-        //RM = _ReminderManager;
     }
     [HttpGet("Search")]
     public FindDrugResponse FindDrug(string drugName)

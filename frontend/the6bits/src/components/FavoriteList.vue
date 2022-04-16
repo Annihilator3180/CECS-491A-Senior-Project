@@ -5,18 +5,22 @@
             {{formData.ViewFavoriteRequest.error}}
         </div>
          <div v-else>
+        <tr>
+        <th>brand Name</th>
+        <th>product ndc</th>
+        </tr>
         <tr v-for="f in formData.ViewFavoriteRequest.data" :key="f">
-        
          <td>{{f.brand_name}}</td>
          <td>{{f.product_id}}</td>
         <button @click = "$router.push({name:'ViewDrug',params:{id: f.brand_name}})">View Drug</button>
         <button @click = "RemoveFavorite(f.product_id)">Remove Favorite</button>
         <button @click = "$router.push({name:'EditDrug',params:{id: f.brand_name}})">Edit Favorite</button>
         <button @click = "UpdateClickCount">Create Reminder</button>
+        </tr> 
 
-        </tr>  
           </div>
     </div>
+
 
 </template>
 <script>
@@ -70,3 +74,35 @@
     }
 }
 </script>
+<style scoped>
+    .form {
+        width: 100%;
+        margin: 0 auto
+    }
+ td:nth-child(odd){
+    border-style: solid;
+    border-color: grey;
+    padding: 20px;
+}
+
+tr:nth-child(even) {
+    background-color: lightgrey;
+    color: black
+}
+tr:nth-child(odd) {
+    background-color: white;
+    color: black
+}
+td,th {
+    border: 1px solid rgb(190, 190, 190);
+    padding: 10px;
+}
+
+th {
+    background-color: #696969;
+    color: #fff;
+}
+
+
+
+</style>

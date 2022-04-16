@@ -157,6 +157,11 @@
     position: relative;
     transition: background-color 0.1s;
 }
+.accordion__label:hover{
+      background-color: darkblue;
+
+}
+
 .accordion__content{
     background: white;
     line-height: 1.6;

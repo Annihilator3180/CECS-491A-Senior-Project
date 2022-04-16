@@ -17,7 +17,6 @@ public class MedicationManager
     private IAuthenticationService _auth;
     private MedicationService _MS;
     private IDBErrors _iDBErrors;
-    private IConfiguration _config;
     private LogService _log;
     private ReminderManager _reminderManager;
 
@@ -28,9 +27,8 @@ public class MedicationManager
     {
         _iDBErrors = dbError;
         _auth = authenticationService;
-        _config = config;
         _log= new LogService(logDao); ;
-        _MS = new MedicationService(MedicationDao, _drugDataSet, dbError, config);
+        _MS = new MedicationService(MedicationDao, _drugDataSet, dbError);
         _reminderManager = rm;
     }
 

@@ -25,7 +25,7 @@ namespace The6Bits.BitOHealth.DAL
 
         public async Task<List<DrugName>> GetGenericDrugName(string drugName)
         {
-            string url = $"?api_key=ndc.json?api_key={key}&search=generic_name:%22{drugName}%22&limit=3";
+            string url = $"?api_key=ndc.json?api_key={key}&search=generic_name:%22{drugName}%22&limit=5";
             using (HttpResponseMessage response = await _httpClient.GetAsync(url))
             {
                 if (response.IsSuccessStatusCode)
@@ -50,7 +50,7 @@ namespace The6Bits.BitOHealth.DAL
         }
         public async Task<List<DrugName>> GetBrandDrugName(string drugName)
             {
-                string url = $"ndc.json?api_key={Environment.GetEnvironmentVariable("OpenFda")}&search=brand_name:%22{drugName}%22&limit=3";
+                string url = $"ndc.json?api_key={Environment.GetEnvironmentVariable("OpenFda")}&search=brand_name:%22{drugName}%22&limit=5";
                 using (HttpResponseMessage response = await _httpClient.GetAsync(url))
                 {
                     if (response.IsSuccessStatusCode)
