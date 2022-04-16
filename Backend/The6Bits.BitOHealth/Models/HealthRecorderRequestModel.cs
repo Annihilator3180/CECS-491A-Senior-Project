@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace The6Bits.BitOHealth.Models
 {
-    public class HealthRecorderDeleteModel
+    public class HealthRecorderRequestModel
     {
         public string RecordName { get; set; }
         public string CategoryName { get; set; }
 
-        public HealthRecorderDeleteModel(string recordName, string categoryName)
+        public HealthRecorderRequestModel(string recordName, string categoryName)
         {
             RecordName = recordName;
             CategoryName = categoryName;
         }
-        public HealthRecorderDeleteModel()
+        public HealthRecorderRequestModel()
         {
 
         }

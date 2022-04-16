@@ -16,11 +16,9 @@ namespace The6Bits.BitOHealth.Models
         public HealthRecorderResponseModel()
         {
             data = null;
-            httpResponse = null;
             errorMessage = null;
         }
         public string Data { get; set; }
-        public HttpResponseMessage HttpResponse { get; set; }
         public string ErrorMessage { get; set; }
         public string ToString()
         {

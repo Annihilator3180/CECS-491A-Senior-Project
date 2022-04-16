@@ -16,11 +16,10 @@ namespace The6Bits.BitOHealth.Models
         string errorCode;
         string secondRecord;
 
-        public HealthRecorderRecordModel(string record, string secondRecord, DateTime timeSaved, string username, string categoryName, string recordName)
+        public HealthRecorderRecordModel(string record, string secondRecord, string username, string categoryName, string recordName)
         {
             this.record = record;
             this.secondRecord = secondRecord;
-            this.timeSaved = timeSaved;
             this.username = username;
             this.categoryName = categoryName;
             this.recordName = recordName;
@@ -31,7 +30,6 @@ namespace The6Bits.BitOHealth.Models
         }
 
         public string Record { get; set; }
-        public DateTime TimeSaved { get; set; }
         public string Username { get; set; }
         public string CategoryName { get; set; }
         public string RecordName { get; set; }

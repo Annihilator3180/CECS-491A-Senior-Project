@@ -19,19 +19,20 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             _connectionString = conn;
         }
 
-        public string ValidateUserRecordLimits(string username)
+        public string ValidateUserRecordRequest(string username, string recordName)
         {
             try
             {
-                string query = "select count(record) as totalRecord, sum (case when timeSaved >= DATEADD(day, -1, GETDATE()) then 1 else 0 end) as dailyRecord" +
+                string query = "select count(record) as totalRecord, sum (case when timeSaved >= DATEADD(day, -1, GETDATE()) then 1 else 0 end) as dailyRecord,  sum (case when recordName = @recordName then 1 else 0 end) as duplicateRecord" +
                     " from HealthRecorder where username = @username";
                 using (SqlConnection conn = new SqlConnection(_connectionString))
                 {
                     //query return an enumerable , we only want one row so we put .single at the end,
                     //return type is dynamic so we can refer to column name defined in select statement
-                    var limits = conn.Query(query, new { username = username}).Single();
+                    var limits = conn.Query(query, new { username = username, recordName = recordName}).Single();
                     var totalRecord = limits.totalRecord;
                     var dailyRecord  = limits.dailyRecord;
+                    var duplicateRecord = limits.duplicateRecord;
 
                     if (totalRecord > 1000)
                     {
@@ -41,7 +42,11 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     {
                         return "over daily limit";
                     }
-                    return "under limit";
+                    else if (duplicateRecord != 0)
+                    {
+                        return "duplicate record name";
+                    }
+                    return "valid request";
                 }
             }
             catch(SqlException ex)
@@ -49,16 +54,16 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 return ex.Number.ToString();
             }
         }
-        public string SaveRecord(string record, DateTime timeSaved, string username, string categoryName, string recordName, string secondRecord)
+        public string SaveRecord(string record, string username, string categoryName, string recordName, string secondRecord)
         {
             //consider unique record names
             try
             {
                 string query = "INSERT INTO HealthRecorder(record, secondRecord, timeSaved, username, categoryName, recordName) values(@record, @secondRecord," +
-                    "@timeSaved, @username, @categoryName, @recordName)";
+                    "CURRENT_TIMESTAMP, @username, @categoryName, @recordName)";
                 using (SqlConnection conn = new SqlConnection(_connectionString))
                 {
-                    int result = conn.Execute(query, new {record = record, secondRecord = secondRecord, timeSaved = timeSaved, 
+                    int result = conn.Execute(query, new {record = record, secondRecord = secondRecord, 
                         username = username, categoryName = categoryName, recordName = recordName});
                     conn.Close();
 
@@ -144,6 +149,34 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 response.ErrorMessage = ex.Number.ToString();
                 return response;
             }
+        }
+        public HealthRecorderViewRecordModel SearchRecord(HealthRecorderRequestModel request, HealthRecorderViewRecordModel response, string username)
+        {
+            string recordName = request.RecordName;
+            string categoryName = request.CategoryName;
+            List<HealthRecorderRecordModel> records = new List<HealthRecorderRecordModel>();
+
+            try
+            {
+                string query = "select* from HealthRecorder where username = @username AND (recordName = @recordName OR categoryName = @categoryName)";
+                using(SqlConnection conn = new SqlConnection(_connectionString))
+                {
+                    var getRecords =conn.Query<HealthRecorderRecordModel>(query, new {username = username,recordName = recordName, categoryName = categoryName});
+                    foreach (var r in getRecords)
+                    {
+                        records.Add(r);
+                    }
+                    response.Records = records;
+                    return response;
+                }
+            }
+            catch (SqlException ex)
+            {
+                response.ErrorMessage = ex.Number.ToString();
+                return response;
+            }
+
+
         }
 
     }

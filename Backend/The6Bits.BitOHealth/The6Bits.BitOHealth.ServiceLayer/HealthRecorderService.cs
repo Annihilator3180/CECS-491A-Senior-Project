@@ -29,11 +29,11 @@ namespace The6Bits.BitOHealth.ServiceLayer
         {
             return (categoryName.Length >= 1 && categoryName.Length <= 100);
         }
-        public string ValidateUserRecordLimit(string username) 
+        public string ValidateUserRecordRequest(string username, string recordName) 
         {
-            string result = _HealthRecorderDAO.ValidateUserRecordLimits(username);
+            string result = _HealthRecorderDAO.ValidateUserRecordRequest(username, recordName);
             
-            if (result == "over record limit" || result == "over daily limit" || result == "under limit")
+            if (result == "over record limit" || result == "over daily limit" || result == "valid request" || result == "duplicate record name")
             {
                 return result;
             }
@@ -59,7 +59,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
             string[] typeSplit = type.Split('/');
             return (typeSplit[1] == "jpeg" || typeSplit[1] == "pdf");
         }
-        public string SaveRecord(IFormFile file, DateTime now, string username, string categoryName, string recordName, IFormFile? file2 = null)
+        public string SaveRecord(IFormFile file, string username, string categoryName, string recordName, IFormFile? file2 = null)
         {
             //add string to separate 2 records and parse later
             string conversion = ConvertFileToString(file);
@@ -68,7 +68,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
             {
                 secondConversion = ConvertFileToString(file2);
             }
-            string result = _HealthRecorderDAO.SaveRecord(conversion, now, username, categoryName, recordName, secondConversion);
+            string result = _HealthRecorderDAO.SaveRecord(conversion, username, categoryName, recordName, secondConversion);
             if(result == "saved")
             {
                 return result;
@@ -90,7 +90,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
         }
         public List<HealthRecorderRecordModel> ViewRecord(string username, int lastRecordIndex)
         {
-           List<HealthRecorderRecordModel> records =  _HealthRecorderDAO.GetRecords(username, lastRecordIndex + 1);
+           List<HealthRecorderRecordModel> records =  _HealthRecorderDAO.GetRecords(username, lastRecordIndex);
             if (records.Count == 0)
             {
                 return new List<HealthRecorderRecordModel>();
@@ -135,6 +135,20 @@ namespace The6Bits.BitOHealth.ServiceLayer
                 response.ErrorMessage = _dbError.DBErrorCheck(int.Parse(response.ErrorMessage));
                 return response;
 
+            }
+        }
+        public HealthRecorderViewRecordModel SearchRecord(HealthRecorderRequestModel request, HealthRecorderViewRecordModel response, string username)
+        {
+            response = _HealthRecorderDAO.SearchRecord(request, response, username);
+
+            if (response.ErrorMessage == null)
+            {
+                return response;
+            }
+            else
+            {
+                response.ErrorMessage = _dbError.DBErrorCheck(int.Parse(response.ErrorMessage));
+                return response;
             }
         }
 
