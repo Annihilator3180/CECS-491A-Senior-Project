@@ -151,6 +151,20 @@ namespace The6Bits.BitOHealth.ServiceLayer
                 return response;
             }
         }
+        public HealthRecorderExportModel GetRecordByte(HealthRecorderRequestModel request, HealthRecorderExportModel response, string username)
+        {
+            response = _HealthRecorderDAO.ExportRecord(request, username, response);
+
+            if (response.ErrorMessage == null)
+            {
+                return response;
+            }
+            else
+            {
+                response.ErrorMessage = _dbError.DBErrorCheck(int.Parse(response.ErrorMessage));
+                return response;
+            }
+        }
 
     }
 

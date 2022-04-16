@@ -232,6 +232,56 @@ namespace The6Bits.BitOHealth.ControllerLayer
                 return Ok(response);
             }
         }
+        [HttpGet("ExportRecord")]
+        public ActionResult ExportRecord([FromForm]HealthRecorderRequestModel request)
+        {
+            string token = "";
+            HealthRecorderExportModel response = new HealthRecorderExportModel();
+
+            try
+            {
+                token = Request.Cookies["token"];
+            }
+            catch
+            {
+                response.ErrorMessage = "No Token";
+                return Unauthorized(response);
+            }
+
+            bool isValid = _authentication.ValidateToken(token);
+
+
+            if (!isValid)
+            {
+                _ = logService.Log("None", "Invalid Token @ Health Recorder", "Info", "Buisness");
+                response.ErrorMessage = "Invalid Token";
+                return Unauthorized(response);
+            }
+            string username = _authentication.getUsername(token);
+            response = _HealthRecorderManager.ExportRecord(request, response, username);
+
+            if (response.ErrorMessage != null)
+            {
+                if (response.ErrorMessage.Contains("Database"))
+                {
+                    _ = logService.Log(username, "DB Error", response.ErrorMessage, "Buisness");
+                    return StatusCode(500, response);
+                }
+                else
+                {
+                    _ = logService.Log(username, response.ErrorMessage, "Info", "Buisness");
+                    return BadRequest(response);
+
+                }
+            }
+            else
+            {
+                byte[] data = Encoding.UTF8.GetBytes(response.File);
+                return File(data, "application/pdf", request.RecordName + ".pdf");
+            }
+
+
+        }
        
          
 

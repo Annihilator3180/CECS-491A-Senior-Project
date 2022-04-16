@@ -137,5 +137,18 @@ namespace The6Bits.BitOHealth.ManagerLayer
             response = _HealthRecorderService.SearchRecord(request, response, username);
             return response;
         }
+        public HealthRecorderExportModel ExportRecord(HealthRecorderRequestModel request, HealthRecorderExportModel response, string username)
+        {
+            response = _HealthRecorderService.GetRecordByte(request, response, username);
+            if (response.File == "" )
+            {
+                 response.ErrorMessage = "Record Does Not Exist";
+
+            }
+            return response;
+
+
+
+        }
     }
 }

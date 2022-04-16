@@ -23,8 +23,8 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = "select count(record) as totalRecord, sum (case when timeSaved >= DATEADD(day, -1, GETDATE()) then 1 else 0 end) as dailyRecord,  sum (case when recordName = @recordName then 1 else 0 end) as duplicateRecord" +
-                    " from HealthRecorder where username = @username";
+                string query = "select count(*) as totalRecord, coalesce(sum(case when timeSaved >= DATEADD(day, -1, GETDATE()) then 1 else 0 end),0) as dailyRecord, coalesce(sum(case when recordName = @recordName then 1 else 0 end),0) as duplicateRecord " +
+                     "from HealthRecorder where username = @username";
                 using (SqlConnection conn = new SqlConnection(_connectionString))
                 {
                     //query return an enumerable , we only want one row so we put .single at the end,
@@ -38,7 +38,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     {
                         return "over record limit";
                     }
-                    else if (dailyRecord > 15)
+                    else if (dailyRecord > 15 )
                     {
                         return "over daily limit";
                     }
@@ -59,7 +59,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             //consider unique record names
             try
             {
-                string query = "INSERT INTO HealthRecorder(record, secondRecord, timeSaved, username, categoryName, recordName) values(@record, @secondRecord," +
+                string query = "INSERT INTO HealthRecorder(record1, record2, timeSaved, username, categoryName, recordName) values(@record, @secondRecord," +
                     "CURRENT_TIMESTAMP, @username, @categoryName, @recordName)";
                 using (SqlConnection conn = new SqlConnection(_connectionString))
                 {
@@ -179,5 +179,28 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 
         }
 
+        public HealthRecorderExportModel ExportRecord(HealthRecorderRequestModel request, string username, HealthRecorderExportModel response)
+        {
+            string recordName = request.RecordName;
+            string categoryName = request.CategoryName;
+            string recordNumber = "record" + request.RecordNumber.ToString();
+            try
+            {
+                string query = "select("+recordNumber+") from HealthRecorder where username = @username AND recordName = @recordName AND categoryName = @categoryName";
+                using (SqlConnection conn = new SqlConnection(_connectionString))
+                {
+                    var getRecord = conn.QueryFirst<string>(query, new {username = username, recordName = recordName, categoryName = categoryName });
+                    response.File = getRecord;
+                    
+                    return response;
+                }
+
+            }
+            catch(SqlException ex)
+            {
+                response.ErrorMessage = ex.Number.ToString();
+                return response;
+            }
+        }
     }
 }
