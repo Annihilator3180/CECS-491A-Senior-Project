@@ -4,7 +4,7 @@ const ReadGoal = () =>{
                 credentials: 'include',
                 headers: { "Content-Type": "application/json"},
             };
-            return fetch('https://localhost:7011/WeightManagement/ReadGoal' ,requestOptions)
+            return fetch(process.env.VUE_APP_BACKEND+'WeightManagement/ReadGoal' ,requestOptions)
                 .then(response => response.text())
                 .then(value =>  { 
                     return JSON.parse(value)})   
@@ -22,7 +22,7 @@ const GoalRequest = (goalModel, requestType) => {
                 headers: { "Content-Type": "application/json"},
                 body: JSON.stringify({GoalWeight : goalModel.weight, GoalDate : goalModel.goaldate, ExerciseLevel: goalModel.calories   })
             };
-            return fetch('https://localhost:7011/WeightManagement/'+requestType ,requestOptions)
+            return fetch(process.env.VUE_APP_BACKEND+'WeightManagement/'+requestType ,requestOptions)
                 .then(response =>  response.text())
                 .then(value =>  { 
                     return value})

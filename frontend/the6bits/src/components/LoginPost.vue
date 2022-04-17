@@ -38,7 +38,7 @@
                 headers: { "Content-Type": "application/json"},
                 body: JSON.stringify({Username : this.formData.userId, Password : this.formData.password, Code: this.formData.otp   })
             };
-            fetch('https://localhost:7011/Account/Login',requestOptions)
+            fetch(process.env.VUE_APP_BACKEND+'Account/Login',requestOptions)
                 .then(response => response.text())
                 .then(data=> {
                     if(data.split('.').length == 3){

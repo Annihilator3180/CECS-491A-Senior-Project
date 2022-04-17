@@ -111,7 +111,8 @@ public class AccountController : ControllerBase
         string token = "";
         try
         {
-            token = Request.Cookies["token"];
+            token = Request.Headers["Authorization"];
+            token = token.Split(' ')[1];
         }
         catch
         {
@@ -178,7 +179,8 @@ public class AccountController : ControllerBase
     [HttpPost("Delete")]
     public string DeleteAccount()
     {
-        string token = Request.Cookies["token"];
+        string token = Request.Headers["Authorization"];
+            token = token.Split(' ')[1];
         string username = _auth.getUsername(token);
         string status = _AM.DeleteAccount(token);
 

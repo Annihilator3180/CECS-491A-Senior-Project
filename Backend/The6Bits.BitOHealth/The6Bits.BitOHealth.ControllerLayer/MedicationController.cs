@@ -45,7 +45,8 @@ public class MedicationController : ControllerBase
         try
         {
 
-            token = Request.Cookies["token"];
+            token = Request.Headers["Authorization"];
+            token = token.Split(' ')[1];
 
         }
         catch
@@ -71,7 +72,8 @@ public class MedicationController : ControllerBase
         string token;
         try
         {
-            token = Request.Cookies["token"];
+            token = Request.Headers["Authorization"];
+            token = token.Split(' ')[1];
         }
         catch
         {
@@ -94,7 +96,8 @@ public class MedicationController : ControllerBase
         ViewFavoriteRequest requestResult = new ViewFavoriteRequest();
         try
         {
-            token = Request.Cookies["token"];
+            token = Request.Headers["Authorization"];
+            token = token.Split(' ')[1];
             if (!_auth.ValidateToken(token))
             {
                 requestResult.Error = "invalid token";
@@ -123,7 +126,8 @@ public class MedicationController : ControllerBase
         string token;
         try
         {
-            token = Request.Cookies["token"];
+            token = Request.Headers["Authorization"];
+            token = token.Split(' ')[1];
         }
         catch
         {
@@ -153,7 +157,8 @@ public class MedicationController : ControllerBase
         string token;
         try
         {
-            token = Request.Cookies["token"];
+            token = Request.Headers["Authorization"];
+            token = token.Split(' ')[1];
         }
         catch
         {
@@ -182,7 +187,8 @@ public class MedicationController : ControllerBase
         string token;
         try
         {
-            token = Request.Cookies["token"];
+            token = Request.Headers["Authorization"];
+            token = token.Split(' ')[1];
         }
         catch
         {
@@ -212,7 +218,8 @@ public class MedicationController : ControllerBase
         
         try
         {
-            token = Request.Cookies["token"];
+            token = Request.Headers["Authorization"];
+            token = token.Split(' ')[1];
         }
         catch
         {

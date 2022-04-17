@@ -49,7 +49,7 @@
                     "Content-Type": "application/json"},
                 body: JSON.stringify(this.foodData)
             };
-            fetch('https://localhost:7011/WeightManagement/SaveFood',requestOptions)
+            fetch(process.env.VUE_APP_BACKEND+'WeightManagement/SaveFood',requestOptions)
                 .then(response =>  response.text())
                 .then(body => this.formData.foods = JSON.parse(body))
             window.location.reload();
