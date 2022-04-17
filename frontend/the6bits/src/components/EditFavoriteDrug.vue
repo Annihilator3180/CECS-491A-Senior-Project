@@ -22,7 +22,7 @@
             </div>
             <div>
             <label for="Enter a description">Description </label>
-           <textarea v-model="formData.Description"/>
+           <textarea v-model="formData.description"/>
             </div>
             <div className="description">
             <p> Must be under 500 characters  Previous Description: {{formData.drugInfoResponse.data.favoriteDrug.description}}</p>
@@ -122,7 +122,7 @@
                     "brand_name": this.formData.drugInfoResponse.data.favoriteDrug.brand_name,
                     "lowestprice": this.formData.lowestprice,
                     "lowestPriceLocation": this.formData.lowestpriceLocation,
-                    "description": this.formData.drugInfoResponse.data.favoriteDrug.description
+                    "description": this.formData.description
                 })
 
             };

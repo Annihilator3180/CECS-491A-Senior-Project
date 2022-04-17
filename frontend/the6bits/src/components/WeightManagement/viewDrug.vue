@@ -8,8 +8,15 @@
         <input type="checkbox" id="isFavorited" class="checkbox">
         <label for="isFavorited" class="label">Favorite Information</label>
         <div class="information">
+            <div>
             Reported price: {{formData.drugInfoResponse.data.favoriteDrug?.lowestprice}}
+            </div>
+            <div>
             Purchase Location: {{formData.drugInfoResponse.data.favoriteDrug?.lowestPriceLocation}}
+            </div>
+            <div>
+                Description: {{formData.drugInfoResponse.data.favoriteDrug?.description}}
+            </div>
         </div>
     </div>
    <div v-if="formData.drugInfoResponse.data?.boxed_warning?.[0]">

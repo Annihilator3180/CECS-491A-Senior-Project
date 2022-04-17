@@ -123,7 +123,7 @@ namespace The6Bits.BitOHealth.DAL
                 string query = "update favoriteMedication " +
                     "set username = @username, " +
                     "lowestPrice = @lowestPrice, " +
-                    "description = @description"+
+                    "description = @description,"+
                     "lowestPriceLocation = @lowestPriceLocation " +
                     "where username = @username and generic_name = @generic_name";
                 using (SqlConnection connection = new SqlConnection(_connectString))
