@@ -86,17 +86,21 @@ namespace The6Bits.BitOHealth.DAL.Tests
         [Fact]
         public void viewFavListShould()
         {
+            //arrange 
             DrugName testDrug = new DrugName("generic drug test", "test id", "brand name test");
             DrugName testDrug2 = new DrugName("generic drug test2", "test id2", "brand name test2");
             string username = "test";
-            medicationDAO.RemoveFavorite(testDrug.product_id, username);
-            medicationDAO.RemoveFavorite(testDrug2.product_id, username);
+            medicationDAO.DeleteUsersList(username);
             medicationDAO.addFavorite(username, testDrug);
             medicationDAO.addFavorite(username, testDrug2);
+            //act
             List<FavoriteDrug> favdrug= medicationDAO.ViewFavorites(username);
+            //assert
             Assert.Equal(2,favdrug.Count);
+            //cleanup 
+            medicationDAO.DeleteUsersList(username);
 
-            
+
         }
     }
 }

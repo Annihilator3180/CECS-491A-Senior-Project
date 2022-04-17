@@ -115,7 +115,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
         public bool getFavoriteCount(string username)
         {
             int favoriteCount = _MedicationDao.getFavoriteCount(username);
-            return favoriteCount < 10;
+            return favoriteCount < 100;
                 
         }
 
@@ -140,8 +140,8 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
         public drugInfo makeFavorite(string username, drugInfo drug)
         {
-            FavoriteDrug favorited = _MedicationDao.Read(username,drug.openfda.generic_name[0]);
-            if(favorited.generic_name != null)
+            FavoriteDrug favorited = _MedicationDao.Read(username,drug.openfda!.generic_name![0]);
+            if(favorited.generic_name != "")
             {
                 drug.isFavorited = true;   
                 drug.favoriteDrug = favorited;

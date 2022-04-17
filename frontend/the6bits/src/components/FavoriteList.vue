@@ -15,9 +15,8 @@
         <button @click = "$router.push({name:'ViewDrug',params:{id: f.brand_name}})">View Drug</button>
         <button @click = "RemoveFavorite(f.product_id)">Remove Favorite</button>
         <button @click = "$router.push({name:'EditDrug',params:{id: f.brand_name}})">Edit Favorite</button>
-        <button @click = "UpdateClickCount">Create Reminder</button>
         </tr> 
-
+        {{formData.ViewFavoriteRequest.data.length}}/100
           </div>
     </div>
 
@@ -79,9 +78,7 @@
         width: 100%;
         margin: 0 auto
     }
- td:nth-child(odd){
-    border-style: solid;
-    border-color: grey;
+td:nth-child(odd){
     padding: 20px;
 }
 
@@ -93,16 +90,16 @@ tr:nth-child(odd) {
     background-color: white;
     color: black
 }
-td,th {
-    border: 1px solid rgb(190, 190, 190);
+td {
+
     padding: 10px;
 }
 
 th {
+    padding: 10px;
     background-color: #696969;
     color: #fff;
 }
-
 
 
 </style>

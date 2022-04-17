@@ -24,9 +24,10 @@
             Enter a Reminder date
              <div className="reminderdates">
                 
-                <label for="month">day</label>
-                <input type="date" id="month" min=1 max=31 v-model="formData.day"/>
-                {{formData.day}}
+                <label for="date">date</label>
+                <input type="date" id="month" min=1 max=31 v-model="formData.date"/>
+                {{formData.date}}
+                <button @click = "CreateReminder()">Update Favorite</button> {{formData.message}}
             </div>
 
             </div>
@@ -49,7 +50,8 @@
                 lowestprice: null,
                 lowestpriceLocation: null,
                 message:"",
-                month:0
+                month:0,
+                date:""
             },
             
         }
@@ -95,6 +97,30 @@
                     this.formData.message="Error updating"
                 });
         },
+        CreateReminder(){
+            if(!this.formData.lowestprice){
+               this.formData.lowestprice= this.formData.drugInfoResponse.data.favoriteDrug.lowestprice
+            }
+            if(!this.formData.lowestpriceLocation){
+               this.formData.lowestpriceLocation= this.formData.drugInfoResponse.data.favoriteDrug.lowestPriceLocation
+            }
+            const requestOptions = {
+                method: "post",
+                credentials: 'include',
+                headers: { "Content-Type": "application/json"}
+
+            };
+            fetch(process.env.VUE_APP_BACKEND+'Medication/Reminder?name='+ this.drugName+ '&description='+
+            this.formData.drugInfoResponse.data.favoriteDrug.lowestprice+"."+
+            this.formData.drugInfoResponse.data.favoriteDrug.lowestPriceLocation+'&date='+this.formData.date+
+            '&time=0:0:0'+'&repeat=5'
+            ,requestOptions)
+                .then(response => response.text())
+                .then(body => this.formData.message=body)
+                .catch(()=>{
+                    this.formData.message="Error updating"
+                });
+        }                   
     }
 }
     

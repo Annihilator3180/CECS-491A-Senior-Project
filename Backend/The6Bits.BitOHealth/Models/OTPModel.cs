@@ -18,10 +18,10 @@ namespace The6Bits.BitOHealth.Models
         {
         }
 
-        public OTPModel(string username, DateTime CodeDate, string code, string codeType )
+        public OTPModel(string Username, DateTime CodeDate, string code, string codeType )
         {
 
-            username = username;
+            username = Username;
             CodeDate = CodeDate;
             code = code;
             codeType = codeType;

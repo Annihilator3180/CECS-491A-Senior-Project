@@ -177,7 +177,11 @@ public class AccountController : ControllerBase
     [HttpPost("Delete")]
     public string DeleteAccount()
     {
-        string token = Request.Cookies["token"];
+        string? token = Request.Cookies["token"];
+        if (token == null)
+        {
+            return "invalid token";
+        }
         string username = _auth.getUsername(token);
         string status = _AM.DeleteAccount(token);
 

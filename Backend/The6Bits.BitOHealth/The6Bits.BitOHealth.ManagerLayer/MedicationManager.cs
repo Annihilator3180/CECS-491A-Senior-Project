@@ -14,7 +14,6 @@ namespace The6Bits.BitOHealth.ManagerLayer;
 
 public class MedicationManager
 {
-    private IAuthenticationService _auth;
     private MedicationService _MS;
     private IDBErrors _iDBErrors;
     private LogService _log;
@@ -22,11 +21,10 @@ public class MedicationManager
 
 
 
-    public MedicationManager(IRepositoryMedication<string> MedicationDao, IDrugDataSet _drugDataSet, IAuthenticationService authenticationService, 
+    public MedicationManager(IRepositoryMedication<string> MedicationDao, IDrugDataSet _drugDataSet,  
         IDBErrors dbError, IConfiguration config, ILogDal logDao, ReminderManager rm)
     {
         _iDBErrors = dbError;
-        _auth = authenticationService;
         _log= new LogService(logDao); ;
         _MS = new MedicationService(MedicationDao, _drugDataSet, dbError);
         _reminderManager = rm;
@@ -88,7 +86,7 @@ public class MedicationManager
             else
             {
                 string dbError = _iDBErrors.DBErrorCheck(int.Parse(ex.Message));
-                _log.Log(username, "FavoriteDrugs Database Error " + dbError, "Data Store", "Error");
+                _= _log.Log(username, "FavoriteDrugs Database Error " + dbError, "Data Store", "Error");
                 requestResult.Error = "Database Error";
             }
             return requestResult;
@@ -107,7 +105,7 @@ public class MedicationManager
         catch (Exception ex)
         {
             string dbError = _iDBErrors.DBErrorCheck(int.Parse(ex.Message));
-            _log.Log(username, "Delete Favorite Drugs Database Error " + dbError, "Data Store", "Error");
+            _ = _log.Log(username, "Delete Favorite Drugs Database Error " + dbError, "Data Store", "Error");
             return "Database Error";
         }
     }
@@ -116,24 +114,24 @@ public class MedicationManager
     {
         if (!_MS.ValidateLocation(favoriteMedication.lowestPriceLocation))
         {
-            _log.Log(username, "Invalid Location", "Front End", "Business");
+            _ = _log.Log(username, "Invalid Location", "Front End", "Business");
             return "Invalid Location";
         }
         if (!_MS.ValidatePrice(favoriteMedication.lowestprice))
         {
-            _log.Log(username, "Invalid Price", "Front End", "Business");
+            _ = _log.Log(username, "Invalid Price", "Front End", "Business");
             return "Invalid Price";
         }
         try
         {
             string updatedFavorite = _MS.updateFavorite(username, favoriteMedication);
-            _log.Log(username, updatedFavorite +" "+ favoriteMedication.generic_name, "Front End", "Business");
+            _ =_log.Log(username, updatedFavorite +" "+ favoriteMedication.generic_name, "Front End", "Business");
             return updatedFavorite;
         }
         catch( Exception ex)
         {
             string dbError = _iDBErrors.DBErrorCheck(int.Parse(ex.Message));
-            _log.Log(username, "Favorite Medicine Database Error" + dbError, "Data Store", "Error");
+            _ =_log.Log(username, "Favorite Medicine Database Error" + dbError, "Data Store", "Error");
             return "Database Error";
         }
 
@@ -159,7 +157,7 @@ public class MedicationManager
             catch (Exception ex)
             {
                 string dbError = _iDBErrors.DBErrorCheck(int.Parse(ex.Message));
-                _log.Log(username, "FavoriteDrugs Database Error " + dbError, "Data Store", "Error");
+                _ =_log.Log(username, "FavoriteDrugs Database Error " + dbError, "Data Store", "Error");
             }
             infoResponse.isSuccess = true;
             infoResponse.data = drug;
