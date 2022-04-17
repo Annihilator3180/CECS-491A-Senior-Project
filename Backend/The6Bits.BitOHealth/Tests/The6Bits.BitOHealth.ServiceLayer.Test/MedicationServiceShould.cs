@@ -15,12 +15,14 @@ namespace The6Bits.BitOHealth.ServiceLayer.Test
 {
     public class MedicationServiceShould : TestsBase
     {
-        MedicationService _MS;
-        private IDrugDataSet _drugDataSet;
-        private IRepositoryMedication<string> _MedicationDao;
+        private MedicationService _MS;
+        private IRepositoryMedication<string> _dao;
         public MedicationServiceShould()
         {
-            _MS = new MedicationService(_MedicationDao, _drugDataSet);
+            _dao = new MsSqlMedicationDAO(conn);
+            //_MS = new MedicationService();
+            _MS = new MedicationService(_dao, new OpenFDADAO(new HttpClient(){ BaseAddress= new Uri("https://api.fda.gov/drug/")
+        }, _openFDA));
         }
         [Fact]
         public void ViewEmptyFavoritesTest()
