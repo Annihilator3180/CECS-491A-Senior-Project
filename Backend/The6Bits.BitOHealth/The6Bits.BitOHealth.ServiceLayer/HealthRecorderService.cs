@@ -165,7 +165,26 @@ namespace The6Bits.BitOHealth.ServiceLayer
                 return response;
             }
         }
+        public HealthRecorderResponseModel EditRecord(HealthRecorderResponseModel response, string username, string newRecordName, string oldRecordName, string categoryName, IFormFile file, IFormFile? file2 = null)
+        {
+            string conversion = ConvertFileToString(file);
+            string secondConversion = string.Empty;
+            if (file2 != null)
+            {
+                secondConversion = ConvertFileToString(file2);
+            }
+            response = _HealthRecorderDAO.EditRecord(response, username, newRecordName, oldRecordName, categoryName, conversion, secondConversion);
+            if (response.ErrorMessage == null)
+            {
+                return response;
+            }
+            else
+            {
+                response.ErrorMessage = _dbError.DBErrorCheck(int.Parse(response.ErrorMessage));
+                return response;
+            }
 
+        }
     }
 
 }

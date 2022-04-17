@@ -202,5 +202,29 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 return response;
             }
         }
+        public HealthRecorderResponseModel EditRecord(HealthRecorderResponseModel response, string username, string newRecordName, string oldRecordName, string categoryName, string record, string secondRecord)
+        {
+            try
+            {
+                //incorrect syntax somehwere
+                string query = "update HealthRecorder set categoryName = @categoryName, recordName = @newRecordName, record1 = @record, record2 = @secondRecord, timeSaved = CURRENT_TIMESTAMP " +
+                    "where username = @username AND recordName = @oldRecordName";
+                using (SqlConnection conn = new SqlConnection(_connectionString))
+                {
+                    int result = conn.Execute(query, new { categoryName = categoryName, newRecordName = newRecordName, record = record, secondRecord = secondRecord, username = username, oldRecordName = oldRecordName });
+                    if (result == 1)
+                    {
+                        response.Data = "saved";
+                    }
+                    return response;
+                }
+
+            }
+            catch (SqlException ex)
+            {
+                response.ErrorMessage = ex.Number.ToString();
+                return response;
+            }
+        }
     }
 }

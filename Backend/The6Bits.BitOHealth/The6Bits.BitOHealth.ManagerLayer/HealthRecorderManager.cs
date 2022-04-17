@@ -146,7 +146,50 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
             }
             return response;
+        }
+        public HealthRecorderResponseModel EditRecord(HealthRecorderResponseModel response, string username, string categoryName, string newRecordName, string oldRecordName, IFormFile file, IFormFile? file2 = null)
+        {
+            if (!_HealthRecorderService.ValidateCategoryName(categoryName) || !_HealthRecorderService.ValidateRecordName(newRecordName))
+            {
+                response.ErrorMessage = "invalid category/record name";
+                return response;
+            }
 
+            if (!_HealthRecorderService.ValidateFileLength(file))
+            {
+                response.ErrorMessage = "file too big";
+                return response;
+
+            }
+
+
+            if (!_HealthRecorderService.ValidateFileType(file))
+            {
+                response.ErrorMessage = "invalid file type";
+                return response;
+            }
+            if (file2 != null)
+            {
+                if (!_HealthRecorderService.ValidateFileLength(file2))
+                {
+                    response.ErrorMessage = "file 2 too big";
+                    return response;
+                }
+                if (!_HealthRecorderService.ValidateFileType(file2))
+                {
+                    response.ErrorMessage = "invalid file 2 type";
+                    return response;
+                }
+            }
+            response = _HealthRecorderService.EditRecord(response, username, newRecordName, oldRecordName,categoryName, file, file2);
+            if (response.ErrorMessage == null)
+            {
+                if (response.Data == null)
+                {
+                    response.ErrorMessage = "not updated";
+                }
+            }
+            return response;
 
 
         }

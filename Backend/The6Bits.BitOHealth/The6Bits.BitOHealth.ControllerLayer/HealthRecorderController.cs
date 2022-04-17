@@ -279,8 +279,56 @@ namespace The6Bits.BitOHealth.ControllerLayer
                 byte[] data = Encoding.UTF8.GetBytes(response.File);
                 return File(data, "application/pdf", request.RecordName + ".pdf");
             }
+            
+
+        }
+        [HttpPost("EditRecord")]
+        public ActionResult EditRecord([FromForm] string newRecordName, [FromForm] string oldRecordName, [FromForm] string categoryName, IFormFile file, IFormFile? file2)
+        {
+            string token = "";
+            HealthRecorderResponseModel response = new HealthRecorderResponseModel();
+
+            try
+            {
+                token = Request.Cookies["token"];
+            }
+            catch
+            {
+                response.ErrorMessage = "No Token";
+                return Unauthorized(response);
+            }
+
+            bool isValid = _authentication.ValidateToken(token);
 
 
+            if (!isValid)
+            {
+                _ = logService.Log("None", "Invalid Token @ Health Recorder", "Info", "Buisness");
+                response.ErrorMessage = "Invalid Token";
+                return Unauthorized(response);
+            }
+            string username = _authentication.getUsername(token);
+            response = _HealthRecorderManager.EditRecord(response, username, categoryName, newRecordName, oldRecordName, file, file2);
+
+            if (response.ErrorMessage != null)
+            {
+                if (response.ErrorMessage.Contains("Database"))
+                {
+                    _ = logService.Log(username, "DB Error @ Edit Record", response.ErrorMessage, "Buisness");
+                    return StatusCode(500, response);
+                }
+                else
+                {
+                    _ = logService.Log(username, "no record updated", response.ErrorMessage, "Buisness");
+                    return BadRequest(response);
+                }
+            }
+            else
+            {
+                _ = logService.Log(username, "record updated " + newRecordName, "Info", "Buisness");
+
+                return Ok(response);
+            }
         }
        
          

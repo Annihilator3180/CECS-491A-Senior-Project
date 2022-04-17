@@ -20,6 +20,7 @@ namespace The6Bits.BitOHealth.DAL.Contract
         public HealthRecorderViewRecordModel SearchRecord(HealthRecorderRequestModel request, HealthRecorderViewRecordModel response, string username);
 
         public HealthRecorderExportModel ExportRecord(HealthRecorderRequestModel request, string username, HealthRecorderExportModel response);
+        public HealthRecorderResponseModel EditRecord(HealthRecorderResponseModel response, string username, string newRecordName, string oldRecordName, string categoryName, string record, string secondRecord);
 
     }
 }
