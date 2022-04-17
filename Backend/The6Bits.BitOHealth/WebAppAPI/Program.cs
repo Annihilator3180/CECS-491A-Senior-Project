@@ -52,8 +52,13 @@ builder.Services.AddScoped<IRepositoryMedication<string>>(provider =>
     new MsSqlMedicationDAO(connstring));
 builder.Services.AddHttpClient<IDrugDataSet, OpenFDADAO>(client =>
 {
-    client.BaseAddress = new Uri("https://api.fda.gov/drug/ndc.json");
+    client.BaseAddress = new Uri("https://api.fda.gov/drug/");
 });
+builder.Services.AddSingleton(new openFDAConfig
+{
+    APIKey = builder.Configuration["OpenFda"],
+});
+
 builder.Services.AddTransient<IAuthenticationService>(provider => new JWTAuthenticationService(builder.Configuration["jwt"]));
 builder.Services.AddTransient<IDBErrors, MsSqlDerrorService>();
 

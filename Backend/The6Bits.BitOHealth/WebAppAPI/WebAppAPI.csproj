@@ -33,4 +33,6 @@
     </None>
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="https://json.schemastore.org/azure-deviceupdate-update-manifest-4.json" /></VisualStudio></ProjectExtensions>
+
 </Project>
