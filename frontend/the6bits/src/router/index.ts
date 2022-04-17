@@ -18,6 +18,8 @@ import EditFavoriteDrug from '@/components/EditFavoriteDrug.vue'
 import DeleteAccount from '@/components/DeleteAccount.vue'
 import DietRecommendation from '@/components/DietRecommendation.vue'
 
+import FavoriteList from '@/components/FavoriteList.vue'
+import SaveFoodLog from '@/components/WeightManagement/SaveFoodLog.vue'
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -54,7 +56,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/WeightManagement',
     name: 'WeightManagement',
-    component: GoalView
+    component: GoalView,
+    meta: {
+         requiresAuth: true,
+      },
   },
   {
     path: '/ResetPassword',
@@ -111,6 +116,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/editFavoriteDrug/:id',
     name: 'EditDrug',
     component: EditFavoriteDrug
+  },
+  {
+      path: "/SaveFoodLog",
+    name: "SaveFoodLog",
+    component: SaveFoodLog
   }
 
 ]
@@ -119,5 +129,26 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+
+
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (sessionStorage.getItem('token') == null) {
+      next({
+        name: 'login',
+      })
+    } else {      
+        next()
+    }
+  
+  } else {
+    next()
+  }
+})
+
+
+
+
 
 export default router

@@ -166,15 +166,72 @@ namespace The6Bits.BitOHealth.ControllerLayer.Features
         }
 
 
-        [HttpGet("UpdateGoal")]
-        public async Task<ActionResult> StoreFoodLog(FoodModel food, string username)
+        [HttpPost("SaveFood")]
+        public async Task<ActionResult> StoreFoodLog(FoodModel food)
         {
+
+
+            string token = "";
+            try
+            {
+                token = Request.Headers["Authorization"];
+                token = token.Split(' ')[1];
+            }
+            catch
+            {
+                return BadRequest("No Token");
+            }
+
+            isValid = _authentication.ValidateToken(token);
+
+            if (!isValid)
+            {
+
+                _ = _logService.Log("None", "Invalid Token - Weight Goal", "Info", "Business");
+                return BadRequest("Invalid Token");
+            }
+
+
+
+
+            string username = _authentication.getUsername(token);
 
             return Ok(await _weightManagementManager.StoreFoodLog(food, username));
 
         }
 
+        [HttpGet("GetFoodLogs")]
+        public async Task<ActionResult> GetFoodLogs()
+        {
 
+
+            string token = "";
+            try
+            {
+                token = Request.Cookies["token"];
+            }
+            catch
+            {
+                return BadRequest("No Token");
+            }
+
+            isValid = _authentication.ValidateToken(token);
+
+            if (!isValid)
+            {
+
+                _ = _logService.Log("None", "Invalid Token - Weight Goal", "Info", "Business");
+                return BadRequest("Invalid Token");
+            }
+
+
+
+
+            string username = _authentication.getUsername(token);
+
+            return Ok(await _weightManagementManager.GetFoodLogs(username));
+
+        }
 
 
 

@@ -48,7 +48,7 @@ public class AccountController : ControllerBase
     }
 
     [HttpPost("Login")]
-    public string Login(LoginModel acc)
+    public ActionResult Login(LoginModel acc)
     {
         var remoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
 
@@ -78,6 +78,7 @@ public class AccountController : ControllerBase
                 SameSite = SameSiteMode.None,
                 HttpOnly = true,
             };
+            
             Response.Cookies.Append(
                 "token",
                 jwt, cookieOptions);
@@ -99,7 +100,7 @@ public class AccountController : ControllerBase
 
         }
 
-        return jwt;
+        return Ok(jwt);
 
     }
 
