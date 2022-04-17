@@ -15,7 +15,7 @@ namespace The6Bits.BitOHealth.DAL
     {
 
         private static HttpClient _httpClient;
-        private static string key;
+        private static string? key;
 
         public OpenFDADAO(HttpClient httpClient, openFDAConfig fda)
         {
@@ -92,7 +92,7 @@ namespace The6Bits.BitOHealth.DAL
                     }
                     else
                     {
-                        throw new Exception("Error getting drug information");
+                        throw new Exception("getting drug information");
 
                     }
                 }

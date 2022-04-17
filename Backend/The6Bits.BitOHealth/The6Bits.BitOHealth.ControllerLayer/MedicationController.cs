@@ -21,13 +21,12 @@ public class MedicationController : ControllerBase
     
     private MedicationManager _MM;
     private IAuthenticationService _auth;
-    private ReminderManager _ReminderManager;
+
     public MedicationController(IRepositoryMedication<string> MedicationDao,IDrugDataSet _drugDataSet, ILogDal logDao,
-        IAuthenticationService authenticationService, IDBErrors dbErrors, IReminderDatabase remindDB,
-         IConfiguration config)
+        IAuthenticationService authenticationService, IDBErrors dbErrors, IReminderDatabase remindDB
+        )
     {
-        _ReminderManager = new ReminderManager(remindDB, dbErrors);
-        _MM = new MedicationManager(MedicationDao, _drugDataSet , dbErrors, config, logDao, _ReminderManager);
+        _MM = new MedicationManager(MedicationDao, _drugDataSet , dbErrors,  logDao, new ReminderManager(remindDB, dbErrors));
         _auth = authenticationService;
     }
     [HttpGet("Search")]
@@ -61,7 +60,7 @@ public class MedicationController : ControllerBase
 
     }
     [HttpPost("FavoriteAdd")]
-    public string AddFavorites(string genericName, string brandName, string productID)
+    public string AddFavorites(string genericName, string brandName, string product_ndc)
     {
         string? token;
         try
@@ -78,7 +77,7 @@ public class MedicationController : ControllerBase
                 throw new Exception();
             }
             string username = _auth.getUsername(token);
-            DrugName drugName = new DrugName(genericName, productID, brandName);
+            DrugName drugName = new DrugName(genericName, product_ndc, brandName);
             string favoriteAddResult = _MM.addFavorite(drugName, username);
             return favoriteAddResult;
         }
@@ -126,7 +125,7 @@ public class MedicationController : ControllerBase
 
     
     [HttpPost("DeleteFavorite")]
-    public string RemoveFavorite(string product_id)
+    public string RemoveFavorite(string product_ndc)
     {
         string? token;
 
@@ -145,7 +144,7 @@ public class MedicationController : ControllerBase
 
             string username = _auth.getUsername(token);
 
-                string deleteFavorite = _MM.RemoveFavorite(product_id, username);
+                string deleteFavorite = _MM.RemoveFavorite(product_ndc, username);
                 return deleteFavorite;
 
         }
@@ -156,7 +155,7 @@ public class MedicationController : ControllerBase
 
     }
     [HttpPost("viewDrug")]
-    public drugInfoResponse ViewDrug(string generic_name)
+    public drugInfoResponse ViewDrug(string brand_name)
     {
         drugInfoResponse infoResponse=new drugInfoResponse();
         string? token;
@@ -173,7 +172,7 @@ public class MedicationController : ControllerBase
             }
 
             string username = _auth.getUsername(token);
-            infoResponse = _MM.ViewDrug(username, generic_name);
+            infoResponse = _MM.ViewDrug(username, brand_name);
             return infoResponse;
         }
         catch (Exception)
