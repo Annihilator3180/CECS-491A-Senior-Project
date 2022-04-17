@@ -95,7 +95,8 @@
             const requestOptions = {
                 method: "post",
                 credentials: 'include',
-                headers: { "Content-Type": "application/json"},
+                headers: { "Content-Type": "application/json",
+                "Authorization" :`Bearer ${sessionStorage.getItem('token')}`},
                 body: JSON.stringify({generic_name : this.drugName })
 
             };
@@ -107,13 +108,13 @@
         const requestOptions = {
             method: "post",
             credentials: 'include',
-            headers: { "Content-Type": "application/json"},
+            headers: { "Content-Type": "application/json",
+            "Authorization" :`Bearer ${sessionStorage.getItem('token')}`},
             
 
         };
-        console.log(this.formData.drugInfoResponse.data.isFavorited)
-        if(this.formData.drugInfoResponse.data.isFavorited==false){
-        
+
+        if(this.formData.drugInfoResponse.data.isFavorited==false){        
         fetch(process.env.VUE_APP_BACKEND+'Medication/FavoriteAdd?genericName='+
         this.formData.drugInfoResponse.data.openfda?.generic_name?.[0]
         + '&brandName=' + this.formData.drugInfoResponse.data.openfda?.brand_name?.[0]+'&productID='+

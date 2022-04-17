@@ -42,7 +42,8 @@
             const requestOptions = {
                 method: "post",
                 credentials: 'include',
-                headers: { "Content-Type": "application/json"},
+                headers: { "Content-Type": "application/json",
+                "Authorization" :`Bearer ${sessionStorage.getItem('token')}`},
                
             };
             const response= fetch(process.env.VUE_APP_BACKEND+'Medication/FavoriteView',requestOptions)                
@@ -58,7 +59,8 @@
             const requestOptions = {
                 method: "post",
                 credentials: 'include',
-                headers: { "Content-Type": "application/json"},
+                headers: { "Content-Type": "application/json",
+                "Authorization" :`Bearer ${sessionStorage.getItem('token')}`},
                
             };
             const response= fetch(process.env.VUE_APP_BACKEND+'Medication/DeleteFavorite?product_id='

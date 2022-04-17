@@ -37,6 +37,7 @@
             const requestOptions = {
                 method: "get",
                 credentials: 'include',
+                headers : {"Authorization" :`Bearer ${sessionStorage.getItem('token')}`}
 
             };
             if (this.drugName!=""){

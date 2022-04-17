@@ -62,7 +62,8 @@
             const requestOptions = {
                 method: "post",
                 credentials: 'include',
-                headers: { "Content-Type": "application/json"},
+                headers: { "Content-Type": "application/json",
+                "Authorization" :`Bearer ${sessionStorage.getItem('token')}`},
                 body: JSON.stringify({generic_name : this.drugName })
 
             };
@@ -80,14 +81,16 @@
             const requestOptions = {
                 method: "post",
                 credentials: 'include',
-                headers: { "Content-Type": "application/json"},
+                headers: { "Content-Type": "application/json",
+                "Authorization" :`Bearer ${sessionStorage.getItem('token')}`},
                 body: JSON.stringify({
                     "generic_name": this.formData.drugInfoResponse.data.favoriteDrug.generic_name,
                     "product_id": this.formData.drugInfoResponse.data.favoriteDrug.product_id,
                     "brand_name": this.formData.drugInfoResponse.data.favoriteDrug.brand_name,
                     "lowestprice": this.formData.lowestprice,
                     "lowestPriceLocation": this.formData.lowestpriceLocation
-                })
+                }),
+
 
             };
             fetch(process.env.VUE_APP_BACKEND+'Medication/UpdateFavorite/',requestOptions)
@@ -107,7 +110,8 @@
             const requestOptions = {
                 method: "post",
                 credentials: 'include',
-                headers: { "Content-Type": "application/json"}
+                headers: { "Content-Type": "application/json",
+                "Authorization" :`Bearer ${sessionStorage.getItem('token')}`}
 
             };
             fetch(process.env.VUE_APP_BACKEND+'Medication/Reminder?name='+ this.drugName+ '&description='+

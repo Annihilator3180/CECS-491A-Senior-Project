@@ -31,7 +31,7 @@ public class MedicationController : ControllerBase
          IConfiguration config)
     {
         _ReminderManager = new ReminderManager(remindDB, dbErrors);
-        _MM = new MedicationManager(MedicationDao, _drugDataSet, authenticationService, dbErrors, config, logDao,_ReminderManager);//RM
+        _MM = new MedicationManager(MedicationDao, _drugDataSet, dbErrors, config, logDao,_ReminderManager);//RM
         _logService = new LogService(logDao);
         _dbErrors = dbErrors;
         _auth = authenticationService;

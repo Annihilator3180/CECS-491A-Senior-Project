@@ -19,7 +19,7 @@ import DeleteAccount from '@/components/DeleteAccount.vue'
 import DietRecommendation from '@/components/DietRecommendation.vue'
 import FavoriteList from '@/components/FavoriteList.vue'
 import SaveFoodLog from '@/components/WeightManagement/SaveFoodLog.vue'
-
+import viewReminder from '@/components/Reminders/ViewReminder.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -160,6 +160,14 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
          requiresAuth: true,
       },
+  },
+  {
+  path: "/viewReminder",
+  name: "viewReminder",
+  component: viewReminder,
+  meta: {
+       requiresAuth: true,
+    },
   }
 
 ]

@@ -26,6 +26,7 @@
             const requestOptions = {
                 method: "POST",
                 credentials: 'include',
+                headers:{"Authorization" :`Bearer ${sessionStorage.getItem('token')}`}
             };
             fetch(process.env.VUE_APP_BACKEND+'Reminder/ViewReminder', requestOptions)
                 .then(response =>  response.text())
