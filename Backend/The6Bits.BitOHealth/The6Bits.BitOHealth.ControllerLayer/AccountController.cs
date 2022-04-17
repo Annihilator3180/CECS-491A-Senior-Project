@@ -48,7 +48,7 @@ public class AccountController : ControllerBase
     }
 
     [HttpPost("Login")]
-    public string Login(LoginModel acc)
+    public ActionResult Login(LoginModel acc)
     {
         var remoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
 
@@ -78,6 +78,7 @@ public class AccountController : ControllerBase
                 SameSite = SameSiteMode.None,
                 HttpOnly = true,
             };
+            
             Response.Cookies.Append(
                 "token",
                 jwt, cookieOptions);
@@ -99,18 +100,19 @@ public class AccountController : ControllerBase
 
         }
 
-        return jwt;
+        return Ok(jwt);
 
     }
 
     [HttpPost("getTLogs")]
     public string getTrackerLogs()
     {
-        /*
-        String token = "";
+        
+        string token = "";
         try
         {
-            token = Request.Cookies["token"];
+            token = Request.Headers["Authorization"];
+            token = token.Split(' ')[1];
         }
         catch
         {
@@ -122,7 +124,7 @@ public class AccountController : ControllerBase
             _ = logService.Log("None", "Invalid Token - Get Tracker Logs", "Info", "Business");
             return "Invalid Token";
         }
-        */
+        
         string s = logService.getAllTrackerLogs();
         string[] subs = s.Split(' ');
         string holder = "";
@@ -177,11 +179,8 @@ public class AccountController : ControllerBase
     [HttpPost("Delete")]
     public string DeleteAccount()
     {
-        string? token = Request.Cookies["token"];
-        if (token == null)
-        {
-            return "invalid token";
-        }
+        string token = Request.Headers["Authorization"];
+            token = token.Split(' ')[1];
         string username = _auth.getUsername(token);
         string status = _AM.DeleteAccount(token);
 

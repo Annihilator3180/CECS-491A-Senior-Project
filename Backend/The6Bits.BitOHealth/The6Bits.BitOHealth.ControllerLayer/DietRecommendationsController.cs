@@ -40,7 +40,8 @@ namespace The6Bits.BitOHealth.ControllerLayer
             string token = "";
             try
             {
-                token = Request.Cookies["token"];
+                token = Request.Headers["Authorization"];
+            token = token.Split(' ')[1];
             }
             catch
             {

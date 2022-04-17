@@ -5,7 +5,7 @@ var test = {
                 credentials: 'include',
             
             };
-            fetch('https://localhost:7011/UM/DeleteAccount?username=' +username ,requestOptions)
+            fetch(process.env.VUE_APP_BACKEND+'UM/DeleteAccount?username=' +username ,requestOptions)
                 .then(response => console.log(response))
         },
   UMEnable(username){
@@ -14,7 +14,7 @@ var test = {
                 credentials: 'include',
             
             };
-            fetch('https://localhost:7011/UM/EnableAccount?username=' +username ,requestOptions)
+            fetch(process.env.VUE_APP_BACKEND+'UM/EnableAccount?username=' +username ,requestOptions)
                 .then(response => console.log(response))
         },
  UMDisable(username){
@@ -23,7 +23,7 @@ var test = {
                 credentials: 'include',
             
             };
-            fetch('https://localhost:7011/UM/DisableAccount?username=' +username ,requestOptions)
+            fetch(process.env.VUE_APP_BACKEND+'UM/DisableAccount?username=' +username ,requestOptions)
                 .then(response => console.log(response))
         },
 UMCreate(Username,Password,Email,FirstName,LastName,isAdmin,isEnabled,privOption){
@@ -43,7 +43,7 @@ UMCreate(Username,Password,Email,FirstName,LastName,isAdmin,isEnabled,privOption
                      }),
             
             };
-            fetch('https://localhost:7011/UM/CreateAccount' ,requestOptions)
+            fetch(process.env.VUE_APP_BACKEND+'UM/CreateAccount' ,requestOptions)
         },
 UMUpdate(Username,Password,Email,FirstName,LastName,isAdmin,isEnabled,privOption){
             const requestOptions = {
@@ -62,7 +62,7 @@ UMUpdate(Username,Password,Email,FirstName,LastName,isAdmin,isEnabled,privOption
                      }),
             
             };
-            fetch('https://localhost:7011/UM/UpdateAccount' ,requestOptions)
+            fetch(process.env.VUE_APP_BACKEND+'UM/UpdateAccount' ,requestOptions)
         },
 parseLine(line){
         console.log(line)

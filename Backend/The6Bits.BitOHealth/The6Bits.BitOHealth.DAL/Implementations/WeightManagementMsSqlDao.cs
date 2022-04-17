@@ -130,9 +130,68 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 
         public string CreateFoodLog(FoodModel food, string username)
         {
-            return "";
+            try
+            {
+                string query = $"INSERT INTO FoodLog (Username, FoodName, Description, Calories, FoodLogDate ,Carbs, Protein, Fat ) values (@Username, @FoodName, @Description, @Calories, @FoodLogDate, @Carbs, @Protein, @Fat )";
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int count = connection.Execute(query, new
+                    {
+                        Username = username,
+                        FoodName = food.FoodName,
+                        Description = food.Description,
+                        Calories = food.Calories,
+                        FoodLogDate = food.FoodLogDate,
+                        Carbs = food.Carbs,
+                        Protein = food.Protein,
+                        Fat = food.Fat
+
+
+                    }); ;
+                    if (count != 0)
+                    {
+                        return "saved foodlog";
+                    }
+
+                    return "food log not saved";
+                }
+            }
+            catch (SqlException ex)
+            {
+                //LOGG
+                throw ex;
+            }
         }
-        
+
+        public IEnumerable<FoodModel> GetFoodLogs(string username)
+        {
+            try
+            {
+                string query = $"Select FoodName, Description, Calories, FoodLogDate ,Carbs, Protein, Fat  FROM FoodLog WHERE Username = @Username";
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    IEnumerable<FoodModel> foodModels = connection.Query<FoodModel>(query, new
+                    {
+                        Username = username,
+
+                    }); ;
+                    if (foodModels != null || !foodModels.Any())
+                    {
+                        return foodModels;
+                    }
+
+                    return new List<FoodModel>();
+                }
+            }
+            catch (SqlException ex)
+            {
+                //LOGG
+                throw ex;
+            }
+        }
+
 
 
     }

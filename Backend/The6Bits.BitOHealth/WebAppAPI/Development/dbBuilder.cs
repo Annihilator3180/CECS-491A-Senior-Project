@@ -166,6 +166,45 @@ namespace WebAppMVC.Development
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public bool buildFoodLog(string connStr)
+        {
+            var RecoveryStr = "If not exists (select name from sysobjects where name = 'FoodLog') CREATE TABLE FoodLog (Username VARCHAR(30), FoodName VARCHAR(30), Description VARCHAR(30), Calories Float, FoodLogDate DateTime, Carbs Float, Protein Float, Fat Float)";
+            var conn = new SqlConnection(connStr);
+            using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
+            {
+                conn.Open();
+                command.ExecuteNonQuery();
+            }
+            return false;
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public bool addBossAdmin(string connStr)
         {
             var RecoveryStr = "BEGIN IF NOT EXISTS (Select * From Accounts where Username = 'bossadmin12')  " +
@@ -177,7 +216,7 @@ namespace WebAppMVC.Development
             using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
             {
                 conn.Open();
-                //command.ExecuteScalar();
+                command.ExecuteScalar();
             }
             return false;
 

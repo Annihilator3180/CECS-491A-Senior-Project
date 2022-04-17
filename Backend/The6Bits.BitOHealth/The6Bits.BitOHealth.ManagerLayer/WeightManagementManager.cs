@@ -74,6 +74,11 @@ namespace The6Bits.BitOHealth.ManagerLayer
             return await _WMS.StoreFoodLog(food, username);
         }
 
+        public async Task<IEnumerable<FoodModel>> GetFoodLogs(string username)
+        {
+            return await _WMS.GetFoodLogs(username);
+        }
+
 
     }
 }

@@ -17,7 +17,8 @@ import ViewDrug from '@/components/WeightManagement/viewDrug.vue'
 import EditFavoriteDrug from '@/components/EditFavoriteDrug.vue'
 import DeleteAccount from '@/components/DeleteAccount.vue'
 import DietRecommendation from '@/components/DietRecommendation.vue'
-
+import FavoriteList from '@/components/FavoriteList.vue'
+import SaveFoodLog from '@/components/WeightManagement/SaveFoodLog.vue'
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -39,27 +40,43 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/UM',
     name: 'UM',
-    component: UM
+    component: UM,
+    meta: {
+         requiresAuth: true,
+      },
   },
   {
     path: '/getTLogs',
     name: 'getTLogs',
-    component: TrackingLog
+    component: TrackingLog,
+    meta: {
+         requiresAuth: true,
+      },
   },
   {
     path: '/AccountRecovery',
     name: 'AccountRecovery',
-    component: AccountRecovery
+    component: AccountRecovery,
+    meta: {
+         requiresAuth: true,
+      },
+
   },
   {
     path: '/WeightManagement',
     name: 'WeightManagement',
-    component: GoalView
+    component: GoalView,
+    meta: {
+         requiresAuth: true,
+      },
   },
   {
     path: '/ResetPassword',
     name: 'ResetPassword',
-    component: ResetPassword
+    component: ResetPassword,
+    meta: {
+         requiresAuth: true,
+      },
   },
   {
     path: '/Registration',
@@ -69,22 +86,34 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/MedicationSearch',
     name: 'MedSearch',
-    component: MedSearch
+    component: MedSearch,
+    meta: {
+         requiresAuth: true,
+      },
   },
   {
     path: '/HotTopics',
     name: 'HotTopics',
-    component: viewHT
+    component: viewHT,
+    meta: {
+         requiresAuth: true,
+      },
   },
   {
     path: '/SearchFood',
     name: 'SearchFood',
-    component: SearchFood
+    component: SearchFood,
+    meta: {
+         requiresAuth: true,
+      },
   },
   {
     path: '/DeleteAccount',
     name: 'DeleteAccount',
-    component: DeleteAccount
+    component: DeleteAccount,
+    meta: {
+         requiresAuth: true,
+      },
   },
 
   {
@@ -95,22 +124,42 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/HealthRecorder',
     name: 'HealthRecorder',
-    component: HealthRecorder
+    component: HealthRecorder,
+    meta: {
+         requiresAuth: true,
+      },
   },
   {
       path: "/FavoriteDrugs",
     name: "FavoriteDrugListPost",
-    component: FavoriteDrugListPost
+    component: FavoriteDrugListPost,
+    meta: {
+         requiresAuth: true,
+      },
   },
   {
     path: '/viewDrug/:id',
     name: 'ViewDrug',
-    component: ViewDrug
+    component: ViewDrug,
+    meta: {
+         requiresAuth: true,
+      },
   },
   {
     path: '/editFavoriteDrug/:id',
     name: 'EditDrug',
-    component: EditFavoriteDrug
+    component: EditFavoriteDrug,
+    meta: {
+         requiresAuth: true,
+      },
+  },
+  {
+      path: "/SaveFoodLog",
+    name: "SaveFoodLog",
+    component: SaveFoodLog,
+    meta: {
+         requiresAuth: true,
+      },
   }
 
 ]
@@ -119,5 +168,26 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+
+
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (sessionStorage.getItem('token') == null) {
+      next({
+        name: 'login',
+      })
+    } else {      
+        next()
+    }
+  
+  } else {
+    next()
+  }
+})
+
+
+
+
 
 export default router
