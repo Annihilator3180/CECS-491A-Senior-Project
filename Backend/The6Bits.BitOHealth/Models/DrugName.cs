@@ -11,7 +11,6 @@ namespace The6Bits.BitOHealth.Models
         public string generic_name { get; set; }
         public string product_id { get; set; }
         public string brand_name { get; set; }
-        public int isFavorite { get; set; }
 
         public DrugName()
         {
@@ -25,15 +24,6 @@ namespace The6Bits.BitOHealth.Models
             generic_name = genericName;
             product_id = productID;
             brand_name = brandName;
-            isFavorite = 0;
         }
-        public DrugName(string genericName, string productID, string brandName, int is_Favorite)
-        {
-            generic_name = genericName;
-            product_id = productID;
-            brand_name = brandName;
-            isFavorite = is_Favorite;
-        }
-
     }
 }

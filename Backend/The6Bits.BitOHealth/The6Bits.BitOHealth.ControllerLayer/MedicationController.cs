@@ -9,6 +9,7 @@ using The6Bits.Logging.Implementations;
 using The6Bits.DBErrors;
 using Microsoft.Extensions.Configuration;
 using System.Text.Json;
+using The6Bits.BitOHealth.DAL.Contract;
 
 // using The6Bits.BitOHealth.ServiceLayer;
 
@@ -23,39 +24,45 @@ public class MedicationController : ControllerBase
     private IDBErrors _dbErrors;
     private IConfiguration _config;
     private IAuthenticationService _auth;
+    private ReminderManager _ReminderManager;
+    private IReminderDatabase _reminderDB;
     public MedicationController(IRepositoryMedication<string> MedicationDao,IDrugDataSet _drugDataSet, ILogDal logDao,
-        IAuthenticationService authenticationService, IDBErrors dbErrors,
+        IAuthenticationService authenticationService, IDBErrors dbErrors, IReminderDatabase remindDB,
          IConfiguration config)
     {
-        _MM = new MedicationManager(MedicationDao,_drugDataSet, authenticationService, dbErrors, config, logDao);
+        _ReminderManager = new ReminderManager(remindDB, dbErrors);
+        _MM = new MedicationManager(MedicationDao, _drugDataSet, authenticationService, dbErrors, config, logDao,_ReminderManager);//RM
         _logService = new LogService(logDao);
         _dbErrors = dbErrors;
         _auth = authenticationService;
         _config = config;
-        _logService = new LogService(logDao); 
     }
     [HttpGet("Search")]
-    public string FindDrug(string drugName)
+    public FindDrugResponse FindDrug(string drugName)
     {
-        
+        FindDrugResponse drugResponse=new FindDrugResponse();
         string token;
         try
         {
+
             token = Request.Cookies["token"];
 
         }
         catch
         {
-            return "invalid token";
+            drugResponse.success = false;
+            drugResponse.error = "invalid token";
+            return drugResponse;
         }
         if (!_auth.ValidateToken(token))
         {
-            return "invalid token";
+            drugResponse.success = false;
+            drugResponse.error = "invalid token";
+            return drugResponse;
         }
         string username = _auth.getUsername(token);
-        List<DrugName> genericdrugNames = _MM.FindDrug(drugName);
-        string jsonString = JsonSerializer.Serialize(genericdrugNames);
-        return jsonString;
+        drugResponse = _MM.FindDrug(username,drugName);
+        return drugResponse;
 
     }
     [HttpPost("FavoriteAdd")]
@@ -81,37 +88,37 @@ public class MedicationController : ControllerBase
     }
 
     [HttpPost("FavoriteView")]
-    public string ViewFavorites()
+    public ViewFavoriteRequest ViewFavorites()
     {
         string token;
+        ViewFavoriteRequest requestResult = new ViewFavoriteRequest();
         try
         {
             token = Request.Cookies["token"];
+            if (!_auth.ValidateToken(token))
+            {
+                requestResult.Error = "invalid token";
+                requestResult.isSuccess = false; 
+                return requestResult;
+            }
         }
         catch
         {
-            return "invalid token";
+            requestResult.Error = "invalid token";
+            requestResult.isSuccess = false;
+            return requestResult;
         }
-        if (!_auth.ValidateToken(token))
-        {
-            return "invalid token";
-        }
-
         string username = _auth.getUsername(token);
-        try
-        {
-            List<FavoriteDrug> favoriteDrugsList = _MM.ViewFavorite(username);
-            string favoriteDrugs = JsonSerializer.Serialize(favoriteDrugsList);
-            return favoriteDrugs;
-        }
-        catch (Exception ex)
-        {
-            return ex.Message;
-        }
+        requestResult = _MM.ViewFavorite(username);
+        return requestResult;
         
+
+
+
+
     }
     [HttpPost("DeleteFavorite")]
-    public string RemoveFavorite(FavoriteDrug favoriteMedication)
+    public string RemoveFavorite(string product_id)
     {
         string token;
         try
@@ -130,8 +137,8 @@ public class MedicationController : ControllerBase
         string username = _auth.getUsername(token);
         try
         {
-            string updatedFavorite = _MM.RemoveFavorite(username, favoriteMedication.product_id);
-            return updatedFavorite;
+            string deleteFavorite = _MM.RemoveFavorite(product_id, username);
+            return deleteFavorite;
         }
         catch (Exception ex)
         {
@@ -140,8 +147,9 @@ public class MedicationController : ControllerBase
 
     }
     [HttpPost("viewDrug")]
-    public string ViewDrug(string generic_name)
+    public drugInfoResponse ViewDrug(string generic_name)
     {
+        drugInfoResponse infoResponse=new drugInfoResponse();
         string token;
         try
         {
@@ -149,23 +157,22 @@ public class MedicationController : ControllerBase
         }
         catch
         {
-            return "invalid token";
+            infoResponse.Error = "invalid token";
+            infoResponse.isSuccess = false;
+            return infoResponse;
         }
         if (!_auth.ValidateToken(token))
         {
-            return "invalid token";
+            infoResponse.Error = "invalid token";
+            infoResponse.isSuccess = false;
+            return infoResponse;
         }
 
         string username = _auth.getUsername(token);
-        try
-        {
-            drugInfo drugInfo = _MM.ViewDrug(username, generic_name);
-            return JsonSerializer.Serialize(drugInfo);
-        }
-        catch (Exception ex)
-        {
-            return ex.Message;
-        }
+        infoResponse = _MM.ViewDrug(username, generic_name);
+        return infoResponse;
+        
+        
 
     }
 
@@ -191,6 +198,36 @@ public class MedicationController : ControllerBase
         {
             string updatedFavorite = _MM.UpdateFavorite(username,favoriteMedication);
             return updatedFavorite;
+        }
+        catch (Exception ex)
+        {
+            return ex.Message;
+        }
+
+    }
+    [HttpPost("Reminder")]
+    public string RefillMedication(string name, string description, string date, string time, string repeat)
+    {
+        string token;
+        
+        try
+        {
+            token = Request.Cookies["token"];
+        }
+        catch
+        {
+            return "invalid token";
+        }
+        if (!_auth.ValidateToken(token))
+        {
+            return "invalid token";
+        }
+        
+        string username = _auth.getUsername(token);
+        try
+        {
+            string RefillMedication = _MM.RefillMedication(username, name, description, date, time, repeat);
+            return RefillMedication;
         }
         catch (Exception ex)
         {

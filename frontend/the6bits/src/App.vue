@@ -14,6 +14,8 @@
     <router-link :to="{name: 'HealthRecorder'}"> HealthRecorder</router-link>|
    <router-link :to="{name: 'FavoriteDrugListPost'}"> Favorite Drugs List </router-link>| 
     <router-link :to="{name: 'getTLogs'}"> TrackingLog</router-link>|
+    <router-link :to="{name: 'SearchFood'}"> SearchFood</router-link> |
+   <router-link :to="{name: 'FavoriteDrugListPost'}"> Favorite Drugs List </router-link> |
     <router-link :to="{name: 'DietRecommendation'}"> Diet Recommendation</router-link>|
     <router-link :to="{name: 'DeleteAccount'}"> Delete </router-link>|
     <router-link :to="{name: 'ViewReminder'}"> ViewReminder </router-link>
@@ -24,6 +26,9 @@
 
 <script>
 export default {
+  mounted(){
+    console.log(process.env.VUE_APP_NOT_SECRET_CODE)
+  },
   name: "app",
   components: {},
 };

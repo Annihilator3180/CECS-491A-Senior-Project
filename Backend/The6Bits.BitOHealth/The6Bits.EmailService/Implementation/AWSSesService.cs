@@ -37,7 +37,7 @@ namespace The6Bits.EmailService
                 try
                 {
                     client.Send(message);
-                    return message.Body;
+                    return "email sent";
                 }
                 catch (Exception ex)
                 {

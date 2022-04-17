@@ -1,5 +1,7 @@
 <template>
   <div class="home">
+    {{testing}}
+    {{mode}}
     <h1>Home</h1>
   </div>
 </template>
@@ -9,7 +11,9 @@ export default {
   name: 'homeShit',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      testing:process.env.VUE_APP_TITLE,
+      mode:process.env.NODE_ENV
     }
   }
 }

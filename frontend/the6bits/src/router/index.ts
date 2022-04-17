@@ -13,10 +13,11 @@ import MedSearch from '@/components/MedicationSearch.vue'
 import viewHT from '@/components/viewHotTopics.vue'
 import AccountRecovery from '@/components/AccountRecovery.vue'
 import SearchFood from '@/components/WeightManagement/SearchFoodItem.vue'
+import ViewDrug from '@/components/WeightManagement/viewDrug.vue'
+import EditFavoriteDrug from '@/components/EditFavoriteDrug.vue'
 import DeleteAccount from '@/components/DeleteAccount.vue'
 import DietRecommendation from '@/components/DietRecommendation.vue'
-import FavoriteList from '@/components/FavoriteList.vue'
-import ViewReminder from '@/components/Reminders/ViewReminder.vue'
+
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -102,9 +103,14 @@ const routes: Array<RouteRecordRaw> = [
     component: FavoriteDrugListPost
   },
   {
-    path: "/ViewReminder",
-    name: "ViewReminder",
-    component: ViewReminder
+    path: '/viewDrug/:id',
+    name: 'ViewDrug',
+    component: ViewDrug
+  },
+  {
+    path: '/editFavoriteDrug/:id',
+    name: 'EditDrug',
+    component: EditFavoriteDrug
   }
 
 ]

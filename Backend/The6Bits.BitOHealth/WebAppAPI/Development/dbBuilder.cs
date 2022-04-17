@@ -118,8 +118,8 @@ namespace WebAppMVC.Development
         public bool buildFavoriteMedication(string connStr)
         {
             var FavoriteStr = "If not exists (select name from sysobjects where name = 'favoriteMedication') " +
-                "CREATE TABLE favoriteMedication (Username VARCHAR(30), product_id VARCHAR(100), " +
-                "generic_name VARCHAR(100), brand_name VARCHAR(100), lowestPrice int, lowestPriceLocation VARCHAR(150))";
+                "CREATE TABLE favoriteMedication (Username VARCHAR(30), product_id VARCHAR(500), " +
+                "generic_name VARCHAR(500), brand_name VARCHAR(500), lowestPrice int, lowestPriceLocation VARCHAR(150))";
             var conn = new SqlConnection(connStr);
             using (SqlCommand command = new SqlCommand(FavoriteStr, conn))
             {
@@ -152,7 +152,8 @@ namespace WebAppMVC.Development
 
         public bool buildRemiders(string connStr)
         {
-            var RecoveryStr = "If not exists (select name from sysobjects where name = 'Reminders') CREATE TABLE Reminders (R_SK VARCHAR(30), username VARCHAR(30), name VARCHAR(30), description VARCHAR(30), date VARCHAR(30), time VARCHAR(30), repeat VARCHAR(30))";
+            var RecoveryStr = "If not exists (select name from sysobjects where name = 'Reminders') CREATE TABLE Reminders (R_SK VARCHAR(30), username VARCHAR(30), name VARCHAR(100), description VARCHAR(1000)," +
+                " date VARCHAR(30), time VARCHAR(30), repeat VARCHAR(30))";
             var conn = new SqlConnection(connStr);
             using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
             {

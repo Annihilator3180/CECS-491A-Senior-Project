@@ -12,14 +12,11 @@ namespace The6Bits.BitOHealth.ServiceLayer
     {
         IDrugDataSet _drugDataSet;
         private IDBErrors _DBErrors;
-        private IConfiguration _config;
         private IRepositoryMedication<string> _MedicationDao;
-        public MedicationService(IRepositoryMedication<string> MedicationDao, IDrugDataSet drugDataSet, IDBErrors DbError,
-             IConfiguration config)
+        public MedicationService(IRepositoryMedication<string> MedicationDao, IDrugDataSet drugDataSet, IDBErrors DbError)
         {
             _DBErrors = DbError;
             _drugDataSet = drugDataSet;
-            _config = config;
             _MedicationDao = MedicationDao;
 
 
@@ -27,17 +24,11 @@ namespace The6Bits.BitOHealth.ServiceLayer
         }
         public MedicationService(IRepositoryMedication<string> MedicationDao, IDrugDataSet drugDataSet)
         {
-        }
+            _drugDataSet=drugDataSet;
+            _MedicationDao=MedicationDao;
+    }
 
 
-        public List<DrugName> GetGenericDrugName(string drugName)
-        {
-            return _drugDataSet.GetGenericDrugName(drugName).Result;
-        }
-        public List<DrugName> GetBrandDrugName(string drugName)
-        {
-            return _drugDataSet.GetBrandDrugName(drugName).Result;
-        }
 
         public List<DrugName> CheckDuplicates(List<DrugName> genericDrugNames, List<DrugName> brandDrugNames)
         {
@@ -72,6 +63,10 @@ namespace The6Bits.BitOHealth.ServiceLayer
             return drugNames;
 
         }
+        public bool DeleteFavoriteList(string username)
+        {
+            return _MedicationDao.DeleteUsersList(username) > 0;
+        }
 
         public List<FavoriteDrug> ViewFavorites(string username)
         {
@@ -81,6 +76,15 @@ namespace The6Bits.BitOHealth.ServiceLayer
                 throw new Exception("no drugs found");
             }
             return favDrug;
+        }
+
+        public List<DrugName> GetGenericDrugName(string drugName)
+        {
+            return _drugDataSet.GetGenericDrugName(drugName).Result;
+        }
+        public List<DrugName> GetBrandDrugName(string drugName)
+        {
+            return _drugDataSet.GetBrandDrugName(drugName).Result;
         }
 
         public string RemoveFavorite(string drugProductID, string username)
@@ -147,6 +151,19 @@ namespace The6Bits.BitOHealth.ServiceLayer
                 drug.isFavorited = false;
             }
             return drug;
+        }
+
+        public string CreateDescrption(string description)
+        {
+            var splitted=description.Split('.');
+            string location=splitted[0];
+            string price=splitted[1];
+            return "Cheapest reported price is " + price + " Found at " + location;
+        }
+
+        public string CreateTitle(string name)
+        {
+            return "Reminder: " + name + " refill "; 
         }
     }
 }
