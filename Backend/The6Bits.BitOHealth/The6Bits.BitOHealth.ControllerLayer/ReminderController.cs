@@ -34,8 +34,9 @@ namespace The6Bits.BitOHealth.ControllerLayer
         [HttpPost("CreateReminder")]
         public string CreateReminder(string name, string description, string date, string time, string repeat)
         {
-            /*
-            String token = "";
+
+
+            string token = "";
             try
             {
                 token = Request.Cookies["token"];
@@ -50,10 +51,10 @@ namespace The6Bits.BitOHealth.ControllerLayer
                 _ = logservice.Log("None", "Invalid Token - Create Reminder", "Info", "Business");
                 return "Invalid Token";
             }
-            
-            String username = _authentication.getUsername(token);
-            */
-            String username = "bossadmin12";
+
+            string username = _authentication.getUsername(token);
+
+            //username = "bossadmin12";
             string res = _RM.CreateReminder(username, name, description, date, time, repeat);
 
             if (res.Contains("Database"))
@@ -75,7 +76,25 @@ namespace The6Bits.BitOHealth.ControllerLayer
         [HttpPost("ViewReminder")]
         public string ViewReminder(string reminderID)
         {
-            string username = "bossadmin12";
+
+            string token = "";
+            try
+            {
+                token = Request.Cookies["token"];
+            }
+            catch
+            {
+                return "No token";
+            }
+            isValid = _authentication.ValidateToken(token);
+            if (!isValid)
+            {
+                _ = logservice.Log("None", "Invalid Token - Create Reminder", "Info", "Business");
+                return "Invalid Token";
+            }
+
+            string username = _authentication.getUsername(token);
+            //string username = "bossadmin12";
             if (reminderID != null)
             {
                 return ViewHelper(username, reminderID);
@@ -113,8 +132,26 @@ namespace The6Bits.BitOHealth.ControllerLayer
         }
 
         [HttpPost("ViewAllReminders")]
-        public string ViewAllReminders(string username)
+        public string ViewAllReminders()
         {
+            string token = "";
+            try
+            {
+                token = Request.Cookies["token"];
+            }
+            catch
+            {
+                return "No token";
+            }
+            isValid = _authentication.ValidateToken(token);
+            if (!isValid)
+            {
+                _ = logservice.Log("None", "Invalid Token - Create Reminder", "Info", "Business");
+                return "Invalid Token";
+            }
+
+            string username = _authentication.getUsername(token);
+
             string s = _RM.ViewAllReminders(username);
             string[] subs = s.Split('.');
             int counter = 1;
@@ -132,11 +169,29 @@ namespace The6Bits.BitOHealth.ControllerLayer
         [HttpPost("DeleteReminder")]
         public string DeleteReminder(string reminderID)
         {
-            string username = "bossadmin12";
-            if(reminderID != null)
+
+            string token = "";
+            try
+            {
+                token = Request.Cookies["token"];
+            }
+            catch
+            {
+                return "No token";
+            }
+            isValid = _authentication.ValidateToken(token);
+            if (!isValid)
+            {
+                _ = logservice.Log("None", "Invalid Token - Create Reminder", "Info", "Business");
+                return "Invalid Token";
+            }
+
+            string username = _authentication.getUsername(token);
+            //string username = "bossadmin12";
+            if (reminderID != null)
             {
                 return _RM.DeleteReminder(username, reminderID);
-                
+
             }
             else
             {

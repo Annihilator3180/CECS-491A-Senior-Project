@@ -106,8 +106,8 @@ public class AccountController : ControllerBase
     [HttpPost("getTLogs")]
     public string getTrackerLogs()
     {
-        /*
-        String token = "";
+        
+        string token = "";
         try
         {
             token = Request.Cookies["token"];
@@ -122,7 +122,7 @@ public class AccountController : ControllerBase
             _ = logService.Log("None", "Invalid Token - Get Tracker Logs", "Info", "Business");
             return "Invalid Token";
         }
-        */
+        
         string s = logService.getAllTrackerLogs();
         string[] subs = s.Split(' ');
         string holder = "";
