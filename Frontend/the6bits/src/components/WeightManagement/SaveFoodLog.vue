@@ -44,7 +44,9 @@
             const requestOptions = {
                 method: "POST",
                 credentials: 'include',
-                headers: { "Content-Type": "application/json"},
+                headers: { 
+                    "Authorization" : `Bearer ${sessionStorage.getItem('token')}`,
+                    "Content-Type": "application/json"},
                 body: JSON.stringify(this.foodData)
             };
             fetch('https://localhost:7011/WeightManagement/SaveFood',requestOptions)
@@ -53,6 +55,7 @@
             window.location.reload();
         }
 
+        
         
     }
 }

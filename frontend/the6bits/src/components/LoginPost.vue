@@ -40,7 +40,11 @@
             };
             fetch('https://localhost:7011/Account/Login',requestOptions)
                 .then(response => response.text())
-                .then(data=>localStorage.setItem('token', data))
+                .then(data=> {
+                    if(data.split('.').length == 3){
+                        sessionStorage.setItem('token', data)
+                    }
+                    })
 
         }
     }
