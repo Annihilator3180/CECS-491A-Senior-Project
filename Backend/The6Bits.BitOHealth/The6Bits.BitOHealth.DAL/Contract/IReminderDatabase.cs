@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using The6Bits.BitOHealth.Models;
 
 namespace The6Bits.BitOHealth.DAL.Contract
 {
@@ -13,7 +14,8 @@ namespace The6Bits.BitOHealth.DAL.Contract
         string ViewAllReminders(string username);
         string ViewHelper(string username);
         string ViewAllHelper(string username);
-        string EditReminder(string username, string reminderID, List<string> edit);
+        string EditReminder(string username, string reminderID, string name, string description, string date, string time, string repeat);
         string DeleteReminder(string username, string reminderID);
+        public List<string> EditHelper(string username, string reminderID);
     }
 }

@@ -23,6 +23,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
         private LogService logservice;
         private bool isValid;
 
+
         public ReminderController(IReminderDatabase dao, IAuthenticationService authentication, ILogDal logDal, IDBErrors db)
         {
             _dao = dao;
@@ -54,7 +55,6 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
             string username = _authentication.getUsername(token);
 
-            //username = "bossadmin12";
             string res = _RM.CreateReminder(username, name, description, date, time, repeat);
 
             if (res.Contains("Database"))
@@ -94,7 +94,6 @@ namespace The6Bits.BitOHealth.ControllerLayer
             }
 
             string username = _authentication.getUsername(token);
-            //string username = "bossadmin12";
             if (reminderID != null)
             {
                 return ViewHelper(username, reminderID);
@@ -187,7 +186,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
             }
 
             string username = _authentication.getUsername(token);
-            //string username = "bossadmin12";
+
             if (reminderID != null)
             {
                 return _RM.DeleteReminder(username, reminderID);
@@ -199,10 +198,40 @@ namespace The6Bits.BitOHealth.ControllerLayer
             }
         }
 
+        [HttpPost("EditReminder")]
         public string EditReminder(string reminderID, string name, string description, string date, string time, string repeat)
         {
-            string username = "bossadmin12";
-            return _RM.EditReminder(username, reminderID, name, description, date, time, repeat);
+            string token = "";
+            try
+            {
+                token = Request.Cookies["token"];
+            }
+            catch
+            {
+                return "No token";
+            }
+            isValid = _authentication.ValidateToken(token);
+            if (!isValid)
+            {
+                _ = logservice.Log("None", "Invalid Token - Create Reminder", "Info", "Business");
+                return "Invalid Token";
+            }
+            string username = _authentication.getUsername(token);
+
+            if (reminderID != null)
+            {
+
+                string holder = _RM.EditReminder(username, reminderID, name, description, date, time, repeat);
+                if (holder == "Edit failed")
+                {
+                    _ = logservice.Log(username, " could not edit reminder", "Info", "Business");
+                }
+                return holder;
+            }
+            else
+            {
+                return ViewAllHelper(username);
+            }
         }
     }
 }

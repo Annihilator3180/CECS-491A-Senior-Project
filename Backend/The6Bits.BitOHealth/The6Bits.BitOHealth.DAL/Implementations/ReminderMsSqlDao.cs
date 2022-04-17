@@ -141,6 +141,26 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
         }
 
+        public List<string> EditHelper(string username, string reminderID)
+        {
+            string aR_SK = "", aname = "", adescription = "", adate = "", atime = "", arepeat = "";
+            using (SqlConnection connection = new SqlConnection(_connectString))
+            {
+                connection.Open();
+                IEnumerable<ReminderModel> str = connection.Query<ReminderModel>($"select * from Reminders where username = '{username}';");
+                string s = "";
+                foreach (ReminderModel remindermodel in str)
+                {
+
+                    aR_SK = remindermodel.R_SK; aname = remindermodel.name; adescription = remindermodel.description; adate = remindermodel.date; atime = remindermodel.time; arepeat = remindermodel.repeat;
+                }
+            }
+            List<string> edit = new List<string> { aname, adescription, adate, atime, arepeat };
+
+            return edit;
+
+        }
+
         public string DeleteReminder(string username, string reminderID)
         {
             try
@@ -165,13 +185,29 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
         }
 
-        public string EditReminder(string username, string reminderID, List<string> edit)
+        public string EditReminder(string username, string reminderID, string name, string description, string date, string time, string repeat)
         {
-            for(int i = 0; i < edit.Count; i++)
+            try
             {
-                //
+                //Edit Reminder
+                String query = $"Update Reminders SET name = '{name}', description = '{description}', date = '{date}', time = '{time}', " +
+                    $"repeat = '{repeat}' WHERE R_SK = '{reminderID}' AND username = '{username}'";
+
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int s = connection.Execute(query);
+                    if (s == 1)
+                    {
+                        return "Reminder Edited";
+                    }
+                    return "Reminder NOT Edited";
+                }
             }
-            return "";
+            catch
+            {
+                return "Edit failed";
+            }
         }
 
     }

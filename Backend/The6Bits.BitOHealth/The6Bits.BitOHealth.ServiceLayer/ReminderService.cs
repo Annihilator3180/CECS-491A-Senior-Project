@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.BitOHealth.DAL.Implementations;
+using The6Bits.BitOHealth.Models;
 
 namespace The6Bits.BitOHealth.ServiceLayer
 {
@@ -20,6 +21,9 @@ namespace The6Bits.BitOHealth.ServiceLayer
         {
 
             int count = _Rdao.GetCount(username);
+            //big error, if reminder gets deleted then a new one added, the same count is
+            //going to be added as reminderID, take last reminder ID and plus one  it
+            //so same reminderID is never added
             return _Rdao.CreateReminder(count, username, name, description, date, time, repeat);
         }
 
@@ -51,8 +55,21 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
         public string EditReminder(string username, string reminderID, string name, string description, string date, string time, string repeat)
         {
-            List<string> edit = new List<string> { name, description, date, time, repeat };
-            return _Rdao.EditReminder(username, reminderID, edit);
+            List<string> old = _Rdao.EditHelper(username, reminderID);
+            List<string> input = new List<string> { name, description, date, time, repeat };
+            List<string> edit = new List<string>();
+            for (int i = 0; i < old.Count; i++)
+            {
+                if (input.ElementAt(i) == null)
+                {
+                    edit.Add(old[i]);
+                }
+                else
+                {
+                    edit.Add(input.ElementAt(i));
+                }
+            }
+            return _Rdao.EditReminder(username, reminderID, edit.ElementAt(0), edit.ElementAt(1), edit.ElementAt(2), edit.ElementAt(3), edit.ElementAt(4));
         }
 
         public string DeleteReminder(string username, string reminderID)
