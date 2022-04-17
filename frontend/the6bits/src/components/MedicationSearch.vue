@@ -8,13 +8,13 @@
                 <input type="text" id="drugName" v-model="drugName" /> 
                 <button @click = "FindDrug">Search</button> {{this.formData.FindDrugResponse.error}}
             </div>
-         <p>&nbsp;&nbsp;</p>
        <div v-if="formData.FindDrugResponse.success==true">
         <th>brand name</th>
          <tr v-for="f in formData.FindDrugResponse.data" :key="f">
          <td>{{f.brand_name}}</td>
         <button @click = "$router.push({name:'ViewDrug',params:{id: f.brand_name}})">View Drug</button>
          </tr>
+
     </div>
 </div>
 </template>

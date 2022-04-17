@@ -187,7 +187,7 @@ namespace The6Bits.BitOHealth.DAL
                     {
                         return favDrug.First();
                     }
-                    catch(Exception ex)
+                    catch(Exception)
                     {
                         return new FavoriteDrug();
                     }

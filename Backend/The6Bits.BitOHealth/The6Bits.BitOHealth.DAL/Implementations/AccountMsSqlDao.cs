@@ -163,7 +163,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     return str.First();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
                 return new User("100", "100", "100", "100", "100", 100, 100, 100);
