@@ -34,13 +34,11 @@ namespace The6Bits.BitOHealth.ControllerLayer
         [HttpPost("CreateReminder")]
         public string CreateReminder(string name, string description, string date, string time, string repeat)
         {
-
-
-            string token = "";
+            /*
+            String token = "";
             try
             {
-                token = Request.Headers["Authorization"];
-            token = token.Split(' ')[1];
+                token = Request.Cookies["token"];
             }
             catch
             {
@@ -52,10 +50,10 @@ namespace The6Bits.BitOHealth.ControllerLayer
                 _ = logservice.Log("None", "Invalid Token - Create Reminder", "Info", "Business");
                 return "Invalid Token";
             }
-
-            string username = _authentication.getUsername(token);
-
-            //username = "bossadmin12";
+            
+            String username = _authentication.getUsername(token);
+            */
+            String username = "bossadmin12";
             string res = _RM.CreateReminder(username, name, description, date, time, repeat);
 
             if (res.Contains("Database"))
@@ -77,26 +75,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
         [HttpPost("ViewReminder")]
         public string ViewReminder(string reminderID)
         {
-
-            string token = "";
-            try
-            {
-                token = Request.Headers["Authorization"];
-            token = token.Split(' ')[1];
-            }
-            catch
-            {
-                return "No token";
-            }
-            isValid = _authentication.ValidateToken(token);
-            if (!isValid)
-            {
-                _ = logservice.Log("None", "Invalid Token - Create Reminder", "Info", "Business");
-                return "Invalid Token";
-            }
-
-            string username = _authentication.getUsername(token);
-            //string username = "bossadmin12";
+            string username = "bossadmin12";
             if (reminderID != null)
             {
                 return ViewHelper(username, reminderID);
@@ -134,27 +113,8 @@ namespace The6Bits.BitOHealth.ControllerLayer
         }
 
         [HttpPost("ViewAllReminders")]
-        public string ViewAllReminders()
+        public string ViewAllReminders(string username)
         {
-            string token = "";
-            try
-            {
-                token = Request.Headers["Authorization"];
-            token = token.Split(' ')[1];
-            }
-            catch
-            {
-                return "No token";
-            }
-            isValid = _authentication.ValidateToken(token);
-            if (!isValid)
-            {
-                _ = logservice.Log("None", "Invalid Token - Create Reminder", "Info", "Business");
-                return "Invalid Token";
-            }
-
-            string username = _authentication.getUsername(token);
-
             string s = _RM.ViewAllReminders(username);
             string[] subs = s.Split('.');
             int counter = 1;
@@ -172,30 +132,11 @@ namespace The6Bits.BitOHealth.ControllerLayer
         [HttpPost("DeleteReminder")]
         public string DeleteReminder(string reminderID)
         {
-
-            string token = "";
-            try
-            {
-                token = Request.Headers["Authorization"];
-            token = token.Split(' ')[1];
-            }
-            catch
-            {
-                return "No token";
-            }
-            isValid = _authentication.ValidateToken(token);
-            if (!isValid)
-            {
-                _ = logservice.Log("None", "Invalid Token - Create Reminder", "Info", "Business");
-                return "Invalid Token";
-            }
-
-            string username = _authentication.getUsername(token);
-            //string username = "bossadmin12";
-            if (reminderID != null)
+            string username = "bossadmin12";
+            if(reminderID != null)
             {
                 return _RM.DeleteReminder(username, reminderID);
-
+                
             }
             else
             {

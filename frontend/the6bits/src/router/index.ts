@@ -40,43 +40,27 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/UM',
     name: 'UM',
-    component: UM,
-    meta: {
-         requiresAuth: true,
-      },
+    component: UM
   },
   {
     path: '/getTLogs',
     name: 'getTLogs',
-    component: TrackingLog,
-    meta: {
-         requiresAuth: true,
-      },
+    component: TrackingLog
   },
   {
     path: '/AccountRecovery',
     name: 'AccountRecovery',
-    component: AccountRecovery,
-    meta: {
-         requiresAuth: true,
-      },
-
+    component: AccountRecovery
   },
   {
     path: '/WeightManagement',
     name: 'WeightManagement',
-    component: GoalView,
-    meta: {
-         requiresAuth: true,
-      },
+    component: GoalView
   },
   {
     path: '/ResetPassword',
     name: 'ResetPassword',
-    component: ResetPassword,
-    meta: {
-         requiresAuth: true,
-      },
+    component: ResetPassword
   },
   {
     path: '/Registration',
@@ -86,34 +70,22 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/MedicationSearch',
     name: 'MedSearch',
-    component: MedSearch,
-    meta: {
-         requiresAuth: true,
-      },
+    component: MedSearch
   },
   {
     path: '/HotTopics',
     name: 'HotTopics',
-    component: viewHT,
-    meta: {
-         requiresAuth: true,
-      },
+    component: viewHT
   },
   {
     path: '/SearchFood',
     name: 'SearchFood',
-    component: SearchFood,
-    meta: {
-         requiresAuth: true,
-      },
+    component: SearchFood
   },
   {
     path: '/DeleteAccount',
     name: 'DeleteAccount',
-    component: DeleteAccount,
-    meta: {
-         requiresAuth: true,
-      },
+    component: DeleteAccount
   },
 
   {
@@ -124,26 +96,17 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/HealthRecorder',
     name: 'HealthRecorder',
-    component: HealthRecorder,
-    meta: {
-         requiresAuth: true,
-      },
+    component: HealthRecorder
   },
   {
       path: "/FavoriteDrugs",
     name: "FavoriteDrugListPost",
-    component: FavoriteDrugListPost,
-    meta: {
-         requiresAuth: true,
-      },
+    component: FavoriteDrugListPost
   },
   {
     path: '/viewDrug/:id',
     name: 'ViewDrug',
-    component: ViewDrug,
-    meta: {
-         requiresAuth: true,
-      },
+    component: ViewDrug
   },
   {
     path: '/editFavoriteDrug/:id',
@@ -176,26 +139,5 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
-
-
-
-router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (sessionStorage.getItem('token') == null) {
-      next({
-        name: 'login',
-      })
-    } else {      
-        next()
-    }
-  
-  } else {
-    next()
-  }
-})
-
-
-
-
 
 export default router

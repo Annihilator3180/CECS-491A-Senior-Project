@@ -69,9 +69,9 @@ namespace The6Bits.BitOHealth.DAL.Tests
 
             //arrange 
             DrugName testDrug = new DrugName("generic drug test", "test id", "brand name test");
-            FavoriteDrug testFavoriteDrug = new FavoriteDrug("generic drug test", "test id", "brand name test", 4, "test location");
+            FavoriteDrug testFavoriteDrug = new FavoriteDrug("generic drug test", "test id", "brand name test", 4, "test location","this is a test");
             string username = "test";
-            medicationDAO.RemoveFavorite(testDrug.product_id, username);
+            medicationDAO.RemoveFavorite(testDrug.product_ndc, username);
             
             bool isAdded = medicationDAO.addFavorite(username, testDrug);
             //act
@@ -81,7 +81,7 @@ namespace The6Bits.BitOHealth.DAL.Tests
             Assert.Equal(readTest.lowestprice,testFavoriteDrug.lowestprice);
             Assert.Equal(testFavoriteDrug.lowestPriceLocation, readTest.lowestPriceLocation);
             //cleanup
-            medicationDAO.RemoveFavorite(testDrug.product_id, username);
+            medicationDAO.RemoveFavorite(testDrug.product_ndc, username);
         }
         [Fact]
         public void viewFavListShould()

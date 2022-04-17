@@ -118,8 +118,8 @@ namespace WebAppMVC.Development
         public bool buildFavoriteMedication(string connStr)
         {
             var FavoriteStr = "If not exists (select name from sysobjects where name = 'favoriteMedication') " +
-                "CREATE TABLE favoriteMedication (Username VARCHAR(30), product_id VARCHAR(500), " +
-                "generic_name VARCHAR(500), brand_name VARCHAR(500), lowestPrice int, lowestPriceLocation VARCHAR(150))";
+                "CREATE TABLE favoriteMedication (Username VARCHAR(30), product_ndc VARCHAR(500), " +
+                "generic_name VARCHAR(500), brand_name VARCHAR(500), lowestPrice float, lowestPriceLocation VARCHAR(150), description VARCHAR(500))";
             var conn = new SqlConnection(connStr);
             using (SqlCommand command = new SqlCommand(FavoriteStr, conn))
             {
@@ -166,45 +166,6 @@ namespace WebAppMVC.Development
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-        public bool buildFoodLog(string connStr)
-        {
-            var RecoveryStr = "If not exists (select name from sysobjects where name = 'FoodLog') CREATE TABLE FoodLog (Username VARCHAR(30), FoodName VARCHAR(30), Description VARCHAR(30), Calories Float, FoodLogDate DateTime, Carbs Float, Protein Float, Fat Float)";
-            var conn = new SqlConnection(connStr);
-            using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
-            {
-                conn.Open();
-                command.ExecuteNonQuery();
-            }
-            return false;
-
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         public bool addBossAdmin(string connStr)
         {
             var RecoveryStr = "BEGIN IF NOT EXISTS (Select * From Accounts where Username = 'bossadmin12')  " +
@@ -216,7 +177,7 @@ namespace WebAppMVC.Development
             using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
             {
                 conn.Open();
-                command.ExecuteScalar();
+                //command.ExecuteScalar();
             }
             return false;
 

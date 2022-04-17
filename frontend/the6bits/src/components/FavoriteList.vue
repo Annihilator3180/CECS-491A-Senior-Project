@@ -11,12 +11,12 @@
         </tr>
         <tr v-for="f in formData.ViewFavoriteRequest.data" :key="f">
          <td>{{f.brand_name}}</td>
-         <td>{{f.product_id}}</td>
+         <td>{{f.product_ndc}}</td>
         <button @click = "$router.push({name:'ViewDrug',params:{id: f.brand_name}})">View Drug</button>
-        <button @click = "RemoveFavorite(f.product_id)">Remove Favorite</button>
+        <button @click = "RemoveFavorite(f.product_ndc)">Remove Favorite</button>
         <button @click = "$router.push({name:'EditDrug',params:{id: f.brand_name}})">Edit Favorite</button>
         </tr> 
-        {{formData.ViewFavoriteRequest.data.length}}/100
+        {{formData.ViewFavoriteRequest.data?.length}}/100
           </div>
     </div>
 
@@ -55,7 +55,7 @@
                 });
 
         },
-        RemoveFavorite(product_id){
+        RemoveFavorite(product_ndc){
             const requestOptions = {
                 method: "post",
                 credentials: 'include',
@@ -63,8 +63,8 @@
                 "Authorization" :`Bearer ${sessionStorage.getItem('token')}`},
                
             };
-            const response= fetch(process.env.VUE_APP_BACKEND+'Medication/DeleteFavorite?product_id='
-            +product_id,requestOptions)                
+            const response= fetch(process.env.VUE_APP_BACKEND+'Medication/DeleteFavorite?product_ndc='
+            +product_ndc,requestOptions)                
                 .then(response =>  response.text())
                 .then(body => this.message = body)
                 .then(body=>this.formData.favoriteDrugsList = JSON.parse(body))

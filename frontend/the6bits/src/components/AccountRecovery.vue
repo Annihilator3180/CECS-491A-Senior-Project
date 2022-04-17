@@ -38,7 +38,7 @@
           email : this.formData.email
           })
       };
-      fetch(process.env.VUE_APP_BACKEND+'Account/Recovery',requestOptions)
+      fetch('https://localhost:7011/Account/Recovery',requestOptions)
       
                 .then((response) => {
                    return response.json();

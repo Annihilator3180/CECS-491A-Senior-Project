@@ -45,7 +45,7 @@
                 credentials: 'include',
             
             };
-            fetch(process.env.VUE_APP_BACKEND+'WeightManagement/SearchFood?queryString=' +this.formData.food ,requestOptions)
+            fetch('https://localhost:7011/WeightManagement/SearchFood?queryString=' +this.formData.food ,requestOptions)
                 .then(response =>  response.text())
                 .then(body => this.formData.foods = JSON.parse(body))
         }

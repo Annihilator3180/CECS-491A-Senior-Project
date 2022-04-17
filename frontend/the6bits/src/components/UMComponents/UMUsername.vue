@@ -30,7 +30,7 @@
                 credentials: 'include',
             
             };
-            fetch(process.env.VUE_APP_BACKEND+'UM/DeleteAccount?username=' +this.formData.username ,requestOptions)
+            fetch('https://localhost:7011/UM/DeleteAccount?username=' +this.formData.username ,requestOptions)
                 .then(response => console.log(response))
         },
         UMEnable(){
@@ -39,7 +39,7 @@
                 credentials: 'include',
             
             };
-            fetch(process.env.VUE_APP_BACKEND+'UM/EnableAccount?username=' +this.formData.username ,requestOptions)
+            fetch('https://localhost:7011/UM/EnableAccount?username=' +this.formData.username ,requestOptions)
                 .then(response => console.log(response))
         },
         UMDisable(){
@@ -48,7 +48,7 @@
                 credentials: 'include',
             
             };
-            fetch(process.env.VUE_APP_BACKEND+'UM/DisableAccount?username=' +this.formData.username ,requestOptions)
+            fetch('https://localhost:7011/UM/DisableAccount?username=' +this.formData.username ,requestOptions)
                 .then(response => console.log(response))
         }
         

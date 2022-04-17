@@ -38,14 +38,12 @@
                 headers: { "Content-Type": "application/json"},
                 body: JSON.stringify({Username : this.formData.userId, Password : this.formData.password, Code: this.formData.otp   })
             };
-            fetch(process.env.VUE_APP_BACKEND+'Account/Login',requestOptions)
-                .then(response => response.text())
-                .then(data=> {
-                    if(data.split('.').length == 3){
-                        sessionStorage.setItem('token', data)
-                    }
-                    })
-
+            fetch('https://localhost:7011/Account/Login',requestOptions)
+                .then(response => console.log(response))
+            // axios
+            // .post('https://localhost:7011/Account/Login',{Username : this.formData.userId, Password : this.formData.password, Code:this.formData.otp})
+            // .then(response => console.log(response))
+            // .catch(error => console.log(error))
         }
     }
 }

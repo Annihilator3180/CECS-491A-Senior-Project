@@ -75,7 +75,7 @@
                 Email: this.formData.Email, PrivOption: this.formData.PrivOption,isEnabled:0,isAdmin:0,FirstName:this.formData.FirstName, 
                 LastName: this.formData.LastName  })
             };
-            const response= fetch(process.env.VUE_APP_BACKEND+'Account/Register',requestOptions)                
+            const response= fetch('https://localhost:7011/Account/Register',requestOptions)                
                 .then(response =>  response.text())
                 .then(body => this.message = body)
         }

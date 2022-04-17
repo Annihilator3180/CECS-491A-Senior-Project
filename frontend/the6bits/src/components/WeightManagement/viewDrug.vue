@@ -50,7 +50,7 @@
 
     </div>
     <div id="addfavorite" v-if="!formData.drugInfoResponse.data?.isFavorited">
-        <button @click = "addFavorite">Add to Favorite</button> {{this.message}} {{this.formData.drugInfoResponse.data.isFavorited}}
+        <button @click = "addFavorite">Add to Favorite</button> {{formData.message}} 
     </div>
   </div>
   <div v-else>
@@ -67,30 +67,18 @@
             this.ViewDrug()
         },
         data() {
-        
         return {
             drugName:this.$route.params.id,
             formData :{
                 drugInfo: [],
                 drugInfoResponse: [],
-                isHidden: false
+                message : '',
             },
             
-             message : '',
+
         }
     },
     methods:{
-        accordian(){
-            console.log('hello')
-            this.classList.toggle("active");
-            var panel = this.nextElementSibling;
-            if (panel.style.maxHeight) {
-            panel.style.maxHeight = null;
-            } else {
-            panel.style.maxHeight = panel.scrollHeight + "px";
-            }
-            
-    },
         ViewDrug(){
             const requestOptions = {
                 method: "post",
@@ -100,7 +88,7 @@
                 body: JSON.stringify({generic_name : this.drugName })
 
             };
-            fetch(process.env.VUE_APP_BACKEND+'Medication/viewDrug?generic_name='+this.drugName,requestOptions)
+            fetch(process.env.VUE_APP_BACKEND+'Medication/viewDrug?brand_name='+this.drugName,requestOptions)
                 .then(response => response.json())
                 .then(body => this.formData.drugInfoResponse= body)
         },
@@ -113,21 +101,15 @@
             
 
         };
-
-        if(this.formData.drugInfoResponse.data.isFavorited==false){        
-        fetch(process.env.VUE_APP_BACKEND+'Medication/FavoriteAdd?genericName='+
-        this.formData.drugInfoResponse.data.openfda?.generic_name?.[0]
-        + '&brandName=' + this.formData.drugInfoResponse.data.openfda?.brand_name?.[0]+'&productID='+
-        this.formData.drugInfoResponse.data.openfda?.product_ndc?.[0],requestOptions)
-            .then(response => response.text())
-            .then(body => this.message = body)
-        this.formData.drugInfoResponse.data.isFavorited=true
-        }
-
-        else{
-            this.message="already favorited"
-        }
+        if (this.formData.drugInfoResponse.data.isFavorited==false){
+            fetch(process.env.VUE_APP_BACKEND+'Medication/FavoriteAdd?genericName='+
+            this.formData.drugInfoResponse.data.openfda?.generic_name?.[0]
+            + '&brandName=' + this.formData.drugInfoResponse.data.openfda?.brand_name?.[0]+'&product_ndc='+
+            this.formData.drugInfoResponse.data.openfda?.product_ndc?.[0],requestOptions)
+                .then(response => response.text())
+                .then(body => this.formData.message = body)
     }
+        }
 }
     }
 </script>
@@ -153,7 +135,7 @@
     background: white;
     line-height: 1.6;
     height: 0px;
-    opacity: 0;
+    display: none;
     font-size: 0.85em;
 }
 .checkbox{
@@ -163,6 +145,7 @@
     height: 100%;
     opacity: 1;
     background: white;
+    display: block;
 }
 
 

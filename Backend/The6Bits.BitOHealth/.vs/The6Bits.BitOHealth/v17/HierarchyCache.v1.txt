@@ -4,276 +4,33 @@ i:{00000000-0000-0000-0000-000000000000}:The6Bits.BitOHealth.sln
 i:{00000000-0000-0000-0000-000000000000}:Solution Items
 ++.gitignore
 i:{7e8b630e-9460-4545-81a0-9226dec38766}:C:\Users\ramys\Documents\GitHub\CECS-491A-Senior-Project2\Backend\The6Bits.BitOHealth\.gitignore
-++The6Bits.BitOHealth.ServiceLayer
-i:{00000000-0000-0000-0000-000000000000}:The6Bits.BitOHealth.ServiceLayer
-i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.servicelayer\bin\debug\net6.0\the6bits.bitohealth.servicelayer.dll
-i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.servicelayer\bin\debug\net6.0\the6bits.bitohealth.servicelayer.dll
-++Dependencies
-i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:>880
-i:{d7327072-6523-48c9-8198-f4b48c666604}:>878
-i:{445216f7-730f-4498-9e75-fc687bea775f}:>881
-i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:>1026
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:>877
-i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:>4210
-i:{cc1e728b-e33d-45d5-999b-55acd879391c}:>1197
-i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:>2266
-i:{dd54b656-0f37-4227-8469-f21c9d44dd52}:>2538
-i:{2aa2ffcb-096e-48f8-a272-c611ec9a39e1}:>3170
-i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:>3726
-i:{6be7e65d-5330-4a0c-85e3-3a14a54cb455}:>4054
-i:{56ab64f0-28a5-4502-bced-414a4476ec77}:>879
-i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:>1141
-i:{d79c8cd7-e325-41e1-bd71-5ffcefff0b6d}:>1142
-i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:>2267
-i:{119ce180-1661-4091-91e6-acbe39d37091}:>3171
-i:{c648effd-8a2d-448f-b7b0-f746133fe820}:>3967
-i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:>2268
-i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:>3591
-i:{f2d52a85-d7db-40e9-909a-c798aac61b90}:>3829
-i:{6f5aee68-f998-4a26-8aa8-ac2a7bf0c423}:>3912
-++AccountService.cs
-i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.servicelayer\accountservice.cs
-++ArchivingService.cs
-i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.servicelayer\archivingservice.cs
-++DietRecommendationsService.cs
-i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.servicelayer\dietrecommendationsservice.cs
-++HealthRecorderService.cs
-i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.servicelayer\healthrecorderservice.cs
-++HotTopicsService.cs
-i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.servicelayer\hottopicsservice.cs
-++MedicationService.cs
-i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.servicelayer\medicationservice.cs
-++RecoveryResetService.cs
-i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.servicelayer\recoveryresetservice.cs
-++ReminderService.cs
-i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.servicelayer\reminderservice.cs
-++UMService.cs
-i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.servicelayer\umservice.cs
-++WeightManagementService.cs
-i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.servicelayer\weightmanagementservice.cs
-++Analyzers
-i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:analyzers
-i:{d7327072-6523-48c9-8198-f4b48c666604}:analyzers
-i:{445216f7-730f-4498-9e75-fc687bea775f}:analyzers
-i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:analyzers
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:analyzers
-i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:analyzers
-i:{cc1e728b-e33d-45d5-999b-55acd879391c}:analyzers
-i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:analyzers
-i:{dd54b656-0f37-4227-8469-f21c9d44dd52}:analyzers
-i:{2aa2ffcb-096e-48f8-a272-c611ec9a39e1}:analyzers
-i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:analyzers
-i:{6be7e65d-5330-4a0c-85e3-3a14a54cb455}:analyzers
-i:{56ab64f0-28a5-4502-bced-414a4476ec77}:analyzers
-i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:analyzers
-i:{d79c8cd7-e325-41e1-bd71-5ffcefff0b6d}:analyzers
-i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:analyzers
-i:{119ce180-1661-4091-91e6-acbe39d37091}:analyzers
-i:{c648effd-8a2d-448f-b7b0-f746133fe820}:analyzers
-i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:analyzers
-i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:analyzers
-i:{f2d52a85-d7db-40e9-909a-c798aac61b90}:analyzers
-i:{6f5aee68-f998-4a26-8aa8-ac2a7bf0c423}:analyzers
-++Frameworks
-i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:frameworks
-i:{d7327072-6523-48c9-8198-f4b48c666604}:frameworks
-i:{445216f7-730f-4498-9e75-fc687bea775f}:frameworks
-i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:frameworks
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:frameworks
-i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:frameworks
-i:{cc1e728b-e33d-45d5-999b-55acd879391c}:frameworks
-i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:frameworks
-i:{dd54b656-0f37-4227-8469-f21c9d44dd52}:frameworks
-i:{2aa2ffcb-096e-48f8-a272-c611ec9a39e1}:frameworks
-i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:frameworks
-i:{6be7e65d-5330-4a0c-85e3-3a14a54cb455}:frameworks
-i:{56ab64f0-28a5-4502-bced-414a4476ec77}:frameworks
-i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:frameworks
-i:{d79c8cd7-e325-41e1-bd71-5ffcefff0b6d}:frameworks
-i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:frameworks
-i:{119ce180-1661-4091-91e6-acbe39d37091}:frameworks
-i:{c648effd-8a2d-448f-b7b0-f746133fe820}:frameworks
-i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:frameworks
-i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:frameworks
-i:{f2d52a85-d7db-40e9-909a-c798aac61b90}:frameworks
-i:{6f5aee68-f998-4a26-8aa8-ac2a7bf0c423}:frameworks
-++Packages
-i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:packages
-i:{d7327072-6523-48c9-8198-f4b48c666604}:packages
-i:{445216f7-730f-4498-9e75-fc687bea775f}:packages
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:packages
-i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:packages
-i:{cc1e728b-e33d-45d5-999b-55acd879391c}:packages
-i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:packages
-i:{dd54b656-0f37-4227-8469-f21c9d44dd52}:packages
-i:{2aa2ffcb-096e-48f8-a272-c611ec9a39e1}:packages
-i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:packages
-i:{56ab64f0-28a5-4502-bced-414a4476ec77}:packages
-i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:packages
-i:{d79c8cd7-e325-41e1-bd71-5ffcefff0b6d}:packages
-i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:packages
-i:{119ce180-1661-4091-91e6-acbe39d37091}:packages
-i:{c648effd-8a2d-448f-b7b0-f746133fe820}:packages
-i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:packages
-i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:packages
-++Projects
-i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:projects
-i:{d7327072-6523-48c9-8198-f4b48c666604}:projects
-i:{445216f7-730f-4498-9e75-fc687bea775f}:projects
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:projects
-i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:projects
-i:{cc1e728b-e33d-45d5-999b-55acd879391c}:projects
-i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:projects
-i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:projects
-i:{6be7e65d-5330-4a0c-85e3-3a14a54cb455}:projects
-i:{56ab64f0-28a5-4502-bced-414a4476ec77}:projects
-i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:projects
-i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:projects
-i:{119ce180-1661-4091-91e6-acbe39d37091}:projects
-i:{c648effd-8a2d-448f-b7b0-f746133fe820}:projects
-i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:projects
-i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:projects
-i:{f2d52a85-d7db-40e9-909a-c798aac61b90}:projects
-i:{6f5aee68-f998-4a26-8aa8-ac2a7bf0c423}:projects
-++Microsoft.CodeAnalysis.CSharp.NetAnalyzers
-i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
-i:{d7327072-6523-48c9-8198-f4b48c666604}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
-i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
-i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
-i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
-i:{cc1e728b-e33d-45d5-999b-55acd879391c}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
-i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
-i:{dd54b656-0f37-4227-8469-f21c9d44dd52}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
-i:{2aa2ffcb-096e-48f8-a272-c611ec9a39e1}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
-i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
-i:{6be7e65d-5330-4a0c-85e3-3a14a54cb455}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
-i:{56ab64f0-28a5-4502-bced-414a4476ec77}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
-i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
-i:{d79c8cd7-e325-41e1-bd71-5ffcefff0b6d}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
-i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
-i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
-i:{c648effd-8a2d-448f-b7b0-f746133fe820}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
-i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
-i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
-i:{f2d52a85-d7db-40e9-909a-c798aac61b90}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
-i:{6f5aee68-f998-4a26-8aa8-ac2a7bf0c423}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
-++Microsoft.CodeAnalysis.NetAnalyzers
-i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
-i:{d7327072-6523-48c9-8198-f4b48c666604}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
-i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
-i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
-i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
-i:{cc1e728b-e33d-45d5-999b-55acd879391c}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
-i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
-i:{dd54b656-0f37-4227-8469-f21c9d44dd52}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
-i:{2aa2ffcb-096e-48f8-a272-c611ec9a39e1}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
-i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
-i:{6be7e65d-5330-4a0c-85e3-3a14a54cb455}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
-i:{56ab64f0-28a5-4502-bced-414a4476ec77}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
-i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
-i:{d79c8cd7-e325-41e1-bd71-5ffcefff0b6d}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
-i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
-i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
-i:{c648effd-8a2d-448f-b7b0-f746133fe820}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
-i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
-i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
-i:{f2d52a85-d7db-40e9-909a-c798aac61b90}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
-i:{6f5aee68-f998-4a26-8aa8-ac2a7bf0c423}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
-++System.Text.Json.SourceGeneration
-i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
-i:{d7327072-6523-48c9-8198-f4b48c666604}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
-i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
-i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
-i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
-i:{cc1e728b-e33d-45d5-999b-55acd879391c}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
-i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
-i:{dd54b656-0f37-4227-8469-f21c9d44dd52}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
-i:{2aa2ffcb-096e-48f8-a272-c611ec9a39e1}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
-i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
-i:{6be7e65d-5330-4a0c-85e3-3a14a54cb455}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
-i:{56ab64f0-28a5-4502-bced-414a4476ec77}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
-i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
-i:{d79c8cd7-e325-41e1-bd71-5ffcefff0b6d}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
-i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\users\ramys\.nuget\packages\system.text.json\7.0.0-preview.1.22076.8\analyzers\dotnet\roslyn4.0\cs\system.text.json.sourcegeneration.dll
-i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\ramys\.nuget\packages\system.text.json\7.0.0-preview.1.22076.8\analyzers\dotnet\roslyn4.0\cs\system.text.json.sourcegeneration.dll
-i:{c648effd-8a2d-448f-b7b0-f746133fe820}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
-i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:c:\users\ramys\.nuget\packages\system.text.json\7.0.0-preview.1.22076.8\analyzers\dotnet\roslyn4.0\cs\system.text.json.sourcegeneration.dll
-i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:c:\users\ramys\.nuget\packages\system.text.json\7.0.0-preview.1.22076.8\analyzers\dotnet\roslyn4.0\cs\system.text.json.sourcegeneration.dll
-i:{f2d52a85-d7db-40e9-909a-c798aac61b90}:c:\users\ramys\.nuget\packages\system.text.json\7.0.0-preview.1.22076.8\analyzers\dotnet\roslyn4.0\cs\system.text.json.sourcegeneration.dll
-i:{6f5aee68-f998-4a26-8aa8-ac2a7bf0c423}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
-++Microsoft.NETCore.App
-i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.servicelayer\microsoft.netcore.app
-i:{d7327072-6523-48c9-8198-f4b48c666604}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.controllerlayer\microsoft.netcore.app
-i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.managerlayer\microsoft.netcore.app
-i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\microsoft.netcore.app
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\microsoft.netcore.app
-i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\webappapi\microsoft.netcore.app
-i:{cc1e728b-e33d-45d5-999b-55acd879391c}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.authentication\microsoft.netcore.app
-i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.authorization\microsoft.netcore.app
-i:{dd54b656-0f37-4227-8469-f21c9d44dd52}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.dberrors\microsoft.netcore.app
-i:{2aa2ffcb-096e-48f8-a272-c611ec9a39e1}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.emailservice\microsoft.netcore.app
-i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.hashandsaltservice\microsoft.netcore.app
-i:{6be7e65d-5330-4a0c-85e3-3a14a54cb455}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\api\microsoft.netcore.app
-i:{56ab64f0-28a5-4502-bced-414a4476ec77}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.logging\microsoft.netcore.app
-i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.logging.dal\microsoft.netcore.app
-i:{d79c8cd7-e325-41e1-bd71-5ffcefff0b6d}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.logging.models\microsoft.netcore.app
-i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\tests\the6bits.bitohealh.dal.tests\microsoft.netcore.app
-i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\tests\the6bits.bitohealth.servicelayer.test\microsoft.netcore.app
-i:{c648effd-8a2d-448f-b7b0-f746133fe820}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.foodapi.tests\microsoft.netcore.app
-i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\tests\the6bits.authorization.tests\microsoft.netcore.app
-i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\tests\the6bits.authentication.tests\microsoft.netcore.app
-i:{f2d52a85-d7db-40e9-909a-c798aac61b90}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\tests\the6bits.hashandsaltservice.tests\microsoft.netcore.app
-i:{6f5aee68-f998-4a26-8aa8-ac2a7bf0c423}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\foodapi\microsoft.netcore.app
-++Microsoft.AspNetCore.Http.Features (5.0.15)
-i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:>4237
-i:{445216f7-730f-4498-9e75-fc687bea775f}:>4356
-++The6Bits.API
-i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\api\bin\debug\net6.0\the6bits.api.dll
-i:{00000000-0000-0000-0000-000000000000}:The6Bits.API
-++The6Bits.BitOHealth.DAL
-i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\bin\debug\net6.0\the6bits.bitohealth.dal.dll
-i:{d7327072-6523-48c9-8198-f4b48c666604}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\bin\debug\net6.0\the6bits.bitohealth.dal.dll
-i:{00000000-0000-0000-0000-000000000000}:The6Bits.BitOHealth.DAL
-i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\bin\debug\net6.0\the6bits.bitohealth.dal.dll
-i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\bin\debug\net6.0\the6bits.bitohealth.dal.dll
-i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\bin\debug\net6.0\the6bits.bitohealth.dal.dll
-++The6Bits.BitOHealth.Models
-i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\bin\debug\net6.0\the6bits.bitohealth.models.dll
-i:{d7327072-6523-48c9-8198-f4b48c666604}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\bin\debug\net6.0\the6bits.bitohealth.models.dll
-i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\bin\debug\net6.0\the6bits.bitohealth.models.dll
-i:{00000000-0000-0000-0000-000000000000}:The6Bits.BitOHealth.Models
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\bin\debug\net6.0\the6bits.bitohealth.models.dll
-i:{cc1e728b-e33d-45d5-999b-55acd879391c}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\bin\debug\net6.0\the6bits.bitohealth.models.dll
-i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\bin\debug\net6.0\the6bits.bitohealth.models.dll
-i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\bin\debug\net6.0\the6bits.bitohealth.models.dll
-i:{6be7e65d-5330-4a0c-85e3-3a14a54cb455}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\bin\debug\net6.0\the6bits.bitohealth.models.dll
-i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\bin\debug\net6.0\the6bits.bitohealth.models.dll
-i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\bin\debug\net6.0\the6bits.bitohealth.models.dll
-i:{6f5aee68-f998-4a26-8aa8-ac2a7bf0c423}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\bin\debug\net6.0\the6bits.bitohealth.models.dll
-++The6Bits.DBErrors
-i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.dberrors\bin\debug\net6.0\the6bits.dberrors.dll
-i:{d7327072-6523-48c9-8198-f4b48c666604}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.dberrors\bin\debug\net6.0\the6bits.dberrors.dll
-i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.dberrors\bin\debug\net6.0\the6bits.dberrors.dll
-i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.dberrors\bin\debug\net6.0\the6bits.dberrors.dll
-i:{00000000-0000-0000-0000-000000000000}:The6Bits.DBErrors
-++The6Bits.Logging
-i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.logging\bin\debug\net6.0\the6bits.logging.dll
-i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.logging\bin\debug\net6.0\the6bits.logging.dll
-i:{d8459be7-a930-4b65-b2be-42a22bf68c8f}:The6Bits.Logging
-++The6Bits.SMTPEmailService
-i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.emailservice\bin\debug\net6.0\the6bits.smtpemailservice.dll
-i:{d7327072-6523-48c9-8198-f4b48c666604}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.emailservice\bin\debug\net6.0\the6bits.smtpemailservice.dll
-i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.emailservice\bin\debug\net6.0\the6bits.smtpemailservice.dll
-i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.emailservice\bin\debug\net6.0\the6bits.smtpemailservice.dll
-i:{00000000-0000-0000-0000-000000000000}:The6Bits.SMTPEmailService
-i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.emailservice\bin\debug\net6.0\the6bits.smtpemailservice.dll
 ++The6Bits.BitOHealth.ControllerLayer
 i:{00000000-0000-0000-0000-000000000000}:The6Bits.BitOHealth.ControllerLayer
 i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.controllerlayer\bin\debug\net6.0\the6bits.bitohealth.controllerlayer.dll
 i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.controllerlayer\bin\debug\net6.0\the6bits.bitohealth.controllerlayer.dll
+++Dependencies
+i:{d7327072-6523-48c9-8198-f4b48c666604}:>815
+i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:>4398
+i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:>814
+i:{445216f7-730f-4498-9e75-fc687bea775f}:>816
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:>886
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:>817
+i:{cc1e728b-e33d-45d5-999b-55acd879391c}:>1201
+i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:>1314
+i:{dd54b656-0f37-4227-8469-f21c9d44dd52}:>3005
+i:{2aa2ffcb-096e-48f8-a272-c611ec9a39e1}:>3547
+i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:>3214
+i:{6be7e65d-5330-4a0c-85e3-3a14a54cb455}:>4199
+i:{56ab64f0-28a5-4502-bced-414a4476ec77}:>818
+i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:>1146
+i:{d79c8cd7-e325-41e1-bd71-5ffcefff0b6d}:>1022
+i:{6f5aee68-f998-4a26-8aa8-ac2a7bf0c423}:>4045
+i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:>2997
+i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:>3006
+i:{119ce180-1661-4091-91e6-acbe39d37091}:>2967
+i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:>3784
+i:{f2d52a85-d7db-40e9-909a-c798aac61b90}:>4046
+i:{c648effd-8a2d-448f-b7b0-f746133fe820}:>4242
 ++AccountController.cs
 i:{d7327072-6523-48c9-8198-f4b48c666604}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.controllerlayer\accountcontroller.cs
 ++ArchivingController.cs
@@ -294,190 +51,266 @@ i:{d7327072-6523-48c9-8198-f4b48c666604}:c:\users\ramys\documents\github\cecs-49
 i:{d7327072-6523-48c9-8198-f4b48c666604}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.controllerlayer\umcontroller.cs
 ++WeightManagementController.cs
 i:{d7327072-6523-48c9-8198-f4b48c666604}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.controllerlayer\weightmanagementcontroller.cs
+++Analyzers
+i:{d7327072-6523-48c9-8198-f4b48c666604}:analyzers
+i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:analyzers
+i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:analyzers
+i:{445216f7-730f-4498-9e75-fc687bea775f}:analyzers
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:analyzers
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:analyzers
+i:{cc1e728b-e33d-45d5-999b-55acd879391c}:analyzers
+i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:analyzers
+i:{dd54b656-0f37-4227-8469-f21c9d44dd52}:analyzers
+i:{2aa2ffcb-096e-48f8-a272-c611ec9a39e1}:analyzers
+i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:analyzers
+i:{6be7e65d-5330-4a0c-85e3-3a14a54cb455}:analyzers
+i:{56ab64f0-28a5-4502-bced-414a4476ec77}:analyzers
+i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:analyzers
+i:{d79c8cd7-e325-41e1-bd71-5ffcefff0b6d}:analyzers
+i:{6f5aee68-f998-4a26-8aa8-ac2a7bf0c423}:analyzers
+i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:analyzers
+i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:analyzers
+i:{119ce180-1661-4091-91e6-acbe39d37091}:analyzers
+i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:analyzers
+i:{f2d52a85-d7db-40e9-909a-c798aac61b90}:analyzers
+i:{c648effd-8a2d-448f-b7b0-f746133fe820}:analyzers
+++Frameworks
+i:{d7327072-6523-48c9-8198-f4b48c666604}:frameworks
+i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:frameworks
+i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:frameworks
+i:{445216f7-730f-4498-9e75-fc687bea775f}:frameworks
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:frameworks
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:frameworks
+i:{cc1e728b-e33d-45d5-999b-55acd879391c}:frameworks
+i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:frameworks
+i:{dd54b656-0f37-4227-8469-f21c9d44dd52}:frameworks
+i:{2aa2ffcb-096e-48f8-a272-c611ec9a39e1}:frameworks
+i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:frameworks
+i:{6be7e65d-5330-4a0c-85e3-3a14a54cb455}:frameworks
+i:{56ab64f0-28a5-4502-bced-414a4476ec77}:frameworks
+i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:frameworks
+i:{d79c8cd7-e325-41e1-bd71-5ffcefff0b6d}:frameworks
+i:{6f5aee68-f998-4a26-8aa8-ac2a7bf0c423}:frameworks
+i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:frameworks
+i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:frameworks
+i:{119ce180-1661-4091-91e6-acbe39d37091}:frameworks
+i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:frameworks
+i:{f2d52a85-d7db-40e9-909a-c798aac61b90}:frameworks
+i:{c648effd-8a2d-448f-b7b0-f746133fe820}:frameworks
+++Packages
+i:{d7327072-6523-48c9-8198-f4b48c666604}:packages
+i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:packages
+i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:packages
+i:{445216f7-730f-4498-9e75-fc687bea775f}:packages
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:packages
+i:{cc1e728b-e33d-45d5-999b-55acd879391c}:packages
+i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:packages
+i:{dd54b656-0f37-4227-8469-f21c9d44dd52}:packages
+i:{2aa2ffcb-096e-48f8-a272-c611ec9a39e1}:packages
+i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:packages
+i:{56ab64f0-28a5-4502-bced-414a4476ec77}:packages
+i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:packages
+i:{d79c8cd7-e325-41e1-bd71-5ffcefff0b6d}:packages
+i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:packages
+i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:packages
+i:{119ce180-1661-4091-91e6-acbe39d37091}:packages
+i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:packages
+i:{c648effd-8a2d-448f-b7b0-f746133fe820}:packages
+++Projects
+i:{d7327072-6523-48c9-8198-f4b48c666604}:projects
+i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:projects
+i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:projects
+i:{445216f7-730f-4498-9e75-fc687bea775f}:projects
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:projects
+i:{cc1e728b-e33d-45d5-999b-55acd879391c}:projects
+i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:projects
+i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:projects
+i:{6be7e65d-5330-4a0c-85e3-3a14a54cb455}:projects
+i:{56ab64f0-28a5-4502-bced-414a4476ec77}:projects
+i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:projects
+i:{6f5aee68-f998-4a26-8aa8-ac2a7bf0c423}:projects
+i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:projects
+i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:projects
+i:{119ce180-1661-4091-91e6-acbe39d37091}:projects
+i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:projects
+i:{f2d52a85-d7db-40e9-909a-c798aac61b90}:projects
+i:{c648effd-8a2d-448f-b7b0-f746133fe820}:projects
+++Microsoft.CodeAnalysis.CSharp.NetAnalyzers
+i:{d7327072-6523-48c9-8198-f4b48c666604}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{cc1e728b-e33d-45d5-999b-55acd879391c}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{dd54b656-0f37-4227-8469-f21c9d44dd52}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{2aa2ffcb-096e-48f8-a272-c611ec9a39e1}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{6be7e65d-5330-4a0c-85e3-3a14a54cb455}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{56ab64f0-28a5-4502-bced-414a4476ec77}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{d79c8cd7-e325-41e1-bd71-5ffcefff0b6d}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{6f5aee68-f998-4a26-8aa8-ac2a7bf0c423}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{f2d52a85-d7db-40e9-909a-c798aac61b90}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{c648effd-8a2d-448f-b7b0-f746133fe820}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+++Microsoft.CodeAnalysis.NetAnalyzers
+i:{d7327072-6523-48c9-8198-f4b48c666604}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{cc1e728b-e33d-45d5-999b-55acd879391c}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{dd54b656-0f37-4227-8469-f21c9d44dd52}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{2aa2ffcb-096e-48f8-a272-c611ec9a39e1}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{6be7e65d-5330-4a0c-85e3-3a14a54cb455}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{56ab64f0-28a5-4502-bced-414a4476ec77}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{d79c8cd7-e325-41e1-bd71-5ffcefff0b6d}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{6f5aee68-f998-4a26-8aa8-ac2a7bf0c423}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{f2d52a85-d7db-40e9-909a-c798aac61b90}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{c648effd-8a2d-448f-b7b0-f746133fe820}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+++System.Text.Json.SourceGeneration
+i:{d7327072-6523-48c9-8198-f4b48c666604}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{cc1e728b-e33d-45d5-999b-55acd879391c}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{dd54b656-0f37-4227-8469-f21c9d44dd52}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{2aa2ffcb-096e-48f8-a272-c611ec9a39e1}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{6be7e65d-5330-4a0c-85e3-3a14a54cb455}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{56ab64f0-28a5-4502-bced-414a4476ec77}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{d79c8cd7-e325-41e1-bd71-5ffcefff0b6d}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{6f5aee68-f998-4a26-8aa8-ac2a7bf0c423}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\users\ramys\.nuget\packages\system.text.json\7.0.0-preview.1.22076.8\analyzers\dotnet\roslyn4.0\cs\system.text.json.sourcegeneration.dll
+i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:c:\users\ramys\.nuget\packages\system.text.json\7.0.0-preview.1.22076.8\analyzers\dotnet\roslyn4.0\cs\system.text.json.sourcegeneration.dll
+i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\ramys\.nuget\packages\system.text.json\7.0.0-preview.1.22076.8\analyzers\dotnet\roslyn4.0\cs\system.text.json.sourcegeneration.dll
+i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:c:\users\ramys\.nuget\packages\system.text.json\7.0.0-preview.1.22076.8\analyzers\dotnet\roslyn4.0\cs\system.text.json.sourcegeneration.dll
+i:{f2d52a85-d7db-40e9-909a-c798aac61b90}:c:\users\ramys\.nuget\packages\system.text.json\7.0.0-preview.1.22076.8\analyzers\dotnet\roslyn4.0\cs\system.text.json.sourcegeneration.dll
+i:{c648effd-8a2d-448f-b7b0-f746133fe820}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+++Microsoft.NETCore.App
+i:{d7327072-6523-48c9-8198-f4b48c666604}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.controllerlayer\microsoft.netcore.app
+i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\webappapi\microsoft.netcore.app
+i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.servicelayer\microsoft.netcore.app
+i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.managerlayer\microsoft.netcore.app
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\microsoft.netcore.app
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\microsoft.netcore.app
+i:{cc1e728b-e33d-45d5-999b-55acd879391c}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.authentication\microsoft.netcore.app
+i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.authorization\microsoft.netcore.app
+i:{dd54b656-0f37-4227-8469-f21c9d44dd52}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.dberrors\microsoft.netcore.app
+i:{2aa2ffcb-096e-48f8-a272-c611ec9a39e1}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.emailservice\microsoft.netcore.app
+i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.hashandsaltservice\microsoft.netcore.app
+i:{6be7e65d-5330-4a0c-85e3-3a14a54cb455}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\api\microsoft.netcore.app
+i:{56ab64f0-28a5-4502-bced-414a4476ec77}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.logging\microsoft.netcore.app
+i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.logging.dal\microsoft.netcore.app
+i:{d79c8cd7-e325-41e1-bd71-5ffcefff0b6d}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.logging.models\microsoft.netcore.app
+i:{6f5aee68-f998-4a26-8aa8-ac2a7bf0c423}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\foodapi\microsoft.netcore.app
+i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\tests\the6bits.bitohealh.dal.tests\microsoft.netcore.app
+i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\tests\the6bits.authorization.tests\microsoft.netcore.app
+i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\tests\the6bits.bitohealth.servicelayer.test\microsoft.netcore.app
+i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\tests\the6bits.authentication.tests\microsoft.netcore.app
+i:{f2d52a85-d7db-40e9-909a-c798aac61b90}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\tests\the6bits.hashandsaltservice.tests\microsoft.netcore.app
+i:{c648effd-8a2d-448f-b7b0-f746133fe820}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.foodapi.tests\microsoft.netcore.app
 ++Microsoft.AspNet.Mvc (5.2.7)
-i:{d7327072-6523-48c9-8198-f4b48c666604}:>4250
+i:{d7327072-6523-48c9-8198-f4b48c666604}:>4618
 ++Microsoft.AspNetCore.Http.Extensions (2.2.0)
-i:{d7327072-6523-48c9-8198-f4b48c666604}:>4249
+i:{d7327072-6523-48c9-8198-f4b48c666604}:>4614
 ++Microsoft.AspNetCore.Mvc.Core (2.2.5)
-i:{d7327072-6523-48c9-8198-f4b48c666604}:>4251
+i:{d7327072-6523-48c9-8198-f4b48c666604}:>4622
 ++Microsoft.AspNetCore.Routing (2.2.2)
-i:{d7327072-6523-48c9-8198-f4b48c666604}:>4245
+i:{d7327072-6523-48c9-8198-f4b48c666604}:>4607
 ++System.IdentityModel.Tokens.Jwt (6.15.1)
-i:{d7327072-6523-48c9-8198-f4b48c666604}:>4247
-i:{cc1e728b-e33d-45d5-999b-55acd879391c}:>4418
-i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:>4414
+i:{d7327072-6523-48c9-8198-f4b48c666604}:>4611
+i:{cc1e728b-e33d-45d5-999b-55acd879391c}:>4587
+i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:>4567
 ++The6Bits.Authentication
 i:{d7327072-6523-48c9-8198-f4b48c666604}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.authentication\bin\debug\net6.0\the6bits.authentication.dll
 i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.authentication\bin\debug\net6.0\the6bits.authentication.dll
 i:{00000000-0000-0000-0000-000000000000}:The6Bits.Authentication
 i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.authentication\bin\debug\net6.0\the6bits.authentication.dll
-i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.authentication\bin\debug\net6.0\the6bits.authentication.dll
 i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.authentication\bin\debug\net6.0\the6bits.authentication.dll
+i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.authentication\bin\debug\net6.0\the6bits.authentication.dll
 i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.authentication\bin\debug\net6.0\the6bits.authentication.dll
 ++The6Bits.Authorization
 i:{d7327072-6523-48c9-8198-f4b48c666604}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.authorization\bin\debug\net6.0\the6bits.authorization.dll
 i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.authorization\bin\debug\net6.0\the6bits.authorization.dll
 i:{00000000-0000-0000-0000-000000000000}:The6Bits.Authorization
+++The6Bits.BitOHealth.DAL
+i:{d7327072-6523-48c9-8198-f4b48c666604}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\bin\debug\net6.0\the6bits.bitohealth.dal.dll
+i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\bin\debug\net6.0\the6bits.bitohealth.dal.dll
+i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\bin\debug\net6.0\the6bits.bitohealth.dal.dll
+i:{00000000-0000-0000-0000-000000000000}:The6Bits.BitOHealth.DAL
+i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\bin\debug\net6.0\the6bits.bitohealth.dal.dll
+i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\bin\debug\net6.0\the6bits.bitohealth.dal.dll
 ++The6Bits.BitOHealth.ManagerLayer
 i:{d7327072-6523-48c9-8198-f4b48c666604}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.managerlayer\bin\debug\net6.0\the6bits.bitohealth.managerlayer.dll
 i:{00000000-0000-0000-0000-000000000000}:The6Bits.BitOHealth.ManagerLayer
 i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.managerlayer\bin\debug\net6.0\the6bits.bitohealth.managerlayer.dll
 i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.managerlayer\bin\debug\net6.0\the6bits.bitohealth.managerlayer.dll
+++The6Bits.BitOHealth.Models
+i:{d7327072-6523-48c9-8198-f4b48c666604}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\bin\debug\net6.0\the6bits.bitohealth.models.dll
+i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\bin\debug\net6.0\the6bits.bitohealth.models.dll
+i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\bin\debug\net6.0\the6bits.bitohealth.models.dll
+i:{00000000-0000-0000-0000-000000000000}:The6Bits.BitOHealth.Models
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\bin\debug\net6.0\the6bits.bitohealth.models.dll
+i:{cc1e728b-e33d-45d5-999b-55acd879391c}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\bin\debug\net6.0\the6bits.bitohealth.models.dll
+i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\bin\debug\net6.0\the6bits.bitohealth.models.dll
+i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\bin\debug\net6.0\the6bits.bitohealth.models.dll
+i:{6be7e65d-5330-4a0c-85e3-3a14a54cb455}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\bin\debug\net6.0\the6bits.bitohealth.models.dll
+i:{6f5aee68-f998-4a26-8aa8-ac2a7bf0c423}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\bin\debug\net6.0\the6bits.bitohealth.models.dll
+i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\bin\debug\net6.0\the6bits.bitohealth.models.dll
+i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\bin\debug\net6.0\the6bits.bitohealth.models.dll
+++The6Bits.DBErrors
+i:{d7327072-6523-48c9-8198-f4b48c666604}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.dberrors\bin\debug\net6.0\the6bits.dberrors.dll
+i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.dberrors\bin\debug\net6.0\the6bits.dberrors.dll
+i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.dberrors\bin\debug\net6.0\the6bits.dberrors.dll
+i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.dberrors\bin\debug\net6.0\the6bits.dberrors.dll
+i:{00000000-0000-0000-0000-000000000000}:The6Bits.DBErrors
 ++The6Bits.HashAndSaltService
 i:{d7327072-6523-48c9-8198-f4b48c666604}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.hashandsaltservice\bin\debug\net6.0\the6bits.hashandsaltservice.dll
-i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.hashandsaltservice\bin\debug\net6.0\the6bits.hashandsaltservice.dll
 i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.hashandsaltservice\bin\debug\net6.0\the6bits.hashandsaltservice.dll
+i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.hashandsaltservice\bin\debug\net6.0\the6bits.hashandsaltservice.dll
 i:{00000000-0000-0000-0000-000000000000}:The6Bits.HashAndSaltService
 i:{f2d52a85-d7db-40e9-909a-c798aac61b90}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.hashandsaltservice\bin\debug\net6.0\the6bits.hashandsaltservice.dll
-++AccountManager.cs
-i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.managerlayer\accountmanager.cs
-++ArchivingManager.cs
-i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.managerlayer\archivingmanager.cs
-++DietRecommendationsManager.cs
-i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.managerlayer\dietrecommendationsmanager.cs
-++HealthRecorderManager.cs
-i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.managerlayer\healthrecordermanager.cs
-++HotTopicsManager.cs
-i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.managerlayer\hottopicsmanager.cs
-++MedicationManager.cs
-i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.managerlayer\medicationmanager.cs
-++RecoveryResetManager.cs
-i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.managerlayer\recoveryresetmanager.cs
-++ReminderManager.cs
-i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.managerlayer\remindermanager.cs
-++UMManager.cs
-i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.managerlayer\ummanager.cs
-++WeightManagementManager.cs
-i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.managerlayer\weightmanagementmanager.cs
-++FoodAPI
-i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\foodapi\bin\debug\net6.0\foodapi.dll
-i:{c648effd-8a2d-448f-b7b0-f746133fe820}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\foodapi\bin\debug\net6.0\foodapi.dll
-i:{7cdba9f0-fa15-4208-b10b-fbba352fe18c}:FoodAPI
-++WeightManagement
-i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\weightmanagement\
-++AccountRecoveryModel.cs
-i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\accountrecoverymodel.cs
-++ClaimsDBModel.cs
-i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\claimsdbmodel.cs
-++DeleteAccountModel.cs
-i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\deleteaccountmodel.cs
-++DietR.cs
-i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\dietr.cs
-++druginfo.cs
-i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\druginfo.cs
-++drugInfoResponse.cs
-i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\druginforesponse.cs
-++DrugName.cs
-i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\drugname.cs
-++FailedAttemptsModel.cs
-i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\failedattemptsmodel.cs
-++FavoriteDrug.cs
-i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\favoritedrug.cs
-++FindDrugResponse.cs
-i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\finddrugresponse.cs
-++JwtModel.cs
-i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\jwtmodel.cs
-++LoginModel.cs
-i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\loginmodel.cs
-++openFDAConfig.cs
-i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\openfdaconfig.cs
-++OTPModel.cs
-i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\otpmodel.cs
-++ReminderModel.cs
-i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\remindermodel.cs
-++User.cs
-i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\user.cs
-++ViewFavoriteRequest.cs
-i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\viewfavoriterequest.cs
-++EdamamModel.cs
-i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\weightmanagement\edamammodel.cs
-++FoodModel.cs
-i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\weightmanagement\foodmodel.cs
-++GoalWeightModel.cs
-i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\weightmanagement\goalweightmodel.cs
-++Contract
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\contract\
-i:{cc1e728b-e33d-45d5-999b-55acd879391c}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.authentication\contract\
-i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.authorization\contract\
-i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.hashandsaltservice\contract\
-++IArchivingDatabase.cs
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\contract\iarchivingdatabase.cs
-++IArchivingPC.cs
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\contract\iarchivingpc.cs
-++IDrugDataSet.cs
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\contract\idrugdataset.cs
-++IRecoveryResetDatabase.cs
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\contract\irecoveryresetdatabase.cs
-++IReminderDatabase.cs
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\contract\ireminderdatabase.cs
-++IRepositoryAuth.cs
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\contract\irepositoryauth.cs
-++IRepositoryDietRecommendations.cs
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\contract\irepositorydietrecommendations.cs
-++IRepositoryHealthRecorderDAO.cs
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\contract\irepositoryhealthrecorderdao.cs
-++IRepositoryMedication.cs
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\contract\irepositorymedication.cs
-++IRepositoryUM.cs
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\contract\irepositoryum.cs
-++IRepositoryWeightManagementDao.cs
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\contract\irepositoryweightmanagementdao.cs
-++Implementations
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\implementations\
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\implementations\implementations\
-i:{cc1e728b-e33d-45d5-999b-55acd879391c}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.authentication\implementations\
-i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.authorization\implementations\
-i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.hashandsaltservice\implementations\
-i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.logging.dal\implementations\
-i:{6f5aee68-f998-4a26-8aa8-ac2a7bf0c423}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\foodapi\implementations\
-++AccountMsSqlDao.cs
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\implementations\accountmssqldao.cs
-++DietRecommendationsMsSqlDao.cs
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\implementations\dietrecommendationsmssqldao.cs
-++HealthRecorderMsSqlDAO.cs
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\implementations\healthrecordermssqldao.cs
-++MsSqlMedicationDAO.cs
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\implementations\mssqlmedicationdao.cs
-++MsSqlUMDAO.cs
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\implementations\mssqlumdao.cs
-++OpenFDADAO.cs
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\implementations\openfdadao.cs
-++RecoveryResetDAO.cs
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\implementations\recoveryresetdao.cs
-++ReminderMsSqlDao.cs
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\implementations\remindermssqldao.cs
-++SqlArchivingDAO.cs
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\implementations\sqlarchivingdao.cs
-++WeightManagementMsSqlDao.cs
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\implementations\weightmanagementmssqldao.cs
-++WindowsArchivingDAO.cs
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\implementations\windowsarchivingdao.cs
-++Dapper (2.0.123)
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:>4433
-i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:>4419
-i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:>4320
-i:{56ab64f0-28a5-4502-bced-414a4476ec77}:>4220
-i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:>4400
-++System.Data.SqlClient (4.8.3)
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:>4434
-i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:>4422
-i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:>4321
-i:{56ab64f0-28a5-4502-bced-414a4476ec77}:>4221
-i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:>4404
-++The6Bits.Logging.Models
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.logging.models\bin\debug\net6.0\the6bits.logging.models.dll
-i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.logging.models\bin\debug\net6.0\the6bits.logging.models.dll
-i:{d8459be7-a930-4b65-b2be-42a22bf68c8f}:The6Bits.Logging.Models
+++The6Bits.SMTPEmailService
+i:{d7327072-6523-48c9-8198-f4b48c666604}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.emailservice\bin\debug\net6.0\the6bits.smtpemailservice.dll
+i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.emailservice\bin\debug\net6.0\the6bits.smtpemailservice.dll
+i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.emailservice\bin\debug\net6.0\the6bits.smtpemailservice.dll
+i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.emailservice\bin\debug\net6.0\the6bits.smtpemailservice.dll
+i:{00000000-0000-0000-0000-000000000000}:The6Bits.SMTPEmailService
+i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.emailservice\bin\debug\net6.0\the6bits.smtpemailservice.dll
 ++WebAppAPI
 i:{00000000-0000-0000-0000-000000000000}:WebAppAPI
 ++Connected Services 
-i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:>4211
+i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:>4399
 ++Properties
 i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\webappapi\properties\
+++launchSettings.json
+i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\webappapi\properties\launchsettings.json
 ++Controllers
 i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\webappapi\controllers\
+++WeatherForecastController.cs
+i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\webappapi\controllers\weatherforecastcontroller.cs
 ++Development
 i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\webappapi\development\
+++dbBuilder.cs
+i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\webappapi\development\dbbuilder.cs
 ++Keys
 i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\webappapi\keys\
 i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\tests\the6bits.bitohealh.dal.tests\keys\
@@ -487,9 +320,11 @@ i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\ramys\documents\github\cecs-49
 ++appsettings.json
 i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\webappapi\appsettings.json
 i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\tests\the6bits.bitohealh.dal.tests\appsettings.json
-i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\tests\the6bits.bitohealth.servicelayer.test\appsettings.json
 i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\tests\the6bits.authorization.tests\appsettings.json
+i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\tests\the6bits.bitohealth.servicelayer.test\appsettings.json
 i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\tests\the6bits.authentication.tests\appsettings.json
+++appsettings.Production.json
+i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\webappapi\appsettings.production.json
 ++Program.cs
 i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\webappapi\program.cs
 ++secrets.json
@@ -497,13 +332,7 @@ i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\ramys\documents\github\cecs-49
 ++WeatherForecast.cs
 i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\webappapi\weatherforecast.cs
 ++No service dependencies discovered
-i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:>4212
-++launchSettings.json
-i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\webappapi\properties\launchsettings.json
-++WeatherForecastController.cs
-i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\webappapi\controllers\weatherforecastcontroller.cs
-++dbBuilder.cs
-i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\webappapi\development\dbbuilder.cs
+i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:>4400
 ++.DS_Store
 i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\webappapi\keys\.ds_store
 i:{cc1e728b-e33d-45d5-999b-55acd879391c}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.authentication\.ds_store
@@ -542,15 +371,190 @@ i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\program files\dotnet\sdk\6.0.100\sdk
 ++Microsoft.AspNetCore.App
 i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\webappapi\microsoft.aspnetcore.app
 ++Swashbuckle.AspNetCore (6.2.3)
-i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:>4496
+i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:>4684
+++The6Bits.BitOHealth.ServiceLayer
+i:{00000000-0000-0000-0000-000000000000}:The6Bits.BitOHealth.ServiceLayer
+i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.servicelayer\bin\debug\net6.0\the6bits.bitohealth.servicelayer.dll
+i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.servicelayer\bin\debug\net6.0\the6bits.bitohealth.servicelayer.dll
+++AccountService.cs
+i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.servicelayer\accountservice.cs
+++ArchivingService.cs
+i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.servicelayer\archivingservice.cs
+++DietRecommendationsService.cs
+i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.servicelayer\dietrecommendationsservice.cs
+++HealthRecorderService.cs
+i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.servicelayer\healthrecorderservice.cs
+++HotTopicsService.cs
+i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.servicelayer\hottopicsservice.cs
+++MedicationService.cs
+i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.servicelayer\medicationservice.cs
+++RecoveryResetService.cs
+i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.servicelayer\recoveryresetservice.cs
+++ReminderService.cs
+i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.servicelayer\reminderservice.cs
+++UMService.cs
+i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.servicelayer\umservice.cs
+++WeightManagementService.cs
+i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.servicelayer\weightmanagementservice.cs
+++Microsoft.AspNetCore.Http.Features (5.0.15)
+i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:>4603
+i:{445216f7-730f-4498-9e75-fc687bea775f}:>4630
+++The6Bits.API
+i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\api\bin\debug\net6.0\the6bits.api.dll
+i:{00000000-0000-0000-0000-000000000000}:The6Bits.API
+++The6Bits.Logging
+i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.logging\bin\debug\net6.0\the6bits.logging.dll
+i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.logging\bin\debug\net6.0\the6bits.logging.dll
+i:{d8459be7-a930-4b65-b2be-42a22bf68c8f}:The6Bits.Logging
+++AccountManager.cs
+i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.managerlayer\accountmanager.cs
+++ArchivingManager.cs
+i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.managerlayer\archivingmanager.cs
+++DietRecommendationsManager.cs
+i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.managerlayer\dietrecommendationsmanager.cs
+++HealthRecorderManager.cs
+i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.managerlayer\healthrecordermanager.cs
+++HotTopicsManager.cs
+i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.managerlayer\hottopicsmanager.cs
+++MedicationManager.cs
+i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.managerlayer\medicationmanager.cs
+++RecoveryResetManager.cs
+i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.managerlayer\recoveryresetmanager.cs
+++ReminderManager.cs
+i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.managerlayer\remindermanager.cs
+++UMManager.cs
+i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.managerlayer\ummanager.cs
+++WeightManagementManager.cs
+i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.managerlayer\weightmanagementmanager.cs
+++FoodAPI
+i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\foodapi\bin\debug\net6.0\foodapi.dll
+i:{7cdba9f0-fa15-4208-b10b-fbba352fe18c}:FoodAPI
+i:{c648effd-8a2d-448f-b7b0-f746133fe820}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\foodapi\bin\debug\net6.0\foodapi.dll
+++WeightManagement
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\weightmanagement\
+++AccountRecoveryModel.cs
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\accountrecoverymodel.cs
+++ClaimsDBModel.cs
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\claimsdbmodel.cs
+++DeleteAccountModel.cs
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\deleteaccountmodel.cs
+++DietR.cs
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\dietr.cs
+++druginfo.cs
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\druginfo.cs
+++drugInfoResponse.cs
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\druginforesponse.cs
+++DrugName.cs
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\drugname.cs
+++FailedAttemptsModel.cs
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\failedattemptsmodel.cs
+++FavoriteDrug.cs
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\favoritedrug.cs
+++FindDrugResponse.cs
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\finddrugresponse.cs
+++JwtModel.cs
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\jwtmodel.cs
+++LoginModel.cs
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\loginmodel.cs
+++openFDAConfig.cs
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\openfdaconfig.cs
+++OTPModel.cs
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\otpmodel.cs
+++ReminderModel.cs
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\remindermodel.cs
+++User.cs
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\user.cs
+++ViewFavoriteRequest.cs
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\viewfavoriterequest.cs
+++EdamamModel.cs
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\weightmanagement\edamammodel.cs
+++FoodDaoModel.cs
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\weightmanagement\fooddaomodel.cs
+++FoodModel.cs
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\weightmanagement\foodmodel.cs
+++GoalWeightModel.cs
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\models\weightmanagement\goalweightmodel.cs
+++Contract
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\contract\
+i:{cc1e728b-e33d-45d5-999b-55acd879391c}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.authentication\contract\
+i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.authorization\contract\
+i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.hashandsaltservice\contract\
+++Implementations
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\implementations\
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\implementations\implementations\
+i:{cc1e728b-e33d-45d5-999b-55acd879391c}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.authentication\implementations\
+i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.authorization\implementations\
+i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.hashandsaltservice\implementations\
+i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.logging.dal\implementations\
+i:{6f5aee68-f998-4a26-8aa8-ac2a7bf0c423}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\foodapi\implementations\
+++IArchivingDatabase.cs
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\contract\iarchivingdatabase.cs
+++IArchivingPC.cs
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\contract\iarchivingpc.cs
+++IDrugDataSet.cs
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\contract\idrugdataset.cs
+++IRecoveryResetDatabase.cs
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\contract\irecoveryresetdatabase.cs
+++IReminderDatabase.cs
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\contract\ireminderdatabase.cs
+++IRepositoryAuth.cs
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\contract\irepositoryauth.cs
+++IRepositoryDietRecommendations.cs
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\contract\irepositorydietrecommendations.cs
+++IRepositoryHealthRecorderDAO.cs
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\contract\irepositoryhealthrecorderdao.cs
+++IRepositoryMedication.cs
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\contract\irepositorymedication.cs
+++IRepositoryUM.cs
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\contract\irepositoryum.cs
+++IRepositoryWeightManagementDao.cs
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\contract\irepositoryweightmanagementdao.cs
+++AccountMsSqlDao.cs
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\implementations\accountmssqldao.cs
+++DietRecommendationsMsSqlDao.cs
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\implementations\dietrecommendationsmssqldao.cs
+++HealthRecorderMsSqlDAO.cs
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\implementations\healthrecordermssqldao.cs
+++MsSqlMedicationDAO.cs
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\implementations\mssqlmedicationdao.cs
+++MsSqlUMDAO.cs
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\implementations\mssqlumdao.cs
+++OpenFDADAO.cs
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\implementations\openfdadao.cs
+++RecoveryResetDAO.cs
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\implementations\recoveryresetdao.cs
+++ReminderMsSqlDao.cs
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\implementations\remindermssqldao.cs
+++SqlArchivingDAO.cs
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\implementations\sqlarchivingdao.cs
+++WeightManagementMsSqlDao.cs
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\implementations\weightmanagementmssqldao.cs
+++WindowsArchivingDAO.cs
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.bitohealth.dal\implementations\windowsarchivingdao.cs
+++Dapper (2.0.123)
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:>4637
+i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:>4568
+i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:>4476
+i:{56ab64f0-28a5-4502-bced-414a4476ec77}:>4408
+i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:>4661
+++System.Data.SqlClient (4.8.3)
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:>4641
+i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:>4569
+i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:>4478
+i:{56ab64f0-28a5-4502-bced-414a4476ec77}:>4409
+i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:>4663
+++The6Bits.Logging.Models
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.logging.models\bin\debug\net6.0\the6bits.logging.models.dll
+i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.logging.models\bin\debug\net6.0\the6bits.logging.models.dll
+i:{d8459be7-a930-4b65-b2be-42a22bf68c8f}:The6Bits.Logging.Models
 ++IAuthenticationService.cs
 i:{cc1e728b-e33d-45d5-999b-55acd879391c}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.authentication\contract\iauthenticationservice.cs
 ++JWTAuthenticationService.cs
 i:{cc1e728b-e33d-45d5-999b-55acd879391c}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.authentication\implementations\jwtauthenticationservice.cs
 ++Microsoft.Extensions.Configuration.Abstractions (6.0.0)
-i:{cc1e728b-e33d-45d5-999b-55acd879391c}:>4413
+i:{cc1e728b-e33d-45d5-999b-55acd879391c}:>4582
 ++Newtonsoft.Json (13.0.1)
-i:{cc1e728b-e33d-45d5-999b-55acd879391c}:>4421
+i:{cc1e728b-e33d-45d5-999b-55acd879391c}:>4592
 ++AuthorizationService.cs
 i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.authorization\authorizationservice.cs
 ++IAuthorizationDao.cs
@@ -572,12 +576,12 @@ i:{dd54b656-0f37-4227-8469-f21c9d44dd52}:c:\users\ramys\documents\github\cecs-49
 ++MsSqlDerrorService.cs
 i:{dd54b656-0f37-4227-8469-f21c9d44dd52}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.dberrors\implementation\mssqlderrorservice.cs
 ++Microsoft.Extensions.Configuration (7.0.0-preview.1.22076.8)
-i:{dd54b656-0f37-4227-8469-f21c9d44dd52}:>4312
-i:{2aa2ffcb-096e-48f8-a272-c611ec9a39e1}:>4314
-i:{56ab64f0-28a5-4502-bced-414a4476ec77}:>4222
-i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:>4415
-i:{d79c8cd7-e325-41e1-bd71-5ffcefff0b6d}:>4390
-i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:>4470
+i:{dd54b656-0f37-4227-8469-f21c9d44dd52}:>4553
+i:{2aa2ffcb-096e-48f8-a272-c611ec9a39e1}:>4552
+i:{56ab64f0-28a5-4502-bced-414a4476ec77}:>4410
+i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:>4665
+i:{d79c8cd7-e325-41e1-bd71-5ffcefff0b6d}:>4420
+i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:>4526
 ++ISMTPEmailService.cs
 i:{2aa2ffcb-096e-48f8-a272-c611ec9a39e1}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.emailservice\contracts\ismtpemailservice.cs
 ++AWSSesService.cs
@@ -607,6 +611,14 @@ i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:c:\users\ramys\documents\github\cecs-49
 i:{d79c8cd7-e325-41e1-bd71-5ffcefff0b6d}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.logging.models\log.cs
 ++TrackerLog.cs
 i:{d79c8cd7-e325-41e1-bd71-5ffcefff0b6d}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.logging.models\trackerlog.cs
+++APIS
+i:{00000000-0000-0000-0000-000000000000}:APIS
+++EdamamConfig.cs
+i:{6f5aee68-f998-4a26-8aa8-ac2a7bf0c423}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\foodapi\edamamconfig.cs
+++IFoodAPI.cs
+i:{6f5aee68-f998-4a26-8aa8-ac2a7bf0c423}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\foodapi\contracts\ifoodapi.cs
+++EdamamAPIService.cs
+i:{6f5aee68-f998-4a26-8aa8-ac2a7bf0c423}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\foodapi\implementations\edamamapiservice.cs
 ++Tests
 i:{00000000-0000-0000-0000-000000000000}:Tests
 ++TestAccountData.json
@@ -627,8 +639,8 @@ i:{6baa515f-55e7-4ba9-9150-a36b473de2c1}:C:\Users\ramys\Documents\GitHub\CECS-49
 i:{6baa515f-55e7-4ba9-9150-a36b473de2c1}:C:\Users\ramys\Documents\GitHub\CECS-491A-Senior-Project2\Backend\The6Bits.BitOHealth\Tests\TestData\WeightGoalModelTestData.json
 ++The6Bits.BitOHealth.DAL.Tests
 i:{fa5bfc28-6e48-4a14-8698-79ca6508d73a}:The6Bits.BitOHealth.DAL.Tests
-i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\tests\the6bits.bitohealh.dal.tests\bin\debug\net6.0\the6bits.bitohealth.dal.tests.dll
 i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\tests\the6bits.bitohealh.dal.tests\bin\debug\net6.0\the6bits.bitohealth.dal.tests.dll
+i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\tests\the6bits.bitohealh.dal.tests\bin\debug\net6.0\the6bits.bitohealth.dal.tests.dll
 i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\tests\the6bits.bitohealh.dal.tests\bin\debug\net6.0\the6bits.bitohealth.dal.tests.dll
 i:{f2d52a85-d7db-40e9-909a-c798aac61b90}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\tests\the6bits.bitohealh.dal.tests\bin\debug\net6.0\the6bits.bitohealth.dal.tests.dll
 ++AccountMsSqlDaoShould.cs
@@ -655,38 +667,44 @@ i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\users\ramys\documents\github\cecs-49
 i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\tests\the6bits.bitohealh.dal.tests\windowsarchivingdaoshould.cs
 ++xunit.analyzers
 i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\users\ramys\.nuget\packages\xunit.analyzers\0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll
-i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\ramys\.nuget\packages\xunit.analyzers\0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll
-i:{c648effd-8a2d-448f-b7b0-f746133fe820}:c:\users\ramys\.nuget\packages\xunit.analyzers\0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll
 i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:c:\users\ramys\.nuget\packages\xunit.analyzers\0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll
+i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\ramys\.nuget\packages\xunit.analyzers\0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll
 i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:c:\users\ramys\.nuget\packages\xunit.analyzers\0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll
 i:{f2d52a85-d7db-40e9-909a-c798aac61b90}:c:\users\ramys\.nuget\packages\xunit.analyzers\0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll
+i:{c648effd-8a2d-448f-b7b0-f746133fe820}:c:\users\ramys\.nuget\packages\xunit.analyzers\0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll
 ++coverlet.collector (3.1.0)
-i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:>4475
-i:{119ce180-1661-4091-91e6-acbe39d37091}:>4355
-i:{c648effd-8a2d-448f-b7b0-f746133fe820}:>4474
-i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:>4330
-i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:>4331
+i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:>4536
+i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:>4551
+i:{119ce180-1661-4091-91e6-acbe39d37091}:>4479
+i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:>4513
+i:{c648effd-8a2d-448f-b7b0-f746133fe820}:>4531
 ++Microsoft.AspNetCore.Hosting.Abstractions (2.2.0)
-i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:>4457
+i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:>4516
 ++Microsoft.Extensions.Configuration.Json (7.0.0-preview.1.22076.8)
-i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:>4468
+i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:>4520
 ++Microsoft.NET.Test.Sdk (17.0.0)
-i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:>4453
-i:{119ce180-1661-4091-91e6-acbe39d37091}:>4345
-i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:>4318
-i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:>4319
+i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:>4512
+i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:>4535
+i:{119ce180-1661-4091-91e6-acbe39d37091}:>4469
+i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:>4502
 ++xunit (2.4.1)
-i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:>4461
-i:{119ce180-1661-4091-91e6-acbe39d37091}:>4348
-i:{c648effd-8a2d-448f-b7b0-f746133fe820}:>4471
-i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:>4325
-i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:>4324
+i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:>4518
+i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:>4540
+i:{119ce180-1661-4091-91e6-acbe39d37091}:>4470
+i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:>4506
+i:{c648effd-8a2d-448f-b7b0-f746133fe820}:>4463
 ++xunit.runner.visualstudio (2.4.3)
-i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:>4472
-i:{119ce180-1661-4091-91e6-acbe39d37091}:>4350
-i:{c648effd-8a2d-448f-b7b0-f746133fe820}:>4473
-i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:>4327
-i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:>4328
+i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:>4532
+i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:>4546
+i:{119ce180-1661-4091-91e6-acbe39d37091}:>4473
+i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:>4510
+i:{c648effd-8a2d-448f-b7b0-f746133fe820}:>4467
+++The6Bits.Authorization.Tests
+i:{fa5bfc28-6e48-4a14-8698-79ca6508d73a}:The6Bits.Authorization.Tests
+++DESAuthorizationShould.cs
+i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\tests\the6bits.authorization.tests\desauthorizationshould.cs
+++MsSqlRoleAuthorizationDaoShould.cs
+i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\tests\the6bits.authorization.tests\mssqlroleauthorizationdaoshould.cs
 ++The6Bits.BitOHealth.ServiceLayer.Test
 i:{fa5bfc28-6e48-4a14-8698-79ca6508d73a}:The6Bits.BitOHealth.ServiceLayer.Test
 ++AccountRecoveryShould.cs
@@ -708,21 +726,7 @@ i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\ramys\documents\github\cecs-49
 ++WeightManagementServiceShould.cs
 i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\tests\the6bits.bitohealth.servicelayer.test\weightmanagementserviceshould.cs
 ++Moq (4.16.1)
-i:{119ce180-1661-4091-91e6-acbe39d37091}:>4353
-++APITests
-i:{fa5bfc28-6e48-4a14-8698-79ca6508d73a}:APITests
-++The6bits.FoodAPI.Tests
-i:{62678971-ad11-466a-a5fb-222abfc0b446}:The6bits.FoodAPI.Tests
-++EdamamAPIServiceShould.cs
-i:{c648effd-8a2d-448f-b7b0-f746133fe820}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.foodapi.tests\edamamapiserviceshould.cs
-++Microsoft.NET.Test.Sdk (16.11.0)
-i:{c648effd-8a2d-448f-b7b0-f746133fe820}:>4467
-++The6Bits.Authorization.Tests
-i:{fa5bfc28-6e48-4a14-8698-79ca6508d73a}:The6Bits.Authorization.Tests
-++DESAuthorizationShould.cs
-i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\tests\the6bits.authorization.tests\desauthorizationshould.cs
-++MsSqlRoleAuthorizationDaoShould.cs
-i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\tests\the6bits.authorization.tests\mssqlroleauthorizationdaoshould.cs
+i:{119ce180-1661-4091-91e6-acbe39d37091}:>4477
 ++The6Bits.Authentication.Tests
 i:{fa5bfc28-6e48-4a14-8698-79ca6508d73a}:The6Bits.Authentication.Tests
 ++JwtAuthenticationServiceShould.cs
@@ -731,11 +735,11 @@ i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:c:\users\ramys\documents\github\cecs-49
 i:{fa5bfc28-6e48-4a14-8698-79ca6508d73a}:The6Bits.HashAndSaltService.Tests
 ++HashAndSaltServiceShould.cs
 i:{f2d52a85-d7db-40e9-909a-c798aac61b90}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\tests\the6bits.hashandsaltservice.tests\hashandsaltserviceshould.cs
-++APIS
-i:{00000000-0000-0000-0000-000000000000}:APIS
-++EdamamConfig.cs
-i:{6f5aee68-f998-4a26-8aa8-ac2a7bf0c423}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\foodapi\edamamconfig.cs
-++IFoodAPI.cs
-i:{6f5aee68-f998-4a26-8aa8-ac2a7bf0c423}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\foodapi\contracts\ifoodapi.cs
-++EdamamAPIService.cs
-i:{6f5aee68-f998-4a26-8aa8-ac2a7bf0c423}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\foodapi\implementations\edamamapiservice.cs
+++APITests
+i:{fa5bfc28-6e48-4a14-8698-79ca6508d73a}:APITests
+++The6bits.FoodAPI.Tests
+i:{62678971-ad11-466a-a5fb-222abfc0b446}:The6bits.FoodAPI.Tests
+++EdamamAPIServiceShould.cs
+i:{c648effd-8a2d-448f-b7b0-f746133fe820}:c:\users\ramys\documents\github\cecs-491a-senior-project2\backend\the6bits.bitohealth\the6bits.foodapi.tests\edamamapiserviceshould.cs
+++Microsoft.NET.Test.Sdk (16.11.0)
+i:{c648effd-8a2d-448f-b7b0-f746133fe820}:>4460

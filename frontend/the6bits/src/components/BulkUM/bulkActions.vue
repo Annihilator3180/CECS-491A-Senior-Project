@@ -29,7 +29,7 @@
                 credentials: 'include',
                 body:  this.content
             };
-            fetch(process.env.VUE_APP_BACKEND+'UM/UploadFiles' ,requestOptions)
+            fetch('https://localhost:7011/UM/UploadFiles' ,requestOptions)
                 .then(response => console.log(response))
 
 

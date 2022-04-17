@@ -28,11 +28,11 @@
                 method: "POST",
                 credentials: 'include',
             };
-            fetch(process.env.VUE_APP_BACKEND+'Account/OTP?Username=' + this.formData.userId ,requestOptions)
+            fetch('https://localhost:7011/Account/OTP?Username=' + this.formData.userId ,requestOptions)
                 .then(response =>  response.text())
                 .then(body => this.message = body)
             // axios
-            // .post(process.env.VUE_APP_BACKEND+'Account/Login',{Username : this.formData.userId, Password : this.formData.password, Code:this.formData.otp})
+            // .post('https://localhost:7011/Account/Login',{Username : this.formData.userId, Password : this.formData.password, Code:this.formData.otp})
             // .then(response => console.log(response))
             // .catch(error => console.log(error))
         }

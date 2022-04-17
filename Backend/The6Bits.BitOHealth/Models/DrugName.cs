@@ -9,20 +9,20 @@ namespace The6Bits.BitOHealth.Models
     {
 
         public string generic_name { get; set; }
-        public string product_id { get; set; }
+        public string product_ndc { get; set; }
         public string brand_name { get; set; }
 
         public DrugName()
         {
             generic_name ="";
-            product_id = "";
+            product_ndc = "";
             brand_name = "";
         }
 
-        public DrugName(string genericName, string productID, string brandName)
+        public DrugName(string genericName, string productNdc, string brandName)
         {
             generic_name = genericName;
-            product_id = productID;
+            product_ndc = productNdc;
             brand_name = brandName;
         }
     }

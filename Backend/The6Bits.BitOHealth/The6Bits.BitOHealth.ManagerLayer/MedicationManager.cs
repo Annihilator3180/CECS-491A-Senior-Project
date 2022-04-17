@@ -22,11 +22,11 @@ public class MedicationManager
 
 
     public MedicationManager(IRepositoryMedication<string> MedicationDao, IDrugDataSet _drugDataSet,  
-        IDBErrors dbError, IConfiguration config, ILogDal logDao, ReminderManager rm)
+        IDBErrors dbError, ILogDal logDao, ReminderManager rm)
     {
         _iDBErrors = dbError;
         _log= new LogService(logDao); ;
-        _MS = new MedicationService(MedicationDao, _drugDataSet, dbError);
+        _MS = new MedicationService(MedicationDao, _drugDataSet);
         _reminderManager = rm;
     }
 
@@ -52,9 +52,12 @@ public class MedicationManager
     {
         try
         {
-            _MS.addFavorite(username, drug);
-            _ = _log.Log(username, "Add Favorite drug" + drug.brand_name, "Data Store", "Error");
-            return "Favorited";
+            if(!_MS.isFavorited(username, drug.generic_name)){
+                _MS.addFavorite(username, drug);
+                _ = _log.Log(username, "Add Favorite drug" + drug.brand_name, "Data Store", "Error");
+                return "Favorited";
+            }
+            return "already favorited";
         }
         catch (Exception ex)
         {
@@ -94,12 +97,12 @@ public class MedicationManager
         
     }
 
-    public string RemoveFavorite(string drugProductID, string username)
+    public string RemoveFavorite(string product_ndc, string username)
     {
         try
         {
-            string favoriteRemoved= _MS.RemoveFavorite(drugProductID, username);
-            _ = _log.Log(username, favoriteRemoved +drugProductID, "Data Store", "Business");
+            string favoriteRemoved= _MS.RemoveFavorite(product_ndc, username);
+            _ = _log.Log(username, favoriteRemoved + product_ndc, "Data Store", "Business");
             return favoriteRemoved;
         }
         catch (Exception ex)
@@ -122,6 +125,11 @@ public class MedicationManager
             _ = _log.Log(username, "Invalid Price", "Front End", "Business");
             return "Invalid Price";
         }
+        if (!_MS.validateDescription(favoriteMedication.description))
+        {
+            _ = _log.Log(username, "Invalid Description", "Front End", "Business");
+            return "Invalid Description";
+        }
         try
         {
             string updatedFavorite = _MS.updateFavorite(username, favoriteMedication);
@@ -140,12 +148,12 @@ public class MedicationManager
 
     }
 
-    public drugInfoResponse ViewDrug(string username, string generic_name)
+    public drugInfoResponse ViewDrug(string username, string brand_name)
     {
         drugInfoResponse infoResponse = new drugInfoResponse();
         try
         {
-            drugInfo drug = _MS.ViewDrug(generic_name);
+            drugInfo drug = _MS.ViewDrug(brand_name);
             try
             {
 
@@ -175,8 +183,9 @@ public class MedicationManager
 
     public string RefillMedication(string username, string name, string description, string date, string time, string repeat)
     {
+        
         name = _MS.CreateTitle(name);
-        description = _MS.CreateDescrption(description);
+        description = _MS.CreateDescription(description);
         string reminderSuccess=_reminderManager.CreateReminder(username, name, description, date, time, repeat);
         return reminderSuccess;
     }

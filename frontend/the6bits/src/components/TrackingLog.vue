@@ -27,7 +27,7 @@
                 method: "POST",
                 credentials: 'include',
             };
-            fetch(process.env.VUE_APP_BACKEND+'Account/getTLogs', requestOptions)
+            fetch('https://localhost:7011/Account/getTLogs', requestOptions)
                 .then(response =>  response.text())
                 .then(body => this.message = body)
             

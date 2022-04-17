@@ -19,7 +19,7 @@
                     credentials: 'include',
                 
                 };
-                fetch(process.env.VUE_APP_BACKEND+'Account/Delete', requestOptions)
+                fetch('https://localhost:7011/Account/Delete', requestOptions)
                     .then(response => console.log(response))
                 
             }

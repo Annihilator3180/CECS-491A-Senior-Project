@@ -27,13 +27,10 @@ public class MedicationController : ControllerBase
     private ReminderManager _ReminderManager;
     private IReminderDatabase _reminderDB;
     public MedicationController(IRepositoryMedication<string> MedicationDao,IDrugDataSet _drugDataSet, ILogDal logDao,
-        IAuthenticationService authenticationService, IDBErrors dbErrors, IReminderDatabase remindDB,
-         IConfiguration config)
+        IAuthenticationService authenticationService, IDBErrors dbErrors, IReminderDatabase remindDB
+        )
     {
-        _ReminderManager = new ReminderManager(remindDB, dbErrors);
-        _MM = new MedicationManager(MedicationDao, _drugDataSet, dbErrors, config, logDao,_ReminderManager);//RM
-        _logService = new LogService(logDao);
-        _dbErrors = dbErrors;
+        _MM = new MedicationManager(MedicationDao, _drugDataSet , dbErrors,  logDao, new ReminderManager(remindDB, dbErrors));
         _auth = authenticationService;
         _config = config;
     }
@@ -67,7 +64,7 @@ public class MedicationController : ControllerBase
 
     }
     [HttpPost("FavoriteAdd")]
-    public string AddFavorites(string genericName, string brandName, string productID)
+    public string AddFavorites(string genericName, string brandName, string product_ndc)
     {
         string token;
         try
@@ -121,7 +118,7 @@ public class MedicationController : ControllerBase
 
     }
     [HttpPost("DeleteFavorite")]
-    public string RemoveFavorite(string product_id)
+    public string RemoveFavorite(string product_ndc)
     {
         string token;
         try
@@ -151,7 +148,7 @@ public class MedicationController : ControllerBase
 
     }
     [HttpPost("viewDrug")]
-    public drugInfoResponse ViewDrug(string generic_name)
+    public drugInfoResponse ViewDrug(string brand_name)
     {
         drugInfoResponse infoResponse=new drugInfoResponse();
         string token;

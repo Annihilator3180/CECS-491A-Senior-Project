@@ -18,7 +18,7 @@ namespace The6Bits.BitOHealth.ServiceLayer.Test
             _service = new WeightManagementService(new WeightManagementMsSqlDao(conn));
         }
 
-
+        /**
         [Theory]
         [InlineData("Dsad")]
         public void CreateServiceTest(string p)
@@ -30,7 +30,7 @@ namespace The6Bits.BitOHealth.ServiceLayer.Test
         public void DeleteServiceTest(string p)
         {
             _service.CreateGoal(1, p);
-        }
+        }**/
 
     }
 }
