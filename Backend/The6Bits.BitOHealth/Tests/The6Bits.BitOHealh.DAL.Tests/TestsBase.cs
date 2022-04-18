@@ -21,9 +21,10 @@ public abstract class TestsBase : IDisposable
             .SetBasePath(System.IO.Path.Combine(AppContext.BaseDirectory,@"..\..\..\"))
             .AddJsonFile("appsettings.json")
             .Build();
-         conn = configuration.GetConnectionString("DefaultConnection");
-         keyPath = configuration.GetSection("PKs")["JWT"];
 
+        conn = configuration.GetConnectionString("DefaultConnection");
+         keyPath = configuration.GetSection("PKs")["JWT"];
+        _openFDA = new openFDAConfig() { APIKey = "imFf95grrUBnCaPj2DA3MQQtpCpBmnPFiTtXfbD8"};
          // Do "global" initialization here; Called before every test method.
         }
 
