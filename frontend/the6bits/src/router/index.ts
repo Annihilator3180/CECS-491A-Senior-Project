@@ -17,7 +17,7 @@ import ViewDrug from '@/components/WeightManagement/viewDrug.vue'
 import EditFavoriteDrug from '@/components/EditFavoriteDrug.vue'
 import DeleteAccount from '@/components/DeleteAccount.vue'
 import DietRecommendation from '@/components/DietRecommendation.vue'
-import FavoriteList from '@/components/FavoriteList.vue'
+import logOut from '@/components/logout.vue'
 import SaveFoodLog from '@/components/WeightManagement/SaveFoodLog.vue'
 import viewReminder from '@/components/Reminders/ViewReminder.vue'
 
@@ -31,6 +31,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/login',
     name: 'login',
     component: LoginPost
+  },
+  {
+    path: '/logout',
+    name: 'logout',
+    component: logOut
   },
   {
     path: '/otp',
