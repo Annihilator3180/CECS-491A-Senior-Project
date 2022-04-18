@@ -151,7 +151,7 @@
 
             };
             fetch(process.env.VUE_APP_BACKEND+'Medication/Reminder?name='+ this.drugName+ '&description='+
-            this.formData.drugInfoResponse.data.favoriteDrug.lowestprice+"."+
+            this.formData.drugInfoResponse.data.favoriteDrug.lowestprice+"/"+
             this.formData.drugInfoResponse.data.favoriteDrug.lowestPriceLocation+'&date='+this.formData.date+
             '&time=0:0:0'+'&repeat='+this.formData.frequency
             ,requestOptions)

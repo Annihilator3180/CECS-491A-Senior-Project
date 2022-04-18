@@ -40,9 +40,10 @@ public class MedicationManager
         {
             drugResponse.success = false;
             drugResponse.error = "no drugs found";
+            _ = _log.Log(username, "Searched for" + drugName, "Front End", "Business");
             return drugResponse;
         }
-        _ =_log.Log(username, "Searched for", "Front End", "Business");
+        _ =_log.Log(username, "Searched for"+ drugName, "Front End", "Business");
         drugResponse.success = true;
         drugResponse.data = drugNames;
         return drugResponse;
@@ -54,15 +55,16 @@ public class MedicationManager
         {
             if(!_MS.isFavorited(username, drug.generic_name)){
                 _MS.addFavorite(username, drug);
-                _ = _log.Log(username, "Add Favorite drug" + drug.brand_name, "Data Store", "Error");
+                _ = _log.Log(username, "Add Favorite drug" + drug.brand_name, "Data Store", "Business");
                 return "Favorited";
             }
+            _ = _log.Log(username, "Already Favorite drug" + drug.brand_name, "Data Store", "Business");
             return "already favorited";
         }
         catch (Exception ex)
         {
             string dbError = _iDBErrors.DBErrorCheck(int.Parse(ex.Message));
-            _ =_log.Log(username, "FavoriteDrugs Database Error " + dbError, "Data Store", "Error");
+            _ =_log.Log(username, "Favorite Drug Database Error " + dbError, "Data Store", "Error");
             return "Database Error";
         }
         
@@ -75,6 +77,7 @@ public class MedicationManager
         {
             requestResult.data= _MS.ViewFavorites(username);
             requestResult.isSuccess = true;
+            _ = _log.Log(username, "FavoriteDrugs viewed list " , "Data Store", "Business");
             return requestResult;
 
          }
@@ -153,7 +156,15 @@ public class MedicationManager
         drugInfoResponse infoResponse = new drugInfoResponse();
         try
         {
-            drugInfo drug = _MS.ViewDrug(brand_name);
+
+            drugInfo? drug = _MS.ViewDrug(brand_name);
+            if (drug.openfda is null){
+                drug = _MS.ViewDrugGeneric(brand_name);
+                 if (drug.openfda is null)
+                {
+                    throw new Exception("error getting drug");
+                }
+                    }
             try
             {
 
@@ -167,6 +178,7 @@ public class MedicationManager
                 string dbError = _iDBErrors.DBErrorCheck(int.Parse(ex.Message));
                 _ =_log.Log(username, "FavoriteDrugs Database Error " + dbError, "Data Store", "Error");
             }
+            _ = _log.Log(username, "FavoriteDrugs viewed" + brand_name, "Front End", "Business");
             infoResponse.isSuccess = true;
             infoResponse.data = drug;
             return infoResponse;
@@ -174,7 +186,7 @@ public class MedicationManager
         }
         catch( Exception ex)
         {
-                _ = _log.Log(username, ex.Message, "Back End", "Business");
+                _ = _log.Log(username, "FavoriteDrugs couldn't view" + brand_name, "Front End", "Error");
                 infoResponse.isSuccess = false;
                 infoResponse.Error = ex.Message;
                 return infoResponse;
@@ -187,6 +199,7 @@ public class MedicationManager
         name = _MS.CreateTitle(name);
         description = _MS.CreateDescription(description);
         string reminderSuccess=_reminderManager.CreateReminder(username, name, description, date, time, repeat);
+        _ = _log.Log(username, "Medication Reminder" + name, "Front End", "Business");
         return reminderSuccess;
     }
 }

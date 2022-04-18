@@ -161,14 +161,19 @@ namespace The6Bits.BitOHealth.ServiceLayer
             public string CreateDescription(string description)
         {
             int dash = description.IndexOf('/');
-            string location=description.Substring(0,dash);
-            string price= description.Substring(dash+1);
+            string price = description.Substring(0,dash);
+            string location= description.Substring(dash+1);
             return "Cheapest reported price is " + price + " Found at " + location;
         }
 
         public string CreateTitle(string name)
         {
             return "Reminder: " + name + " refill"; 
+        }
+
+        public drugInfo ViewDrugGeneric(string generic_name)
+        {
+            return _drugDataSet.GetDrugInfoGeneric(generic_name).Result;
         }
     }
 }
