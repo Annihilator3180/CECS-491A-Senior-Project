@@ -2,7 +2,9 @@ const ReadGoal = () =>{
             const requestOptions = {
                 method: "GET",
                 credentials: 'include',
-                headers: { "Content-Type": "application/json"},
+                headers: { 
+                    "Authorization" : `Bearer ${sessionStorage.getItem('token')}`,
+                    "Content-Type": "application/json"},
             };
             return fetch(process.env.VUE_APP_BACKEND+'WeightManagement/ReadGoal' ,requestOptions)
                 .then(response => response.text())
@@ -19,7 +21,9 @@ const GoalRequest = (goalModel, requestType) => {
             const requestOptions = {
                 method: "POST",
                 credentials: 'include',
-                headers: { "Content-Type": "application/json"},
+                headers: { 
+                    "Authorization" : `Bearer ${sessionStorage.getItem('token')}`,
+                    "Content-Type": "application/json"},
                 body: JSON.stringify({GoalWeight : goalModel.weight, GoalDate : goalModel.goaldate, ExerciseLevel: goalModel.calories   })
             };
             return fetch(process.env.VUE_APP_BACKEND+'WeightManagement/'+requestType ,requestOptions)
@@ -34,7 +38,9 @@ const GetAllFoodLogs = () =>{
             const requestOptions = {
                 method: "GET",
                 credentials: 'include',
-                headers: { "Content-Type": "application/json"},
+                headers: { 
+                    "Authorization" : `Bearer ${sessionStorage.getItem('token')}`,
+                    "Content-Type": "application/json"},
             };
             return fetch(process.env.VUE_APP_BACKEND+'WeightManagement/GetFoodLogs' ,requestOptions)
                 .then(response => response.text())
@@ -42,6 +48,10 @@ const GetAllFoodLogs = () =>{
                     return JSON.parse(value)})   
         }
 
+const JsonLogToCSVString =(logArr)=>{
+    let csvContent = "data:text/csv;charset=utf-8,foodname,calories,description,fooddate\n"
+        + logArr.map(FoodItem => FoodItem.foodName +','+ FoodItem.calories.toString() +','+ FoodItem.description +','+  FoodItem.foodLogDate.toString()+'\n').join('');
+    return csvContent
+}
 
-
-export {ReadGoal,GoalRequest,HasWeightGoal,GetAllFoodLogs}
+export {ReadGoal,GoalRequest,HasWeightGoal,GetAllFoodLogs,JsonLogToCSVString}

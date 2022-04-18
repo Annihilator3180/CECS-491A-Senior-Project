@@ -43,6 +43,8 @@
             const requestOptions = {
                 method: "GET",
                 credentials: 'include',
+                headers: { 
+                    "Authorization" : `Bearer ${sessionStorage.getItem('token')}`},
             
             };
             fetch(process.env.VUE_APP_BACKEND+'WeightManagement/SearchFood?queryString=' +this.formData.food ,requestOptions)

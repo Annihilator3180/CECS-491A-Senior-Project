@@ -21,6 +21,7 @@
             //IS THIS TRASH?
             this.GetAllFoodLogs().then(value => {
                 this.FoodLogs = value;
+                this.$emit('AllFoodLogs',value)
                 console.log(value);
                 })
 

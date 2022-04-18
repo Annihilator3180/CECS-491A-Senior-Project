@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FoodAPI;
-using FoodAPI.Contracts;
-using Microsoft.AspNetCore.Http;
+﻿using FoodAPI.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using The6Bits.Authentication.Contract;
 using The6Bits.BitOHealth.DAL;
@@ -15,22 +8,20 @@ using The6Bits.DBErrors;
 using The6Bits.Logging.DAL.Contracts;
 using The6Bits.Logging.Implementations;
 
-namespace The6Bits.BitOHealth.ControllerLayer.Features
+namespace The6Bits.BitOHealth.ControllerLayer
 {
     [ApiController]
     [Route("WeightManagement")]
     public class WeightManagementController : ControllerBase
     {
 
-        private IRepositoryWeightManagementDao _dao;
-        private IAuthenticationService _authentication;
-        private WeightManagementManager _weightManagementManager;
-        private LogService _logService;
+        private readonly  IAuthenticationService _authentication;
+        private readonly WeightManagementManager _weightManagementManager;
+        private readonly LogService _logService;
 
-        private bool isValid;
+        private bool _isValid;
         public WeightManagementController(IRepositoryWeightManagementDao dao, IAuthenticationService authentication, ILogDal logDal, IDBErrors dbErrors, IFoodAPI<Parsed> foodApi)
         {
-            _dao = dao;
             _authentication = authentication;
             _logService = new LogService(logDal);
             _weightManagementManager = new WeightManagementManager(dao,dbErrors, foodApi);
@@ -41,20 +32,20 @@ namespace The6Bits.BitOHealth.ControllerLayer.Features
 
         public async Task<ActionResult> CreateGoal(GoalWeightModel goal)
         {
-            string token = "";
+            string? token = "";
             try
             {
                 token = Request.Headers["Authorization"];
-            token = token.Split(' ')[1];
+                token = token.Split(' ')[1];
             }
             catch
             {
                 return BadRequest("No Token");
             }
 
-            isValid = _authentication.ValidateToken(token);
+            _isValid = _authentication.ValidateToken(token);
 
-            if (!isValid)
+            if (!_isValid)
             {
 
                 _ = _logService.Log("None", "Invalid Token - Weight Goal", "Info", "Business");
@@ -108,9 +99,9 @@ namespace The6Bits.BitOHealth.ControllerLayer.Features
                 return BadRequest("No Token");
             }
 
-            isValid = _authentication.ValidateToken(token);
+            _isValid = _authentication.ValidateToken(token);
 
-            if (!isValid)
+            if (!_isValid)
             {
 
                 _ = _logService.Log("None", "Invalid Token - Weight Goal", "Info", "Business");
@@ -142,9 +133,9 @@ namespace The6Bits.BitOHealth.ControllerLayer.Features
                 return BadRequest("No Token");
             }
 
-            isValid = _authentication.ValidateToken(token);
+            _isValid = _authentication.ValidateToken(token);
 
-            if (!isValid)
+            if (!_isValid)
             {
 
                 _ = _logService.Log("None", "Invalid Token - Weight Goal", "Info", "Business");
@@ -185,9 +176,9 @@ namespace The6Bits.BitOHealth.ControllerLayer.Features
                 return BadRequest("No Token");
             }
 
-            isValid = _authentication.ValidateToken(token);
+            _isValid = _authentication.ValidateToken(token);
 
-            if (!isValid)
+            if (!_isValid)
             {
 
                 _ = _logService.Log("None", "Invalid Token - Weight Goal", "Info", "Business");
@@ -219,9 +210,9 @@ namespace The6Bits.BitOHealth.ControllerLayer.Features
                 return BadRequest("No Token");
             }
 
-            isValid = _authentication.ValidateToken(token);
+            _isValid = _authentication.ValidateToken(token);
 
-            if (!isValid)
+            if (!_isValid)
             {
 
                 _ = _logService.Log("None", "Invalid Token - Weight Goal", "Info", "Business");
