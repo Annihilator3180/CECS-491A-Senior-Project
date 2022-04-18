@@ -18,7 +18,6 @@
    <router-link :to="{name: 'FavoriteDrugListPost'}"> Favorite Drugs List </router-link> |
     <router-link :to="{name: 'DietRecommendation'}"> Diet Recommendation</router-link>|
     <router-link :to="{name: 'DeleteAccount'}"> Delete </router-link>|
-    <router-link :to="{name: 'ViewReminder'}"> ViewReminder </router-link>
   </nav>
     <router-view />
 </template>
