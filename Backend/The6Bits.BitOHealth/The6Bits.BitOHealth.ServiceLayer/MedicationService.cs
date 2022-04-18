@@ -10,18 +10,10 @@ namespace The6Bits.BitOHealth.ServiceLayer
 {
     public class MedicationService
     {
-        IDrugDataSet _drugDataSet;
-        private IDBErrors _DBErrors;
+        private IDrugDataSet _drugDataSet;
+
         private IRepositoryMedication<string> _MedicationDao;
-        public MedicationService(IRepositoryMedication<string> MedicationDao, IDrugDataSet drugDataSet, IDBErrors DbError)
-        {
-            _DBErrors = DbError;
-            _drugDataSet = drugDataSet;
-            _MedicationDao = MedicationDao;
 
-
-
-        }
         public MedicationService(IRepositoryMedication<string> MedicationDao, IDrugDataSet drugDataSet)
         {
             _drugDataSet=drugDataSet;
@@ -35,11 +27,11 @@ namespace The6Bits.BitOHealth.ServiceLayer
             List<string> uniqueDrugIDs=new List<string>();
             List<string> uniqueGenericName=new List<string>(); 
             List<string> uniqueBrandName=new List<string>();
-            if (genericDrugNames.Count == 1 && genericDrugNames[0].product_id=="")
+            if (genericDrugNames.Count == 1 && genericDrugNames[0].product_ndc == "")
             {
                 genericDrugNames.Clear();
             }
-            if (brandDrugNames.Count == 1 && brandDrugNames[0].product_id == "")
+            if (brandDrugNames.Count == 1 && brandDrugNames[0].product_ndc == "")
             {
                 brandDrugNames.Clear();
             }
@@ -47,14 +39,14 @@ namespace The6Bits.BitOHealth.ServiceLayer
             int i=0;
             while(i<drugNames.Count)
             {
-                if (uniqueDrugIDs.Contains(drugNames[i].product_id)|| uniqueGenericName.Contains(drugNames[i].generic_name)
+                if (uniqueDrugIDs.Contains(drugNames[i].product_ndc) || uniqueGenericName.Contains(drugNames[i].generic_name)
                     || uniqueBrandName.Contains(drugNames[i].brand_name))
                 {
                     drugNames.RemoveAt(i);
                 }
                 else
                 {
-                    uniqueDrugIDs.Add(drugNames[i].product_id);
+                    uniqueDrugIDs.Add(drugNames[i].product_ndc);
                     uniqueBrandName.Add(drugNames[i].brand_name);
                     uniqueGenericName.Add(drugNames[i].generic_name);
                     i++;
@@ -63,6 +55,15 @@ namespace The6Bits.BitOHealth.ServiceLayer
             return drugNames;
 
         }
+
+        public bool isFavorited(string username, string drugName)
+        {
+            FavoriteDrug favorited = _MedicationDao.Read(username, drugName);
+            return favorited.generic_name != "";
+            
+            
+        }
+
         public bool DeleteFavoriteList(string username)
         {
             return _MedicationDao.DeleteUsersList(username) > 0;
@@ -87,9 +88,9 @@ namespace The6Bits.BitOHealth.ServiceLayer
             return _drugDataSet.GetBrandDrugName(drugName).Result;
         }
 
-        public string RemoveFavorite(string drugProductID, string username)
+        public string RemoveFavorite(string product_ndc, string username)
         {
-            int favoriteRemovalResult = _MedicationDao.RemoveFavorite(drugProductID, username);
+            int favoriteRemovalResult = _MedicationDao.RemoveFavorite(product_ndc, username);
             if (favoriteRemovalResult == 1)
             {
                 return "Deleted Favorite";
@@ -102,7 +103,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
             return _MedicationDao.addFavorite(username, drug);
         }
 
-        public bool ValidatePrice(int lowestprice)
+        public bool ValidatePrice(double lowestprice)
         {
             return lowestprice <9000000 && lowestprice >-1;
         }
@@ -115,7 +116,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
         public bool getFavoriteCount(string username)
         {
             int favoriteCount = _MedicationDao.getFavoriteCount(username);
-            return favoriteCount < 10;
+            return favoriteCount < 100;
                 
         }
 
@@ -140,8 +141,8 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
         public drugInfo makeFavorite(string username, drugInfo drug)
         {
-            FavoriteDrug favorited = _MedicationDao.Read(username,drug.openfda.generic_name[0]);
-            if(favorited.generic_name != null)
+            FavoriteDrug favorited = _MedicationDao.Read(username,drug.openfda!.generic_name![0]);
+            if(favorited.generic_name != "")
             {
                 drug.isFavorited = true;   
                 drug.favoriteDrug = favorited;
@@ -152,18 +153,27 @@ namespace The6Bits.BitOHealth.ServiceLayer
             }
             return drug;
         }
+        public bool validateDescription(string description)
+        { 
+            return description.Length<501;
+        }
 
-        public string CreateDescrption(string description)
+            public string CreateDescription(string description)
         {
-            var splitted=description.Split('.');
-            string location=splitted[0];
-            string price=splitted[1];
+            int dash = description.IndexOf('/');
+            string price = description.Substring(0,dash);
+            string location= description.Substring(dash+1);
             return "Cheapest reported price is " + price + " Found at " + location;
         }
 
         public string CreateTitle(string name)
         {
-            return "Reminder: " + name + " refill "; 
+            return "Reminder: " + name + " refill"; 
+        }
+
+        public drugInfo ViewDrugGeneric(string generic_name)
+        {
+            return _drugDataSet.GetDrugInfoGeneric(generic_name).Result;
         }
     }
 }

@@ -1,12 +1,8 @@
 <template>
     <div  class="form">
-            <div  v-if="hasSavedWeightGoal" class=" my-custom-class">        
-                <CurrentWeightGoal @read-data="onChildLoad">
-                </CurrentWeightGoal>
-                <button @click="editWeight = !editWeight">Edit</button>
-            </div>
-        <CreateGoal v-if="!hasSavedWeightGoal" />
-        <UpdateGoal v-if="editWeight"></UpdateGoal> 
+        <CurrentWeightGoal @read-data="onChildLoad" />
+        <CreateGoal />
+        <UpdateGoal/>
 
         
         <button @click="activeTab = 'SaveFoodLog'">Custom</button>
@@ -18,25 +14,17 @@
     </div>
 </template>
 
-
-
-
-
-
 <script>
 
 import CurrentWeightGoal from './CurrentWeightGoal.vue';
 import { GoalRequest, JsonLogToCSVString }  from './WeightManagement'
 import CreateGoal from './CreateWeightGoal.vue'
 import UpdateGoal from './UpdateWeightGoal.vue'
-import SearchFood from './SearchFoodItem.vue'
-import SaveFoodLog from './SaveFoodLog.vue'
-import FoodLogs from './WMComponents/FoodLogRow.vue'
+
     export default {
         name : 'GoalView',
         data() {
         return {
-            activeTab:'SaveFoodLog',
             res :{},
             formData :{ 
                 goalWeight: 0,
@@ -52,14 +40,7 @@ import FoodLogs from './WMComponents/FoodLogRow.vue'
     components: {
         CurrentWeightGoal,
         CreateGoal,
-        UpdateGoal,
-        SaveFoodLog,
-        SearchFood,
-        FoodLogs
-    },
-    methods:{
-        getCookie() {
-             console.log(document.cookie);
+        UpdateGoal
     },
         onChildLoad(value){
             if(JSON.stringify(value)!='{}'){
@@ -91,7 +72,7 @@ import FoodLogs from './WMComponents/FoodLogRow.vue'
         
     }
     
-    }
+    
 
 
 </script>

@@ -15,7 +15,7 @@ namespace The6Bits.BitOHealth.DAL
     {
 
         private static HttpClient _httpClient;
-        private static string key;
+        private static string? key;
 
         public OpenFDADAO(HttpClient httpClient, openFDAConfig fda)
         {
@@ -25,7 +25,7 @@ namespace The6Bits.BitOHealth.DAL
 
         public async Task<List<DrugName>> GetGenericDrugName(string drugName)
         {
-            string url = $"?api_key=ndc.json?api_key={key}&search=generic_name:%22{drugName}%22&limit=5";
+            string url = $"ndc.json?api_key={key}&search=generic_name:%22{drugName}%22&limit=5";
             using (HttpResponseMessage response = await _httpClient.GetAsync(url))
             {
                 if (response.IsSuccessStatusCode)
@@ -33,13 +33,13 @@ namespace The6Bits.BitOHealth.DAL
                     var result = await response.Content.ReadAsStringAsync();
                     var doc = JsonDocument.Parse(result);
                     var popupJson = doc.RootElement.GetProperty("results");
-                    List<DrugName> values = JsonSerializer.Deserialize<List<DrugName>>(popupJson);
-                    return values;
+                    List<DrugName> values = JsonSerializer.Deserialize<List<DrugName>>(popupJson)!;
+                    return values!;
                 }
                 else
                 {
                     DrugName emptyDrug = new DrugName();
-                    List<DrugName> emptyGenericDrugsList= new List<DrugName>();
+                    List<DrugName> emptyGenericDrugsList = new List<DrugName>();
                     emptyGenericDrugsList.Add(emptyDrug);
                     return emptyGenericDrugsList;
 
@@ -49,54 +49,79 @@ namespace The6Bits.BitOHealth.DAL
 
         }
         public async Task<List<DrugName>> GetBrandDrugName(string drugName)
+        {
+            string url = $"ndc.json?api_key={key}&search=brand_name:%22{drugName}%22&limit=5";
+            using (HttpResponseMessage response = await _httpClient.GetAsync(url))
             {
-                string url = $"ndc.json?api_key={Environment.GetEnvironmentVariable("OpenFda")}&search=brand_name:%22{drugName}%22&limit=5";
-                using (HttpResponseMessage response = await _httpClient.GetAsync(url))
+                if (response.IsSuccessStatusCode)
                 {
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var result = await response.Content.ReadAsStringAsync();
-                        var doc = JsonDocument.Parse(result);
-                        var popupJson = doc.RootElement.GetProperty("results");
-                        List<DrugName> values = JsonSerializer.Deserialize<List<DrugName>>(popupJson);
-                        return values;
-                    }
-                    else
-                    {
-                        DrugName emptyDrug = new DrugName();
-                        List<DrugName> emptyGenericDrugsList = new List<DrugName>();
-                        emptyGenericDrugsList.Add(emptyDrug);
-                        return emptyGenericDrugsList;
+                    var result = await response.Content.ReadAsStringAsync();
+                    var doc = JsonDocument.Parse(result);
+                    var popupJson = doc.RootElement.GetProperty("results");
+                    List<DrugName> values = JsonSerializer.Deserialize<List<DrugName>>(popupJson)!;
+                    return values!;
+                }
+                else
+                {
+                    DrugName emptyDrug = new DrugName();
+                    List<DrugName> emptyGenericDrugsList = new List<DrugName>();
+                    emptyGenericDrugsList.Add(emptyDrug);
+                    return emptyGenericDrugsList;
 
+                }
+            }
+
+
+        }
+        public async Task<drugInfo> GetDrugInfo(string brand_name)
+        {
+            string url = $"label.json?api_key={key}&search=openfda.brand_name:%22{brand_name}%22&limit=1";
+            using (var response = await _httpClient.GetAsync(url))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    drugInfos values = JsonSerializer.Deserialize<drugInfos>(await response.Content.ReadAsStringAsync())!;
+                    try
+                    {
+                        return values.results![0];
+                    }
+                    catch (Exception)
+                    {
+                        return new drugInfo();
                     }
                 }
-
-
-            }
-            public async Task<drugInfo> GetDrugInfo(string brand_name)
-            {
-                string url = $"label.json?api_key={Environment.GetEnvironmentVariable("OpenFda")}&search=openfda.brand_name:%22{brand_name}%22&limit=1";
-                using (var response = await _httpClient.GetAsync(url))
+                else
                 {
-                    if (response.IsSuccessStatusCode)
-                    {
-                        drugInfos values = JsonSerializer.Deserialize<drugInfos>(await response.Content.ReadAsStringAsync());
-                        try
-                        {
-                            return values.results[0];
-                        }
-                        catch (Exception ex)
-                        {
-                            throw new Exception("Error getting drug information");
-                        }
-                    }
-                    else
-                    {
-                        throw new Exception("Error getting drug information");
+                    return new drugInfo(); 
 
+                }
+            }
+        }
+        public async Task<drugInfo> GetDrugInfoGeneric(string generic_name)
+        {
+            string url = $"label.json?api_key={key}&search=openfda.generic_name:%22{generic_name}%22&limit=1";
+            using (var response = await _httpClient.GetAsync(url))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    drugInfos values = JsonSerializer.Deserialize<drugInfos>(await response.Content.ReadAsStringAsync())!;
+                    try
+                    {
+                        return values.results![0];
                     }
+                    catch (Exception)
+                    {
+                        return new drugInfo();
+                    }
+                }
+                else
+                {
+                    throw new Exception("getting drug information");
+
                 }
             }
 
         }
+
+    }
     }

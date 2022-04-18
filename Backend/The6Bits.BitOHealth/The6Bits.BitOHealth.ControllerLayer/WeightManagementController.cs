@@ -91,8 +91,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
             string token = "";
             try
             {
-                token = Request.Headers["Authorization"];
-            token = token.Split(' ')[1];
+                token = Request.Cookies["token"];
             }
             catch
             {
@@ -125,8 +124,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
             string token = "";
             try
             {
-                token = Request.Headers["Authorization"];
-            token = token.Split(' ')[1];
+                token = Request.Cookies["token"];
             }
             catch
             {
@@ -160,8 +158,8 @@ namespace The6Bits.BitOHealth.ControllerLayer
         }
 
 
-        [HttpPost("SaveFood")]
-        public async Task<ActionResult> StoreFoodLog(FoodModel food)
+        [HttpGet("UpdateGoal")]
+        public async Task<ActionResult> StoreFoodLog(FoodModel food, string username)
         {
 
 
@@ -193,10 +191,6 @@ namespace The6Bits.BitOHealth.ControllerLayer
             return Ok(await _weightManagementManager.StoreFoodLog(food, username));
 
         }
-
-        [HttpGet("GetFoodLogs")]
-        public async Task<ActionResult> GetFoodLogs()
-        {
 
 
             string token = "";

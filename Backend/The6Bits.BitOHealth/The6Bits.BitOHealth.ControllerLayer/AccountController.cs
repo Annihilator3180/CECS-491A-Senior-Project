@@ -48,7 +48,7 @@ public class AccountController : ControllerBase
     }
 
     [HttpPost("Login")]
-    public ActionResult Login(LoginModel acc)
+    public string Login(LoginModel acc)
     {
         var remoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
 
@@ -78,7 +78,6 @@ public class AccountController : ControllerBase
                 SameSite = SameSiteMode.None,
                 HttpOnly = true,
             };
-            
             Response.Cookies.Append(
                 "token",
                 jwt, cookieOptions);
@@ -100,19 +99,18 @@ public class AccountController : ControllerBase
 
         }
 
-        return Ok(jwt);
+        return jwt;
 
     }
 
     [HttpPost("getTLogs")]
     public string getTrackerLogs()
     {
-        
-        string token = "";
+        /*
+        String token = "";
         try
         {
-            token = Request.Headers["Authorization"];
-            token = token.Split(' ')[1];
+            token = Request.Cookies["token"];
         }
         catch
         {
@@ -124,7 +122,7 @@ public class AccountController : ControllerBase
             _ = logService.Log("None", "Invalid Token - Get Tracker Logs", "Info", "Business");
             return "Invalid Token";
         }
-        
+        */
         string s = logService.getAllTrackerLogs();
         string[] subs = s.Split(' ');
         string holder = "";

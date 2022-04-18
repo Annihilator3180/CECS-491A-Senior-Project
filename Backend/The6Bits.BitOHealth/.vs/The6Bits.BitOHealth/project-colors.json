@@ -230,7 +230,12 @@
       "ProjectGuid": "6f5aee68-f998-4a26-8aa8-ac2a7bf0c423",
       "DisplayName": "FoodAPI",
       "ColorIndex": 12
+    },
+    "c5fdaca0-ae08-49d4-84ca-f0e3f4db7a22": {
+      "ProjectGuid": "c5fdaca0-ae08-49d4-84ca-f0e3f4db7a22",
+      "DisplayName": "The6Bits.BitOHealth.Controller.Tests",
+      "ColorIndex": 13
     }
   },
-  "NextColorIndex": 13
+  "NextColorIndex": 14
 }

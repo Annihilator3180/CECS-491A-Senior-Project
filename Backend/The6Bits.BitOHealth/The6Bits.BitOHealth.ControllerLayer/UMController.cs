@@ -50,14 +50,13 @@ namespace The6Bits.BitOHealth.ControllerLayer
         //specify form body
         public string CreateAccount(User u)
         {
-            string token = Request.Headers["Authorization"];
-            token = token.Split(' ')[1];
-            isValid = _authentication.ValidateToken(token);
+            isValid = _authentication.ValidateToken(Request.Cookies["token"]);
 
 
             if (isValid)
             {
 
+                string token = Request.Cookies["token"];
 
                 string adminUsername = _authentication.getUsername(token);
                 if (!_authorization.VerifyClaim(token, "IsAdmin"))
@@ -89,20 +88,19 @@ namespace The6Bits.BitOHealth.ControllerLayer
                 logService.Log("None", "Account Creation -"+"InvalidToken", "Info", "Business");
             
             
-            return Request.Headers["Authorization"];
+            return Request.Cookies["token"];
         }
         
         [HttpPost("DeleteAccount")]
         public string DeleteAccount(string username)
         {
-            string token = Request.Headers["Authorization"];
-            token = token.Split(' ')[1];
-            isValid = _authentication.ValidateToken(token);
+            isValid = _authentication.ValidateToken(Request.Cookies["token"]);
 
 
             if (isValid)
             {
 
+                string token = Request.Cookies["token"];
 
                 string adminUsername = _authentication.getUsername(token);
                 if (!_authorization.VerifyClaim(token, "IsAdmin"))
@@ -140,15 +138,13 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
         public string UpdateAccount(User user)
         {
-
-            string token = Request.Headers["Authorization"];
-            token = token.Split(' ')[1];
-            isValid = _authentication.ValidateToken(token);
+            isValid = _authentication.ValidateToken(Request.Cookies["token"]);
 
 
             if (isValid)
             {
 
+                string token = Request.Cookies["token"];
 
                 string adminUsername = _authentication.getUsername(token);
                 if (!_authorization.VerifyClaim(token, "IsAdmin"))
@@ -194,8 +190,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
             string token = "";
             try
             {
-                token = Request.Headers["Authorization"];
-            token = token.Split(' ')[1];
+                token = Request.Cookies["token"];
 
             }
 
@@ -244,14 +239,14 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
         public string DisableAccount(string username)
         {
-            string token = Request.Headers["Authorization"];
-            token = token.Split(' ')[1]; 
-            isValid = _authentication.ValidateToken(token);
+
+            isValid = _authentication.ValidateToken(Request.Cookies["token"]);
 
 
             if (isValid)
             {
 
+                string token = Request.Cookies["token"];
 
                 string adminUsername = _authentication.getUsername(token);
                 if (!_authorization.VerifyClaim(token, "IsAdmin"))

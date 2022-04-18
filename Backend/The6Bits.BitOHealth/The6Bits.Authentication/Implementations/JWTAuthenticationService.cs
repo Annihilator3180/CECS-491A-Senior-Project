@@ -61,11 +61,11 @@ public class JWTAuthenticationService : IAuthenticationService
     public bool ValidateToken(string token)
     {
         try
-        {
+       {
             
 
             var parts = token.Split('.');
-            var header = parts[0];
+           var header = parts[0];
             var payload = parts[1];
             byte[] crypto = Convert.FromBase64String(parts[2]);
 

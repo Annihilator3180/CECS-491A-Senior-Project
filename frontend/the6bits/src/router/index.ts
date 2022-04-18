@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHashHistory, createWebHistory, RouteRecordRaw } from 'vue-router'
 import homeShit from '@/components/Home.vue'
 import LoginPost from '@/components/LoginPost.vue'
 import OTPPost from '@/components/OneTimePass.vue'
@@ -17,9 +17,9 @@ import ViewDrug from '@/components/WeightManagement/viewDrug.vue'
 import EditFavoriteDrug from '@/components/EditFavoriteDrug.vue'
 import DeleteAccount from '@/components/DeleteAccount.vue'
 import DietRecommendation from '@/components/DietRecommendation.vue'
-import FavoriteList from '@/components/FavoriteList.vue'
+import logOut from '@/components/logout.vue'
 import SaveFoodLog from '@/components/WeightManagement/SaveFoodLog.vue'
-
+import viewReminder from '@/components/Reminders/ViewReminder.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -33,6 +33,11 @@ const routes: Array<RouteRecordRaw> = [
     component: LoginPost
   },
   {
+    path: '/logout',
+    name: 'logout',
+    component: logOut
+  },
+  {
     path: '/otp',
     name: 'otp',
     component: OTPPost
@@ -40,43 +45,27 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/UM',
     name: 'UM',
-    component: UM,
-    meta: {
-         requiresAuth: true,
-      },
+    component: UM
   },
   {
     path: '/getTLogs',
     name: 'getTLogs',
-    component: TrackingLog,
-    meta: {
-         requiresAuth: true,
-      },
+    component: TrackingLog
   },
   {
     path: '/AccountRecovery',
     name: 'AccountRecovery',
-    component: AccountRecovery,
-    meta: {
-         requiresAuth: true,
-      },
-
+    component: AccountRecovery
   },
   {
     path: '/WeightManagement',
     name: 'WeightManagement',
-    component: GoalView,
-    meta: {
-         requiresAuth: true,
-      },
+    component: GoalView
   },
   {
     path: '/ResetPassword',
     name: 'ResetPassword',
-    component: ResetPassword,
-    meta: {
-         requiresAuth: true,
-      },
+    component: ResetPassword
   },
   {
     path: '/Registration',
@@ -88,32 +77,23 @@ const routes: Array<RouteRecordRaw> = [
     name: 'MedSearch',
     component: MedSearch,
     meta: {
-         requiresAuth: true,
-      },
+      requiresAuth: true,
+   },
   },
   {
     path: '/HotTopics',
     name: 'HotTopics',
-    component: viewHT,
-    meta: {
-         requiresAuth: true,
-      },
+    component: viewHT
   },
   {
     path: '/SearchFood',
     name: 'SearchFood',
-    component: SearchFood,
-    meta: {
-         requiresAuth: true,
-      },
+    component: SearchFood
   },
   {
     path: '/DeleteAccount',
     name: 'DeleteAccount',
-    component: DeleteAccount,
-    meta: {
-         requiresAuth: true,
-      },
+    component: DeleteAccount
   },
 
   {
@@ -124,26 +104,23 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/HealthRecorder',
     name: 'HealthRecorder',
-    component: HealthRecorder,
-    meta: {
-         requiresAuth: true,
-      },
+    component: HealthRecorder
   },
   {
       path: "/FavoriteDrugs",
     name: "FavoriteDrugListPost",
     component: FavoriteDrugListPost,
     meta: {
-         requiresAuth: true,
-      },
+      requiresAuth: true,
+   },
   },
   {
     path: '/viewDrug/:id',
     name: 'ViewDrug',
     component: ViewDrug,
     meta: {
-         requiresAuth: true,
-      },
+      requiresAuth: true,
+   },
   },
   {
     path: '/editFavoriteDrug/:id',
@@ -160,34 +137,34 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
          requiresAuth: true,
       },
+  },
+  {
+  path: "/viewReminder",
+  name: "viewReminder",
+  component: viewReminder,
+  meta: {
+       requiresAuth: true,
+    },
   }
 
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHashHistory(),
   routes
 })
-
-
-
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (sessionStorage.getItem('token') == null) {
       next({
         name: 'login',
       })
-    } else {      
+    } else {
         next()
     }
-  
+
   } else {
     next()
   }
 })
-
-
-
-
-
 export default router
