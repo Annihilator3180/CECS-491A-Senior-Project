@@ -26,11 +26,18 @@
 </template>
 
 <script>
+import router from './router/index'
 export default {
-  mounted(){
-    console.log(process.env.VUE_APP_NOT_SECRET_CODE)
-  },
   name: "app",
   components: {},
+  //CHECKS EVERY 1000 MS REROUTS TO LOGIN IF NOT LOGGED IN
+  mounted: function () {
+  window.setInterval(() => {
+    if(router.currentRoute.value.meta.requiresAuth==true && sessionStorage.getItem('token') == null){
+          router.push("login")
+    }
+  }, 1000)
+},
 };
+
 </script>
