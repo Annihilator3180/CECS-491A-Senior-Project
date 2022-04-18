@@ -160,10 +160,6 @@ public class MedicationManager
             drugInfo? drug = _MS.ViewDrug(brand_name);
             if (drug.openfda is null){
                 drug = _MS.ViewDrugGeneric(brand_name);
-                 if (drug.openfda is null)
-                {
-                    throw new Exception("error getting drug");
-                }
                     }
             try
             {
