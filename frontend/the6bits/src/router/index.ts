@@ -153,5 +153,18 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes
 })
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (sessionStorage.getItem('token') == null) {
+      next({
+        name: 'login',
+      })
+    } else {
+        next()
+    }
 
+  } else {
+    next()
+  }
+})
 export default router
