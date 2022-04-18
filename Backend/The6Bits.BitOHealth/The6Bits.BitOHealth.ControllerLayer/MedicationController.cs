@@ -33,7 +33,7 @@ public class MedicationController : ControllerBase
     public FindDrugResponse FindDrug(string drugName)
     {
         FindDrugResponse drugResponse=new FindDrugResponse();
-        string? token;
+        string token;
         try
         {
 

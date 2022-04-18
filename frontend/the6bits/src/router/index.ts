@@ -70,7 +70,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/MedicationSearch',
     name: 'MedSearch',
-    component: MedSearch
+    component: MedSearch,
+    meta: {
+      requiresAuth: true,
+   },
   },
   {
     path: '/HotTopics',
@@ -101,12 +104,18 @@ const routes: Array<RouteRecordRaw> = [
   {
       path: "/FavoriteDrugs",
     name: "FavoriteDrugListPost",
-    component: FavoriteDrugListPost
+    component: FavoriteDrugListPost,
+    meta: {
+      requiresAuth: true,
+   },
   },
   {
     path: '/viewDrug/:id',
     name: 'ViewDrug',
-    component: ViewDrug
+    component: ViewDrug,
+    meta: {
+      requiresAuth: true,
+   },
   },
   {
     path: '/editFavoriteDrug/:id',

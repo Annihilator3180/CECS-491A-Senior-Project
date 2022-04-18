@@ -20,13 +20,16 @@ public class OpenFDADAOShould : TestsBase
 
     public OpenFDADAOShould()
     {
-        _MedicationDao = new OpenFDADAO(new HttpClient(), new openFDAConfig()) ;
+        _MedicationDao = new OpenFDADAO(new HttpClient()
+        {
+            BaseAddress = new Uri("https://api.fda.gov/drug/")
+        }, _openFDA);
     }
     [Fact]
     public async void ValidGenericNameTest()
     {
         //arrange
-        string caffieneTest = "caffiene";
+        string caffieneTest = "caffeine";
         //act
         List<DrugName> testdrugNames = await _MedicationDao.GetGenericDrugName(caffieneTest);
         string caffieneResponse = testdrugNames[0].generic_name.ToLower();

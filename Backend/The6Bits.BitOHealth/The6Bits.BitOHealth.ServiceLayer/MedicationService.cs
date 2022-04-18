@@ -160,15 +160,15 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
             public string CreateDescription(string description)
         {
-            var splitted=description.Split('.');
-            string location=splitted[0];
-            string price=splitted[1];
+            int dash = description.IndexOf('/');
+            string location=description.Substring(0,dash);
+            string price= description.Substring(dash+1);
             return "Cheapest reported price is " + price + " Found at " + location;
         }
 
         public string CreateTitle(string name)
         {
-            return "Reminder: " + name + " refill "; 
+            return "Reminder: " + name + " refill"; 
         }
     }
 }

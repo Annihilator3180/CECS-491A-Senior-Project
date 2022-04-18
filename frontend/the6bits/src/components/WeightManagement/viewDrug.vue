@@ -91,8 +91,7 @@
                 method: "post",
                 credentials: 'include',
                 headers: { "Content-Type": "application/json",
-                "Authorization" :`Bearer ${sessionStorage.getItem('token')}`},
-                body: JSON.stringify({generic_name : this.drugName })
+                "Authorization" :` Bearer ${sessionStorage.getItem('token')}`},
 
             };
             fetch(process.env.VUE_APP_BACKEND+'Medication/viewDrug?brand_name='+this.drugName,requestOptions)
