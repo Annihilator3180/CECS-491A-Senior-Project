@@ -82,7 +82,7 @@ public class AccountController : ControllerBase
                 "token",
                 jwt, cookieOptions);
 
-            logService.LoginLog(acc.Username + remoteIpAddress, "Logged In", "Info", "Business");
+            _ =logService.LoginLog(acc.Username + remoteIpAddress, "Logged In", "Info", "Business");
         }
         else
         {
@@ -90,11 +90,11 @@ public class AccountController : ControllerBase
             string loginfail = "Log In Fail";
             if (jwt.Contains("Database"))
             {
-                logService.LoginLog(acc.Username + remoteIpAddress, loginfail + " " + jwt, "Error", "Data Store");
+                _ = logService.LoginLog(acc.Username + remoteIpAddress, loginfail + " " + jwt, "Error", "Data Store");
             }
             else
             {
-                logService.LoginLog(acc.Username + remoteIpAddress, loginfail + " " + jwt, "Info", "Business");
+                _ = logService.LoginLog(acc.Username + remoteIpAddress, loginfail + " " + jwt, "Info", "Business");
             }
 
         }
@@ -158,11 +158,11 @@ public class AccountController : ControllerBase
         var otp = _AM.SendOTP(username);
         if (otp.Contains("Database"))
         {
-            logService.Log(username, otp, "OTP Error " + "Error", "Data Store");
+            _ = logService.Log(username, otp, "OTP Error " + "Error", "Data Store");
         }
         else
         {
-            logService.Log(username, "OTP " + otp, "Info", "Business");
+            _ = logService.Log(username, "OTP " + otp, "Info", "Business");
         }
         return otp;
     }
@@ -175,13 +175,26 @@ public class AccountController : ControllerBase
     }
     // JSON 
     [HttpPost("Delete")]
-    public string DeleteAccount(string token)
+    public string DeleteAccount()
     {
+        string token = Request.Headers["Authorization"];
+            token = token.Split(' ')[1];
+        string username = _auth.getUsername(token);
+        string status = _AM.DeleteAccount(token);
 
-        string del = _AM.DeleteAccount(token);
+        if (status.Contains("Database"))
+        {
+            _ =logService.Log(username, "Account Deletion- " + status, "Data Store ", "Error");
+        }
+        else
+        {
+            _ = logService.Log(username, "Account Deletion- " + status, "Business", "Information");
+        }
+
         Response.Cookies.Delete("token");
-        return del;
+        return status;
     }
+
 
 
     //   public void deletecookie(object sender, eventargs e)
@@ -202,21 +215,21 @@ public class AccountController : ControllerBase
         string creationStatus = _AM.CreateAccount(user);
         if (creationStatus.Contains("Database"))
         {
-            logService.RegistrationLog(user.Username, "Registration- " + creationStatus, "Data Store", "Error");
+            _= logService.RegistrationLog(user.Username, "Registration- " + creationStatus, "Data Store", "Error");
             return "Database Error";
         }
         else if (creationStatus == "Email Failed To Send")
         {
-            logService.RegistrationLog(user.Username, "Registration- Email Failed To Send", "Business", "Error");
+            _ = logService.RegistrationLog(user.Username, "Registration- Email Failed To Send", "Business", "Error");
             return "Email Failed To Send";
         }
         else if (creationStatus != "Email Pending Confirmation")
         {
-            logService.RegistrationLog(user.Username, "Registration- " + creationStatus, "Business", "Information");
+            _ = logService.RegistrationLog(user.Username, "Registration- " + creationStatus, "Business", "Information");
         }
         else
         {
-            logService.RegistrationLog(user.Username, "Verfication Email Sent", "Business", "Information");
+            _ = logService.RegistrationLog(user.Username, "Verfication Email Sent", "Business", "Information");
         }
         return creationStatus;
     }
@@ -228,15 +241,15 @@ public class AccountController : ControllerBase
         String verfied = _AM.VerifyAccount(Code, Username);
         if (verfied.Contains("Database"))
         {
-            logService.Log(Username, "Registration- " + verfied, "Data Store", "Error");
+            _ = logService.Log(Username, "Registration- " + verfied, "Data Store", "Error");
             return "Database Error";
         }
         if (verfied == "Account Verified")
         {
-            logService.Log(Username, "Registration- Email Verified ", "Business", "Information");
+            _ = logService.Log(Username, "Registration- Email Verified ", "Business", "Information");
             return verfied;
         }
-        logService.Log(Username, "Registration- " + verfied, "Business", "Information");
+        _ = logService.Log(Username, "Registration- " + verfied, "Business", "Information");
         return verfied;
     }
 
@@ -274,10 +287,10 @@ public class AccountController : ControllerBase
 
         if (start.Contains("Database"))
         {
-            logService.Log(arm.Username, " Account Recovery ", start, "Error");
+            _ = logService.Log(arm.Username, " Account Recovery ", start, "Error");
             return "Database Error";
         }
-        logService.Log(arm.Username, " Account Recovery ", "Recovery Email Sent", "Information");
+        _ = logService.Log(arm.Username, " Account Recovery ", "Recovery Email Sent", "Information");
 
         return start;
 
@@ -290,10 +303,10 @@ public class AccountController : ControllerBase
 
         if (reset.Contains("Database"))
         {
-            logService.Log(username, " Password Reset ", reset, "Error");
+            _ = logService.Log(username, " Password Reset ", reset, "Error");
             return "Database Error";
         }
-        logService.Log(username, " Password Reset ", "Password Change ", "Information");
+        _ = logService.Log(username, " Password Reset ", "Password Change ", "Information");
 
         return reset;
     }

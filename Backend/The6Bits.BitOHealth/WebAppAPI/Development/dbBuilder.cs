@@ -99,13 +99,41 @@ namespace WebAppMVC.Development
             }
             return false;
 
-
-
         }
 
         public bool buildWMGoals(string connStr)
         {
-            var RecoveryStr = "If not exists (select name from sysobjects where name = 'WMGoals') CREATE TABLE WMGoals (Username VARCHAR(30), Goal int)";
+            var RecoveryStr = "If not exists (select name from sysobjects where name = 'WMGoals') CREATE TABLE WMGoals (Username VARCHAR(30), GoalWeight int, GoalDate DateTime, exerciseLevel int )";
+            var conn = new SqlConnection(connStr);
+            using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
+            {
+                conn.Open();
+                command.ExecuteNonQuery();
+            }
+            return false;
+
+
+
+        }
+        public bool buildFavoriteMedication(string connStr)
+        {
+            var FavoriteStr = "If not exists (select name from sysobjects where name = 'favoriteMedication') " +
+                "CREATE TABLE favoriteMedication (Username VARCHAR(30), product_ndc VARCHAR(500), " +
+                "generic_name VARCHAR(500), brand_name VARCHAR(500), lowestPrice float, lowestPriceLocation VARCHAR(150), description VARCHAR(500))";
+            var conn = new SqlConnection(connStr);
+            using (SqlCommand command = new SqlCommand(FavoriteStr, conn))
+            {
+                conn.Open();
+                command.ExecuteNonQuery();
+            }
+            return false;
+
+
+
+        }
+        public bool buildDiet(string connStr)
+        {
+            var RecoveryStr = "If not exists (select name from sysobjects where name = 'Diet')" + "CREATE TABLE Diet ( Diet VARCHAR(30), Health VARCHAR(30), Ingr Int, DishType VARCHAR(30),Calories int, CuisineType VARCHAR(30), Excluded VARCHAR(30), MealType VARCHAR(30))";
             var conn = new SqlConnection(connStr);
             using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
             {
@@ -119,6 +147,25 @@ namespace WebAppMVC.Development
         }
 
 
+
+
+
+        public bool buildRemiders(string connStr)
+        {
+            var RecoveryStr = "If not exists (select name from sysobjects where name = 'Reminders') CREATE TABLE Reminders (R_SK VARCHAR(30), username VARCHAR(30), name VARCHAR(100), description VARCHAR(1000)," +
+                " date VARCHAR(30), time VARCHAR(30), repeat VARCHAR(30))";
+            var conn = new SqlConnection(connStr);
+            using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
+            {
+                conn.Open();
+                command.ExecuteNonQuery();
+            }
+            return false;
+
+        }
+
+
+
         public bool addBossAdmin(string connStr)
         {
             var RecoveryStr = "BEGIN IF NOT EXISTS (Select * From Accounts where Username = 'bossadmin12')  " +
@@ -130,7 +177,7 @@ namespace WebAppMVC.Development
             using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
             {
                 conn.Open();
-                command.ExecuteScalar();
+                //command.ExecuteScalar();
             }
             return false;
 

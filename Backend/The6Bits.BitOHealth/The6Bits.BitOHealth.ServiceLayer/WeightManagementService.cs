@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using The6Bits.BitOHealth.DAL;
+using The6Bits.BitOHealth.Models;
 
 namespace The6Bits.BitOHealth.ServiceLayer
 {
@@ -15,6 +16,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
 
         private IRepositoryWeightManagementDao _WMD;
+        
         public WeightManagementService(IRepositoryWeightManagementDao dao)
         {
             _WMD = dao;
@@ -26,12 +28,31 @@ namespace The6Bits.BitOHealth.ServiceLayer
         }
 
 
-        public string CreateGoal(int goalNum, string username)
+        public string CreateGoal(GoalWeightModel goal, string username)
         {
 
-            return _WMD.Create(goalNum,username);
+            return _WMD.Create(goal,username);
 
         }
+
+        public async Task<string> UpdateGoal(GoalWeightModel goal, string username)
+        {
+            return _WMD.Update(goal, username);
+        }
+
+        public async Task<GoalWeightModel> ReadGoal( string username)
+        {
+            return _WMD.Read(username);
+        }
+
+
+
+        public async Task<string> StoreFoodLog(FoodModel food, string username)
+        {
+            return _WMD.CreateFoodLog(food, username);
+        }
+
+
 
 
     }

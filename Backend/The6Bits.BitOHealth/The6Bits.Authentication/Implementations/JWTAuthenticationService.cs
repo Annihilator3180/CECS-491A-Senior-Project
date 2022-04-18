@@ -25,7 +25,9 @@ public class JWTAuthenticationService : IAuthenticationService
         _key = configuration;
     }
 
-
+    public JWTAuthenticationService()
+    {
+    }
 
     public string generateToken(string data, ClaimsIdentity claimsIdentity)
     {
@@ -59,11 +61,11 @@ public class JWTAuthenticationService : IAuthenticationService
     public bool ValidateToken(string token)
     {
         try
-        {
+       {
             
 
             var parts = token.Split('.');
-            var header = parts[0];
+           var header = parts[0];
             var payload = parts[1];
             byte[] crypto = Convert.FromBase64String(parts[2]);
 
@@ -110,8 +112,8 @@ public class JWTAuthenticationService : IAuthenticationService
         var header = parts[0];
         var payload = parts[1];
 
-        var data = Convert.FromBase64String((string)payload);
 
+        var data = Convert.FromBase64String((string)payload);
         var dataString = Encoding.UTF8.GetString(data);
 
         var obj = JwtPayload.Deserialize(dataString);

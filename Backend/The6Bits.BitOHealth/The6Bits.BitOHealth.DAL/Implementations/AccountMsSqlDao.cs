@@ -163,7 +163,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     return str.First();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
                 return new User("100", "100", "100", "100", "100", 100, 100, 100);
@@ -523,7 +523,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 }
             }
         }
-        public bool DeleteAccount(string username)
+        public string DeleteAccount(string username)
         {
             try
             {
@@ -535,15 +535,15 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     connection.Close();
                     if (linesEdited == 0)
                     {
-                        return false;
+                        return linesEdited.ToString();
                     }
                     connection.Close();
-                    return true;
+                    return linesEdited.ToString();
                 }
             }
-            catch
+            catch(Exception e)
             {
-                return false;
+                return e.Message;
             }
         }
         

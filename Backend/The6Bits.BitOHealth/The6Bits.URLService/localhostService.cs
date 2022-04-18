@@ -8,25 +8,25 @@ using System.Threading.Tasks;
 namespace The6Bits.URLService
 {
     
-    public class localhostService : IURLService
+    //public class localhostService : IURLService
 
-    {
-        readonly private IConfiguration _configuration;
-        readonly private string URL;
-
-
-        public localhostService(IConfiguration configuration)
-        {
-            _configuration = configuration;
-            URL = _configuration.GetSection("URL")["localhost"];
-        }
+//    {
+  //      readonly private IConfiguration _configuration;
+    //    readonly private string URL;
 
 
-        public string RegistrationEmail(string username, string code)
-        {
-            string codeLink = URL+"Account/VerifyAccount?Code=" + code + "&&Username=" + username;
+      //  public localhostService(IConfiguration configuration)
+       // {
+         //   _configuration = configuration;
+          //  URL = _configuration.GetSection("URL")["localhost"];
+       // }
+
+
+//        public string RegistrationEmail(string username, string code)
+  //      {
+    //        string codeLink = URL+"Account/VerifyAccount?Code=" + code + "&&Username=" + username;
            
-            return codeLink;
-        }
-    }
+      //      return codeLink;
+       // }
+    //}
 }

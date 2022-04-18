@@ -34,6 +34,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
         [HttpPost("CreateReminder")]
         public string CreateReminder(string name, string description, string date, string time, string repeat)
         {
+            /*
             String token = "";
             try
             {
@@ -49,8 +50,10 @@ namespace The6Bits.BitOHealth.ControllerLayer
                 _ = logservice.Log("None", "Invalid Token - Create Reminder", "Info", "Business");
                 return "Invalid Token";
             }
-
+            
             String username = _authentication.getUsername(token);
+            */
+            String username = "bossadmin12";
             string res = _RM.CreateReminder(username, name, description, date, time, repeat);
 
             if (res.Contains("Database"))
@@ -67,6 +70,104 @@ namespace The6Bits.BitOHealth.ControllerLayer
             _ = logservice.Log(username, "Reminder Created", "Info", "Business");
 
             return res;
+        }
+
+        [HttpPost("ViewReminder")]
+        public string ViewReminder(string reminderID)
+        {
+            string username = "bossadmin12";
+            if (reminderID != null)
+            {
+                return ViewHelper(username, reminderID);
+            }
+            else
+            {
+                return ViewAllHelper(username);
+
+            }
+        }
+
+        public string ViewHelper(string username, string reminderID)
+        {
+
+            string holder = _RM.ViewHelper(username);
+            string[] subs = holder.Split("ENDING");
+            int counter = 1;
+            foreach (var sub in subs)
+            {
+                if (counter == Int32.Parse(reminderID))
+                {
+                    return sub;
+                }
+                else
+                {
+                    counter += 1;
+                }
+            }
+            return "Incorrect index";
+
+        }
+
+        public string ViewAllHelper(string username)
+        {
+            return _RM.ViewAllHelper(username);
+        }
+
+        [HttpPost("ViewAllReminders")]
+        public string ViewAllReminders()
+        {
+
+            String token = "";
+            try
+            {
+                token = Request.Headers["Authorization"];
+            }
+            catch
+            {
+                return "No token";
+            }
+            token = token.Split(' ')[1];
+            isValid = _authentication.ValidateToken(token);
+            if (!isValid)
+            {
+                _ = logservice.Log("None", "Invalid Token - Create Reminder", "Info", "Business");
+                return "Invalid Token";
+            }
+
+            String username = _authentication.getUsername(token);
+            string s = _RM.ViewAllReminders(username);
+            string[] subs = s.Split('.');
+            int counter = 1;
+            string holder = "";
+            foreach (var sub in subs)
+            {
+                holder += counter + "." + sub + ".  ";
+                counter++;
+            }
+            int size = holder.Length - 5;
+            holder = holder.Remove(size);
+            return holder;
+        }
+
+        [HttpPost("DeleteReminder")]
+        public string DeleteReminder(string reminderID)
+        {
+            string username = "bossadmin12";
+            if(reminderID != null)
+            {
+                return _RM.DeleteReminder(username, reminderID);
+                
+            }
+            else
+            {
+                return ViewAllHelper(username);
+            }
+        }
+
+        public string EditReminder(string reminderID, string name, string description, string date, string time, string repeat)
+        {
+            string username = "bossadmin12";
+            return _RM.EditReminder(username, reminderID, name, description, date, time, repeat);
         }
     }
 }
