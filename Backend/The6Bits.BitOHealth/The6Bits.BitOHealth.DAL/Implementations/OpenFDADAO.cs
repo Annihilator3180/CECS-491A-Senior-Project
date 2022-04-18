@@ -92,7 +92,7 @@ namespace The6Bits.BitOHealth.DAL
                 }
                 else
                 {
-                    throw new Exception("getting drug information");
+                    return new drugInfo(); 
 
                 }
             }

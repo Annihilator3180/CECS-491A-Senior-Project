@@ -13,9 +13,7 @@
         <th>brand name</th>
          <tr v-for="f in formData.FindDrugResponse.data" :key="f">
          <td v-if="f.brand_name">{{f.brand_name}}</td>
-         <td v-else-if="f.generic_name">{{f.generic_name}}</td>
         <button v-if="f.brand_name!=''" @click = "$router.push({name:'ViewDrug',params:{id: f.brand_name}})">View Drug</button>
-        <button v-else-if="f.generic_name!=''" @click = "$router.push({name:'ViewDrug',params:{id: f.generic_name}})">View Drug</button>
          </tr>
          
 
