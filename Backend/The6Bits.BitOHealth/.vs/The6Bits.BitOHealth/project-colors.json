@@ -235,7 +235,17 @@
       "ProjectGuid": "c5fdaca0-ae08-49d4-84ca-f0e3f4db7a22",
       "DisplayName": "The6Bits.BitOHealth.Controller.Tests",
       "ColorIndex": 13
+    },
+    "c648effd-8a2d-448f-b7b0-f746133fe820": {
+      "ProjectGuid": "c648effd-8a2d-448f-b7b0-f746133fe820",
+      "DisplayName": "The6bits.FoodAPI.Tests",
+      "ColorIndex": 14
+    },
+    "62678971-ad11-466a-a5fb-222abfc0b446": {
+      "ProjectGuid": "62678971-ad11-466a-a5fb-222abfc0b446",
+      "DisplayName": "APITests",
+      "ColorIndex": 15
     }
   },
-  "NextColorIndex": 14
+  "NextColorIndex": 0
 }

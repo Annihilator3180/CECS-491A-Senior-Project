@@ -10,6 +10,7 @@ using The6Bits.BitOHealth.DAL;
 using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.BitOHealth.DAL.Implementations;
 using The6Bits.BitOHealth.Models;
+using The6Bits.BitOHealth.Models.WeightManagement;
 using The6Bits.BitOHealth.ServiceLayer;
 using The6Bits.Logging.DAL.Contracts;
 using The6Bits.Logging.DAL.Implementations;
@@ -95,7 +96,7 @@ builder.Services.AddSingleton(new SESConfig()
 builder.Configuration.AddEnvironmentVariables();
 
 
-builder.Services.AddTransient<IRepositoryWeightManagementDao>(provider => new WeightManagementMsSqlDao(connstring));
+builder.Services.AddTransient<IRepositoryWeightManagementDao<IWeightManagerResponse>>(provider => new WeightManagementMsSqlDao(connstring));
 builder.Services.AddTransient<IRepositoryHealthRecorderDAO>(provider => new HealthRecorderMsSqlDAO(connstring));
 //builder.Services.AddTransient<IAccountService, AccountService>();
 
@@ -127,6 +128,7 @@ if (app.Environment.IsDevelopment())
     b.BuildHealthRecorder(connstring);
     b.buildDiet(connstring);
     b.buildRemiders(connstring);
+    b.buildFoodLog(connstring);
     //app.UseSwagger();
     //app.UseSwaggerUI();
 }

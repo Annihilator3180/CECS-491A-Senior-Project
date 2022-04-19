@@ -60,7 +60,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/WeightManagement',
     name: 'WeightManagement',
-    component: GoalView
+    component: GoalView,
+    meta: {
+      requiresAuth: true,
+   },
   },
   {
     path: '/ResetPassword',

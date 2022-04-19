@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using FoodAPI;
 using Microsoft.Extensions.Configuration;
 using The6Bits.BitOHealth.Models;
 using Xunit;
@@ -14,19 +15,37 @@ public abstract class TestsBase : IDisposable
     public string keyPath { get; set; }
     public  openFDAConfig _openFDA {get; set;}
 
+    public EdamamConfig edmamConfig {get; set;}
+
     protected TestsBase()
     {
 
-        IConfigurationRoot configuration = new ConfigurationBuilder()
-            .SetBasePath(System.IO.Path.Combine(AppContext.BaseDirectory,@"..\..\..\"))
-            .AddJsonFile("appsettings.json")
-            .Build();
+        var configurationBuilder = new ConfigurationBuilder()
+            .SetBasePath(System.IO.Path.Combine(AppContext.BaseDirectory, @"..\..\..\"))
+            .AddJsonFile("appsettings.json");
+        if (File.Exists(System.IO.Path.Combine(AppContext.BaseDirectory, @"..\..\..\") + "secrets.json"))
+        {
+            configurationBuilder.AddJsonFile("secrets.json");
+        }
+
+        var configuration = configurationBuilder.Build();
 
         conn = configuration.GetConnectionString("DefaultConnection");
          keyPath = configuration.GetSection("PKs")["JWT"];
         _openFDA = new openFDAConfig() { APIKey = "imFf95grrUBnCaPj2DA3MQQtpCpBmnPFiTtXfbD8"};
-         // Do "global" initialization here; Called before every test method.
+
+
+
+
+
+        if (File.Exists(System.IO.Path.Combine(AppContext.BaseDirectory, @"..\..\..\") + "secrets.json"))
+        {
+            edmamConfig = new EdamamConfig() { AppId = configuration.GetSection("Edamam")["ID"], AppKey = configuration.GetSection("Edamam")["KEY"] };
         }
+
+
+        // Do "global" initialization here; Called before every test method.
+    }
 
     public void Dispose()
     {

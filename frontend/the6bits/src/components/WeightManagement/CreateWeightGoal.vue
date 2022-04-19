@@ -2,6 +2,10 @@
     <div  class="form">
             <div >
                 <H1>Create Goal</H1>
+
+                <label for="lbs">Current Weight in Lbs: </label>
+                <input type="int" id="username" v-model ="formData.currentWeight" />
+
                 <label for="lbs">Weight Goal in Lbs: </label>
                 <input type="int" id="username" v-model ="formData.weight" />
 
@@ -36,6 +40,7 @@ import { GoalRequest }  from './WeightManagement'
         return {
             res :{},
             formData :{ 
+                currentWeight:0,
                 goalWeight: 0,
                 goalDate: '',
                 exerciseLevel: 0,

@@ -60,8 +60,8 @@ public class JWTAuthenticationService : IAuthenticationService
 
     public bool ValidateToken(string token)
     {
-        try
-       {
+        try 
+        {
             
 
             var parts = token.Split('.');

@@ -50,7 +50,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestData", "TestData", "{6B
 	ProjectSection(SolutionItems) = preProject
 		Tests\TestData\AccountTestData.csv = Tests\TestData\AccountTestData.csv
 		Tests\TestData\AccountTestData.json = Tests\TestData\AccountTestData.json
+		Tests\TestData\appsettings.json = Tests\TestData\appsettings.json
 		Tests\TestData\FailedAttemptsData.json = Tests\TestData\FailedAttemptsData.json
+		FoodModelTestData.json = FoodModelTestData.json
 		Tests\TestData\InvalidUsernameTestData.json = Tests\TestData\InvalidUsernameTestData.json
 		Tests\TestData\OTPModelTestData.json = Tests\TestData\OTPModelTestData.json
 		Tests\TestData\WeightGoalModelTestData.json = Tests\TestData\WeightGoalModelTestData.json
@@ -76,7 +78,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6bits.FoodAPI.Tests", "T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.API", "API\The6Bits.API.csproj", "{6BE7E65D-5330-4A0C-85E3-3A14A54CB455}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "The6Bits.BitOHealth.Controller.Tests", "The6Bits.BitOHealth.Controller.Tests\The6Bits.BitOHealth.Controller.Tests.csproj", "{C5FDACA0-AE08-49D4-84CA-F0E3F4DB7A22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.BitOHealth.Controller.Tests", "The6Bits.BitOHealth.Controller.Tests\The6Bits.BitOHealth.Controller.Tests.csproj", "{C5FDACA0-AE08-49D4-84CA-F0E3F4DB7A22}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

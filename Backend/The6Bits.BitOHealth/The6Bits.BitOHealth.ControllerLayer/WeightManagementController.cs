@@ -4,6 +4,7 @@ using The6Bits.Authentication.Contract;
 using The6Bits.BitOHealth.DAL;
 using The6Bits.BitOHealth.ManagerLayer;
 using The6Bits.BitOHealth.Models;
+using The6Bits.BitOHealth.Models.WeightManagement;
 using The6Bits.DBErrors;
 using The6Bits.Logging.DAL.Contracts;
 using The6Bits.Logging.Implementations;
@@ -15,16 +16,18 @@ namespace The6Bits.BitOHealth.ControllerLayer
     public class WeightManagementController : ControllerBase
     {
 
+
+        
         private readonly  IAuthenticationService _authentication;
         private readonly WeightManagementManager _weightManagementManager;
         private readonly LogService _logService;
 
         private bool _isValid;
-        public WeightManagementController(IRepositoryWeightManagementDao dao, IAuthenticationService authentication, ILogDal logDal, IDBErrors dbErrors, IFoodAPI<Parsed> foodApi)
+        public WeightManagementController(IRepositoryWeightManagementDao<IWeightManagerResponse> dao, IAuthenticationService authentication, ILogDal logDal, IDBErrors dbErrors, IFoodAPI<Parsed> foodApi)
         {
             _authentication = authentication;
             _logService = new LogService(logDal);
-            _weightManagementManager = new WeightManagementManager(dao,dbErrors, foodApi);
+            _weightManagementManager = new WeightManagementManager(dao,dbErrors, foodApi, logDal);
         }
 
 
@@ -57,18 +60,14 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
             string username = _authentication.getUsername(token);
 
-            string res = _weightManagementManager.CreateGoal(goal, username);
+            IWeightManagerResponse res = await _weightManagementManager.CreateGoal(goal, username);
 
-            if (res.Contains("Database"))
-            {
-                _ = _logService.Log(username, "Create Weight Goal" + res, "DataStore", "Error");
-                return Ok(res);
-            }
+            
 
             _ = _logService.Log(username, "Saved Weight Goal", "Info", "Business");
 
 
-            return Ok(res);
+            return Ok(res.Result);
 
         }
 
@@ -77,7 +76,47 @@ namespace The6Bits.BitOHealth.ControllerLayer
         public async Task<ActionResult> SearchFood(string queryString)
         {
 
-            return  Ok(await _weightManagementManager.SearchFood(queryString));
+
+            string? token = "";
+            try
+            {
+                token = Request.Headers["Authorization"];
+                token = token.Split(' ')[1];
+            }
+            catch
+            {
+                return BadRequest("No Token");
+            }
+
+            _isValid = _authentication.ValidateToken(token);
+
+            if (!_isValid)
+            {
+
+                _ = _logService.Log("None", "Invalid Token - Weight Goal", "Info", "Business");
+                return BadRequest("Invalid Token");
+            }
+
+
+
+
+            string username = _authentication.getUsername(token);
+
+
+
+
+
+            try
+            {
+                IWeightManagerResponse res = await _weightManagementManager.SearchFood(queryString);
+                return Ok(res.Result);
+            }
+            catch (Exception ex)
+            {
+                //ERROR CASE
+                _=_logService.Log(username, "Error Search Food API", "Business", "Error");
+                return StatusCode(500);
+            }
 
         }
 
@@ -112,8 +151,19 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
             string username = _authentication.getUsername(token);
 
-            return Ok(await _weightManagementManager.UpdateGoal(goal, username));
 
+            IWeightManagerResponse res = await _weightManagementManager.UpdateGoal(goal, username);
+
+
+
+            //INTERNAL ERROR CASE
+            if (res.IsError is true) return StatusCode(500);
+
+
+
+
+            //SUCCESS
+            return Ok(res.Result);
         }
 
 
@@ -140,26 +190,27 @@ namespace The6Bits.BitOHealth.ControllerLayer
                 return BadRequest("Invalid Token");
             }
 
-
-
-
             string username = _authentication.getUsername(token);
-            GoalWeightModel goal = await _weightManagementManager.ReadGoal(username);
 
 
-            //TODO:Better way to do this?
-            if (goal.GoalWeight == null)
-            {
-                return Ok("{}");
-            }
+            IWeightManagerResponse res = await _weightManagementManager.ReadGoal(username);
 
-            return Ok(goal);
+
+
+            //INTERNAL ERROR CASE
+            if (res.IsError is true) return StatusCode(500);
+
+
+
+
+            //SUCCESS
+            return Ok(res.Result);
 
         }
 
 
-        [HttpGet("UpdateGoal")]
-        public async Task<ActionResult> StoreFoodLog(FoodModel food, string username)
+        [HttpPost("SaveFood")]
+        public async Task<ActionResult> StoreFoodLog(FoodModel food)
         {
 
 
@@ -188,16 +239,32 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
             string username = _authentication.getUsername(token);
 
-            return Ok(await _weightManagementManager.StoreFoodLog(food, username));
+            IWeightManagerResponse res = await _weightManagementManager.StoreFoodLog(food, username);
+
+
+            //INTERNAL ERROR CASE
+            if (res.IsError is true) return StatusCode(500);
+
+
+
+
+            //SUCCESS
+            return Ok(res.Result);
 
         }
 
 
-            string token = "";
+        [HttpGet("GetFoodLogs")]
+        public async Task<ActionResult> GetFoodLogs(){
+
+            string? token = "";
+            token = Request.Headers["Authorization"];
+            
+
             try
             {
                 token = Request.Headers["Authorization"];
-            token = token.Split(' ')[1];
+                token = token.Split(' ')[1];
             }
             catch
             {
@@ -218,8 +285,114 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
             string username = _authentication.getUsername(token);
 
-            return Ok(await _weightManagementManager.GetFoodLogs(username));
+            IWeightManagerResponse res = await _weightManagementManager.GetFoodLogs(username);
 
+            //INTERNAL ERROR CASE
+            if (res.IsError is true) return StatusCode(500);
+
+
+
+
+            //SUCCESS
+            return Ok(res.Result);
+
+        }
+
+        [HttpGet("GetProfileInfo")]
+        public async Task<ActionResult> GetProfileInfo()
+        {
+
+            string? token = "";
+            token = Request.Headers["Authorization"];
+
+
+            try
+            {
+                token = Request.Headers["Authorization"];
+                token = token.Split(' ')[1];
+            }
+            catch
+            {
+                return BadRequest("No Token");
+            }
+
+            _isValid = _authentication.ValidateToken(token);
+
+            if (!_isValid)
+            {
+
+                _ = _logService.Log("None", "Invalid Token - Weight Goal", "Info", "Business");
+                return BadRequest("Invalid Token");
+            }
+
+
+
+
+            string username = _authentication.getUsername(token);
+
+
+
+            IWeightManagerResponse res = await _weightManagementManager.GetProfileInfo(username);
+
+
+            //INTERNAL ERROR CASE
+            if (res.IsError is true) return StatusCode(500);
+
+
+
+
+            //SUCCESS
+            return Ok(res.Result);
+        }
+
+
+
+
+        [HttpGet("DeleteFoodLog")]
+        public async Task<ActionResult> DeleteFoodLog(int id)
+        {
+
+            string? token = "";
+            token = Request.Headers["Authorization"];
+
+
+            try
+            {
+                token = Request.Headers["Authorization"];
+                token = token.Split(' ')[1];
+            }
+            catch
+            {
+                return BadRequest("No Token");
+            }
+
+            _isValid = _authentication.ValidateToken(token);
+
+            if (!_isValid)
+            {
+
+                _ = _logService.Log("None", "Invalid Token - Weight Goal", "Info", "Business");
+                return BadRequest("Invalid Token");
+            }
+
+
+
+
+            string username = _authentication.getUsername(token);
+
+
+
+            IWeightManagerResponse res = await _weightManagementManager.DeleteFoodLog(id,username);
+
+
+            //INTERNAL ERROR CASE
+            if (res.IsError is true) return StatusCode(500);
+
+
+
+
+            //SUCCESS
+            return Ok(res.Result);
         }
 
 

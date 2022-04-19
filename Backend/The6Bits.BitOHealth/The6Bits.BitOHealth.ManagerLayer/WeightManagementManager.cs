@@ -10,6 +10,9 @@ using The6Bits.BitOHealth.Models;
 using The6Bits.BitOHealth.ServiceLayer;
 using The6Bits.DBErrors;
 using System.Collections.Generic;
+using The6Bits.BitOHealth.Models.WeightManagement;
+using The6Bits.Logging.DAL.Contracts;
+using The6Bits.Logging.Implementations;
 
 
 namespace The6Bits.BitOHealth.ManagerLayer
@@ -18,62 +21,170 @@ namespace The6Bits.BitOHealth.ManagerLayer
     {
 
 
-        private IRepositoryWeightManagementDao _dao;
+        private IRepositoryWeightManagementDao<IWeightManagerResponse> _dao;
         private WeightManagementService _WMS;
         private IDBErrors _dbErrors;
         private readonly IFoodAPI<Parsed> _foodAPI;
+        private ILogDal _logDal;
 
 
-        public WeightManagementManager(IRepositoryWeightManagementDao dao, IDBErrors dbErrors, IFoodAPI<Parsed> foodApiService)
+        public WeightManagementManager(IRepositoryWeightManagementDao<IWeightManagerResponse> dao, IDBErrors dbErrors, IFoodAPI<Parsed> foodApiService, ILogDal logDal)
         {
             _dao = dao;
-            _WMS = new WeightManagementService(dao);
+            _WMS = new WeightManagementService(dao, logDal);
             _dbErrors = dbErrors;
             _foodAPI = foodApiService;
         }
 
-        public string CreateGoal(GoalWeightModel goal, string username)
+        public async Task<IWeightManagerResponse> CreateGoal(GoalWeightModel goal, string username)
         {
-            string del = _WMS.DeleteGoal(username);
-            if (!del.Contains("Weight"))
+            IWeightManagerResponse del = await _WMS.DeleteGoal(username);
+
+
+            //ERROR CASE
+            if (del.IsError is true )
             {
-                return "Error Deleting Goal" + _dbErrors.DBErrorCheck(Int32.Parse(del));
+                return del;
             }
-            string res = _WMS.CreateGoal(goal,username);
-            if (!res.Contains("Weight"))
-            {
-                return "Error Creating Goal" + _dbErrors.DBErrorCheck(Int32.Parse(res));
-            }
-            return res;
+
+
+            IWeightManagerResponse create = await _WMS.CreateGoal(goal,username);
+
+           
+            return create;
 
         }
 
 
 
-        public async Task<IEnumerable<Parsed>> SearchFood(string queryString)
+        public async Task<IWeightManagerResponse> SearchFood(string queryString)
         {
-            return await _foodAPI.QueryFoods(queryString);
+            return new WeightManagerResponse( await _foodAPI.QueryFoods(queryString));
         }
 
 
-        public async Task<string> UpdateGoal(GoalWeightModel goal,string username)
+        public async Task<IWeightManagerResponse> UpdateGoal(GoalWeightModel goal,string username)
         {
             return await _WMS.UpdateGoal(goal, username);
         }
 
 
-        //TODO:ASK ABOUT THIS
-        public async Task<GoalWeightModel> ReadGoal(string username)
+        public async Task<IWeightManagerResponse> ReadGoal(string username)
         {
             return await _WMS.ReadGoal( username);
         }
 
 
-        public async Task<string> StoreFoodLog(FoodModel food,string username)
+        public async Task<IWeightManagerResponse> StoreFoodLog(FoodModel food,string username)
         {
             return await _WMS.StoreFoodLog(food, username);
         }
 
+        
+        public async Task<IWeightManagerResponse> GetFoodLogs(string username)
+        {
+            return await _WMS.GetFoodLogs(username);
+        }
+
+
+
+
+        public async Task<IWeightManagerResponse> DeleteFoodLog(int id ,string username)
+        {
+            return await _WMS.DeleteFoodLog(id,username);
+        }
+
+
+
+
+
+
+
+        public async Task<IWeightManagerResponse> GetProfileInfo(string username)
+        {
+            try
+            {
+
+                CalorieCounterModel profileData = new CalorieCounterModel();
+                double weekCal = 0;
+                double dayCal = 0;
+                double weekAvg = 0;
+
+
+
+
+
+                IWeightManagerResponse getLogsResponse =
+                    await _WMS.GetFoodLogsAfter(DateTime.UtcNow.AddDays(-7), username);
+
+
+                if (getLogsResponse.IsError != null && getLogsResponse.IsError == true)
+                {
+                    return getLogsResponse;
+                }
+
+                IEnumerable<FoodModel> weekLogs = (IEnumerable<FoodModel>) getLogsResponse.Result;
+
+
+
+                foreach (var log in weekLogs)
+                {
+                    weekCal += log.Calories;
+                    if (log.FoodLogDate > DateTime.UtcNow.AddDays(-1))
+                    {
+                        dayCal += log.Calories;
+                    }
+
+                }
+
+                weekAvg = weekCal / 7;
+                profileData.DailyAverageThisWeekCalories = (int) weekAvg;
+                profileData.WeekCaloriesEaten = (int) weekCal;
+                profileData.TodayCaloriesEaten = (int) dayCal;
+
+                IWeightManagerResponse readGoalResponse = await _WMS.ReadGoal(username);
+
+                if (readGoalResponse.IsError != null && readGoalResponse.IsError == true)
+                {
+                    return readGoalResponse;
+                }
+
+
+                GoalWeightModel goalWeightModel = (GoalWeightModel) readGoalResponse.Result;
+
+
+                if (goalWeightModel.GoalWeight < goalWeightModel.CurrentWeight)
+                {
+                    profileData.CalorieRecommendation = goalWeightModel.ExerciseLevel - 300;
+                    profileData.CaloriesCompared = profileData.CalorieRecommendation - profileData.TodayCaloriesEaten;
+                }
+                else
+                {
+                    profileData.CalorieRecommendation = goalWeightModel.ExerciseLevel + 300;
+                    profileData.CaloriesCompared = profileData.CalorieRecommendation - profileData.TodayCaloriesEaten;
+                }
+
+                return new WeightManagerResponse(profileData);
+
+            }
+            catch (Exception ex)
+            {
+
+                LogService logService = new LogService(_logDal);
+                _ = logService.Log(username, "GetProfileInfo Internal Error", "Business", "Error");
+
+
+
+                return new WeightManagerResponse("GetProfileInfo Internal Error" + ex.Message);
+            }
+
+
+
+
+
+
+        }
+        
 
     }
 }
