@@ -10,6 +10,7 @@ using The6Bits.BitOHealth.Models;
 using The6Bits.BitOHealth.ServiceLayer;
 using The6Bits.DBErrors;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 using The6Bits.BitOHealth.Models.WeightManagement;
 using The6Bits.Logging.DAL.Contracts;
 using The6Bits.Logging.Implementations;
@@ -184,6 +185,24 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
 
         }
+        
+        
+        
+        
+        public async Task<IWeightManagerResponse> SaveImage(IFormFile file,string username)
+        {
+            return await _WMS.DeleteFoodLog(1,"");
+        }
+        public async Task<IWeightManagerResponse> DeleteImage(int imageId, string username )
+        {
+            return await _WMS.DeleteFoodLog(1,"");
+        }
+        
+        public async Task<IWeightManagerResponse> GetTenImages(int index, string username )
+        {
+            return await _WMS.DeleteFoodLog(1,"");
+        }
+
         
 
     }

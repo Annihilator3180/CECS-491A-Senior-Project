@@ -1,4 +1,5 @@
 ﻿using FoodAPI.Contracts;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using The6Bits.Authentication.Contract;
 using The6Bits.BitOHealth.DAL;
@@ -383,6 +384,32 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
 
             IWeightManagerResponse res = await _weightManagementManager.DeleteFoodLog(id,username);
+
+
+            //INTERNAL ERROR CASE
+            if (res.IsError is true) return StatusCode(500);
+
+
+
+
+            //SUCCESS
+            return Ok(res.Result);
+        }
+        
+        
+        [HttpGet("SaveImage")]
+        public async Task<ActionResult> SaveImage(IFormFile file)
+        {
+
+            
+
+
+
+            string username = "bossadmin12";
+
+
+
+            IWeightManagerResponse res = await _weightManagementManager.SaveImage(file,username);
 
 
             //INTERNAL ERROR CASE
