@@ -65,8 +65,17 @@ namespace The6Bits.BitOHealth.ManagerLayer
             {
                 return new WeightManagerResponse("Invalid Search", true, true);
             }
+            try
+            {
+                IEnumerable<Parsed> foods = await _foodAPI.QueryFoods(queryString);
+                return new WeightManagerResponse(foods);
+            }
+            catch (Exception ex)
+            {
+                return new WeightManagerResponse("Food API Fail", true);
 
-            return new WeightManagerResponse( await _foodAPI.QueryFoods(queryString));
+            }
+
         }
 
 

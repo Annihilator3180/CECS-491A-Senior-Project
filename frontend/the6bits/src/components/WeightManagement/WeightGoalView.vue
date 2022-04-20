@@ -1,22 +1,22 @@
 <template>
-    <div  class="form">
+    <div  id="wrapper" class="form">
+        
             <div  v-if="hasSavedWeightGoal" class=" my-custom-class">        
                 <CurrentWeightGoal @read-data="onChildLoad">
                 </CurrentWeightGoal>
                 <button @click="editWeight = !editWeight">Edit</button>
             </div>
-        <CreateGoal v-if="!hasSavedWeightGoal" />
-        <UpdateGoal v-if="editWeight"></UpdateGoal> 
+        <div  id="inner1">
+            <CreateGoal v-if="!hasSavedWeightGoal" />
+            <UpdateGoal v-if="editWeight"></UpdateGoal> 
+        </div>
 
         
 
-        <button @click="activeTab = 'SaveFoodLog'"  class="ano">Custom</button>
-        <button @click="activeTab = 'SearchFood'"  class="ano">Search</button>
-                <button   v-on:click="ExportFood">Export</button>
-        <LoadProfile />
+        <LoadProfile  id="inner2"/>
+                    <UploadProgressImage/>
 
-        <component :is="activeTab"/>
-        <FoodLogs @food-logs="onLogsLoad"  class="ano"/>
+        <LoadWeightImages/>
     </div>
 </template>
 
@@ -31,10 +31,9 @@ import CurrentWeightGoal from './CurrentWeightGoal.vue';
 import { GoalRequest,JsonLogToCSVString }  from './WeightManagement'
 import CreateGoal from './CreateWeightGoal.vue'
 import UpdateGoal from './UpdateWeightGoal.vue'
-import SearchFood from './SearchFoodItem.vue'
-import SaveFoodLog from './SaveFoodLog.vue'
 import LoadProfile from './WMComponents/CountingCalories.vue'
-import FoodLogs from './WMComponents/FoodLogRow.vue'
+import UploadProgressImage from './WMComponents/UploadProgressImage.vue'
+import LoadWeightImages from './WMComponents/LoadWeightImages.vue'
     export default {
         name : 'GoalView',
         data() {
@@ -49,17 +48,15 @@ import FoodLogs from './WMComponents/FoodLogRow.vue'
             message : '',
             editWeight:false,
             hasSavedWeightGoal:true,
-            foodLogs:[],
         }
     },
     components: {
         CurrentWeightGoal,
         CreateGoal,
         UpdateGoal,
-        SaveFoodLog,
-        SearchFood,
-        FoodLogs,
-        LoadProfile
+        LoadProfile,
+        UploadProgressImage,
+        LoadWeightImages
     },
     methods:{
         JsonLogToCSVString,
@@ -75,18 +72,6 @@ import FoodLogs from './WMComponents/FoodLogRow.vue'
             }
         },
 
-        onLogsLoad(logs){
-            this.foodLogs = logs;
-
-        },
-        async ExportFood()
-        {
-            console.log(this.foodLogs)
-            var logString = await JsonLogToCSVString(this.foodLogs)
-            var encodedUri =  encodeURI(logString);
-            window.open(encodedUri);
-        }
-    
     }
     
     }
@@ -107,7 +92,6 @@ label {
   position: absolute;
   right: 0;
   width: 300px;
-  border: solid red 2px;
   
 }
 
@@ -131,4 +115,20 @@ button:active {
   border: 1px solid black;
   color: rgb(255, 0, 0);
   }
+
+
+#wrapper{
+        margin-left:auto;
+        margin-right:auto;
+        height:auto; 
+        width:auto;
+    }
+#inner1 {
+   float:left; 
+}
+
+#inner2{
+   float:left; 
+   clear: left;
+}
 </style>

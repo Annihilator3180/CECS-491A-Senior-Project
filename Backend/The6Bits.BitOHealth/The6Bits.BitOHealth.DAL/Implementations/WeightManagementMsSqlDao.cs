@@ -39,7 +39,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
             catch (SqlException ex)
             {
-                 return new WeightManagerResponse(ex.Number.ToString(), true);
+                 return new WeightManagerResponse(ex.Number, true);
             }
         }
 
@@ -69,7 +69,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
             catch (SqlException ex)
             {
-                 return new WeightManagerResponse(ex.Number.ToString(), true);
+                 return new WeightManagerResponse(ex.Number, true);
             }
         }
 
@@ -94,7 +94,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             {
                 //LOG
 
-                 return new WeightManagerResponse(ex.Number.ToString(), true);
+                 return new WeightManagerResponse(ex.Number, true);
             }
         }
 
@@ -125,7 +125,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
             catch (SqlException ex)
             {
-                 return new WeightManagerResponse(ex.Number.ToString(), true);
+                 return new WeightManagerResponse(ex.Number, true);
             }
             
             
@@ -164,7 +164,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             catch (SqlException ex)
             {
                 //LOGG
-                return new WeightManagerResponse(ex.Number.ToString(), true);
+                return new WeightManagerResponse(ex.Number, true);
             }
         }
 
@@ -192,7 +192,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             catch (SqlException ex)
             {
                 //LOGG
-                return new WeightManagerResponse(ex.Number.ToString(), true);
+                return new WeightManagerResponse(ex.Number, true);
             }
         }
 
@@ -222,7 +222,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             catch (SqlException ex)
             {
                 //LOGG
-                return new WeightManagerResponse(ex.Number.ToString(), true);
+                return new WeightManagerResponse(ex.Number, true);
             }
         }
 
@@ -253,7 +253,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
             catch (SqlException ex)
             {
-                return new WeightManagerResponse(ex.Number.ToString(), true);
+                return new WeightManagerResponse(ex.Number, true);
             }
         }
 
@@ -282,7 +282,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
             catch (SqlException ex)
             {
-                return new WeightManagerResponse(ex.Number.ToString(), true);
+                return new WeightManagerResponse(ex.Number, true);
             }
         }
 
@@ -311,7 +311,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
             catch (SqlException ex)
             {
-                return new WeightManagerResponse(ex.Number.ToString(), true);
+                return new WeightManagerResponse(ex.Number, true);
             }
         }
 
@@ -339,7 +339,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
             catch (SqlException ex)
             {
-                return new WeightManagerResponse(ex.Number.ToString(), true);
+                return new WeightManagerResponse(ex.Number, true);
             }
         }
 
@@ -369,7 +369,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             catch (SqlException ex)
             {
                 //LOGG
-                return new WeightManagerResponse(ex.Number.ToString(), true);
+                return new WeightManagerResponse(ex.Number, true);
             }
         }
 
@@ -392,7 +392,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
             catch (SqlException ex)
             {
-                return new WeightManagerResponse(ex.Number.ToString(), true);
+                return new WeightManagerResponse(ex.Number, true);
             }
         }
 

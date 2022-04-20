@@ -20,6 +20,7 @@ import DietRecommendation from '@/components/DietRecommendation.vue'
 import logOut from '@/components/logout.vue'
 import SaveFoodLog from '@/components/WeightManagement/SaveFoodLog.vue'
 import viewReminder from '@/components/Reminders/ViewReminder.vue'
+import FoodLogView from '@/components/WeightManagement/FoodLogView.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -148,7 +149,19 @@ const routes: Array<RouteRecordRaw> = [
   meta: {
        requiresAuth: true,
     },
+  },
+  {
+  path: "/FoodLog",
+  name: "FoodLog",
+  component: FoodLogView,
+  meta: {
+       requiresAuth: true,
+    },
   }
+
+
+
+
 
 ]
 
