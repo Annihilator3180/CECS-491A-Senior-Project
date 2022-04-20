@@ -24,7 +24,7 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
 
         private IRepositoryWeightManagementDao<IWeightManagerResponse> _dao;
-        private WeightManagementService _WMS;
+        private WeightManagementService _weightManagementService;
         private IDBErrors _dbErrors;
         private readonly IFoodAPI<Parsed> _foodAPI;
         private ILogDal _logDal;
@@ -33,14 +33,14 @@ namespace The6Bits.BitOHealth.ManagerLayer
         public WeightManagementManager(IRepositoryWeightManagementDao<IWeightManagerResponse> dao, IDBErrors dbErrors, IFoodAPI<Parsed> foodApiService, ILogDal logDal, IRepositoryWeightManagementImageDao<IWeightManagerResponse> imageDao)
         {
             _dao = dao;
-            _WMS = new WeightManagementService(dao, logDal, imageDao);
+            _weightManagementService = new WeightManagementService(dao, logDal, dbErrors ,  imageDao);
             _dbErrors = dbErrors;
             _foodAPI = foodApiService;
         }
 
         public async Task<IWeightManagerResponse> CreateGoal(GoalWeightModel goal, string username)
         {
-            IWeightManagerResponse del = await _WMS.DeleteGoal(username);
+            IWeightManagerResponse del = await _weightManagementService.DeleteGoal(username);
 
 
             //ERROR CASE
@@ -50,7 +50,7 @@ namespace The6Bits.BitOHealth.ManagerLayer
             }
 
 
-            IWeightManagerResponse create = await _WMS.CreateGoal(goal,username);
+            IWeightManagerResponse create = await _weightManagementService.CreateGoal(goal,username);
 
            
             return create;
@@ -72,13 +72,13 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
         public async Task<IWeightManagerResponse> UpdateGoal(GoalWeightModel goal,string username)
         {
-            return await _WMS.UpdateGoal(goal, username);
+            return await _weightManagementService.UpdateGoal(goal, username);
         }
 
 
         public async Task<IWeightManagerResponse> ReadGoal(string username)
         {
-            return await _WMS.ReadGoal( username);
+            return await _weightManagementService.ReadGoal( username);
         }
 
 
@@ -87,7 +87,7 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
             //VALIDATION
             IWeightManagerResponse validation =
-                await _WMS.GetFoodLogsAfterAddTime(DateTime.UtcNow.AddDays(-1), username);
+                await _weightManagementService.GetFoodLogsAfterAddTime(DateTime.UtcNow.AddDays(-1), username);
             if (validation.IsError is true)
             {
                 return validation;
@@ -105,13 +105,13 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
 
 
-            return await _WMS.StoreFoodLog(food, username);
+            return await _weightManagementService.StoreFoodLog(food, username);
         }
 
         
         public async Task<IWeightManagerResponse> GetFoodLogs(string username)
         {
-            return await _WMS.GetFoodLogs(username);
+            return await _weightManagementService.GetFoodLogs(username);
         }
 
 
@@ -119,7 +119,7 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
         public async Task<IWeightManagerResponse> DeleteFoodLog(int id ,string username)
         {
-            return await _WMS.DeleteFoodLog(id,username);
+            return await _weightManagementService.DeleteFoodLog(id,username);
         }
 
 
@@ -143,7 +143,7 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
 
                 IWeightManagerResponse getLogsResponse =
-                    await _WMS.GetFoodLogsAfter(DateTime.UtcNow.AddDays(-7), username);
+                    await _weightManagementService.GetFoodLogsAfter(DateTime.UtcNow.AddDays(-7), username);
 
 
                 if (getLogsResponse.IsError != null && getLogsResponse.IsError == true)
@@ -170,7 +170,7 @@ namespace The6Bits.BitOHealth.ManagerLayer
                 profileData.WeekCaloriesEaten = (int) weekCal;
                 profileData.TodayCaloriesEaten = (int) dayCal;
 
-                IWeightManagerResponse readGoalResponse = await _WMS.ReadGoal(username);
+                IWeightManagerResponse readGoalResponse = await _weightManagementService.ReadGoal(username);
 
                 if (readGoalResponse.IsError != null && readGoalResponse.IsError == true)
                 {
@@ -241,7 +241,7 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
 
 
-            IWeightManagerResponse saveImage = await _WMS.SaveImage(file, username);
+            IWeightManagerResponse saveImage = await _weightManagementService.SaveImage(file, username);
             //ERROR CASE
             if (saveImage.IsError is true) return saveImage;
 
@@ -250,7 +250,7 @@ namespace The6Bits.BitOHealth.ManagerLayer
             string path = (string)saveImage.Result;
 
 
-            IWeightManagerResponse saveImagePath = await _WMS.SaveImagePath(path, username);
+            IWeightManagerResponse saveImagePath = await _weightManagementService.SaveImagePath(path, username);
 
 
             return saveImagePath;
@@ -258,13 +258,13 @@ namespace The6Bits.BitOHealth.ManagerLayer
         public async Task<IWeightManagerResponse> DeleteImage(int imageId, string username )
         {
 
-            IWeightManagerResponse read = await  _WMS.GetImage(imageId, username);
+            IWeightManagerResponse read = await  _weightManagementService.GetImage(imageId, username);
             //error case
             if (read.IsError is true) return read;
 
 
 
-            IWeightManagerResponse del = await _WMS.DeleteImage((string)read.Result,username);
+            IWeightManagerResponse del = await _weightManagementService.DeleteImage((string)read.Result,username);
             //error case
             if (del.IsError is true) return del;
 
@@ -272,25 +272,25 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
 
 
-            return await _WMS.DeleteImagePath(imageId, username);
+            return await _weightManagementService.DeleteImagePath(imageId, username);
         }
         
         public async Task<IWeightManagerResponse> GetImage(int index, string username )
         {
 
-            return await _WMS.GetImage(index, username);
+            return await _weightManagementService.GetImage(index, username);
         }
 
         public async Task<IWeightManagerResponse> GetAllImageIds(string username)
         {
 
-            return await _WMS.GetAllImageIds( username);
+            return await _weightManagementService.GetAllImageIds( username);
         }
 
         public async Task<IWeightManagerResponse> DeleteGoal(string username)
         {
 
-            return await _WMS.DeleteGoal( username);
+            return await _weightManagementService.DeleteGoal( username);
         }
 
 

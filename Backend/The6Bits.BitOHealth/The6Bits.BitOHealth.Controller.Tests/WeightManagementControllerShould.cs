@@ -120,13 +120,81 @@ namespace The6Bits.BitOHealth.Controller.Tests
         public async void StoreFoodLogShould()
         {
             WeightManagementController weightManagementController = WeightManagementContext();
-            ActionResult res = await weightManagementController.CreateGoal(new GoalWeightModel(122, DateTime.UtcNow.AddMonths(1), 2500, 200));
-            ActionResult update = await weightManagementController.ReadGoal();
-
+            ActionResult res = await weightManagementController.StoreFoodLog(new FoodModel("pizza","bussin",123,DateTime.Now));
+            ActionResult update = await weightManagementController.GetFoodLogs();
+            IEnumerable<FoodModel> foodModels = (IEnumerable<FoodModel>)((OkObjectResult)update).Value;
             Assert.IsType<OkObjectResult>(res);
 
-            await weightManagementController.DeleteGoal();
+            await weightManagementController.DeleteFoodLog((int)foodModels.First().Id);
         }
+        
+
+        [Fact]
+        public async void GetProfileInfoShould()
+        {
+            WeightManagementController weightManagementController = WeightManagementContext();
+            ActionResult res = await weightManagementController.GetProfileInfo();
+            
+            Assert.IsType<OkObjectResult>(res);
+
+        }
+        
+        [Fact]
+        public async void DeleteFoodLogShould()
+        {
+            WeightManagementController weightManagementController = WeightManagementContext();
+            ActionResult res = await weightManagementController.DeleteFoodLog(1);
+            
+            Assert.IsType<OkObjectResult>(res);
+
+        }
+        
+        
+        
+        //TODO
+        [Fact]
+        public async void SaveImageShould()
+        {
+            WeightManagementController weightManagementController = WeightManagementContext();
+            ActionResult res = await weightManagementController.DeleteFoodLog(1);
+            
+            Assert.IsType<OkObjectResult>(res);
+
+        }
+        
+        
+        [Fact]
+        public async void GetImageShould()
+        {
+            WeightManagementController weightManagementController = WeightManagementContext();
+            ActionResult res = await weightManagementController.GetImage(1);
+            
+            Assert.IsType<OkObjectResult>(res);
+
+        }
+        
+        
+        
+        [Fact]
+        public async void GetAllImageShould()
+        {
+            WeightManagementController weightManagementController = WeightManagementContext();
+            ActionResult res = await weightManagementController.GetAllImageIds();
+            
+            Assert.IsType<OkObjectResult>(res);
+
+        }
+        
+        [Fact]
+        public async void DeleteGoalShould()
+        {
+            WeightManagementController weightManagementController = WeightManagementContext();
+            ActionResult res = await weightManagementController.DeleteGoal();
+            
+            Assert.IsType<OkObjectResult>(res);
+
+        }
+        
 
     }
 }

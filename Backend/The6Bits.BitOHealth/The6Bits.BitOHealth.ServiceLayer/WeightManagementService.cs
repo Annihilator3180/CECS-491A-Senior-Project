@@ -8,6 +8,7 @@ using The6Bits.BitOHealth.DAL;
 using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.BitOHealth.Models;
 using The6Bits.BitOHealth.Models.WeightManagement;
+using The6Bits.DBErrors;
 using The6Bits.Logging.DAL.Contracts;
 using The6Bits.Logging.Implementations;
 
@@ -22,12 +23,13 @@ namespace The6Bits.BitOHealth.ServiceLayer
         private readonly IRepositoryWeightManagementDao<IWeightManagerResponse> _weightManagementDao;
         private readonly ILogDal _logDal;
         private readonly IRepositoryWeightManagementImageDao<IWeightManagerResponse> _imageDao;
-
-        public WeightManagementService(IRepositoryWeightManagementDao<IWeightManagerResponse> dao, ILogDal logDal , IRepositoryWeightManagementImageDao<IWeightManagerResponse> imageDao)
+        private readonly IDBErrors _dbErrors;
+        public WeightManagementService(IRepositoryWeightManagementDao<IWeightManagerResponse> dao, ILogDal logDal ,IDBErrors dbErrors ,IRepositoryWeightManagementImageDao<IWeightManagerResponse> imageDao)
         {
             _logDal = logDal;
             _imageDao = imageDao;
             _weightManagementDao = dao;
+            _dbErrors = dbErrors;
         }
 
         public async Task<IWeightManagerResponse> DeleteGoal(string username)

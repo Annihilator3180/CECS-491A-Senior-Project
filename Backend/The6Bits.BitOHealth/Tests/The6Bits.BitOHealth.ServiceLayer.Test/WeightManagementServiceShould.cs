@@ -12,6 +12,7 @@ using The6Bits.BitOHealth.DAL.Implementations;
 using The6Bits.BitOHealth.DAL.Tests;
 using The6Bits.BitOHealth.Models;
 using The6Bits.BitOHealth.Models.WeightManagement;
+using The6Bits.DBErrors;
 using The6Bits.Logging.DAL.Implementations;
 using Xunit;
 
@@ -23,7 +24,7 @@ namespace The6Bits.BitOHealth.ServiceLayer.Test
         private readonly WeightManagementService _service;
         public WeightManagementServiceShould()
         {
-            _service = new WeightManagementService(new WeightManagementMsSqlDao(conn), new SQLLogDAO(),new WeightManagementWindowsDao("%USERPROFILE%\\Pictures\\TestImages\\"));
+            _service = new WeightManagementService(new WeightManagementMsSqlDao(conn), new SQLLogDAO(),new MsSqlDerrorService(),new WeightManagementWindowsDao("%USERPROFILE%\\Pictures\\TestImages\\"));
         }
 
         [Theory]
