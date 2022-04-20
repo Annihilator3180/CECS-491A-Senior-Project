@@ -14,6 +14,7 @@
                 <input type="text" id="otp" v-model ="formData.otp" />
             </div>
             <button>Login</button>
+            {{message}}
         </form>
     </div>
 </template>
@@ -28,6 +29,7 @@
                 password: '',
                 otp: '',
             },
+            message:''
         }
     },
     methods:{
@@ -43,6 +45,7 @@
                 .then(data=> {
                     if(data.split('.').length == 3){
                         sessionStorage.setItem('token', data)
+                        this.message = "Logged In."
                     }
                     })
 
