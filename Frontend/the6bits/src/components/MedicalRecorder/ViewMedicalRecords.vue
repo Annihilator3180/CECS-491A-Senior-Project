@@ -73,14 +73,17 @@ export default {
             else if(firstFive == "/9j/4"){
                 type = "image/jpeg"
             }
-            //what is atob
+            //decodes a base 64 string into a new string with a character for each byte of binary data
             const byteCharacters = atob(recordString);
             //create array based on byte characters
             const byteNumbers = new Array(byteCharacters.length);
             for (let i = 0; i < byteCharacters.length; i++) {
+                //places the value of each byte into byteNumbers arr
                 byteNumbers[i] = byteCharacters.charCodeAt(i);
                 }
+                //converts to real typed byte array
             const byteArray = new Uint8Array(byteNumbers);
+            //create blob object based on aboive array
             const blob = new Blob([byteArray], {type: type});
 
 

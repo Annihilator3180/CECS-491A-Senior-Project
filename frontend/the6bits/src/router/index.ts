@@ -106,7 +106,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/HealthRecorder',
     name: 'HealthRecorder',
-    component: HealthRecorder
+    component: HealthRecorder,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
       path: "/FavoriteDrugs",
@@ -151,12 +154,18 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/ViewMedicalRecords",
     name: "ViewMedicalRecords",
-    component: ViewMedicalRecords
+    component: ViewMedicalRecords,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: "/EditMedicalRecords",
     name: "EditMedicalRecords",
-    component: EditMedicalRecords
+    component: EditMedicalRecords,
+    meta: {
+      requiresAuth: true,
+    },
   }
   
 

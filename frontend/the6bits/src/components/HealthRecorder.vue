@@ -1,22 +1,24 @@
 <template>
   <div class="container">
     <div class="large-12 medium-12 small-12 cell">
-                <div>
-            <label for = "userFileInput"> Please select up to 2 .pdf or .jpeg health files:
-            </label>
-            <input type = "text" name = "recordName" id = "recordName" placeholder="Enter record name" minlength = "2" required v-model="recordName">
-        </div>
-        <div>
-            <select name = "categoryName" id="categoryName" required v-model="categoryName" >
-                <option value = "Medical"> Medical Record </option>
-                <option value = "Other"> Other </option>
-            </select>
-        </div>
-      <label>Files
-        <input type="file" id="files" ref="files"  multiple v-on:change="handleFilesUpload()" required />
+      <div>
+      <label for = "userFileInput"> Please select up to 2 .pdf or .jpeg health files:
       </label>
-      <button v-on:click="submitFiles()">Submit</button>
-    </div>
+        <input type = "text" name = "recordName" id = "recordName" placeholder="Enter record name" minlength = "2" required v-model="recordName">
+      </div>
+      <div>
+        <select name = "categoryName" id="categoryName"  required v-model="categoryName" >
+          <option value = "Medical"> Medical Record </option>
+          <option value = "Other"> Other </option>
+        </select>
+      </div>
+      <div>
+        <label>Files
+          <input type="file" id="files" ref="files" multiple v-on:change="handleFilesUpload()" accept=".pdf,.jpg, .jpeg" />
+        </label>
+        <button v-on:click="submitFiles()">Submit</button>
+      </div>
+      </div>
   </div>
 </template>
 
@@ -62,13 +64,20 @@
                 {
                     method: 'POST',
                     credentials: 'include',
+                    headers:{
+                      "Authorization" : `Bearer ${sessionStorage.getItem('token')}`
+                    },
                     
                     body: formData
                 })
                 .then(response => response.json()) 
                 .then (data =>{
+          
                   if (data.errorMessage != null){
                     window.alert(data.errorMessage)
+                  }
+                   else if(data.data == undefined){
+                    window.alert("Please select a category name, file, and record name")
                   }
                   else{
                     window.alert(data.data)

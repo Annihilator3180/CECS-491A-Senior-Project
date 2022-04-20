@@ -1,8 +1,8 @@
 const GetRecord = (pageNumber) =>{
     const requestOptions = {
         method: "GET",
-        credentials: 'include',
-        headers: { "Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json",
+        "Authorization" : `Bearer ${sessionStorage.getItem('token')}`},
     };
     //maybe chang eto local host for now
     return fetch(process.env.VUE_APP_BACKEND+'HealthRecorder/ViewRecord?lastRecordIndex=' + pageNumber ,requestOptions)
@@ -13,10 +13,9 @@ const GetRecord = (pageNumber) =>{
 const ExportRecord = (recordName, categoryName, recordNumber) =>{
     const requestOptions = {
         method: "GET",
-        credentials: 'include',
-        headers: { "Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json",
+        "Authorization" : `Bearer ${sessionStorage.getItem('token')}`},
     };
-    //maybe chang eto local host for now
     return fetch(process.env.VUE_APP_BACKEND+'HealthRecorder/ExportRecord?recordName=' + recordName + "&categoryName=" + categoryName + "&recordNumber=" + recordNumber ,requestOptions)
         .then(response => response.text())
         .then(value =>{
@@ -27,11 +26,10 @@ const ExportRecord = (recordName, categoryName, recordNumber) =>{
 const DeleteRecord = (recordName, categoryName) =>{
     const requestOptions = {
         method: "DELETE",
-        credentials: 'include',
-        headers: { "Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json",
+        "Authorization" : `Bearer ${sessionStorage.getItem('token')}`},
         body: JSON.stringify({recordName :recordName, categoryName : categoryName  })
     };
-    //maybe chang eto local host for now
     return fetch(process.env.VUE_APP_BACKEND+'HealthRecorder/DeleteRecord',requestOptions)
         .then(response => response.text())
         .then(value =>  { 
@@ -40,8 +38,8 @@ const DeleteRecord = (recordName, categoryName) =>{
 const SearchRecord = (recordName, categoryName) =>{
     const requestOptions = {
         method: "GET",
-        credentials : 'include',
-        headers: { "Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json",
+        "Authorization" : `Bearer ${sessionStorage.getItem('token')}`},
     };
     return fetch(process.env.VUE_APP_BACKEND + 'HealthRecorder/SearchRecord?recordName=' + recordName + "&categoryName=" + categoryName, requestOptions )
     .then(response => response.text())

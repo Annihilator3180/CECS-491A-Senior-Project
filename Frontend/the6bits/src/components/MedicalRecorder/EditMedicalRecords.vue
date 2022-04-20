@@ -119,10 +119,13 @@ export default {
        
       },
       base64ToArrayBuffer(base64) {
+        //base64 to binary string
     var binaryString = window.atob(base64);
     var binaryLen = binaryString.length;
+    //new array with binary string length
     var bytes = new Uint8Array(binaryLen);
     for (var i = 0; i < binaryLen; i++) {
+      //loops through binary string and gets/places each ascii value of index into new byte array
        var ascii = binaryString.charCodeAt(i);
        bytes[i] = ascii;
     }

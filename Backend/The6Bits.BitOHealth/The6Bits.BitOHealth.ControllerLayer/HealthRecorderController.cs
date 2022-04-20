@@ -49,7 +49,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
             try
             {
-                token = Request.Cookies["token"];
+                token = Request.Headers["Authorization"];
 
             }
             catch
@@ -57,6 +57,8 @@ namespace The6Bits.BitOHealth.ControllerLayer
                 response.ErrorMessage = "No Token";
                 return Unauthorized(response);
             }
+            token = token.Split(' ')[1];
+
 
             bool isValid = _authentication.ValidateToken(token);
            
@@ -105,13 +107,15 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
             try
             {
-                token = Request.Cookies["token"];
+                token = Request.Headers["Authorization"];
             }
             catch
             {
                 response.ErrorMessage = "No Token";
                 return Unauthorized(response);
             }
+            token = token.Split(' ')[1];
+
 
             bool isValid = _authentication.ValidateToken(token);
 
@@ -152,13 +156,14 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
             try
             {
-                token = Request.Cookies["token"];
+                token = Request.Headers["Authorization"];
             }
             catch
             {
                 response.ErrorMessage = "No Token";
                 return Unauthorized(response);
             }
+            token = token.Split(' ')[1];
 
             bool isValid = _authentication.ValidateToken(token);
 
@@ -201,13 +206,14 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
             try
             {
-                token = Request.Cookies["token"];
+                token = Request.Headers["Authorization"];
             }
             catch
             {
                 response.ErrorMessage = "No Token";
                 return Unauthorized(response);
             }
+            token = token.Split(' ')[1];
 
             bool isValid = _authentication.ValidateToken(token);
 
@@ -246,13 +252,14 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
             try
             {
-                token = Request.Cookies["token"];
+                token = Request.Headers["Authorization"];
             }
             catch
             {
                 response.ErrorMessage = "No Token";
                 return Unauthorized(response);
             }
+            token = token.Split(' ')[1];
 
             bool isValid = _authentication.ValidateToken(token);
 
@@ -295,13 +302,14 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
             try
             {
-                token = Request.Cookies["token"];
+                token = Request.Headers["Authorization"];
             }
             catch
             {
                 response.ErrorMessage = "No Token";
                 return Unauthorized(response);
             }
+            token = token.Split(' ')[1];
 
             bool isValid = _authentication.ValidateToken(token);
 
