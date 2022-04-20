@@ -23,13 +23,13 @@ namespace The6Bits.BitOHealth.ServiceLayer.Test
         [InlineData("Dsad")]
         public void CreateServiceTest(string p)
         {
-            _service.CreateGoal(1, p);
+      //      _service.CreateGoal(1, p);
         }
 
 
         public void DeleteServiceTest(string p)
         {
-            _service.CreateGoal(1, p);
+       //     _service.CreateGoal(1, p);
         }
 
     }

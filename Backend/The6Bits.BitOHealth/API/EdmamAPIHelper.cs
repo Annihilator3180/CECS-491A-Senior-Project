@@ -5,10 +5,6 @@ namespace The6Bits.API
 {
     public class EdmamAPIHelper
     {
-        public EdmamAPIHelper()
-        {
-
-        }
 
         public async Task<EdamamResponseRoot> GetRecommenedRecipes(DietR request)
         {
@@ -23,5 +19,10 @@ namespace The6Bits.API
 
             return result;
         }
+
+
+
+
+
     }
 }

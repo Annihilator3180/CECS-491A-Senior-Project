@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using The6Bits.API;
@@ -22,9 +23,9 @@ namespace The6Bits.BitOHealth.ServiceLayer
             _DBErrors = DbError;
         }
 
-        public string SaveDietResponses(DietR d)
+        public string SaveDietResponses(DietR d, string username)
         {
-            string saveStatus = _DietDao.SaveDietResponses(d);
+            string saveStatus = _DietDao.SaveDietResponses(d,username);
             if (saveStatus == "0")
             {
                 return _DBErrors.DBErrorCheck(int.Parse(saveStatus));
@@ -35,14 +36,50 @@ namespace The6Bits.BitOHealth.ServiceLayer
             }
         }
 
-        public async Task<List<Recipe>> getRecommendedRecipies(DietR responses)
+        public async Task<string> getRecommendedRecipies(DietR responses)
         {
-            var helper = new EdmamAPIHelper();
-
+            EdmamAPIHelper helper = new EdmamAPIHelper();
+            //contains found edamamirootresponse (including the hits)
             var result = await helper.GetRecommenedRecipes(responses);
+            try
+            {
+                // List containing all the recipes retrieved from the api
+                List<Recipe> recipe = result.hits.Select(_ => _.recipe).ToList();
+                if(recipe.Count>0)
+                {
+                    string recipeList = JsonSerializer.Serialize(recipe);
+                    return recipeList;
 
-            return result.hits.Select(_ => _.recipe).ToList();
+                }
+                // convert json to string
+                else
+                {
+                    return "No recipies found, please try again!";
+                }
+
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+
 
         }
+
+        public async Task<String> AddToFavorite(FavoriteRecipe recipe, string username)  
+        {
+            return await _DietDao.AddToFavorite(recipe, username);
+        }
+
+        public async Task<string> DeleteFavorite(string recipeId)
+        {
+            return await _DietDao.DeleteFavorite(recipeId);
+        }
+
+        public async Task<List<string>> GetFavorites(string username)
+        {
+            return await _DietDao.GetFavorites(username);
+        }
+
     }
 }

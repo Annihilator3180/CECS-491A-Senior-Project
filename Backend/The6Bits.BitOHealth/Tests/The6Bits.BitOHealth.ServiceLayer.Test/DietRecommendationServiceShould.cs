@@ -24,27 +24,17 @@ namespace The6Bits.BitOHealth.ServiceLayer.Test
         [Fact]
         public void SaveTest()
         {
-            DietR d = new DietR();
-            d.Diet = "low-fat";
-            d.Health = "peanut-free";
-            d.Ingr = 5;
-            d.DishType = "dessert";
-            d.CuisineType = "American";
-            d.MealType = "Lunch";
-            d.Calories = 500;
-            d.Excluded = "Almonds";
-            d.Q = "fruit";
-            _serv.SaveDietResponses(d);
-                
-
-               
+            string username = "emily";
+            DietR d = new DietR("fruit","low-fat","peanut-free",5,"dessert",500,"American","Almonds","Lunch");
+            _serv.SaveDietResponses(d,username);   
         }
 
 
 
+
     }
 
     }
-//}
+
     
 

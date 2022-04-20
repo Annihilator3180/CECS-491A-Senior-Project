@@ -18,26 +18,26 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
           _connectionString = connectionString;
          }
-        public string SaveDietResponses(DietR d)
+        public string SaveDietResponses(DietR diet, string username)
         {
             try
             {
-                string query = "INSERT INTO dbo.Diet(Diet,Health, Ingr, DishType, Calories, CuisineType, Excluded, MealType) values ( @Diet, @Health, @Ingr, @DishType,@Calories ,@CuisineType,@Excluded,@MealType) ";
+                string query = "INSERT INTO Diet(Username,Diet,Health, Ingr, DishType, Calories, CuisineType, Excluded, MealType) values ( @Username, @Diet, @Health, @Ingr, @DishType,@Calories ,@CuisineType,@Excluded,@MealType) ";
                 using( SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     int linesAdded = connection.Execute(query,
                         new
                         {
-                            
-                            Diet = d.Diet,
-                            Health = d.Health,
-                            Ingr = d.Ingr,
-                            DishType = d.DishType,
-                            Calories = d.Calories,
-                            CuisineType = d.CuisineType,
-                            Excluded = d.Excluded,
-                            MealType = d.MealType
-                        });
+                            Username = username,
+                            Diet = diet.Diet,
+                            Health = diet.Health,
+                            Ingr = diet.Ingr,
+                            DishType = diet.DishType,
+                            Calories = diet.Calories,
+                            CuisineType = diet.CuisineType,
+                            Excluded = diet.Excluded,
+                            MealType = diet.MealType
+                        });;
                     connection.Close();
                     if(linesAdded==0)
                     {
@@ -52,5 +52,86 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
 
         }
+
+        public async Task<String> AddToFavorite(FavoriteRecipe recipe, string username)
+        {
+            try
+            {
+                string query = "INSERT INTO FavoriteRecipe (Username, Recipe_id) values (@Username, @Recipe_id)";
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+                    int linesAdded = connection.Execute(query,
+                        new
+                        {
+                            Username = username,
+                            Recipe_id = recipe.Recipe_id
+                            // IngredientLines = recipe.IngredientLines,
+
+                        });
+                    connection.Close();
+                    if (linesAdded == 0)
+                    {
+                        return linesAdded.ToString();
+                    }
+                    return "1";
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception(ex.Number.ToString());
+            }
+        }
+        public async Task<string> DeleteFavorite(string recipeid)
+        {
+            try
+            {
+                string query = "DELETE FROM FavoriteRecipe WHERE Recipe_id = @Recipe_id";
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+                    int linesDeleted = connection.Execute(query);
+                    connection.Close();
+                    if (linesDeleted == 0)
+                    {
+                        return linesDeleted.ToString();
+                    }
+                    return "1";
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception(ex.Number.ToString());
+            }
+        }
+        public async Task<List<string>> GetFavorites(string username)
+        {
+            List<string> favs = new List<string>();
+            try
+            {
+                string query = "SELECT * FROM FavoriteRecipe WHERE Username = @Username";
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+                    SqlCommand sqlCommand = new SqlCommand(query, connection);
+                    SqlDataReader reader = sqlCommand.ExecuteReader();
+                    // retrieve recipe ids of the user 
+                    while (reader.Read())
+                    {
+                        favs.Add((string)reader["Recipe_id"]);
+                    }
+                    connection.Close();
+                    
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception(ex.Number.ToString());
+            }
+            return favs;
+        }
+
+
+
     }
 }

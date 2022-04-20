@@ -28,14 +28,55 @@ namespace The6Bits.BitOHealth.ManagerLayer
             _DRS = new DietRecommendationsService(DietDao, dbError);
             
         }
-        public string SaveDietRespones(DietR d)
+        public string SaveDietRespones(DietR d, string username)
         {
-            return _DRS.SaveDietResponses(d);
+            return _DRS.SaveDietResponses(d, username);
         }
 
-        public async Task<List<Recipe>> getRecommendedRecipies(DietR responses)
+        public async Task<string> getRecommendedRecipies(DietR responses)
         {
             return await _DRS.getRecommendedRecipies(responses);
         }
+        public async Task<string> AddToFavorite(FavoriteRecipe recipe, string username)
+        {
+            try
+            {
+                await _DRS.AddToFavorite(recipe, username);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+            return "Favorited";
+            //return await Task.FromResult("Hello");
+        }
+
+        public async Task<string> DeleteFavorite(string recipeId)
+        {
+            try
+            {
+               await _DRS.DeleteFavorite(recipeId);
+            }
+            catch (Exception ex)
+            {
+                return "Database Error";
+            }
+            return "Deleted";
+            //return await Task.FromResult("Hello");
+        }
+
+        public async Task<List<string>> GetFavorites( string username)
+        {
+            List<string> favs = new List<string>();
+            try
+            {
+                return await _DRS.GetFavorites(username);
+            }
+            catch (Exception ex)
+            {
+                return favs;
+            }
+        }
+
     }
 }

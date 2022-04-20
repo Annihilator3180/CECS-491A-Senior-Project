@@ -17,7 +17,7 @@ namespace The6Bits.BitOHealth.ServiceLayer.Test
         MedicationService _MS;
         public MedicationServiceShould()
         {
-            _MS = new MedicationService(new MsSqlMedicationDAO(conn), new OpenFDADAO());
+           // _MS = new MedicationService(new MsSqlMedicationDAO(conn), new OpenFDADAO());
         }
         [Fact]
         public void CheckDuplicatesTest()

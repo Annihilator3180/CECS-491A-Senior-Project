@@ -133,7 +133,7 @@ namespace WebAppMVC.Development
         }
         public bool buildDiet(string connStr)
         {
-            var RecoveryStr = "If not exists (select name from sysobjects where name = 'Diet')" + "CREATE TABLE Diet ( Diet VARCHAR(30), Health VARCHAR(30), Ingr Int, DishType VARCHAR(30),Calories int, CuisineType VARCHAR(30), Excluded VARCHAR(30), MealType VARCHAR(30))";
+            var RecoveryStr = "If not exists (select name from sysobjects where name = 'Diet')" + "CREATE TABLE Diet (Username VARCHAR(30), Diet VARCHAR(30), Health VARCHAR(30), Ingr Int, DishType VARCHAR(30),Calories int, CuisineType VARCHAR(30), Excluded VARCHAR(30), MealType VARCHAR(30))";
             var conn = new SqlConnection(connStr);
             using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
             {
@@ -145,7 +145,18 @@ namespace WebAppMVC.Development
 
 
         }
+        public bool buildFavoriteRecipe(string connStr)
+        {
+            var RecoveryStr = "If not exists (select name from sysobjects where name = 'FavoriteRecipe')" + "CREATE TABLE FavoriteRecipe (username VARCHAR(30), recipe_id VARCHAR(255))";
+            var conn = new SqlConnection(connStr);
+            using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
+            {
+                conn.Open();
+                command.ExecuteNonQuery();
+            }
+            return false; 
 
+        }
 
 
 

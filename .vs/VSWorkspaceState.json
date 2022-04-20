@@ -1,5 +1,16 @@
 {
-  "ExpandedNodes": [],
-  "SelectedNode": "\\The6Bits.BitOHealth.sln",
+  "ExpandedNodes": [
+    "",
+    "\\Backend",
+    "\\Backend\\The6Bits.BitOHealth",
+    "\\Backend\\The6Bits.BitOHealth\\The6Bits.BitOHealth.DAL",
+    "\\Backend\\The6Bits.BitOHealth\\The6Bits.BitOHealth.DAL\\Implementations",
+    "\\Backend\\The6Bits.BitOHealth\\The6Bits.BitOHealth.ManagerLayer",
+    "\\Backend\\The6Bits.BitOHealth\\The6Bits.BitOHealth.ServiceLayer",
+    "\\Backend\\The6Bits.BitOHealth\\WebAppAPI",
+    "\\Backend\\The6Bits.BitOHealth\\WebAppAPI\\Development",
+    "\\Documents",
+    "\\Documents\\Feature"
+  ],
   "PreviewInSolutionExplorer": false
 }

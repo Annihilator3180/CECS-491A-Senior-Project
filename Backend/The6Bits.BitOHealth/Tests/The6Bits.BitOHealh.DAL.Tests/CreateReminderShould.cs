@@ -22,7 +22,7 @@ namespace The6Bits.BitOHealth.DAL.Tests
         public void createR()
         {
             string username = "bossadmin12", name = "HW",  description = "Do 342 hw",  date = "03-16-2022",  time = "04:00 pm",  repeat = "weekly";
-            string holder = _dao.CreateReminder(username, name, description, date, time, repeat);
+           // string holder = _dao.CreateReminder(username, name, description, date, time, repeat);
             Assert.Equal("Reminder Created", holder);
         }
     }
