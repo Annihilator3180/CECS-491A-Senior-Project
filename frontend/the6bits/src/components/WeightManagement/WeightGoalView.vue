@@ -7,7 +7,7 @@
                 <button @click="editWeight = !editWeight">Edit</button>
             </div>
         <div  id="inner1">
-            <CreateGoal v-if="!hasSavedWeightGoal" />
+            <CreateGoal v-if="!hasSavedWeightGoal" class="my-custom-class"/>
             <UpdateGoal v-if="editWeight"></UpdateGoal> 
         </div>
 
@@ -64,7 +64,7 @@ import LoadWeightImages from './WMComponents/LoadWeightImages.vue'
              console.log(document.cookie);
     },
         onChildLoad(value){
-            if(JSON.stringify(value)!='{}'){
+            if(value.goalWeight!=null){
                 this.hasSavedWeightGoal = true;
             }
             else{
@@ -91,7 +91,7 @@ label {
 .my-custom-class {
   position: absolute;
   right: 0;
-  width: 300px;
+  width: 400px;
   
 }
 

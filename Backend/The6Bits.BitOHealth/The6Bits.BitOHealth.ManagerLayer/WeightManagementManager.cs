@@ -40,14 +40,9 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
         public async Task<IWeightManagerResponse> CreateGoal(GoalWeightModel goal, string username)
         {
-            IWeightManagerResponse del = await _weightManagementService.DeleteGoal(username);
 
 
-            //ERROR CASE
-            if (del.IsError is true )
-            {
-                return del;
-            }
+ 
 
 
             IWeightManagerResponse create = await _weightManagementService.CreateGoal(goal,username);

@@ -115,8 +115,7 @@ recoveryReset.ResetRecovery(connstring);
 
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+
     var b = new dbBuilder();
     b.builAccountdDB(connstring);
     b.buildVerifyCodes(connstring);
@@ -133,7 +132,7 @@ if (app.Environment.IsDevelopment())
     b.buildWeightGoalImageDB(connstring);
     //app.UseSwagger();
     //app.UseSwaggerUI();
-}
+
 
 app.UseCors(x => x
     .AllowAnyMethod()
