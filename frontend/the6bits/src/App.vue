@@ -19,7 +19,9 @@
     <router-link :to="{name: 'DietRecommendation'}"> Diet Recommendation</router-link>|
     <router-link :to="{name: 'DeleteAccount'}"> Delete </router-link>|
     <router-link :to="{name: 'viewReminder'}"> ViewReminder </router-link>|
-    <router-link :to="{name: 'logout'}"> Log Out </router-link>
+    <router-link :to="{name: 'logout'}"> Log Out </router-link>|
+    <router-link :to ="{name: 'ViewMedicalRecords'}"> ViewMedicalRecords </router-link> |
+    
 
   </nav>
     <router-view />

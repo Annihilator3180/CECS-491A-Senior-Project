@@ -1,67 +1,110 @@
 <template>
-    <h1>
-        Health Recorder
-    </h1>
-    <form action="https://localhost:7011/HealthRecorder/CreateRecord/" method="POST" enctype="multipart/form-data">
-        <div>
-            <label for = "userFileInput"> Please select up to 2 .pdf or .jpeg health files: </label>
-            <input type = "text" name = "recordName" id = "recordName" placeholder="Enter record name" minlength = "2" required>
+  <div class="container">
+    <div class="large-12 medium-12 small-12 cell">
+                <div>
+            <label for = "userFileInput"> Please select up to 2 .pdf or .jpeg health files:
+            </label>
+            <input type = "text" name = "recordName" id = "recordName" placeholder="Enter record name" minlength = "2" required v-model="recordName">
         </div>
         <div>
-            <select name = "categoryName" id="categoryName" >
+            <select name = "categoryName" id="categoryName" required v-model="categoryName" >
                 <option value = "Medical"> Medical Record </option>
                 <option value = "Other"> Other </option>
             </select>
         </div>
-        <div>
-<!--   The accept attribute doesn't validate the types of the selected files; 
-it provides hints for browsers to guide users towards selecting the correct file types.
- It is still possible (in most cases) for users to toggle an option in the file chooser
-  that makes it possible to override this and select any file they wish, and then choose incorrect file types. -->
-            <input type = "file" id = "file" name = "file" required accept=".jpg,.jpg,.pdf">
-        </div>
-        <div>
-            <input type = "file" id = "file2" name = "file2" accept=".jpg,.jpg,.pdf">  
-        </div>
-        <div>
-            <input type = "submit" value="submit">
-        </div>
-    </form>
+      <label>Files
+        <input type="file" id="files" ref="files"  multiple v-on:change="handleFilesUpload()" required />
+      </label>
+      <button v-on:click="submitFiles()">Submit</button>
+    </div>
+  </div>
 </template>
 
-
 <script>
-//validation as a whole and validation as individual, try to reuse the same
-// mozilla -> web.dev
-//multipart mime type
-export default{
-        methods:{
-        Validation(){
+  export default {
+    /*
+      Defines the data used by the component
+    */
+    data(){
+      return {
+        files: '',
+        recordName:'',
+        categoryName:'',
+      }
+    },
+
+    methods: {
+    
+      /*
+        Submits all of the files to the server
+      */
+      submitFiles(){
+        
+        /*
+          Initialize the form data
+        */
+        let formData = new FormData();
+
+        /*
+          Iteate over any file sent over appending the files
+          to the form data.
+        */
+         let file = this.files[0];
+         let file2 = this.files[1];
+        
+
+        formData.append('file', file);
+         formData.append('file2', file2)
+         formData.append('recordName', this.recordName)
+        formData.append('categoryName', this.categoryName)
+        
+        fetch(process.env.VUE_APP_BACKEND + 'HealthRecorder/CreateRecord', 
+                {
+                    method: 'POST',
+                    credentials: 'include',
+                    
+                    body: formData
+                })
+                .then(response => response.json()) 
+                .then (data =>{
+                  if (data.errorMessage != null){
+                    window.alert(data.errorMessage)
+                  }
+                  else{
+                    window.alert(data.data)
+                  }
+                  location.reload()
+                
+                })
+                
+       
+      },
+      Validation(){
             var fileName = document.querySelector('#file').value;
             var fileName2 = document.querySelector('#file2').value
             if (fileName2 != ""){
                 var extension2 = fileName2.split('.').pop();
                 if ((extension2 != "pdf" && extension2 != "jpg" && extension2 != "jpeg")) {
                 alert("Invalid file 2 type!");
+                return false
             }
             }
             var extension = fileName.split('.').pop();
 
             if ((extension != "pdf" && extension != "jpg" && extension != "jpeg")) {
                 alert("Invalid file type!");
+                return false
             }      
-            this.onSubmit();  
+            return true 
         },
-        ProcessFile(event){
-            this.file = event.target.files[0];
-        },
-        }
 
+      /*
+        Handles a change on the file upload
+      */
+      handleFilesUpload(){
+        //references the file object based on input from html
+        this.files = this.$refs.files.files;
+      }
     }
+  }
 </script>
-
-
-
-
-
-

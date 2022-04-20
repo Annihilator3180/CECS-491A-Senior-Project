@@ -14,6 +14,10 @@ using The6Bits.Logging.DAL.Contracts;
 using Microsoft.AspNetCore.Http;
 using System.Net;
 using The6Bits.BitOHealth.Models;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Web;
 
 namespace The6Bits.BitOHealth.ControllerLayer
 {
@@ -39,14 +43,14 @@ namespace The6Bits.BitOHealth.ControllerLayer
         public ActionResult CreateRecord([FromForm]string recordName, [FromForm]string categoryName, IFormFile file, IFormFile? file2)
         {
            
-            var test = HttpContext.Request.Form["file"];
-            //starts here
             string token = "";
             HealthRecorderResponseModel response = new HealthRecorderResponseModel();
+
 
             try
             {
                 token = Request.Cookies["token"];
+
             }
             catch
             {
@@ -94,7 +98,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
         //db can have blob data type
         //to export pass in bytes and write bytes to path
         //lastRecordIndex in form data
-        public ActionResult ViewRecord([FromForm] int lastRecordIndex)
+        public ActionResult ViewRecord(int lastRecordIndex)
         {
             string token = "";
             HealthRecorderViewRecordModel response = new HealthRecorderViewRecordModel();
@@ -127,7 +131,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
             if (response.ErrorMessage != null)
             {
                 _ = logService.Log(username, "DB Error", response.ErrorMessage, "Buisness");
-                return StatusCode(500, lastRecordIndex);
+                return StatusCode(500, response);
             }
             else if (response == null)
             {
@@ -141,7 +145,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
             }
         }
         [HttpDelete("DeleteRecord")]
-        public ActionResult DeleteRecord([FromForm]HealthRecorderRequestModel request)
+        public ActionResult DeleteRecord([FromBody]HealthRecorderRequestModel request)
         {
             string token = "";
             HealthRecorderResponseModel response = new HealthRecorderResponseModel();
@@ -182,16 +186,17 @@ namespace The6Bits.BitOHealth.ControllerLayer
             else
             {
                 _ = logService.Log(username, response.Data, "Info", "Buisness");
-                return Ok(response);
+                return BadRequest(response);
             }
             
 
         }
         [HttpGet("SearchRecord")]
         //return action result instead, insert object into the action result
-        public ActionResult SearchRecord([FromForm]HealthRecorderRequestModel request)
+        public ActionResult SearchRecord(string recordName, string categoryName)
         {
             string token = "";
+            HealthRecorderRequestModel request = new HealthRecorderRequestModel(recordName, categoryName);
             HealthRecorderViewRecordModel response = new HealthRecorderViewRecordModel();
 
             try
@@ -233,10 +238,11 @@ namespace The6Bits.BitOHealth.ControllerLayer
             }
         }
         [HttpGet("ExportRecord")]
-        public ActionResult ExportRecord([FromForm]HealthRecorderRequestModel request)
+        public ActionResult ExportRecord( string categoryName, string recordName, string recordNumber)
         {
             string token = "";
             HealthRecorderExportModel response = new HealthRecorderExportModel();
+            HealthRecorderRequestModel request = new HealthRecorderRequestModel(recordName, categoryName, recordNumber);
 
             try
             {
@@ -276,8 +282,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
             }
             else
             {
-                byte[] data = Encoding.UTF8.GetBytes(response.File);
-                return File(data, "application/pdf", request.RecordName + ".pdf");
+                return Ok(response);
             }
             
 

@@ -10,7 +10,7 @@ namespace The6Bits.BitOHealth.Models
     {
         public string RecordName { get; set; }
         public string CategoryName { get; set; }
-        public string RecordNumber { get; set; }
+        public string? RecordNumber { get; set; }
 
         public HealthRecorderRequestModel(string recordName, string categoryName, string recordNumber)
         {
@@ -18,6 +18,11 @@ namespace The6Bits.BitOHealth.Models
             CategoryName = categoryName;
             RecordNumber = recordNumber;
 
+        }
+        public HealthRecorderRequestModel(string recordName, string categoryName)
+        {
+            RecordName = recordName;
+            CategoryName = categoryName;
         }
         public HealthRecorderRequestModel()
         {

@@ -16,6 +16,10 @@ namespace The6Bits.BitOHealth.Models
         string errorCode;
         string record2;
 
+        public HealthRecorderRecordModel()
+        {
+        }
+
         public HealthRecorderRecordModel(string record1, string record2, string username, string categoryName, string recordName)
         {
             this.record1 = record1;
@@ -24,10 +28,7 @@ namespace The6Bits.BitOHealth.Models
             this.categoryName = categoryName;
             this.recordName = recordName;
         }
-        public HealthRecorderRecordModel()
-        {
-
-        }
+       
 
         public string Record1 { get; set; }
         public string Username { get; set; }

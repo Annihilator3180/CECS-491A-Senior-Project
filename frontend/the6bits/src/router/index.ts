@@ -20,6 +20,8 @@ import DietRecommendation from '@/components/DietRecommendation.vue'
 import logOut from '@/components/logout.vue'
 import SaveFoodLog from '@/components/WeightManagement/SaveFoodLog.vue'
 import viewReminder from '@/components/Reminders/ViewReminder.vue'
+import ViewMedicalRecords from '@/components/MedicalRecorder/ViewMedicalRecords.vue'
+import EditMedicalRecords from '@/components/MedicalRecorder/EditMedicalRecords.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -145,7 +147,18 @@ const routes: Array<RouteRecordRaw> = [
   meta: {
        requiresAuth: true,
     },
+  },
+  {
+    path: "/ViewMedicalRecords",
+    name: "ViewMedicalRecords",
+    component: ViewMedicalRecords
+  },
+  {
+    path: "/EditMedicalRecords",
+    name: "EditMedicalRecords",
+    component: EditMedicalRecords
   }
+  
 
 ]
 
