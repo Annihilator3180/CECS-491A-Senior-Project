@@ -113,7 +113,6 @@
                 for (let i = skip; i < skip + take; i++) {
                     var values = allData[i];
                     values.recipeId = values.uri.split('_')[1];
-                    values.favorite = this.favRecipes.filter(x => x === values.recipeId) > 0;
                     this.loadedRecepies.push(values);
                 }
                 skip += 5;
@@ -150,7 +149,6 @@
                                 for (let i = skip; i < skip + take; i++) {
                                     var values = allData[i];
                                     values.recipeId = values.uri.split('_')[1];
-                                    values.favorite = res.filter(x => x === values.recipeId).length > 0;
                                     this.loadedRecepies.push(values);
                                 }
                                 skip += 5;
