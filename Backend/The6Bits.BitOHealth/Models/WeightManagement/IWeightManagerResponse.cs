@@ -10,6 +10,7 @@ namespace The6Bits.BitOHealth.Models.WeightManagement
     {
         public object Result { get; set; }
         public bool? IsError { get; set; }
+        public bool? UserError { get; set; }
 
     }
 }

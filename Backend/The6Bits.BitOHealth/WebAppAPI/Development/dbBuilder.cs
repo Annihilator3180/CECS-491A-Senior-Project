@@ -180,7 +180,7 @@ namespace WebAppMVC.Development
 
         public bool buildFoodLog(string connStr)
         {
-            var RecoveryStr = "If not exists (select name from sysobjects where name = 'FoodLog') CREATE TABLE WMGoals (Username VARCHAR(30), GoalWeight int, GoalDate DateTime, exerciseLevel int,  CurrentWeight int , Id INT IDENTITY(1,1) )";
+            var RecoveryStr = "If not exists (select name from sysobjects where name = 'FoodLog') CREATE TABLE FoodLog (Username  VARCHAR(100), FoodName VARCHAR(100), Description  VARCHAR(255), Calories float, FoodLogDate DateTime,Carbs float, Protein float, Fat float, DateAdded DateTime,  Id INT IDENTITY(1,1) )";
             var conn = new SqlConnection(connStr);
             using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
             {
@@ -196,6 +196,21 @@ namespace WebAppMVC.Development
 
 
 
+
+        public bool buildWeightGoalImageDB(string connStr)
+        {
+            var RecoveryStr = "If not exists (select name from sysobjects where name = 'WeightGoalImages') CREATE TABLE WeightGoalImages (Username VARCHAR(30) , Path VARCHAR(1000), ImageDate DateTime, Id INT IDENTITY(1,1) )";
+            var conn = new SqlConnection(connStr);
+            using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
+            {
+                conn.Open();
+                command.ExecuteNonQuery();
+            }
+            return false;
+
+
+
+        }
 
 
 

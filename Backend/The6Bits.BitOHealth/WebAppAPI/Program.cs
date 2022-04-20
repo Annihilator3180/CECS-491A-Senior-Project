@@ -97,6 +97,7 @@ builder.Configuration.AddEnvironmentVariables();
 
 
 builder.Services.AddTransient<IRepositoryWeightManagementDao<IWeightManagerResponse>>(provider => new WeightManagementMsSqlDao(connstring));
+builder.Services.AddTransient<IRepositoryWeightManagementImageDao<IWeightManagerResponse>>(provider => new WeightManagementWindowsDao(builder.Configuration.GetSection("FilePaths")["WeightManagementPath"]));
 builder.Services.AddTransient<IRepositoryHealthRecorderDAO>(provider => new HealthRecorderMsSqlDAO(connstring));
 //builder.Services.AddTransient<IAccountService, AccountService>();
 
@@ -129,6 +130,7 @@ if (app.Environment.IsDevelopment())
     b.buildDiet(connstring);
     b.buildRemiders(connstring);
     b.buildFoodLog(connstring);
+    b.buildWeightGoalImageDB(connstring);
     //app.UseSwagger();
     //app.UseSwaggerUI();
 }

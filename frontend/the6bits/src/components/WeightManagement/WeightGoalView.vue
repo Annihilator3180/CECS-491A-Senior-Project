@@ -94,7 +94,7 @@ import FoodLogs from './WMComponents/FoodLogRow.vue'
 
 </script>
 
-<style>   
+<style scoped>   
 label {
     /* Other styling... */
     text-align: right;

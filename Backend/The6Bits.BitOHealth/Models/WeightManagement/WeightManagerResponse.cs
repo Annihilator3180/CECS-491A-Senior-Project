@@ -11,6 +11,7 @@ namespace The6Bits.BitOHealth.Models.WeightManagement
         public object Result { get; set; }
         public bool? IsError { get; set; }
 
+        public bool? UserError { get; set; }
 
         public WeightManagerResponse(object? value)
         {
@@ -23,5 +24,11 @@ namespace The6Bits.BitOHealth.Models.WeightManagement
             IsError = isError;
         }
 
+        public WeightManagerResponse(object? value, bool isError, bool userError)
+        {
+            Result = value;
+            IsError = isError;
+            UserError = userError;
+        }
     }
 }

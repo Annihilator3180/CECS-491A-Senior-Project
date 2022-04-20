@@ -11,6 +11,7 @@ using The6Bits.BitOHealth.ServiceLayer;
 using The6Bits.DBErrors;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
+using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.BitOHealth.Models.WeightManagement;
 using The6Bits.Logging.DAL.Contracts;
 using The6Bits.Logging.Implementations;
@@ -29,10 +30,10 @@ namespace The6Bits.BitOHealth.ManagerLayer
         private ILogDal _logDal;
 
 
-        public WeightManagementManager(IRepositoryWeightManagementDao<IWeightManagerResponse> dao, IDBErrors dbErrors, IFoodAPI<Parsed> foodApiService, ILogDal logDal)
+        public WeightManagementManager(IRepositoryWeightManagementDao<IWeightManagerResponse> dao, IDBErrors dbErrors, IFoodAPI<Parsed> foodApiService, ILogDal logDal, IRepositoryWeightManagementImageDao<IWeightManagerResponse> imageDao)
         {
             _dao = dao;
-            _WMS = new WeightManagementService(dao, logDal);
+            _WMS = new WeightManagementService(dao, logDal, imageDao);
             _dbErrors = dbErrors;
             _foodAPI = foodApiService;
         }
@@ -60,6 +61,11 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
         public async Task<IWeightManagerResponse> SearchFood(string queryString)
         {
+            if (queryString.Length is > 100 or 0)
+            {
+                return new WeightManagerResponse("Invalid Search", true, true);
+            }
+
             return new WeightManagerResponse( await _foodAPI.QueryFoods(queryString));
         }
 
@@ -78,6 +84,27 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
         public async Task<IWeightManagerResponse> StoreFoodLog(FoodModel food,string username)
         {
+
+            //VALIDATION
+            IWeightManagerResponse validation =
+                await _WMS.GetFoodLogsAfterAddTime(DateTime.UtcNow.AddDays(-1), username);
+            if (validation.IsError is true)
+            {
+                return validation;
+            }
+
+            List<FoodModel> foodLogs = ((IEnumerable<FoodModel>)validation.Result).ToList();
+
+            if (foodLogs.Count > 20)
+            {
+                return new WeightManagerResponse("Too Many Food Logs done in one day. Try again tomorrow.", true, true);
+            }
+
+
+            //IF PASS VALIDATION
+
+
+
             return await _WMS.StoreFoodLog(food, username);
         }
 
@@ -191,19 +218,82 @@ namespace The6Bits.BitOHealth.ManagerLayer
         
         public async Task<IWeightManagerResponse> SaveImage(IFormFile file,string username)
         {
-            return await _WMS.DeleteFoodLog(1,"");
+            //VALIDATIONS
+            string[] arrSplit = file.FileName.Split('.');
+            if (arrSplit.Length < 2)
+            {
+                return new WeightManagerResponse("Invalid File Type.", true, true);
+            }
+
+
+            string fileType = arrSplit.Last();
+            if (fileType is not ( "jpg" or "pdf"))
+            {
+                return new WeightManagerResponse("Invalid File Type.", true, true);
+            }
+
+
+            if (500000 > file.Length || file.Length > 1.6e+7)
+            {
+                return new WeightManagerResponse("Invalid File Size.",true, true);
+            }
+
+
+
+
+            IWeightManagerResponse saveImage = await _WMS.SaveImage(file, username);
+            //ERROR CASE
+            if (saveImage.IsError is true) return saveImage;
+
+
+
+            string path = (string)saveImage.Result;
+
+
+            IWeightManagerResponse saveImagePath = await _WMS.SaveImagePath(path, username);
+
+
+            return saveImagePath;
         }
         public async Task<IWeightManagerResponse> DeleteImage(int imageId, string username )
         {
-            return await _WMS.DeleteFoodLog(1,"");
+
+            IWeightManagerResponse read = await  _WMS.GetImage(imageId, username);
+            //error case
+            if (read.IsError is true) return read;
+
+
+
+            IWeightManagerResponse del = await _WMS.DeleteImage((string)read.Result,username);
+            //error case
+            if (del.IsError is true) return del;
+
+
+
+
+
+            return await _WMS.DeleteImagePath(imageId, username);
         }
         
-        public async Task<IWeightManagerResponse> GetTenImages(int index, string username )
+        public async Task<IWeightManagerResponse> GetImage(int index, string username )
         {
-            return await _WMS.DeleteFoodLog(1,"");
+
+            return await _WMS.GetImage(index, username);
         }
 
-        
+        public async Task<IWeightManagerResponse> GetAllImageIds(string username)
+        {
+
+            return await _WMS.GetAllImageIds( username);
+        }
+
+        public async Task<IWeightManagerResponse> DeleteGoal(string username)
+        {
+
+            return await _WMS.DeleteGoal( username);
+        }
+
 
     }
 }
+

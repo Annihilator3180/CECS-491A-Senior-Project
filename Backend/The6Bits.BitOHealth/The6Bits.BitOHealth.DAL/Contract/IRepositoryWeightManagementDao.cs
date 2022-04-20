@@ -24,6 +24,16 @@ namespace The6Bits.BitOHealth.DAL
 
         public Task<T> DeleteFoodLog(int id, string username);
 
+        public Task<T> SaveImagePath(string path, DateTime imageDateTime, string username);
+
+        public Task<T> DeleteImagePath(int id,string username);
+
+
+        public Task<T> GetImage(int id, string username);
+        public Task<T> GetAllImageIDs(string username);
+
+        public Task<T> GetFoodLogsAfterAddTime(DateTime dateTime, string username);
+
 
     }
 }

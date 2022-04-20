@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
 using The6Bits.BitOHealth.DAL.Implementations;
 using The6Bits.BitOHealth.Models;
 using The6Bits.BitOHealth.Models.WeightManagement;
@@ -26,7 +27,7 @@ namespace The6Bits.BitOHealth.DAL.Tests
 
 
         [Theory]
-        [MemberData(nameof(LoadUsersJson))]
+        [MemberData(nameof(LoadGoalWeightJson))]
         public async void CreateTest(GoalWeightModel goalWeightModel)
         {
 
@@ -50,7 +51,7 @@ namespace The6Bits.BitOHealth.DAL.Tests
 
 
         [Theory]
-        [MemberData(nameof(LoadUsersJson))]
+        [MemberData(nameof(LoadGoalWeightJson))]
         public async void UpdateTest(GoalWeightModel goalWeightModel)
         {
 
@@ -83,7 +84,7 @@ namespace The6Bits.BitOHealth.DAL.Tests
 
 
         [Theory]
-        [MemberData(nameof(LoadUsersJson))]
+        [MemberData(nameof(LoadGoalWeightJson))]
         public async void Delete(GoalWeightModel goalWeightModel)
         {
 
@@ -148,12 +149,53 @@ namespace The6Bits.BitOHealth.DAL.Tests
 
         }
 
+        [Theory]
+        [InlineData("dasdas","testuser")]
+        [InlineData(@"C:/asdas", "testuser")]
+        [InlineData(@"D://asdas", "testuser")]
+
+        public async void SaveImagePathShould(string path, string username)
+        {
+             await _dao.SaveImagePath(path, DateTime.UtcNow, username);
+             IWeightManagerResponse res = await _dao.GetAllImageIDs(username);
+
+             IEnumerable<string> idEnum = ((IEnumerable<string>) res.Result);
+
+
+
+             //SEE IF GOT ADDED
+             Assert.False(idEnum.IsNullOrEmpty());
+
+
+
+             await _dao.DeleteImagePath(Int32.Parse(idEnum.First()), username);
+
+        }
+
+
+        [Theory]
+        [InlineData("dasdas", "testuser")]
+        [InlineData(@"C:/asdas", "testuser")]
+        [InlineData(@"D://asdas", "testuser")]
+        public async void GetImageShould(string path, string username)
+        {
+            await _dao.SaveImagePath(path, DateTime.UtcNow, username);
+            IWeightManagerResponse res = await _dao.GetAllImageIDs(username);
+
+            IEnumerable<string> idEnum = ((IEnumerable<string>)res.Result);
+            IWeightManagerResponse get = await _dao.GetImage(Int32.Parse(idEnum.First()), username);
+            Assert.Equal(get.Result,path);
+
+
+            await _dao.DeleteImagePath(Int32.Parse(idEnum.First()), username);
+
+        }
 
 
 
 
 
-        public static IEnumerable<object[]> LoadUsersJson()
+        public static IEnumerable<object[]> LoadGoalWeightJson()
         {
 
             DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());

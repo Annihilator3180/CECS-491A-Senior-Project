@@ -1,8 +1,10 @@
-﻿namespace The6Bits.BitOHealth.DAL.Contract;
+﻿using Microsoft.AspNetCore.Http;
 
-public interface IRepositoryWeightManagementImageDao
+namespace The6Bits.BitOHealth.DAL.Contract;
+
+public interface IRepositoryWeightManagementImageDao<T>
 {
-    public string SaveImage(byte[] file, string filetype);
+    public Task<T> SaveImage(IFormFile file, string username);
+    public Task<T> DeleteImage(string path, string username);
 
-    public byte[] ServeImage(string filepath);
 }

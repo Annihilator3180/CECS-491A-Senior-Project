@@ -1,32 +1,66 @@
 ﻿using System.IO.Enumeration;
+using Microsoft.AspNetCore.Http;
 using The6Bits.BitOHealth.DAL.Contract;
+using The6Bits.BitOHealth.Models.WeightManagement;
 
 namespace The6Bits.BitOHealth.DAL.Implementations;
 
-public class WeightManagementWindowsDao : IRepositoryWeightManagementImageDao
+public class WeightManagementWindowsDao : IRepositoryWeightManagementImageDao<IWeightManagerResponse>
 {
-    private string filepath;
-    public WeightManagementWindowsDao()
+
+    private string _filePath;
+    public WeightManagementWindowsDao(string path)
     {
-        filepath = AppDomain.CurrentDomain.BaseDirectory;
+        _filePath = path;
     }
 
-    public string SaveImage(byte[] file, string filetype)
+    public async Task<IWeightManagerResponse> SaveImage(IFormFile file, string username)
     {
-        
-        File.WriteAllBytes("Foo"+filetype, file);
-        
-        
-        return filepath;
-        throw new NotImplementedException();
+        try
+        {
+            _filePath = _filePath + username + @"\";
+            _filePath = Environment.ExpandEnvironmentVariables(_filePath);
+
+
+            if (!Directory.Exists(_filePath))
+            {
+                Directory.CreateDirectory(_filePath);
+            }
+
+            _filePath = Path.Combine(_filePath, file.FileName);
+
+
+            await using (Stream fileStream = new FileStream(_filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(fileStream);
+            }
+
+
+            return new WeightManagerResponse(_filePath);
+        }
+        catch(Exception ex)
+        {
+            return new WeightManagerResponse(ex.Message);
+        }
+
+
     }
 
-    public byte[] ServeImage(string filepath)
+
+    public Task<IWeightManagerResponse> DeleteImage(string path, string username)
     {
+        try
+        {
+            System.IO.File.Delete(path);
+            return Task.FromResult<IWeightManagerResponse>(new WeightManagerResponse("Successfully Deleted File"));
 
-            byte[] fileData = System.IO.File.ReadAllBytes(filepath);
-            return fileData;
-        
-
+        }
+        catch (Exception ex)
+        {
+            return Task.FromResult<IWeightManagerResponse>(new WeightManagerResponse(ex.Message,true));
+        }
     }
+
+
+
 }

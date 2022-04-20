@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using The6Bits.BitOHealth.DAL;
+using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.BitOHealth.Models;
 using The6Bits.BitOHealth.Models.WeightManagement;
 using The6Bits.Logging.DAL.Contracts;
@@ -19,10 +21,12 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
         private readonly IRepositoryWeightManagementDao<IWeightManagerResponse> _weightManagementDao;
         private readonly ILogDal _logDal;
-        
-        public WeightManagementService(IRepositoryWeightManagementDao<IWeightManagerResponse> dao, ILogDal logDal)
+        private readonly IRepositoryWeightManagementImageDao<IWeightManagerResponse> _imageDao;
+
+        public WeightManagementService(IRepositoryWeightManagementDao<IWeightManagerResponse> dao, ILogDal logDal , IRepositoryWeightManagementImageDao<IWeightManagerResponse> imageDao)
         {
             _logDal = logDal;
+            _imageDao = imageDao;
             _weightManagementDao = dao;
         }
 
@@ -152,6 +156,126 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
             return res;
         }
+
+
+
+        public async Task<IWeightManagerResponse> SaveImagePath(string path,string username)
+        {
+
+            IWeightManagerResponse res = await _weightManagementDao.SaveImagePath(path,DateTime.UtcNow , username);
+            if (res.IsError is not true) return res;
+
+
+            //ERROR CASE
+            LogService logService = new LogService(_logDal);
+            _ = logService.Log(username, (string)res.Result + " SaveImagePath ", "DataStore", "Error");
+
+
+
+            return res;
+        }
+
+
+        public async Task<IWeightManagerResponse> DeleteImagePath(int index, string username)
+        {
+            IWeightManagerResponse res = await _weightManagementDao.DeleteImagePath(index, username);
+            if (res.IsError is not true) return res;
+
+
+            //ERROR CASE
+            LogService logService = new LogService(_logDal);
+            _ = logService.Log(username, (string)res.Result + " DeleteImagePath ", "DataStore", "Error");
+
+
+
+            return res;
+        }
+
+        public async Task<IWeightManagerResponse> GetImage(int index, string username)
+        {
+            IWeightManagerResponse res = await _weightManagementDao.GetImage(index, username);
+            if (res.IsError is not true) return res;
+
+
+
+
+
+
+            //ERROR CASE
+            LogService logService = new LogService(_logDal);
+            _ = logService.Log(username, (string)res.Result + " GetTenImagesPath ", "DataStore", "Error");
+
+
+
+            return res;
+        }
+
+        public async Task<IWeightManagerResponse> SaveImage(IFormFile imageFile, string username)
+        {
+            IWeightManagerResponse res = await _imageDao.SaveImage(imageFile, username);
+            if (res.IsError is not true) return res;
+
+
+            //ERROR CASE
+            LogService logService = new LogService(_logDal);
+            _ = logService.Log(username, (string)res.Result + " SaveImage ", "DataStore", "Error");
+
+
+
+            return res;
+        }
+
+
+        public async Task<IWeightManagerResponse> GetAllImageIds( string username)
+        {
+            IWeightManagerResponse res = await _weightManagementDao.GetAllImageIDs( username);
+            if (res.IsError is not true) return res;
+
+
+            //ERROR CASE
+            LogService logService = new LogService(_logDal);
+            _ = logService.Log(username, (string)res.Result + " GetAllImageIds ", "DataStore", "Error");
+
+
+
+            return res;
+        }
+
+        public async Task<IWeightManagerResponse> GetFoodLogsAfterAddTime(DateTime date, string username)
+        {
+            IWeightManagerResponse res = await _weightManagementDao.GetFoodLogsAfterAddTime(date,username);
+            if (res.IsError is not true) return res;
+
+
+            //ERROR CASE
+            LogService logService = new LogService(_logDal);
+            _ = logService.Log(username, (string)res.Result + " GetAllImageIds ", "DataStore", "Error");
+
+
+
+            return res;
+        }
+
+
+        public async Task<IWeightManagerResponse> DeleteImage(string path, string username)
+        {
+
+            IWeightManagerResponse res = await _imageDao.DeleteImage(path, username);
+            if (res.IsError is not true) return res;
+
+
+            //ERROR CASE
+            LogService logService = new LogService(_logDal);
+            _ = logService.Log(username, (string)res.Result + " DeleteImage ", "DataStore", "Error");
+
+
+
+            return res;
+        }
+
+        
+
+
 
 
     }

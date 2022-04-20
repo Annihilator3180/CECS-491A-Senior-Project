@@ -12,7 +12,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 {
     public class WeightManagementMsSqlDao : IRepositoryWeightManagementDao<IWeightManagerResponse>
     { 
-        private string _connectString;
+        private readonly string _connectString;
 
 
 
@@ -135,7 +135,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = $"INSERT INTO FoodLog (Username, FoodName, Description, Calories, FoodLogDate ,Carbs, Protein, Fat ) values (@Username, @FoodName, @Description, @Calories, @FoodLogDate, @Carbs, @Protein, @Fat )";
+                string query = $"INSERT INTO FoodLog (Username, FoodName, Description, Calories, FoodLogDate ,Carbs, Protein, Fat , DateAdded) values (@Username, @FoodName, @Description, @Calories, @FoodLogDate, @Carbs, @Protein, @Fat, @DateAdded )";
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
@@ -148,7 +148,8 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                         FoodLogDate = food.FoodLogDate,
                         Carbs = food.Carbs,
                         Protein = food.Protein,
-                        Fat = food.Fat
+                        Fat = food.Fat,
+                        DateAdded = DateTime.UtcNow
 
 
                     }); 
@@ -256,6 +257,144 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
         }
 
+
+        public async Task<IWeightManagerResponse> SaveImagePath(string path, DateTime imageDateTime, string username)
+        {
+            try
+            {
+                string query = $"INSERT INTO WeightGoalImages (Username, Path, ImageDate) values (@Username, @Path, @ImageDate)";
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int count = await connection.ExecuteAsync(query, new
+                    {
+                        Username = username,
+                        Path = path,
+                        ImageDate = imageDateTime,
+                    });
+                    if (count != 0)
+                    {
+                        return new WeightManagerResponse("save image success");
+                    }
+
+                    return new WeightManagerResponse("save image fail");
+                }
+            }
+            catch (SqlException ex)
+            {
+                return new WeightManagerResponse(ex.Number.ToString(), true);
+            }
+        }
+
+
+
+        public async Task<IWeightManagerResponse> GetImage(int id, string username)
+        {
+            try
+            {
+                string query = $"Select Path FROM WeightGoalImages WHERE Username = @Username and Id = @Id";
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    IEnumerable<string> imagePaths = await connection.QueryAsync<string>(query, new
+                    {
+                        Username = username,
+                        Id = id,
+                    });
+                    if (imagePaths != null || !imagePaths.Any())
+                    {
+                        return new WeightManagerResponse(imagePaths.First());
+                    }
+
+                    return new WeightManagerResponse("");
+                }
+            }
+            catch (SqlException ex)
+            {
+                return new WeightManagerResponse(ex.Number.ToString(), true);
+            }
+        }
+
+
+
+        public async Task<IWeightManagerResponse> GetAllImageIDs(string username)
+        {
+            try
+            {
+                string query = $"Select Id FROM WeightGoalImages WHERE Username = @Username";
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    IEnumerable<string> ids = await connection.QueryAsync<string>(query, new
+                    {
+                        Username = username,
+                    });
+                    if (ids != null || !ids.Any())
+                    {
+                        return new WeightManagerResponse(ids);
+                    }
+
+                    return new WeightManagerResponse(new List<string>());
+                }
+            }
+            catch (SqlException ex)
+            {
+                return new WeightManagerResponse(ex.Number.ToString(), true);
+            }
+        }
+
+
+        public async Task<IWeightManagerResponse> GetFoodLogsAfterAddTime(DateTime dateTime ,string username)
+        {
+            try
+            {
+                string query = $"Select FoodName, Description, Calories, FoodLogDate ,Carbs, Protein, Fat ,Id  FROM FoodLog WHERE Username = @Username AND DateAdded > @Date";
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    IEnumerable<FoodModel> foodModels = await connection.QueryAsync<FoodModel>(query, new
+                    {
+                        Username = username,
+                        Date = dateTime,
+
+                    }); ;
+                    if (foodModels != null || !foodModels.Any())
+                    {
+                        return new WeightManagerResponse(foodModels);
+                    }
+
+                    return new WeightManagerResponse(new List<FoodModel>());
+                }
+            }
+            catch (SqlException ex)
+            {
+                //LOGG
+                return new WeightManagerResponse(ex.Number.ToString(), true);
+            }
+        }
+
+
+        public async Task<IWeightManagerResponse> DeleteImagePath(int id, string username)
+        {
+            try
+            {
+                string query = $"Delete From WeightGoalImages where Username = @Username AND Id = @id";
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int count = await connection.ExecuteAsync(query, new { Username = username, Id = id });
+                    if (count != 0)
+                    {
+                        return new WeightManagerResponse("deleted Weight Goal");
+                    }
+                    return new WeightManagerResponse("no Weight Goal");
+                }
+            }
+            catch (SqlException ex)
+            {
+                return new WeightManagerResponse(ex.Number.ToString(), true);
+            }
+        }
 
 
 
