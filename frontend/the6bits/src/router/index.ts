@@ -6,7 +6,7 @@ import UM from '@/components/UM.vue'
 import GoalView from '@/components/WeightManagement/WeightGoalView.vue'
 import ResetPassword from '@/components/ResetPassword.vue'
 import TrackingLog from '@/components/TrackingLog.vue'
-import HealthRecorder from '@/components/HealthRecorder.vue'
+import CreateHealthRecord from '@/components/HealthRecorder/CreateHealthRecord.vue'
 import FavoriteDrugListPost from '@/components/FavoriteList.vue'
 import RegistrationPost from '@/components/Registration.vue'
 import MedSearch from '@/components/MedicationSearch.vue'
@@ -21,6 +21,9 @@ import logOut from '@/components/logout.vue'
 import SaveFoodLog from '@/components/WeightManagement/SaveFoodLog.vue'
 import viewReminder from '@/components/Reminders/ViewReminder.vue'
 import FoodLogView from '@/components/WeightManagement/FoodLogView.vue'
+import ViewMedicalRecords from '@/components/HealthRecorder/ViewHealthRecord.vue'
+import EditMedicalRecords from '@/components/HealthRecorder/EditHealthRecord.vue'
+import HealthRecorderHome from '@/components/HealthRecorder/HealthRecorderHome.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -106,9 +109,12 @@ const routes: Array<RouteRecordRaw> = [
     component: DietRecommendation
   },
   {
-    path: '/HealthRecorder',
-    name: 'HealthRecorder',
-    component: HealthRecorder
+    path: '/CreateHealthRecord',
+    name: 'CreateHealthRecord',
+    component: CreateHealthRecord,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
       path: "/FavoriteDrugs",
@@ -157,7 +163,29 @@ const routes: Array<RouteRecordRaw> = [
   meta: {
        requiresAuth: true,
     },
-  }
+  },
+  {
+    path: "/ViewMedicalRecords",
+    name: "ViewMedicalRecords",
+    component: ViewMedicalRecords,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/EditMedicalRecords",
+    name: "EditMedicalRecords",
+    component: EditMedicalRecords,
+    meta: {
+      requiresAuth: true,
+    }
+  },
+    {
+      path: "/HealthRecorderHome",
+      name: "HealthRecorderHome",
+      component: HealthRecorderHome
+   },
+  
 
 
 

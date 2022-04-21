@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using The6Bits.BitOHealth.DAL.Contract;
+using The6Bits.BitOHealth.Models;
 using The6Bits.BitOHealth.ServiceLayer;
 using The6Bits.DBErrors;
 
@@ -24,47 +25,173 @@ namespace The6Bits.BitOHealth.ManagerLayer
             _HealthRecorderService = new HealthRecorderService(dao, dBErrors);
         }
 
-        public string CreateRecord(string username, DateTime now, string categoryName, string recordName, IFormFile file, IFormFile? file2 = null)
+        public HealthRecorderResponseModel CreateRecord(HealthRecorderResponseModel response, string username, string categoryName, string recordName, IFormFile file, IFormFile? file2 = null)
         {
             if (!_HealthRecorderService.ValidateCategoryName(categoryName) || !_HealthRecorderService.ValidateRecordName(recordName))
             {
-                return "invalid category/record name";
+                response.ErrorMessage =  "invalid category/record name";
+                return response;
             }
             
             if (!_HealthRecorderService.ValidateFileLength(file))
             {
-                return "file too big";
+               response.ErrorMessage = "file too big";
+                return response;
+
             }
             
 
             if (!_HealthRecorderService.ValidateFileType(file))
             {
-                return "invalid file type";
+                response.ErrorMessage = "invalid file type";
+                return response;
             }
             if (file2 != null)
             {
                 if (!_HealthRecorderService.ValidateFileLength(file2))
                 {
-                    return "file 2 too big";
+                    response.ErrorMessage = "file 2 too big";
+                    return response;
                 }
                 if (!_HealthRecorderService.ValidateFileType(file2))
                 {
-                    return "invalid file 2 type";
+                    response.ErrorMessage = "invalid file 2 type";
+                    return response;
                 }
             }
-            string userLimitCheck = _HealthRecorderService.ValidateUserRecordLimit(username);
-            if (userLimitCheck.Contains("Database") || userLimitCheck != "under limit")
+            string userLimitCheck = _HealthRecorderService.ValidateUserRecordRequest(username, recordName);
+            if (userLimitCheck.Contains("Database") || userLimitCheck != "valid request")
             {
-                return userLimitCheck;
+                response.ErrorMessage = userLimitCheck;
+                return response;
             }
 
-            string savedRecord = _HealthRecorderService.SaveRecord(file,now,username, categoryName, recordName, file2);
+            string savedRecord = _HealthRecorderService.SaveRecord(file,username, categoryName, recordName, file2);
 
             if (savedRecord.Contains("Database"))
             {
-                return savedRecord;
+                response.ErrorMessage = savedRecord;
+                return response;
             }
-            return "Record Saved";
+            response.Data = "Record Saved";
+            return response;
+        }
+    public HealthRecorderViewRecordModel ViewRecord(string username, int lastRecordIndex)
+        {
+            List<HealthRecorderRecordModel> rawData = _HealthRecorderService.ViewRecord(username, lastRecordIndex);
+            HealthRecorderViewRecordModel wrapperData = new HealthRecorderViewRecordModel();
+            if (rawData.Count == 0)
+            {
+                return wrapperData;
+            }
+            else
+            {
+                if (rawData[0].ErrorCode != null)
+                {
+                    wrapperData.ErrorMessage = rawData[0].ErrorCode;
+                    return wrapperData;
+                }
+                else
+                {
+                    wrapperData.Records = rawData;
+                    return wrapperData;
+                }
+            }
+            
+        }
+        public HealthRecorderResponseModel DeleteRecord(HealthRecorderRequestModel request, HealthRecorderResponseModel response, string username)
+        {
+            response = _HealthRecorderService.ValidateRecordExists(request, response, username);
+            if (response.Data == "0" || response.Data == null)
+            {
+                if (response.ErrorMessage == null)
+                {
+                    response.ErrorMessage = "Record does not exist";
+                    return response;
+                }
+                else
+                {
+                    return response;
+                }
+            }
+            response = _HealthRecorderService.DeleteRecord(request, response, username);
+            if (response.Data == "0" || response.Data == null)
+            {
+                if (response.ErrorMessage == null)
+                {
+                    response.Data = "No Records Deleted";
+                    return response;
+                }
+                else
+                {
+                    return response;
+                }
+            }
+            response.Data = "Record Deleted Successfully";
+
+            return response;
+        }
+        public HealthRecorderViewRecordModel SearchRecord (HealthRecorderRequestModel request, HealthRecorderViewRecordModel response, string username)
+        {
+            //add error cases
+            response = _HealthRecorderService.SearchRecord(request, response, username);
+            return response;
+        }
+        public HealthRecorderExportModel ExportRecord(HealthRecorderRequestModel request, HealthRecorderExportModel response, string username)
+        {
+            response = _HealthRecorderService.GetRecordByte(request, response, username);
+            if (response.File == "" )
+            {
+                 response.ErrorMessage = "Record Does Not Exist";
+
+            }
+            return response;
+        }
+        public HealthRecorderResponseModel EditRecord(HealthRecorderResponseModel response, string username, string categoryName, string newRecordName, string oldRecordName, IFormFile file, IFormFile? file2 = null)
+        {
+            if (!_HealthRecorderService.ValidateCategoryName(categoryName) || !_HealthRecorderService.ValidateRecordName(newRecordName))
+            {
+                response.ErrorMessage = "invalid category/record name";
+                return response;
+            }
+
+            if (!_HealthRecorderService.ValidateFileLength(file))
+            {
+                response.ErrorMessage = "file too big";
+                return response;
+
+            }
+
+
+            if (!_HealthRecorderService.ValidateFileType(file))
+            {
+                response.ErrorMessage = "invalid file type";
+                return response;
+            }
+            if (file2 != null)
+            {
+                if (!_HealthRecorderService.ValidateFileLength(file2))
+                {
+                    response.ErrorMessage = "file 2 too big";
+                    return response;
+                }
+                if (!_HealthRecorderService.ValidateFileType(file2))
+                {
+                    response.ErrorMessage = "invalid file 2 type";
+                    return response;
+                }
+            }
+            response = _HealthRecorderService.EditRecord(response, username, newRecordName, oldRecordName,categoryName, file, file2);
+            if (response.ErrorMessage == null)
+            {
+                if (response.Data == null)
+                {
+                    response.ErrorMessage = "not updated";
+                }
+            }
+            return response;
+
+
         }
     }
 }

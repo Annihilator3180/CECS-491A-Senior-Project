@@ -80,6 +80,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.API", "API\The6Bit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "The6Bits.BitOHealth.Controller.Tests", "The6Bits.BitOHealth.Controller.Tests\The6Bits.BitOHealth.Controller.Tests.csproj", "{C5FDACA0-AE08-49D4-84CA-F0E3F4DB7A22}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestResource", "TestResource", "{7B48B8B4-E155-4E7F-9471-4F1CB96B2710}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\..\..\..\Downloads\document.pdf = ..\..\..\..\..\..\Downloads\document.pdf
+		dummy.pdf = dummy.pdf
+		TextFile1.txt = TextFile1.txt
+		TextFile2.jpg = TextFile2.jpg
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -196,6 +204,7 @@ Global
 		{62678971-AD11-466A-A5FB-222ABFC0B446} = {FA5BFC28-6E48-4A14-8698-79CA6508D73A}
 		{C648EFFD-8A2D-448F-B7B0-F746133FE820} = {62678971-AD11-466A-A5FB-222ABFC0B446}
 		{C5FDACA0-AE08-49D4-84CA-F0E3F4DB7A22} = {FA5BFC28-6E48-4A14-8698-79CA6508D73A}
+		{7B48B8B4-E155-4E7F-9471-4F1CB96B2710} = {6BAA515F-55E7-4BA9-9150-A36B473DE2C1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {68B84F46-5EA5-4F10-B710-F84F25054F70}
