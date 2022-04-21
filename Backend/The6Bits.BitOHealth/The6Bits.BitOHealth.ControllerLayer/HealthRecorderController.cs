@@ -28,15 +28,13 @@ namespace The6Bits.BitOHealth.ControllerLayer
         private IAuthenticationService _authentication;
         private LogService logService;
         private HealthRecorderManager _HealthRecorderManager;
-        private IRepositoryHealthRecorderDAO _dao;
 
         public HealthRecorderController(IAuthenticationService authentication, ILogDal logDal, IDBErrors dBErrors, IRepositoryHealthRecorderDAO dao)
         {
             _authentication = authentication;
             logService = new LogService(logDal);
             _HealthRecorderManager = new HealthRecorderManager(dBErrors, dao);
-            _dao = dao;
-        }
+        } 
 
         [HttpPost("CreateRecord")]
         //how can you pass 1 or 2 files

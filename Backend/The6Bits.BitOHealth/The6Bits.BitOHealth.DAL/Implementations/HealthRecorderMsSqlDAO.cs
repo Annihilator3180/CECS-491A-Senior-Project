@@ -18,6 +18,33 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             _connectionString = conn;
         }
+        public string SaveRecord(string record, string username, string categoryName, string recordName, string secondRecord)
+        {
+            //consider unique record names
+            try
+            {
+                string query = "INSERT INTO HealthRecorder(record1, record2, timeSaved, username, categoryName, recordName) values(@record, @secondRecord," +
+                    "CURRENT_TIMESTAMP, @username, @categoryName, @recordName)";
+                using (SqlConnection conn = new SqlConnection(_connectionString))
+                {
+                    int result = conn.Execute(query, new
+                    {
+                        record = record,
+                        secondRecord = secondRecord,
+                        username = username,
+                        categoryName = categoryName,
+                        recordName = recordName
+                    });
+                    conn.Close();
+
+                }
+                return "saved";
+            }
+            catch (SqlException ex)
+            {
+                return ex.Number.ToString();
+            }
+        }
 
         public string ValidateUserRecordRequest(string username, string recordName)
         {
@@ -54,27 +81,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 return ex.Number.ToString();
             }
         }
-        public string SaveRecord(string record, string username, string categoryName, string recordName, string secondRecord)
-        {
-            //consider unique record names
-            try
-            {
-                string query = "INSERT INTO HealthRecorder(record1, record2, timeSaved, username, categoryName, recordName) values(@record, @secondRecord," +
-                    "CURRENT_TIMESTAMP, @username, @categoryName, @recordName)";
-                using (SqlConnection conn = new SqlConnection(_connectionString))
-                {
-                    int result = conn.Execute(query, new {record = record, secondRecord = secondRecord, 
-                        username = username, categoryName = categoryName, recordName = recordName});
-                    conn.Close();
-
-                }
-                return "saved";
-            }
-            catch (SqlException ex)
-            {
-                return ex.Number.ToString();
-            }
-        }
+        
         public List<HealthRecorderRecordModel> GetRecords(string username, int lastRecordIndex)
         {
             /*

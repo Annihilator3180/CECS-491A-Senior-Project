@@ -13,7 +13,7 @@
             </select>
         </div>
       <label>Files
-        <input type="file" id="files" ref="files"  multiple v-on:change="handleFilesUpload()" required />
+        <input type="file" id="files" ref="files"  multiple v-on:change="handleFilesUpload()" required accept=".pdf,.jpg, .jpeg" />
       </label>
       <button v-on:click="submitFiles()">Submit</button>
     </div>
@@ -77,6 +77,10 @@ export default {
         }
         if (file2 == null){
             let fileString = this.oldRecord.record2;
+            if(fileString == ""){
+              blob2 = fileString
+            }
+            else{
             let firstFive = fileString.substring(0,5)
 
             if (firstFive == "JVBER"){
@@ -86,6 +90,7 @@ export default {
                 type = "image/jpeg"
             }
             blob2 = new Blob([this.base64ToArrayBuffer(fileString)], {type: type})
+            }
         }
 
 
@@ -100,7 +105,9 @@ export default {
         fetch(process.env.VUE_APP_BACKEND + 'HealthRecorder/EditRecord', 
                 {
                     method: 'POST',
-                    credentials: 'include',
+                    headers:{
+                      "Authorization" : `Bearer ${sessionStorage.getItem('token')}`
+                    },
                     
                     body: formData
                 })

@@ -82,30 +82,12 @@
                   else{
                     window.alert(data.data)
                   }
-                  location.reload()
+                  this.$router.push('/ViewMedicalRecords')
                 
                 })
                 
        
       },
-      Validation(){
-            var fileName = document.querySelector('#file').value;
-            var fileName2 = document.querySelector('#file2').value
-            if (fileName2 != ""){
-                var extension2 = fileName2.split('.').pop();
-                if ((extension2 != "pdf" && extension2 != "jpg" && extension2 != "jpeg")) {
-                alert("Invalid file 2 type!");
-                return false
-            }
-            }
-            var extension = fileName.split('.').pop();
-
-            if ((extension != "pdf" && extension != "jpg" && extension != "jpeg")) {
-                alert("Invalid file type!");
-                return false
-            }      
-            return true 
-        },
 
       /*
         Handles a change on the file upload

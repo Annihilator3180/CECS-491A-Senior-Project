@@ -33,7 +33,7 @@
 </template>
 <script>
 
-import { GetRecord, ExportRecord, DeleteRecord, SearchRecord } from '@/components/MedicalRecorder/MedicalRecorder'
+import { GetRecord, ExportRecord, DeleteRecord, SearchRecord } from '@/components/HealthRecorder/HealthRecorder'
 
 export default {
    name: 'ViewMedicalRecords',
@@ -97,6 +97,8 @@ export default {
 
  },
     DeleteMedicalRecord(recordName, categoryName){
+        let confirmResult = confirm("Are you sure you want to delete " + recordName)
+        if (confirmResult){
         this.DeleteRecord(recordName, categoryName).then(value =>{
            this.DeleteMessage = value.records;
            if (value.errorMessage != null){
@@ -105,6 +107,10 @@ export default {
            
            location.reload()
         })
+        }
+        else{
+            return
+        }
     },
     EditMedicalRecord(event){
         localStorage.setItem('editRecord', JSON.stringify(event))
