@@ -69,6 +69,31 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
         }
 
+        [HttpGet("GetRecipes")]
+        public async Task<string> GetRecipeWithIds()
+        {
+
+            string token = "";
+            try
+            {
+                token = Request.Cookies["token"];
+            }
+            catch
+            {
+                return "{\"success\": false, \"message\": \"Invalid Token\"}";
+            }
+            if (!_auth.ValidateToken(token))
+            {
+                return "{\"success\": false, \"message\": \"Invalid Token\"}";
+            }
+
+            string username = _auth.getUsername(token);
+            List<string> recipeIds = await _DRM.GetFavorites(username);
+            string recipes = await _DRM.getRecommendedRecipiesWithId(recipeIds);
+            return recipes;
+
+        }
+
         [HttpGet("AddFavorite")]
         public async Task<string> AddtoFavorite(string recipeId)
         {
@@ -79,11 +104,11 @@ namespace The6Bits.BitOHealth.ControllerLayer
             }
             catch
             {
-                return "invalid token";
+                return "{\"success\": false, \"message\": \"Invalid Token\"}";
             }
             if (!_auth.ValidateToken(token))
             {
-                return "invalid token";
+                return "{\"success\": false, \"message\": \"Invalid Token\"}";
             }
 
             string username = _auth.getUsername(token);
@@ -102,11 +127,11 @@ namespace The6Bits.BitOHealth.ControllerLayer
             }
             catch
             {
-                return "invalid token";
+                return "{\"success\": false, \"message\": \"Invalid Token\"}";
             }
             if (!_auth.ValidateToken(token))
             {
-                return "invalid token";
+                return "{\"success\": false, \"message\": \"Invalid Token\"}";
             }
 
             string favoriteResult = await _DRM.DeleteFavorite(recipeId);

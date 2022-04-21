@@ -9,7 +9,7 @@ namespace The6Bits.API
         public async Task<EdamamResponseRoot> GetRecommenedRecipes(DietR request)
         {
             var httpClient = new HttpClient();
-            var endpoint = $"https://api.edamam.com/api/recipes/v2?app_id=d6503f85&app_key=08c1a71e5a883c74b3b4a652ee32840e&ingr={request.Ingr}&diet={request.Diet}&health={request.Health}&dishType={request.DishType}&calories={request.Calories}&cuisineType={request.CuisineType}&excluded={request.Excluded}&q={request.Q}&type=public";
+            var endpoint = $"https://api.edamam.com/api/recipes/v2?app_id=d6503f85&app_key=08c1a71e5a883c74b3b4a652ee32840e&ingr={request.Ingr}&diet={request.Diet}&health={request.Health}&dishType={request.DishType}&calories={request.Calories}&cuisineType={request.CuisineType}&excluded={request.Excluded}&q={request.Q}&totalTime={request.TotalTime}&type=public";
 
             var response = await httpClient.GetAsync(endpoint);
 
@@ -20,7 +20,19 @@ namespace The6Bits.API
             return result;
         }
 
+        public async Task<Hit> GetRecommenedRecipeWithId(string recipeId)
+        {
+            var httpClient = new HttpClient();
+            var endpoint = $"https://api.edamam.com/api/recipes/v2/{recipeId}?type=public&app_id=d6503f85&app_key=08c1a71e5a883c74b3b4a652ee32840e";
 
+            var response = await httpClient.GetAsync(endpoint);
+
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            var result = JsonSerializer.Deserialize<Hit>(responseString);
+
+            return result;
+        }
 
 
 

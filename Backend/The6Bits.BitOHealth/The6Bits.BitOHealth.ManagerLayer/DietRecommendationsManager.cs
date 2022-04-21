@@ -47,7 +47,7 @@ namespace The6Bits.BitOHealth.ManagerLayer
             {
                 return ex.Message;
             }
-            return "Favorited";
+            return "Recipe Favorited";
             //return await Task.FromResult("Hello");
         }
 
@@ -59,9 +59,9 @@ namespace The6Bits.BitOHealth.ManagerLayer
             }
             catch (Exception ex)
             {
-                return "Database Error";
+                return ex.Message;
             }
-            return "Deleted";
+            return "Recipe Deleted from Favorite List}";
             //return await Task.FromResult("Hello");
         }
 
@@ -77,6 +77,12 @@ namespace The6Bits.BitOHealth.ManagerLayer
                 return favs;
             }
         }
+
+        public async Task<string> getRecommendedRecipiesWithId(List<string> recipeIds)
+        {
+            return await _DRS.getRecommendedRecipiesWithId(recipeIds);
+        }
+        
 
     }
 }

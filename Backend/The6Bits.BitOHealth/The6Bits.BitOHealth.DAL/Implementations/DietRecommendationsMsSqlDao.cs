@@ -86,7 +86,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = "DELETE FROM FavoriteRecipe WHERE Recipe_id = @Recipe_id";
+                string query = "DELETE FROM FavoriteRecipe WHERE Recipe_id = '" + recipeid + "'";
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
@@ -109,7 +109,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             List<string> favs = new List<string>();
             try
             {
-                string query = "SELECT * FROM FavoriteRecipe WHERE Username = @Username";
+                string query = "SELECT * FROM FavoriteRecipe WHERE Username = '"+username+"'";
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();

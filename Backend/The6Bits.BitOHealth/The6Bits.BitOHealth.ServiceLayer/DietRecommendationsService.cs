@@ -65,6 +65,20 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
 
         }
+        public async Task<string> getRecommendedRecipiesWithId(List<string> recipeIds)
+        {
+            EdmamAPIHelper helper = new EdmamAPIHelper();
+            //contains found edamamirootresponse (including the hits)
+            List<Recipe> recipeList = new List<Recipe>();
+            foreach (string item in recipeIds)
+            {
+                var result = await helper.GetRecommenedRecipeWithId(item);
+                recipeList.Add(result.recipe);
+            }
+
+            return JsonSerializer.Serialize(recipeList);
+
+        }
 
         public async Task<String> AddToFavorite(FavoriteRecipe recipe, string username)  
         {

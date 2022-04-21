@@ -49,22 +49,23 @@
 
                 <input type="text" id="excluded" v-model="formData.excluded" />
             </div>
+
+
             <button @click="DietRecommendation" type="button">Search</button>
             <div id="DietRecommendation">
                 <template v-for="(values,index) in loadedRecepies" :key="index">
                     <div class="DietRecommendation">
-                        <p> {{values.label.link(values.url)}} </p>
+                        <div v-html="values.label.link(values.url)"></div>
                         <img v-bind:src="values.image" />
                         <p> Ingredients: </p>
                         <p> {{values.ingredientLines}}</p>
                         <p> Calories: </p>
                         <p> {{values.calories}}</p>
-                        <p> {{values.recipeId}}</p>
                         <template v-if="!values.favorite">
-                            <button type="button" @click="addFavorite(values.recipeId)">add to favorite</button>
+                            <button type="button" @click="addFavorite(values.recipeId, index)">add to favorite</button>
                         </template>
                         <template v-else-if="values.favorite">
-                            <button type="button" @click="deleteFavorite(values.recipeId)">Delete favorite</button>
+                            <button type="button" @click="deleteFavorite(values.recipeId, index)">Delete favorite</button>
                         </template>
                         <p> For more recipe details please click on the link. </p>
                     </div>
@@ -98,6 +99,8 @@
                     excluded: "almonds",
                     health: "peanut-free",
                     mealType: "Lunch",
+                    totalTime: 0,
+
                 },
                 message: "",
                 loadedRecepies: [],
@@ -113,6 +116,7 @@
                 for (let i = skip; i < skip + take; i++) {
                     var values = allData[i];
                     values.recipeId = values.uri.split('_')[1];
+                    values.favorite = this.favRecipes.filter(x => x === values.recipeId) > 0;
                     this.loadedRecepies.push(values);
                 }
                 skip += 5;
@@ -137,7 +141,7 @@
 
 
                         fetch(
-                            `https://localhost:7011/DietRecommendation/Create?Q=${this.formData.q}&Diet=${this.formData.diet}&Health=${this.formData.health}&Ingr=${this.formData.ingr}&DishType=${this.formData.dishType}&Calories=${this.formData.calories}&CuisineType=${this.formData.cuisineType}&Excluded=${this.formData.excluded}&MealType=${this.formData.mealType}`,
+                            `https://localhost:7011/DietRecommendation/Create?Q=${this.formData.q}&Diet=${this.formData.diet}&Health=${this.formData.health}&Ingr=${this.formData.ingr}&DishType=${this.formData.dishType}&Calories=${this.formData.calories}&CuisineType=${this.formData.cuisineType}&Excluded=${this.formData.excluded}&MealType=${this.formData.mealType}&TotalTime=${this.formData.totalTime}`,
                             requestOptions
                         )
                             .then((data) => {
@@ -146,9 +150,11 @@
                             .then((completedata) => {
                                 this.loadedRecepies = [];
                                 allData = completedata;
+                                skip = 0;
                                 for (let i = skip; i < skip + take; i++) {
                                     var values = allData[i];
                                     values.recipeId = values.uri.split('_')[1];
+                                    values.favorite = res.filter(x => x === values.recipeId).length > 0;
                                     this.loadedRecepies.push(values);
                                 }
                                 skip += 5;
@@ -159,7 +165,7 @@
                     });
                 
             },
-            addFavorite(recipeId) {
+            addFavorite(recipeId, index) {
                 const requestOptions = {
                     method: "get",
                     credentials: "include",
@@ -170,12 +176,14 @@
                 ).then((data) => {
                     return data.json();
                 }).then((data) => {
-                    console.log(data).catch((error) => {
-                        this.message = "Error adding recipe to favorite list"
-                    });
+                    if (data.success) {
+                        this.loadedRecepies[index].favorite = true;
+                    } else {
+                        this.message = data.message;
+                    }
                 })
             },
-            deleteFavorite(recipeId) {
+            deleteFavorite(recipeId, index) {
                 const requestOptions = {
                     method: "get",
                     credentials: "include",
@@ -186,11 +194,15 @@
                 ).then((data) => {
                     return data.json();
                 }).then((data) => {
-                    console.log(data).catch((error) => {
-                        this.message = "Error deleting item from favorite list"
-                    });
+                    if (data.success) {
+                        this.loadedRecepies[index].favorite = false;
+                    } else {
+                        this.message = data.message;
+                    }
                 })
             },
+
+
         },
     };
 </script>
