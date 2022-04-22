@@ -34,36 +34,36 @@ namespace The6Bits.BitOHealth.ControllerLayer
             _dBErrors = dbErrors;
             _auth = authenticationService;
         }
+        private bool _isValid;
+
 
         [HttpGet("Create")]
         public async Task<string> CreateDietRecommendations([FromQuery] DietR userResponses)
         {
-            
-            string token = "";
-            try
-            {
-                token = Request.Cookies["token"];
-            }
-            catch
-            {
-                return "NoToken";
-            }
-            bool isValid = _auth.ValidateToken(token);
-            if (isValid != true)
-            {
-                _logService.Log("None", "Invalid Token - Create Diet Recommendation", "Info", "Bussiness");
-                return "Invalid Token";
-            }
-            string username = _auth.getUsername(token);
-            string response = _DRM.SaveDietRespones(userResponses, username);
-            if (response.Contains("Database"))
-            {
-                _logService.Log("NO", "Save User Diet " + response, "DataStore", "Error");
-            }
+                string? token = "";
+                try
+                {
+                    token = Request.Headers["Authorization"];
+                    token = token.Split(' ')[1];
+                }
+                catch
+                {
+                    return "No Token";
+                }
 
-            _logService.Log("NO", "Save User Diet", "Info", "Business");
-            
-            string recipes = await _DRM.getRecommendedRecipies(userResponses);
+                _isValid = _auth.ValidateToken(token);
+
+                if (!_isValid)
+                {
+
+                    _ = _logService.Log("None", "Invalid Token - Diet Recommendations", "Info", "Business");
+                    return "Invalid Token";
+                }
+
+
+             string username = _auth.getUsername(token);
+             string response = await _DRM.SaveDietRespones(userResponses, username);    
+             string recipes = await _DRM.getRecommendedRecipies(userResponses);
             // recipeList = JsonSerializer.Serialize(recipes);
             return recipes;
 
@@ -72,19 +72,24 @@ namespace The6Bits.BitOHealth.ControllerLayer
         [HttpGet("GetRecipes")]
         public async Task<string> GetRecipeWithIds()
         {
-
-            string token = "";
+            string? token = "";
             try
             {
-                token = Request.Cookies["token"];
+                token = Request.Headers["Authorization"];
+                token = token.Split(' ')[1];
             }
             catch
             {
-                return "{\"success\": false, \"message\": \"Invalid Token\"}";
+                return "No Token";
             }
-            if (!_auth.ValidateToken(token))
+
+            _isValid = _auth.ValidateToken(token);
+
+            if (!_isValid)
             {
-                return "{\"success\": false, \"message\": \"Invalid Token\"}";
+
+                _ = _logService.Log("None", "Invalid Token - Diet Recommendations", "Info", "Business");
+                return "Invalid Token";
             }
 
             string username = _auth.getUsername(token);
@@ -97,18 +102,24 @@ namespace The6Bits.BitOHealth.ControllerLayer
         [HttpGet("AddFavorite")]
         public async Task<string> AddtoFavorite(string recipeId)
         {
-            string token;
+            string? token = "";
             try
             {
-                token = Request.Cookies["token"];
+                token = Request.Headers["Authorization"];
+                token = token.Split(' ')[1];
             }
             catch
             {
-                return "{\"success\": false, \"message\": \"Invalid Token\"}";
+                return "No Token";
             }
-            if (!_auth.ValidateToken(token))
+
+            _isValid = _auth.ValidateToken(token);
+
+            if (!_isValid)
             {
-                return "{\"success\": false, \"message\": \"Invalid Token\"}";
+
+                _ = _logService.Log("None", "Invalid Token - Diet Recommendations", "Info", "Business");
+                return "Invalid Token";
             }
 
             string username = _auth.getUsername(token);
@@ -120,44 +131,55 @@ namespace The6Bits.BitOHealth.ControllerLayer
         [HttpGet("DeleteFavorite")]
         public async Task<string> DeleteFavorite(string recipeId)
         {
-            string token;
+            string? token = "";
             try
             {
-                token = Request.Cookies["token"];
+                token = Request.Headers["Authorization"];
+                token = token.Split(' ')[1];
             }
             catch
             {
-                return "{\"success\": false, \"message\": \"Invalid Token\"}";
+                return "No Token";
             }
-            if (!_auth.ValidateToken(token))
+
+            _isValid = _auth.ValidateToken(token);
+
+            if (!_isValid)
             {
-                return "{\"success\": false, \"message\": \"Invalid Token\"}";
+
+                _ = _logService.Log("None", "Invalid Token - Diet Recommendations", "Info", "Business");
+                return "Invalid Token";
             }
 
             string favoriteResult = await _DRM.DeleteFavorite(recipeId);
-            return favoriteResult;
+            return "{\"success\": true, \"message\": \""+ favoriteResult + "\"}";
         }
 
         [HttpGet("GetFavorites")]
-        public async Task<List<string>> GetFavorites()
+        public async Task<dynamic> GetFavorites()
         {
-            string token;
-            List<string> favs = new List<string>();
+            string? token = "";
             try
             {
-                token = Request.Cookies["token"];
+                token = Request.Headers["Authorization"];
+                token = token.Split(' ')[1];
             }
             catch
             {
-                return favs;
+                return "No Token";
             }
-            if (!_auth.ValidateToken(token))
+
+            _isValid = _auth.ValidateToken(token);
+
+            if (!_isValid)
             {
-                return favs;
+
+                _ = _logService.Log("None", "Invalid Token - Diet Recommendations", "Info", "Business");
+                return "Invalid Token";
             }
+
             string username = _auth.getUsername(token);
-            favs = await _DRM.GetFavorites(username);
-            return favs;
+            return await _DRM.GetFavorites(username);
         }
     }
 }

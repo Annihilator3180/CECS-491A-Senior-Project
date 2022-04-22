@@ -23,9 +23,9 @@ namespace The6Bits.BitOHealth.ServiceLayer
             _DBErrors = DbError;
         }
 
-        public string SaveDietResponses(DietR d, string username)
+        public async Task<string> SaveDietResponses(DietR d, string username)
         {
-            string saveStatus = _DietDao.SaveDietResponses(d,username);
+            string saveStatus = await _DietDao.SaveDietResponses(d,username);
             if (saveStatus == "0")
             {
                 return _DBErrors.DBErrorCheck(int.Parse(saveStatus));
@@ -54,13 +54,13 @@ namespace The6Bits.BitOHealth.ServiceLayer
                 // convert json to string
                 else
                 {
-                    return "No recipies found, please try again!";
+                    return "{\"success\": false, \"message\": \"No recipies found, please try again!\"}";
                 }
 
             }
             catch (Exception e)
             {
-                return e.Message;
+                return "{\"success\": false, \"message\": \""+ e.Message + "\"}";
             }
 
 
@@ -83,6 +83,14 @@ namespace The6Bits.BitOHealth.ServiceLayer
         public async Task<String> AddToFavorite(FavoriteRecipe recipe, string username)  
         {
             return await _DietDao.AddToFavorite(recipe, username);
+            //var favs = GetFavorites(username);
+
+            //if (favs.Result.Contains(recipe.Recipe_id))
+            //{
+            //    return "Recipe already added";
+            //}
+
+
         }
 
         public async Task<string> DeleteFavorite(string recipeId)

@@ -14,7 +14,6 @@ namespace The6Bits.BitOHealth.Models
         public string Excluded { get; set; }
         public string Q { get; set; }
         public string MealType { get; set; }
-        public int TotalTime { get; set; }
         public DietR()
         {
             Diet = "";
@@ -26,11 +25,10 @@ namespace The6Bits.BitOHealth.Models
             Excluded = "";
             Q = "";
             MealType = "";
-            TotalTime = 0;
 
         }
 
-        public DietR(string q, string diet, string health, double ingr, string dishType, double calories, string cuisineType, string excluded, string mealType,int totalTime)
+        public DietR(string q, string diet, string health, double ingr, string dishType, double calories, string cuisineType, string excluded, string mealType)
         {
             Q = q;
             Diet = diet;
@@ -41,7 +39,6 @@ namespace The6Bits.BitOHealth.Models
             CuisineType = cuisineType;
             Excluded = excluded;
             MealType = mealType;
-            TotalTime = totalTime;
 
         }
     }
@@ -67,6 +64,7 @@ namespace The6Bits.BitOHealth.Models
         public List<string> cuisineType { get; set; }
         public List<string> mealType { get; set; }
         public List<string> dishType { get; set; }
+        public List<string> healthLabels { get; set; }
         public object image { get; set; }
         public object url { get; set; }
         public string uri { get; set; }

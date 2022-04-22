@@ -28,9 +28,9 @@ namespace The6Bits.BitOHealth.ManagerLayer
             _DRS = new DietRecommendationsService(DietDao, dbError);
             
         }
-        public string SaveDietRespones(DietR d, string username)
+        public async Task<string>  SaveDietRespones(DietR d, string username)
         {
-            return _DRS.SaveDietResponses(d, username);
+            return await _DRS.SaveDietResponses(d, username);
         }
 
         public async Task<string> getRecommendedRecipies(DietR responses)
@@ -41,14 +41,15 @@ namespace The6Bits.BitOHealth.ManagerLayer
         {
             try
             {
-                await _DRS.AddToFavorite(recipe, username);
+                             
+                 return await _DRS.AddToFavorite(recipe, username);
             }
             catch (Exception ex)
             {
-                return ex.Message;
+                return "{\"success\": false, \"message\": \""+ ex.Message + "\"}";
             }
-            return "Recipe Favorited";
-            //return await Task.FromResult("Hello");
+
+
         }
 
         public async Task<string> DeleteFavorite(string recipeId)
@@ -61,7 +62,7 @@ namespace The6Bits.BitOHealth.ManagerLayer
             {
                 return ex.Message;
             }
-            return "Recipe Deleted from Favorite List}";
+            return "Recipe Deleted from Favorite List";
             //return await Task.FromResult("Hello");
         }
 

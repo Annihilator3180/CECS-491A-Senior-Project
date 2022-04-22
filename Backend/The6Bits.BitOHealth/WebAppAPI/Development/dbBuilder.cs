@@ -147,7 +147,7 @@ namespace WebAppMVC.Development
         }
         public bool buildFavoriteRecipe(string connStr)
         {
-            var RecoveryStr = "If not exists (select name from sysobjects where name = 'FavoriteRecipe')" + "CREATE TABLE FavoriteRecipe (username VARCHAR(30), recipe_id VARCHAR(255))";
+            var RecoveryStr = "If not exists (select name from sysobjects where name = 'FavoriteRecipe')" + "CREATE TABLE FavoriteRecipe (Username VARCHAR(30), Recipe_id VARCHAR(255), DateAdded DateTime)";
             var conn = new SqlConnection(connStr);
             using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
             {

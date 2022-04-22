@@ -52,6 +52,59 @@
 
 
             <button @click="DietRecommendation" type="button">Search</button>
+            <div>
+                <p> Select a Timing: </p>
+                <select id="MealType" v-model="filters.mealType" @change="filterResults()">
+                    <option value=""> All </option>
+                    <option value="breakfast"> Breakfast </option>
+                    <option value="lunch"> Lunch </option>
+                    <option value="dinner"> Dinner </option>
+                    <option value="snack"> Snack </option>
+                    <option value="teatime"> Teatime </option>
+                </select>
+            </div>
+            <div>
+                <p> Select a Meal Type: </p>
+                <select id="Health" v-model="filters.health" @change="filterResults()">
+                    <option value=""> All </option>
+                    <option value="alcohol-cocktail"> alcohol-cocktail  </option>
+                    <option value="alcohol-free"> alcohol-free  </option>
+                    <option value="celery-free"> celery-free  </option>
+                    <option value="crustacean-free"> crustacean-free  </option>
+                    <option value="dairy-free"> dairy-free  </option>
+                    <option value="DASH"> DASH  </option>
+                    <option value="egg-free"> egg-free  </option>
+                    <option value="fish-free"> fish-free  </option>
+                    <option value="fodmap-free"> fodmap-free  </option>
+                    <option value="gluten-free"> gluten-free  </option>
+                    <option value="immuno-supportive"> immuno-supportive  </option>
+                    <option value="keto-friendly"> keto-friendly  </option>
+                    <option value="kidney-friendly"> kidney-friendly  </option>
+                    <option value="kosher"> kosher  </option>
+                    <option value="low-fat-abs"> low-fat-abs  </option>
+                    <option value="low-potassium"> low-potassium  </option>
+                    <option value="low-sugar"> low-sugar  </option>
+                    <option value="lupine-free"> lupine-free  </option>
+                    <option value="Mediterranean"> Mediterranean  </option>
+                    <option value="mollusk-free"> mollusk-free  </option>
+                    <option value="mustard-free"> mustard-free  </option>
+                    <option value="no-oil-added"> no-oil-added  </option>
+                    <option value="paleo"> paleo  </option>
+                    <option value="peanut-free"> peanut-free  </option>
+                    <option value="pescatarian"> pescatarian  </option>
+                    <option value="pork-free"> pork-free  </option>
+                    <option value="red-meat-free"> red-meat-free  </option>
+                    <option value="sesame-free"> sesame-free  </option>
+                    <option value="shellfish-free"> shellfish-free  </option>
+                    <option value="soy-free"> soy-free  </option>
+                    <option value="sugar-conscious"> sugar-conscious  </option>
+                    <option value="sulfite-free"> sulfite-free  </option>
+                    <option value="tree-nut-free"> tree-nut-free  </option>
+                    <option value="vegan"> vegan  </option>
+                    <option value="vegetarian"> vegetarian  </option>
+                    <option value="wheat-free"> wheat-free  </option>
+                </select>
+            </div>
             <div id="DietRecommendation">
                 <template v-for="(values,index) in loadedRecepies" :key="index">
                     <div class="DietRecommendation">
@@ -59,6 +112,8 @@
                         <img v-bind:src="values.image" />
                         <p> Ingredients: </p>
                         <p> {{values.ingredientLines}}</p>
+                        <p> {{values.healthLabels}} </p>
+                        <p> {{values.mealType}} </p>
                         <p> Calories: </p>
                         <p> {{values.calories}}</p>
                         <template v-if="!values.favorite">
@@ -80,15 +135,17 @@
 </template>
 
 <script>
-    var allData = [];
     var skip = 0;
     var take = 5;
-
 
     export default {
         name: "DietRecommendation",
         data() {
             return {
+                filters: {
+                    mealType: "",
+                    health: ""
+                },
                 formData: {
                     q: "pizza",
                     dishType: "Main course",
@@ -103,31 +160,50 @@
 
                 },
                 message: "",
+                allRecipes: [],
                 loadedRecepies: [],
                 favRecipes: []
             };
         },
         methods: {
+            filterResults() {
+                this.loadedRecepies = [];
+                if (this.filters.mealType == "" && this.filters.health == "") {
+                    this.allRecipes.splice(0, skip).forEach(x => {
+                        this.loadedRecepies.push(x);
+                    });
+                } else if (this.filters.mealType != "" && this.filters.health == "") {
+                    this.allRecipes.filter(x => x.mealType.filter(mt => mt.toLowerCase().indexOf(this.filters.mealType) !== -1).length != 0).forEach(x => {
+                        this.loadedRecepies.push(x);
+                    });
+                } else if (this.filters.mealType == "" && this.filters.health != "") {
+                    this.allRecipes.filter(x => x.healthLabels.filter(h => h.toLowerCase().indexOf(this.filters.health) !== -1).length != 0).forEach(x => {
+                        this.loadedRecepies.push(x);
+                    });
+                } else if (this.filters.mealType != "" && this.filters.health != "") {
+                    this.allRecipes.filter(x => x.mealType.filter(mt => mt.toLowerCase().indexOf(this.filters.mealType) !== -1).length != 0).forEach(x => {
+                        this.loadedRecepies.push(x);
+                    });
+                    this.allRecipes.filter(x => x.healthLabels.filter(h => h.toLowerCase().indexOf(this.filters.health) !== -1).length != 0).forEach(x => {
+                        this.loadedRecepies.push(x);
+                    });
+                }
+            },
             onLoadMore() {
-                console.log('load more clicked');
-                if (allData.length === 0 || skip > allData.length) {
+                if (this.allRecipes.length === 0 || skip > this.allRecipes.length) {
                     return;
                 }
-                for (let i = skip; i < skip + take; i++) {
-                    var values = allData[i];
-                    values.recipeId = values.uri.split('_')[1];
-                    values.favorite = this.favRecipes.filter(x => x === values.recipeId) > 0;
-                    this.loadedRecepies.push(values);
-                }
-                skip += 5;
+                var recipes = [...this.allRecipes];
+                recipes.splice(skip, take).forEach(x => {
+                    this.loadedRecepies.push(x);
+                });
+                skip += take;
             },
             DietRecommendation() {
                 const requestOptions = {
                     method: "get",
                     credentials: "include",
                 };
-                var pagination = 0;
-                var setpag = 0;
                 fetch(
                     `https://localhost:7011/DietRecommendation/GetFavorites`,
                     requestOptions
@@ -148,16 +224,22 @@
                                 return data.json();
                             })
                             .then((completedata) => {
-                                this.loadedRecepies = [];
-                                allData = completedata;
-                                skip = 0;
-                                for (let i = skip; i < skip + take; i++) {
-                                    var values = allData[i];
-                                    values.recipeId = values.uri.split('_')[1];
-                                    values.favorite = res.filter(x => x === values.recipeId).length > 0;
-                                    this.loadedRecepies.push(values);
+                                if (completedata.success === undefined) {
+                                    skip = 0;
+                                    this.loadedRecepies = [];
+                                    completedata.forEach(x => {
+                                        x.recipeId = x.uri.split('_')[1];
+                                        x.favorite = res.filter(r => r === x.recipeId).length > 0;
+                                    });
+                                    this.allRecipes = completedata;
+                                    var recipes = [...this.allRecipes];
+                                    recipes.splice(skip, take).forEach(x => {
+                                        this.loadedRecepies.push(x);
+                                    });
+                                    skip += take;
+                                } else {
+                                    this.message = completedata.message;
                                 }
-                                skip += 5;
                             });
 
                     }).catch((error) => {
@@ -176,6 +258,7 @@
                 ).then((data) => {
                     return data.json();
                 }).then((data) => {
+                    console.log(data);
                     if (data.success) {
                         this.loadedRecepies[index].favorite = true;
                     } else {

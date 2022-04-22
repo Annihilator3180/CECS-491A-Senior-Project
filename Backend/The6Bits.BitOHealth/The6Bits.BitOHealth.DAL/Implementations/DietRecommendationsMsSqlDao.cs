@@ -16,16 +16,16 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         private string _connectionString;
         public DietRecommendationsMsSqlDao(string connectionString)
         {
-          _connectionString = connectionString;
-         }
-        public string SaveDietResponses(DietR diet, string username)
+            _connectionString = connectionString;
+        }
+        public async Task<string> SaveDietResponses(DietR diet, string username)
         {
             try
             {
                 string query = "INSERT INTO Diet(Username,Diet,Health, Ingr, DishType, Calories, CuisineType, Excluded, MealType) values ( @Username, @Diet, @Health, @Ingr, @DishType,@Calories ,@CuisineType,@Excluded,@MealType) ";
-                using( SqlConnection connection = new SqlConnection(_connectionString))
+                using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
-                    int linesAdded = connection.Execute(query,
+                    int linesAdded = await connection.ExecuteAsync(query,
                         new
                         {
                             Username = username,
@@ -37,13 +37,13 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                             CuisineType = diet.CuisineType,
                             Excluded = diet.Excluded,
                             MealType = diet.MealType
-                        });;
+                        }); ;
                     connection.Close();
-                    if(linesAdded==0)
+                    if (linesAdded == 0)
                     {
                         return linesAdded.ToString();
                     }
-                    return "1";      
+                    return "1";
                 }
             }
             catch (Exception ex)
@@ -57,25 +57,46 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = "INSERT INTO FavoriteRecipe (Username, Recipe_id) values (@Username, @Recipe_id)";
+                int todayFavCount = 0;
+                string favCheckQuery = "select COUNT(Recipe_id) from FavoriteRecipe where Username='" + username + "' AND CONVERT(date, DateAdded) = CONVERT(date, GETDATE())";
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
-                    int linesAdded = connection.Execute(query,
-                        new
-                        {
-                            Username = username,
-                            Recipe_id = recipe.Recipe_id
+                    SqlCommand sqlCommand = new SqlCommand(favCheckQuery, connection);
+                    todayFavCount = Convert.ToInt32(await sqlCommand.ExecuteScalarAsync());
+
+                    connection.Close();
+
+                }
+
+                if(todayFavCount <= 5)
+                {
+                    string query = "INSERT INTO FavoriteRecipe (Username, Recipe_id, DateAdded) values (@Username, @Recipe_id, @DateAdded)";
+                    using (SqlConnection connection = new SqlConnection(_connectionString))
+                    {
+                        connection.Open();
+                        int linesAdded = await connection.ExecuteAsync(query,
+                            new
+                            {
+                                Username = username,
+                                Recipe_id = recipe.Recipe_id,
+                                DateAdded = DateTime.Now.Date
                             // IngredientLines = recipe.IngredientLines,
 
                         });
-                    connection.Close();
-                    if (linesAdded == 0)
-                    {
-                        return linesAdded.ToString();
+                        connection.Close();
+                        if (linesAdded == 0)
+                        {
+                            return "{\"success\": false, \"message\": \"Favorite Failed\"}";
+                        }
+                        return "{\"success\": true, \"message\": \"Recipe Favorited\"}"; ;
                     }
-                    return "1";
+                } else
+                {
+                    return "{\"success\": false, \"message\": \"Today's Limit Reached\"}";
                 }
+                
+
             }
             catch (SqlException ex)
             {
@@ -90,7 +111,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
-                    int linesDeleted = connection.Execute(query);
+                    int linesDeleted = await connection.ExecuteAsync(query);
                     connection.Close();
                     if (linesDeleted == 0)
                     {
@@ -109,19 +130,19 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             List<string> favs = new List<string>();
             try
             {
-                string query = "SELECT * FROM FavoriteRecipe WHERE Username = '"+username+"'";
+                string query = "SELECT * FROM FavoriteRecipe WHERE Username = '" + username + "'";
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
                     SqlCommand sqlCommand = new SqlCommand(query, connection);
-                    SqlDataReader reader = sqlCommand.ExecuteReader();
+                    SqlDataReader reader = await sqlCommand.ExecuteReaderAsync();
                     // retrieve recipe ids of the user 
                     while (reader.Read())
                     {
                         favs.Add((string)reader["Recipe_id"]);
                     }
                     connection.Close();
-                    
+
                 }
             }
             catch (SqlException ex)
@@ -131,7 +152,8 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             return favs;
         }
 
-
-
+        
     }
+
 }
+

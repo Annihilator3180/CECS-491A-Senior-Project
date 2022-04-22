@@ -270,7 +270,12 @@
       "ProjectGuid": "6be7e65d-5330-4a0c-85e3-3a14a54cb455",
       "DisplayName": "The6Bits.API",
       "ColorIndex": 4
+    },
+    "c648effd-8a2d-448f-b7b0-f746133fe820": {
+      "ProjectGuid": "c648effd-8a2d-448f-b7b0-f746133fe820",
+      "DisplayName": "The6bits.FoodAPI.Tests",
+      "ColorIndex": 5
     }
   },
-  "NextColorIndex": 5
+  "NextColorIndex": 6
 }
