@@ -1,0 +1,45 @@
+<template>
+    <div  class="form">
+        <form  @submit.prevent="TrackerPost">
+            <div >
+                <label   for="userId">Tracker </label>
+            </div>
+                            {{message}}
+        </form>
+    </div>
+</template>
+
+<script>
+    export default {
+        name : 'ViewReminder',
+        created(){
+            this.TrackerPost()
+        },
+        data() {
+        return {
+            formData :{ 
+                userId: '',
+            },
+            message : '',
+        }
+    },
+    methods:{
+        TrackerPost(){
+            const requestOptions = {
+                method: "POST",
+                credentials: 'include',
+                headers:{"Authorization" :`Bearer ${sessionStorage.getItem('token')}`}
+            };
+            fetch(process.env.VUE_APP_BACKEND+'Reminder/ViewAllReminders', requestOptions)
+                .then(response =>  response.text())
+                .then(body => this.message = body)
+            
+        }
+    }
+}
+</script>
+
+<style scoped>   
+.form { width:300px; margin:0 auto }
+
+</style>

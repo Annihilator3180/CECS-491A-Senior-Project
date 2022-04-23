@@ -1,17 +1,23 @@
 [
   {
     "GoalWeight": 321,
-    "ExerciseLevel": 3000
+    "ExerciseLevel": 3000,
+    "GoalDate": "2013-01-08T00:00:00Z",
+    "CurrentWeight": 330
 
   },
   {
-    "GoalWeight": 221,
-    "ExerciseLevel": 3030
+    "GoalWeight": 321,
+    "ExerciseLevel": 3000,
+    "GoalDate": "2013-01-08T00:00:00Z",
+    "CurrentWeight": 330
 
   },
   {
-    "GoalWeight": 121,
-    "ExerciseLevel": 1800
+    "GoalWeight": 321,
+    "ExerciseLevel": 3000,
+    "GoalDate": "2013-01-08T00:00:00Z",
+    "CurrentWeight": 330
 
   }
 ]

@@ -7,15 +7,33 @@ using The6Bits.BitOHealth.Models;
 
 namespace The6Bits.BitOHealth.DAL
 {
-    public interface IRepositoryWeightManagementDao
+    public interface IRepositoryWeightManagementDao<T>
     {
-        public string Delete(string username);
-        public string Create(GoalWeightModel goal, string username);
-        public GoalWeightModel Read(string username);
+        public Task<T> Delete(string username);
+        public Task<T> Create(GoalWeightModel goal, string username);
+        public Task<T> Read(string username);
 
-        public string Update(GoalWeightModel goal, string username);
+        public Task<T> Update(GoalWeightModel goal, string username);
 
 
-        public string CreateFoodLog(FoodModel food, string username);
+        public Task<T> CreateFoodLog(FoodModel food, string username);
+
+        public Task<T> GetFoodLogs(string username);
+
+        public Task<T> GetFoodLogsAfter(DateTime dateTime, string username);
+
+        public Task<T> DeleteFoodLog(int id, string username);
+
+        public Task<T> SaveImagePath(string path, DateTime imageDateTime, string username);
+
+        public Task<T> DeleteImagePath(int id,string username);
+
+
+        public Task<T> GetImage(int id, string username);
+        public Task<T> GetAllImageIDs(string username);
+
+        public Task<T> GetFoodLogsAfterAddTime(DateTime dateTime, string username);
+
+
     }
 }

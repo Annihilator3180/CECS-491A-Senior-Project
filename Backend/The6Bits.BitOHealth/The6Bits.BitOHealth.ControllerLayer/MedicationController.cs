@@ -9,6 +9,7 @@ using The6Bits.Logging.Implementations;
 using The6Bits.DBErrors;
 using Microsoft.Extensions.Configuration;
 using System.Text.Json;
+using The6Bits.BitOHealth.DAL.Contract;
 
 // using The6Bits.BitOHealth.ServiceLayer;
 
@@ -19,182 +20,227 @@ public class MedicationController : ControllerBase
 {
     
     private MedicationManager _MM;
-    private LogService _logService;
-    private IDBErrors _dbErrors;
-    private IConfiguration _config;
     private IAuthenticationService _auth;
+ 
     public MedicationController(IRepositoryMedication<string> MedicationDao,IDrugDataSet _drugDataSet, ILogDal logDao,
-        IAuthenticationService authenticationService, IDBErrors dbErrors,
-         IConfiguration config)
+        IAuthenticationService authenticationService, IDBErrors dbErrors, IReminderDatabase remindDB)
     {
-        _MM = new MedicationManager(MedicationDao,_drugDataSet, authenticationService, dbErrors, config, logDao);
-        _logService = new LogService(logDao);
-        _dbErrors = dbErrors;
+        _MM = new MedicationManager(MedicationDao, _drugDataSet , dbErrors,  logDao, new ReminderManager(remindDB, dbErrors));
         _auth = authenticationService;
-        _config = config;
-        _logService = new LogService(logDao); 
+ 
     }
     [HttpGet("Search")]
-    public string FindDrug(string drugName)
+    public FindDrugResponse FindDrug(string drugName)
     {
-        
+        FindDrugResponse drugResponse=new FindDrugResponse();
         string token;
         try
         {
-            token = Request.Cookies["token"];
+
+            token = Request.Headers["Authorization"];
+            if (token == null){
+                throw new Exception();
+            }
+            token = token.Split(' ')[1];
+            if (!_auth.ValidateToken(token))
+            {
+                throw new Exception();
+            }
+            string username = _auth.getUsername(token);
+            drugResponse = _MM.FindDrug(username, drugName);
+            return drugResponse;
 
         }
         catch
         {
-            return "invalid token";
+            drugResponse.success = false;
+            drugResponse.error = "invalid token";
+            return drugResponse;
         }
-        if (!_auth.ValidateToken(token))
-        {
-            return "invalid token";
-        }
-        string username = _auth.getUsername(token);
-        List<DrugName> genericdrugNames = _MM.FindDrug(drugName);
-        string jsonString = JsonSerializer.Serialize(genericdrugNames);
-        return jsonString;
+
 
     }
     [HttpPost("FavoriteAdd")]
-    public string AddFavorites(string genericName, string brandName, string productID)
+    public string AddFavorites(string genericName, string brandName, string product_ndc)
     {
-        string token;
+        string? token;
         try
         {
-            token = Request.Cookies["token"];
+            token = Request.Headers["Authorization"];
+            if (token == null)
+            {
+                throw new Exception();
+            }
+            token = token.Split(' ')[1];
+            if (!_auth.ValidateToken(token))
+            {
+                return "invalid token";
+            }
+            string username = _auth.getUsername(token);
+            DrugName drugName = new DrugName(genericName, product_ndc, brandName);
+            string favoriteAddResult = _MM.addFavorite(drugName, username);
+            return favoriteAddResult;
         }
         catch
         {
             return "invalid token";
         }
-        if (!_auth.ValidateToken(token))
-        {
-            return "invalid token";
-        }
-        string username = _auth.getUsername(token);
-        DrugName drugName = new DrugName(genericName,productID,brandName);
-        string favoriteAddResult= _MM.addFavorite(drugName, username);
-        return favoriteAddResult;
+
     }
 
     [HttpPost("FavoriteView")]
-    public string ViewFavorites()
+    public ViewFavoriteRequest ViewFavorites()
     {
-        string token;
+        string? token;
+        ViewFavoriteRequest requestResult = new ViewFavoriteRequest();
         try
         {
-            token = Request.Cookies["token"];
+            token = Request.Headers["Authorization"];
+            if (token == null)
+            {
+                throw new Exception();
+            }
+            token = token.Split(' ')[1];
+            if (!_auth.ValidateToken(token))
+            {
+                throw new Exception();
+            }
+            string username = _auth.getUsername(token);
+            requestResult = _MM.ViewFavorite(username);
+            return requestResult;
+
         }
         catch
         {
-            return "invalid token";
-        }
-        if (!_auth.ValidateToken(token))
-        {
-            return "invalid token";
+            requestResult.Error = "invalid token";
+            requestResult.isSuccess = false;
+            return requestResult;
         }
 
-        string username = _auth.getUsername(token);
-        try
-        {
-            List<FavoriteDrug> favoriteDrugsList = _MM.ViewFavorite(username);
-            string favoriteDrugs = JsonSerializer.Serialize(favoriteDrugsList);
-            return favoriteDrugs;
-        }
-        catch (Exception ex)
-        {
-            return ex.Message;
-        }
         
+
+
+
+
     }
     [HttpPost("DeleteFavorite")]
-    public string RemoveFavorite(FavoriteDrug favoriteMedication)
+    public string RemoveFavorite(string product_ndc)
     {
-        string token;
+        string? token;
         try
         {
-            token = Request.Cookies["token"];
+            token = Request.Headers["Authorization"];
+            if(token == null)
+            {
+                throw new Exception();
+            }
+            token = token.Split(' ')[1];
+            if (!_auth.ValidateToken(token))
+            {
+                return "invalid token";
+            }
+
+            string username = _auth.getUsername(token);
+            string deleteFavorite = _MM.RemoveFavorite(product_ndc, username);
+            return deleteFavorite;
         }
         catch
         {
             return "invalid token";
         }
-        if (!_auth.ValidateToken(token))
-        {
-            return "invalid token";
-        }
 
-        string username = _auth.getUsername(token);
-        try
-        {
-            string updatedFavorite = _MM.RemoveFavorite(username, favoriteMedication.product_id);
-            return updatedFavorite;
-        }
-        catch (Exception ex)
-        {
-            return ex.Message;
-        }
+        
 
     }
     [HttpPost("viewDrug")]
-    public string ViewDrug(string generic_name)
+    public drugInfoResponse ViewDrug(string brand_name)
     {
-        string token;
+        drugInfoResponse infoResponse=new drugInfoResponse();
+        string? token;
         try
         {
-            token = Request.Cookies["token"];
+            token = Request.Headers["Authorization"];
+            if (token == null)
+            {
+                throw new Exception();
+            }
+            token = token.Split(' ')[1];
+            if (!_auth.ValidateToken(token))
+            {
+                throw new Exception();
+            }
+
+            string username = _auth.getUsername(token);
+            infoResponse = _MM.ViewDrug(username, brand_name);
+            return infoResponse;
+
         }
         catch
         {
-            return "invalid token";
-        }
-        if (!_auth.ValidateToken(token))
-        {
-            return "invalid token";
+            infoResponse.Error = "invalid token";
+            infoResponse.isSuccess = false;
+            return infoResponse;
         }
 
-        string username = _auth.getUsername(token);
-        try
-        {
-            drugInfo drugInfo = _MM.ViewDrug(username, generic_name);
-            return JsonSerializer.Serialize(drugInfo);
-        }
-        catch (Exception ex)
-        {
-            return ex.Message;
-        }
+        
 
     }
 
     [HttpPost("UpdateFavorite")]
     public string UpdateFavorite(FavoriteDrug favoriteMedication)
     {
-        string token;
+        string? token;
         try
         {
-            token = Request.Cookies["token"];
+            token = Request.Headers["Authorization"];
+            if (token == null)
+            {
+                throw new Exception();
+            }
+            token = token.Split(' ')[1];
+            if (!_auth.ValidateToken(token))
+            {
+                return "invalid token";
+            }
+            string username = _auth.getUsername(token);
+            string updatedFavorite = _MM.UpdateFavorite(username, favoriteMedication);
+            return updatedFavorite;
         }
         catch
         {
             return "invalid token";
         }
-        if (!_auth.ValidateToken(token))
-        {
-            return "invalid token";
-        }
 
-        string username = _auth.getUsername(token);
+
+
+        
+
+    }
+    [HttpPost("Reminder")]
+    public string RefillMedication(string name, string description, string date, string time, string repeat)
+    {
+        string? token;
+        
         try
         {
-            string updatedFavorite = _MM.UpdateFavorite(username,favoriteMedication);
-            return updatedFavorite;
+            token = Request.Headers["Authorization"];
+            if (token == null)
+            {
+                throw new Exception();
+            }
+            token = token.Split(' ')[1];
+            if (!_auth.ValidateToken(token))
+            {
+                return "invalid token";
+            }
+
+            string username = _auth.getUsername(token);
+            string RefillMedication = _MM.RefillMedication(username, name, description, date, time, repeat);
+            return RefillMedication;
         }
-        catch (Exception ex)
+        catch
         {
-            return ex.Message;
+            return "invalid token";
         }
 
     }

@@ -22,6 +22,10 @@ namespace The6Bits.DBErrors
             {
                 return "Database Offline";
             }
+            else if(ErrorNumber == 2627)
+            {
+                return "Duplicate Record Name";
+            }
             else
             {
                 return ErrorNumber.ToString()+"Database Other Error ";

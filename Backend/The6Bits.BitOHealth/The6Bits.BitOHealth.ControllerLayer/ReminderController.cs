@@ -86,6 +86,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
             }
         }
+
         public string ViewHelper(string username, string reminderID)
         {
 
@@ -113,8 +114,27 @@ namespace The6Bits.BitOHealth.ControllerLayer
         }
 
         [HttpPost("ViewAllReminders")]
-        public string ViewAllReminders(string username)
+        public string ViewAllReminders()
         {
+
+            String token = "";
+            try
+            {
+                token = Request.Headers["Authorization"];
+            }
+            catch
+            {
+                return "No token";
+            }
+            token = token.Split(' ')[1];
+            isValid = _authentication.ValidateToken(token);
+            if (!isValid)
+            {
+                _ = logservice.Log("None", "Invalid Token - Create Reminder", "Info", "Business");
+                return "Invalid Token";
+            }
+
+            String username = _authentication.getUsername(token);
             string s = _RM.ViewAllReminders(username);
             string[] subs = s.Split('.');
             int counter = 1;

@@ -40,7 +40,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
         [HttpGet("Create")]
         public async Task<string> CreateDietRecommendations([FromQuery] DietR userResponses)
         {
-            /*
+            
                 string? token = "";
                 try
                 {
@@ -63,8 +63,6 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
 
              string username = _auth.getUsername(token);
-            */
-            string username = "Emily";
              string response =  _DRM.SaveDietRespones(userResponses, username);    
              string recipes = await _DRM.getRecommendedRecipies(userResponses);
             // recipeList = JsonSerializer.Serialize(recipes);
@@ -75,7 +73,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
         [HttpGet("GetRecipes")]
         public async Task<string> GetRecipeWithIds()
         {
-            /*
+            
             string? token = "";
             try
             {
@@ -97,8 +95,6 @@ namespace The6Bits.BitOHealth.ControllerLayer
             }
 
             string username = _auth.getUsername(token);
-            */
-            string username = "Emily";
             List<string> recipeIds = _DRM.GetFavorites(username);
             string recipes = await _DRM.getRecommendedRecipiesWithId(recipeIds);
             return recipes;
@@ -108,7 +104,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
         [HttpGet("AddFavorite")]
         public string AddtoFavorite(string recipeId)
         {
-            /*
+           
             string? token = "";
             try
             {
@@ -130,8 +126,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
             }
 
             string username = _auth.getUsername(token);
-            */
-            string username = "Emily";
+           
             FavoriteRecipe favoriteRecipe = new FavoriteRecipe(recipeId);
             string favoriteResult =  _DRM.AddToFavorite(favoriteRecipe,username);
             return favoriteResult;
@@ -140,7 +135,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
         [HttpGet("DeleteFavorite")]
         public string DeleteFavorite(string recipeId)
         {
-            /*
+            
             string? token = "";
             try
             {
@@ -160,7 +155,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
                 _ = _logService.Log("None", "Invalid Token - Diet Recommendations", "Info", "Business");
                 return "Invalid Token";
             }
-            */
+           
             FavoriteRecipe favoriteRecipe = new FavoriteRecipe(recipeId);
             string favoriteResult =  _DRM.DeleteFavorite(favoriteRecipe);
             return  favoriteResult;
@@ -169,12 +164,12 @@ namespace The6Bits.BitOHealth.ControllerLayer
         [HttpGet("GetFavorites")]
         public List<string> GetFavorites()
         {
-            /*
+            
             string? token = "";
+            /*
             try
             {
-                token = Request.Headers["Authorization"];
-                token = token.Split(' ')[1];
+               
             }
             catch
             {
@@ -190,10 +185,11 @@ namespace The6Bits.BitOHealth.ControllerLayer
                 return "Invalid Token";
             }
 
-            string username = _auth.getUsername(token);
             */
-            string username = "Emily";
-            return  _DRM.GetFavorites(username);
+            token = Request.Headers["Authorization"];
+            token = token.Split(' ')[1];
+            string username = _auth.getUsername(token);
+            return _DRM.GetFavorites(username);
         }
     }
 }

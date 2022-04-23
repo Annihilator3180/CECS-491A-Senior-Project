@@ -19,7 +19,6 @@ namespace The6Bits.BitOHealth.ServiceLayer.Test
         {
             _serv = new DietRecommendationsService(new DietRecommendationsMsSqlDao(conn), new MsSqlDerrorService());
         }
-             public string _connectionString = @"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;";
 
         [Fact]
         public void SaveTest()

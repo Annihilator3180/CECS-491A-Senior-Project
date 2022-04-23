@@ -21,13 +21,13 @@ namespace The6Bits.BitOHealth.DAL.Tests
         {
 
             //arrange 
-            DrugName testDrug = new DrugName("generic drug test", "test id", "brand name test");
             string username = "test";
-            medicationDAO.RemoveFavorite(username, "test id");
+            medicationDAO.DeleteUsersList(username);
+            DrugName testDrug = new DrugName("generic drug test", "test id", "brand name test");
             //act
             bool isAdded = medicationDAO.addFavorite(username, testDrug);
             int count = medicationDAO.getFavoriteCount(username);
-            //asset
+            //assert
             Assert.Equal(1, count);
             medicationDAO.RemoveFavorite( "test id", username);
 
@@ -56,11 +56,11 @@ namespace The6Bits.BitOHealth.DAL.Tests
             medicationDAO.RemoveFavorite("test id", username);
             bool isAdded = medicationDAO.addFavorite(username, testDrug);
             //act
+
             int isRemoved = medicationDAO.RemoveFavorite("test id", username);
 
             //assert
             Assert.True(isRemoved >0);
-            //cleanup
 
         }
         [Fact]
@@ -69,9 +69,9 @@ namespace The6Bits.BitOHealth.DAL.Tests
 
             //arrange 
             DrugName testDrug = new DrugName("generic drug test", "test id", "brand name test");
-            FavoriteDrug testFavoriteDrug = new FavoriteDrug("test", "generic drug test", "test id", "brand name test", 4, "test location");
+            FavoriteDrug testFavoriteDrug = new FavoriteDrug("generic drug test", "test id", "brand name test", 4, "test location","this is a test");
             string username = "test";
-            medicationDAO.RemoveFavorite(testDrug.product_id, username);
+            medicationDAO.RemoveFavorite(testDrug.product_ndc, username);
             
             bool isAdded = medicationDAO.addFavorite(username, testDrug);
             //act
@@ -81,22 +81,26 @@ namespace The6Bits.BitOHealth.DAL.Tests
             Assert.Equal(readTest.lowestprice,testFavoriteDrug.lowestprice);
             Assert.Equal(testFavoriteDrug.lowestPriceLocation, readTest.lowestPriceLocation);
             //cleanup
-            medicationDAO.RemoveFavorite(testDrug.product_id, username);
+            medicationDAO.RemoveFavorite(testDrug.product_ndc, username);
         }
         [Fact]
         public void viewFavListShould()
         {
+            //arrange 
             DrugName testDrug = new DrugName("generic drug test", "test id", "brand name test");
             DrugName testDrug2 = new DrugName("generic drug test2", "test id2", "brand name test2");
             string username = "test";
-            medicationDAO.RemoveFavorite(testDrug.product_id, username);
-            medicationDAO.RemoveFavorite(testDrug2.product_id, username);
+            medicationDAO.DeleteUsersList(username);
             medicationDAO.addFavorite(username, testDrug);
             medicationDAO.addFavorite(username, testDrug2);
+            //act
             List<FavoriteDrug> favdrug= medicationDAO.ViewFavorites(username);
+            //assert
             Assert.Equal(2,favdrug.Count);
+            //cleanup 
+            medicationDAO.DeleteUsersList(username);
 
-            
+
         }
     }
 }

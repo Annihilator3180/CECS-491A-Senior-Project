@@ -1,15 +1,25 @@
 <template>
             
     <div class="form">
-
-        <tr v-for="f in formData.favoriteDrugsList" :key="f">
-         <td>{{f.generic_name}}</td>
-         <td>{{f.product_id}}</td>
+        <div v-if="formData.ViewFavoriteRequest.isSuccess==false">
+            {{formData.ViewFavoriteRequest.error}}
+        </div>
+         <div v-else>
+        <tr>
+        <th>brand Name</th>
+        <th>product ndc</th>
+        </tr>
+        <tr v-for="f in formData.ViewFavoriteRequest.data" :key="f">
          <td>{{f.brand_name}}</td>
-         <button @click = "FavoriteDrugListPost">View Drug</button>
-         
-        </tr>  
+         <td>{{f.product_ndc}}</td>
+        <button @click = "$router.push({name:'ViewDrug',params:{id: f.brand_name}})">View Drug</button>
+        <button @click = "RemoveFavorite(f.product_ndc)">Remove Favorite</button>
+        <button @click = "$router.push({name:'EditDrug',params:{id: f.brand_name}})">Edit Favorite</button>
+        </tr> 
+        {{formData.ViewFavoriteRequest.data?.length}}/100
           </div>
+    </div>
+
 
 </template>
 <script>
@@ -22,11 +32,7 @@
         return {
             formData :{
                 favoriteDrugsList: [],
-                generic_name: '',
-                product_id: '',
-                brand_name: '',
-                lowestprice: 0,
-                lowestPriceLocation: ''
+                ViewFavoriteRequest: [],
             },
             message : '',
         }
@@ -36,12 +42,32 @@
             const requestOptions = {
                 method: "post",
                 credentials: 'include',
-                headers: { "Content-Type": "application/json"},
+                headers: { "Content-Type": "application/json",
+                "Authorization" :`Bearer ${sessionStorage.getItem('token')}`},
                
             };
-            const response= fetch('https://localhost:7011/Medication/FavoriteView',requestOptions)                
+            const response= fetch(process.env.VUE_APP_BACKEND+'Medication/FavoriteView',requestOptions)                
                 .then(response =>  response.text())
-                .then(body => this.formData.favoriteDrugsList = JSON.parse(body))
+                .then(body => this.message =body)
+                .then(body=>this.formData.ViewFavoriteRequest= JSON.parse(body))
+                .catch((error) =>{
+                    this.message="Error retrieving favorite list"
+                });
+
+        },
+        RemoveFavorite(product_ndc){
+            const requestOptions = {
+                method: "post",
+                credentials: 'include',
+                headers: { "Content-Type": "application/json",
+                "Authorization" :`Bearer ${sessionStorage.getItem('token')}`},
+               
+            };
+            const response= fetch(process.env.VUE_APP_BACKEND+'Medication/DeleteFavorite?product_ndc='
+            +product_ndc,requestOptions)                
+                .then(response =>  response.text())
+                .then(body => this.message = body)
+                .then(body=>this.formData.favoriteDrugsList = JSON.parse(body))
                 .catch((error) =>{
                     this.message="Error retrieving favorite list"
                 });
@@ -49,3 +75,33 @@
     }
 }
 </script>
+<style scoped>
+    .form {
+        width: 100%;
+        margin: 0 auto
+    }
+td:nth-child(odd){
+    padding: 20px;
+}
+
+tr:nth-child(even) {
+    background-color: lightgrey;
+    color: black
+}
+tr:nth-child(odd) {
+    background-color: white;
+    color: black
+}
+td {
+
+    padding: 10px;
+}
+
+th {
+    padding: 10px;
+    background-color: #696969;
+    color: #fff;
+}
+
+
+</style>

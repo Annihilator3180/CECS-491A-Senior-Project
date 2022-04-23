@@ -71,8 +71,8 @@ namespace WebAppMVC.Development
         }
         public bool BuildHealthRecorder(string connStr)
         {
-            var healthRecorderStr = "If not exists (select name from sysobjects where name = 'HealthRecorder') create table HealthRecorder(record varchar(max)," +
-                "username varchar(30),timeSaved DateTime, categoryName varchar(50), recordName varchar(50))";
+            var healthRecorderStr = "If not exists (select name from sysobjects where name = 'HealthRecorder') create table HealthRecorder(record1 varchar(max), record2 varchar(max)," +
+                "username varchar(30),timeSaved DateTime, categoryName varchar(50), recordName varchar(50), primary key (recordName, categoryName))";
             var conn = new SqlConnection(connStr);
             using (SqlCommand command = new SqlCommand(healthRecorderStr, conn))
             {
@@ -103,7 +103,7 @@ namespace WebAppMVC.Development
 
         public bool buildWMGoals(string connStr)
         {
-            var RecoveryStr = "If not exists (select name from sysobjects where name = 'WMGoals') CREATE TABLE WMGoals (Username VARCHAR(30), GoalWeight int, GoalDate DateTime, exerciseLevel int )";
+            var RecoveryStr = "If not exists (select name from sysobjects where name = 'WMGoals') CREATE TABLE WMGoals (Username VARCHAR(30), GoalWeight int, GoalDate DateTime, exerciseLevel int,  CurrentWeight int )";
             var conn = new SqlConnection(connStr);
             using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
             {
@@ -118,8 +118,8 @@ namespace WebAppMVC.Development
         public bool buildFavoriteMedication(string connStr)
         {
             var FavoriteStr = "If not exists (select name from sysobjects where name = 'favoriteMedication') " +
-                "CREATE TABLE favoriteMedication (Username VARCHAR(30), product_id VARCHAR(100), " +
-                "generic_name VARCHAR(100), brand_name VARCHAR(100), lowestPrice int, lowestPriceLocation VARCHAR(150))";
+                "CREATE TABLE favoriteMedication (Username VARCHAR(30), product_ndc VARCHAR(500), " +
+                "generic_name VARCHAR(500), brand_name VARCHAR(500), lowestPrice float, lowestPriceLocation VARCHAR(150), description VARCHAR(500))";
             var conn = new SqlConnection(connStr);
             using (SqlCommand command = new SqlCommand(FavoriteStr, conn))
             {
@@ -163,7 +163,8 @@ namespace WebAppMVC.Development
 
         public bool buildRemiders(string connStr)
         {
-            var RecoveryStr = "If not exists (select name from sysobjects where name = 'Reminders') CREATE TABLE Reminders (R_SK VARCHAR(30), username VARCHAR(30), name VARCHAR(30), description VARCHAR(30), date VARCHAR(30), time VARCHAR(30), repeat VARCHAR(30))";
+            var RecoveryStr = "If not exists (select name from sysobjects where name = 'Reminders') CREATE TABLE Reminders (R_SK VARCHAR(30), username VARCHAR(30), name VARCHAR(100), description VARCHAR(1000)," +
+                " date VARCHAR(30), time VARCHAR(30), repeat VARCHAR(30))";
             var conn = new SqlConnection(connStr);
             using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
             {
@@ -173,6 +174,63 @@ namespace WebAppMVC.Development
             return false;
 
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public bool buildFoodLog(string connStr)
+        {
+            var RecoveryStr = "If not exists (select name from sysobjects where name = 'FoodLog') CREATE TABLE FoodLog (Username  VARCHAR(100), FoodName VARCHAR(100), Description  VARCHAR(255), Calories float, FoodLogDate DateTime,Carbs float, Protein float, Fat float, DateAdded DateTime,  Id INT IDENTITY(1,1) )";
+            var conn = new SqlConnection(connStr);
+            using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
+            {
+                conn.Open();
+                command.ExecuteNonQuery();
+            }
+            return false;
+
+
+
+        }
+
+
+
+
+
+        public bool buildWeightGoalImageDB(string connStr)
+        {
+            var RecoveryStr = "If not exists (select name from sysobjects where name = 'WeightGoalImages') CREATE TABLE WeightGoalImages (Username VARCHAR(30) , Path VARCHAR(1000), ImageDate DateTime, Id INT IDENTITY(1,1) )";
+            var conn = new SqlConnection(connStr);
+            using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
+            {
+                conn.Open();
+                command.ExecuteNonQuery();
+            }
+            return false;
+
+
+
+        }
+
+
+
+
+
+
+
+
+
 
 
 

@@ -3,15 +3,13 @@
     "",
     "\\Backend",
     "\\Backend\\The6Bits.BitOHealth",
-    "\\Backend\\The6Bits.BitOHealth\\WebAppAPI",
-    "\\Backend\\The6Bits.BitOHealth\\WebAppAPI\\Development",
-    "\\Documents",
-    "\\Documents\\Feature",
-    "\\frontend",
-    "\\frontend\\the6bits",
-    "\\frontend\\the6bits\\src",
-    "\\frontend\\the6bits\\src\\components"
+    "\\Backend\\The6Bits.BitOHealth\\The6Bits.BitOHealth.DAL",
+    "\\Backend\\The6Bits.BitOHealth\\The6Bits.BitOHealth.DAL\\Implementations",
+    "\\Backend\\The6Bits.BitOHealth\\The6Bits.HashAndSaltService",
+    "\\Backend\\The6Bits.BitOHealth\\The6Bits.HashAndSaltService\\Contract",
+    "\\Backend\\The6Bits.BitOHealth\\The6Bits.HashAndSaltService\\Implementations",
+    "\\Backend\\The6Bits.BitOHealth\\The6Bits.Logging.DAL",
+    "\\Backend\\The6Bits.BitOHealth\\The6Bits.Logging.DAL\\Implementations"
   ],
-  "SelectedNode": "\\frontend\\the6bits\\src\\components\\DietRecommendation.vue",
   "PreviewInSolutionExplorer": false
 }

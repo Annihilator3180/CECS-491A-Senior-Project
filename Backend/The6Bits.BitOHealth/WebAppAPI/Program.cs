@@ -10,6 +10,7 @@ using The6Bits.BitOHealth.DAL;
 using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.BitOHealth.DAL.Implementations;
 using The6Bits.BitOHealth.Models;
+using The6Bits.BitOHealth.Models.WeightManagement;
 using The6Bits.BitOHealth.ServiceLayer;
 using The6Bits.Logging.DAL.Contracts;
 using The6Bits.Logging.DAL.Implementations;
@@ -52,8 +53,13 @@ builder.Services.AddScoped<IRepositoryMedication<string>>(provider =>
     new MsSqlMedicationDAO(connstring));
 builder.Services.AddHttpClient<IDrugDataSet, OpenFDADAO>(client =>
 {
-    client.BaseAddress = new Uri("https://api.fda.gov/drug/ndc.json");
+    client.BaseAddress = new Uri("https://api.fda.gov/drug/");
 });
+builder.Services.AddSingleton(new openFDAConfig
+{
+    APIKey = builder.Configuration["OpenFda"],
+});
+
 builder.Services.AddTransient<IAuthenticationService>(provider => new JWTAuthenticationService(builder.Configuration["jwt"]));
 builder.Services.AddTransient<IDBErrors, MsSqlDerrorService>();
 
@@ -90,7 +96,8 @@ builder.Services.AddSingleton(new SESConfig()
 builder.Configuration.AddEnvironmentVariables();
 
 
-builder.Services.AddTransient<IRepositoryWeightManagementDao>(provider => new WeightManagementMsSqlDao(connstring));
+builder.Services.AddTransient<IRepositoryWeightManagementDao<IWeightManagerResponse>>(provider => new WeightManagementMsSqlDao(connstring));
+builder.Services.AddTransient<IRepositoryWeightManagementImageDao<IWeightManagerResponse>>(provider => new WeightManagementWindowsDao(builder.Configuration.GetSection("FilePaths")["WeightManagementPath"]));
 builder.Services.AddTransient<IRepositoryHealthRecorderDAO>(provider => new HealthRecorderMsSqlDAO(connstring));
 //builder.Services.AddTransient<IAccountService, AccountService>();
 
@@ -108,8 +115,7 @@ recoveryReset.ResetRecovery(connstring);
 
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+
     var b = new dbBuilder();
     b.builAccountdDB(connstring);
     b.buildVerifyCodes(connstring);
@@ -122,10 +128,12 @@ if (app.Environment.IsDevelopment())
     b.BuildHealthRecorder(connstring);
     b.buildDiet(connstring);
     b.buildRemiders(connstring);
+    b.buildFoodLog(connstring);
+    b.buildWeightGoalImageDB(connstring);
     b.buildFavoriteRecipe(connstring);
     //app.UseSwagger();
     //app.UseSwaggerUI();
-}
+
 
 app.UseCors(x => x
     .AllowAnyMethod()

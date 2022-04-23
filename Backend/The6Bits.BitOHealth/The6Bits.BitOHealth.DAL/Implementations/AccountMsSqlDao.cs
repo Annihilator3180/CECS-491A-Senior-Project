@@ -72,7 +72,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                password = "Password1!";
+              // password = "Password1!";
                 string query = "select Count(@Username) from Accounts where Username = @Username AND Password = @Password";
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
@@ -164,7 +164,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     return str.First();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
                 return new User("100", "100", "100", "100", "100", 100, 100, 100);

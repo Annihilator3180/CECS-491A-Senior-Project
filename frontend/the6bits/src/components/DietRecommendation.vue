@@ -185,11 +185,10 @@
                 const requestOptions = {
                     method: "get",
                     credentials: "include",
+                    headers: { "Authorization": `Bearer ${sessionStorage.getItem('token')}` }
+
                 };
-                fetch(
-                    `https://localhost:7011/DietRecommendation/GetFavorites`,
-                    requestOptions
-                )
+                fetch(process.env.VUE_APP_BACKEND+'DietRecommendation/GetFavorites',requestOptions)
                     .then((favData) => {
                         return favData.json();
                     })
@@ -199,9 +198,7 @@
 
 
                         fetch(
-                            `https://localhost:7011/DietRecommendation/Create?Q=${this.formData.q}&Diet=${this.formData.diet}&Health=${this.formData.health}&Ingr=${this.formData.ingr}&DishType=${this.formData.dishType}&Calories=${this.formData.calories}&CuisineType=${this.formData.cuisineType}&Excluded=${this.formData.excluded}&MealType=${this.formData.mealType}&TotalTime=${this.formData.totalTime}`,
-                            requestOptions
-                        )
+                            process.env.VUE_APP_BACKEND+`DietRecommendation/Create?Q=${this.formData.q}&Diet=${this.formData.diet}&Health=${this.formData.health}&Ingr=${this.formData.ingr}&DishType=${this.formData.dishType}&Calories=${this.formData.calories}&CuisineType=${this.formData.cuisineType}&Excluded=${this.formData.excluded}&MealType=${this.formData.mealType}&TotalTime=${this.formData.totalTime}`, requestOptions)
                             .then((data) => {
                                 return data.json();
                             })
@@ -233,9 +230,11 @@
                 const requestOptions = {
                     method: "get",
                     credentials: "include",
+                    headers: { "Authorization": `Bearer ${sessionStorage.getItem('token')}` }
+
                 };
                 fetch(
-                    `https://localhost:7011/DietRecommendation/AddFavorite?recipeId=${recipeId}`,
+                    process.env.VUE_APP_BACKEND + 'DietRecommendation/AddFavorite?recipeId=' + this.recipeId,
                     requestOptions
                 ).then((data) => {
                     return data.json();
@@ -252,9 +251,11 @@
                 const requestOptions = {
                     method: "get",
                     credentials: "include",
+                    headers: { "Authorization": `Bearer ${sessionStorage.getItem('token')}` }
+
                 };
                 fetch(
-                    `https://localhost:7011/DietRecommendation/DeleteFavorite?recipeId=${recipeId}`,
+                    process.env.VUE_APP_BACKEND + 'DietRecommendation/DeleteFavorite?recipeId=' + this.recipeId,
                     requestOptions
                 ).then((data) => {
                     return data.json();

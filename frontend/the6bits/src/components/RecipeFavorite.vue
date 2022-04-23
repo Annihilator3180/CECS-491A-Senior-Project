@@ -35,11 +35,12 @@
                 const requestOptions = {
                     method: "get",
                     credentials: "include",
+                    headers: { "Authorization": `Bearer ${sessionStorage.getItem('token')}` }
+                    
+
                 };
-                var pagination = 0;
-                var setpag = 0;
                 fetch(
-                    `https://localhost:7011/DietRecommendation/GetRecipes`,
+                    process.env.VUE_APP_BACKEND+ 'DietRecommendation/GetRecipes',
                     requestOptions
                 )
                     .then((favData) => {
@@ -60,9 +61,11 @@
                 const requestOptions = {
                     method: "get",
                     credentials: "include",
+                    headers: { "Authorization": `Bearer ${sessionStorage.getItem('token')}` }
+                    
                 };
                 fetch(
-                    `https://localhost:7011/DietRecommendation/DeleteFavorite?recipeId=${recipeId}`,
+                    process.env.VUE_APP_BACKEND+'DietRecommendation/DeleteFavorite?recipeId='+ this.recipeId,
                     requestOptions
                 ).then((data) => {
                     return data.json();
