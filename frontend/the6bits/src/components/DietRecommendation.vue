@@ -36,50 +36,56 @@
                 </select>
             </div>
             <div>
-                <p>Answer the following questions for recipes</p>
+                <b>Answer the following questions for recipes:</b>
             </div>
             <div>
-                <p>What would you like to eat?</p>
+                <p>1- What would you like to eat?</p>
 
                 <input type="text" id="q" v-model="formData.q" />
             </div>
             <div>
-                <p>What type of meal would you like?</p>
+                <p>2- What type of meal would you like?</p>
                 <p>ex: (Breakfast, Lunch)</p>
                 <input type="text" id="mealType" v-model="formData.mealType" />
             </div>
             <div>
-                <p>What type of Dish would you like?</p>
+                <p>3- What type of Dish would you like?</p>
                 <p>ex: (Salad, Soup)</p>
                 <input type="text" id="dishType" v-model="formData.dishType" />
             </div>
             <div>
-                <p>What type of diet do you follow?</p>
+                <p>4- What type of diet do you follow?</p>
                 <p>ex: (Balanced, Low-card)</p>
                 <input type="text" id="diet" v-model="formData.diet" />
             </div>
 
             <div>
-                <p>Do you follow any dietary plans?</p>
+                <p>5- Do you follow any dietary plans?</p>
                 <p>ex: (Vegan, Dairy-free)</p>
                 <input type="text" id="health" v-model="formData.health" />
             </div>
             <div>
-                <p>What ingredients would you like to include?</p>
+                <p>6- How many ingredients would you like to include?</p>
                 <input type="text" id="ingr" v-model="formData.ingr" />
             </div>
             <div>
-                <p>What cuisine would you like?</p>
+                <p>7- What cuisine would you like?</p>
                 <p>ex: (Italian, American)</p>
                 <input type="text" id="cuisineType" v-model="formData.cuisineType" />
             </div>
             <div>
-                <p>How many calories?</p>
+                <p>8- How many calories should the recipe include?</p>
                 <input type="text" id="calories" v-model="formData.calories" />
             </div>
             <div>
-                <p>Do you have any alergies?</p>
+                <p>9- Do you have any alergies?</p>
                 <p>ex: (Banana, Shrimp)</p>
+
+                <input type="text" id="excluded" v-model="formData.excluded" />
+            </div>
+            <div>
+                <p>10- Do you have any food you want to exclude?</p>
+                <p>ex: (Nuts, Berries)</p>
 
                 <input type="text" id="excluded" v-model="formData.excluded" />
             </div>
@@ -93,9 +99,9 @@
                         <div v-html="values.label.link(values.url)"></div>
                         <img v-bind:src="values.image" />
                         <p> Ingredients: </p>
-                        <p> {{values.ingredientLines}}</p>
-                        <p> {{values.healthLabels}} </p>
-                        <p> {{values.mealType}} </p>
+                        <ul v-for="(line,index) in values.ingredientLines" :key="index">
+                            <li>{{line}}</li>
+                        </ul>
                         <p> Calories: </p>
                         <p> {{values.calories}}</p>
                         <template v-if="!values.favorite">
@@ -129,15 +135,15 @@
                     health: ""
                 },
                 formData: {
-                    q: "pizza",
-                    dishType: "Main course",
-                    diet: "balanced",
-                    ingr: 5,
-                    cuisineType: "Italian",
-                    calories: 500,
-                    excluded: "almonds",
-                    health: "peanut-free",
-                    mealType: "Lunch",
+                    q: "",
+                    dishType: "",
+                    diet: "",
+                    ingr: 0,
+                    cuisineType: "",
+                    calories: 0,
+                    excluded: "",
+                    health: "",
+                    mealType: "",
                     totalTime: 0,
 
                 },
@@ -204,6 +210,7 @@
                             })
                             .then((completedata) => {
                                 if (completedata.success === undefined) {
+                                    alert("Recipes Generated!");
                                     skip = 0;
                                     this.loadedRecepies = [];
                                     completedata.forEach(x => {
@@ -234,7 +241,7 @@
 
                 };
                 fetch(
-                    process.env.VUE_APP_BACKEND + 'DietRecommendation/AddFavorite?recipeId=' + this.recipeId,
+                    process.env.VUE_APP_BACKEND + 'DietRecommendation/AddFavorite?recipeId=' + recipeId,
                     requestOptions
                 ).then((data) => {
                     return data.json();
@@ -245,6 +252,7 @@
                     } else {
                         this.message = data.message;
                     }
+                    alert(data.message);
                 })
             },
             deleteFavorite(recipeId, index) {
@@ -255,7 +263,7 @@
 
                 };
                 fetch(
-                    process.env.VUE_APP_BACKEND + 'DietRecommendation/DeleteFavorite?recipeId=' + this.recipeId,
+                    process.env.VUE_APP_BACKEND + 'DietRecommendation/DeleteFavorite?recipeId=' + recipeId,
                     requestOptions
                 ).then((data) => {
                     return data.json();
@@ -265,6 +273,7 @@
                     } else {
                         this.message = data.message;
                     }
+                    alert(data.message);
                 })
             },
 

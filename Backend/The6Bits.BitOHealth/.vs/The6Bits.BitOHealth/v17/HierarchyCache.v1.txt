@@ -1,36 +1,37 @@
-﻿++Solution 'The6Bits.BitOHealth' ‎(22 of 22 projects)
+﻿++Solution 'The6Bits.BitOHealth' ‎(23 of 23 projects)
 i:{00000000-0000-0000-0000-000000000000}:The6Bits.BitOHealth.sln
 ++Solution Items
 i:{00000000-0000-0000-0000-000000000000}:Solution Items
 ++.gitignore
-i:{7e8b630e-9460-4545-81a0-9226dec38766}:C:\Users\emily\source\repos\CECS-491A-Senior-Project\Backend\The6Bits.BitOHealth\.gitignore
+i:{7e8b630e-9460-4545-81a0-9226dec38766}:C:\Users\emily\Source\Repos\CECS-491A-Senior-Project\Backend\The6Bits.BitOHealth\.gitignore
 ++The6Bits.BitOHealth.ServiceLayer
 i:{00000000-0000-0000-0000-000000000000}:The6Bits.BitOHealth.ServiceLayer
 i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.bitohealth.servicelayer\the6bits.bitohealth.servicelayer.csproj
 i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.bitohealth.servicelayer\the6bits.bitohealth.servicelayer.csproj
 ++Dependencies
-i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:>1283
-i:{d7327072-6523-48c9-8198-f4b48c666604}:>1278
-i:{445216f7-730f-4498-9e75-fc687bea775f}:>1309
-i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:>1281
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:>1275
-i:{cc1e728b-e33d-45d5-999b-55acd879391c}:>1280
-i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:>4622
-i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:>1276
-i:{dd54b656-0f37-4227-8469-f21c9d44dd52}:>2659
-i:{2aa2ffcb-096e-48f8-a272-c611ec9a39e1}:>2658
-i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:>3921
-i:{56ab64f0-28a5-4502-bced-414a4476ec77}:>1282
-i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:>1277
-i:{d79c8cd7-e325-41e1-bd71-5ffcefff0b6d}:>1279
-i:{6f5aee68-f998-4a26-8aa8-ac2a7bf0c423}:>3262
-i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:>4161
-i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:>4159
-i:{119ce180-1661-4091-91e6-acbe39d37091}:>4160
-i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:>4158
-i:{f2d52a85-d7db-40e9-909a-c798aac61b90}:>3920
-i:{c648effd-8a2d-448f-b7b0-f746133fe820}:>4468
-i:{6be7e65d-5330-4a0c-85e3-3a14a54cb455}:>3779
+i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:>4128
+i:{d7327072-6523-48c9-8198-f4b48c666604}:>4125
+i:{445216f7-730f-4498-9e75-fc687bea775f}:>4129
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:>4132
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:>4134
+i:{cc1e728b-e33d-45d5-999b-55acd879391c}:>4229
+i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:>5620
+i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:>4126
+i:{dd54b656-0f37-4227-8469-f21c9d44dd52}:>4127
+i:{2aa2ffcb-096e-48f8-a272-c611ec9a39e1}:>4223
+i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:>4130
+i:{56ab64f0-28a5-4502-bced-414a4476ec77}:>4225
+i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:>4133
+i:{d79c8cd7-e325-41e1-bd71-5ffcefff0b6d}:>4224
+i:{6f5aee68-f998-4a26-8aa8-ac2a7bf0c423}:>5138
+i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:>4131
+i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:>4228
+i:{119ce180-1661-4091-91e6-acbe39d37091}:>4226
+i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:>4261
+i:{f2d52a85-d7db-40e9-909a-c798aac61b90}:>4227
+i:{c5fdaca0-ae08-49d4-84ca-f0e3f4db7a22}:>5271
+i:{c648effd-8a2d-448f-b7b0-f746133fe820}:>5262
+i:{6be7e65d-5330-4a0c-85e3-3a14a54cb455}:>5257
 ++AccountService.cs
 i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.bitohealth.servicelayer\accountservice.cs
 ++ArchivingService.cs
@@ -72,6 +73,7 @@ i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:analyzers
 i:{119ce180-1661-4091-91e6-acbe39d37091}:analyzers
 i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:analyzers
 i:{f2d52a85-d7db-40e9-909a-c798aac61b90}:analyzers
+i:{c5fdaca0-ae08-49d4-84ca-f0e3f4db7a22}:analyzers
 i:{c648effd-8a2d-448f-b7b0-f746133fe820}:analyzers
 i:{6be7e65d-5330-4a0c-85e3-3a14a54cb455}:analyzers
 ++Frameworks
@@ -95,6 +97,7 @@ i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:frameworks
 i:{119ce180-1661-4091-91e6-acbe39d37091}:frameworks
 i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:frameworks
 i:{f2d52a85-d7db-40e9-909a-c798aac61b90}:frameworks
+i:{c5fdaca0-ae08-49d4-84ca-f0e3f4db7a22}:frameworks
 i:{c648effd-8a2d-448f-b7b0-f746133fe820}:frameworks
 i:{6be7e65d-5330-4a0c-85e3-3a14a54cb455}:frameworks
 ++Packages
@@ -115,6 +118,7 @@ i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:packages
 i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:packages
 i:{119ce180-1661-4091-91e6-acbe39d37091}:packages
 i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:packages
+i:{c5fdaca0-ae08-49d4-84ca-f0e3f4db7a22}:packages
 i:{c648effd-8a2d-448f-b7b0-f746133fe820}:packages
 ++Projects
 i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:projects
@@ -133,6 +137,7 @@ i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:projects
 i:{119ce180-1661-4091-91e6-acbe39d37091}:projects
 i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:projects
 i:{f2d52a85-d7db-40e9-909a-c798aac61b90}:projects
+i:{c5fdaca0-ae08-49d4-84ca-f0e3f4db7a22}:projects
 i:{c648effd-8a2d-448f-b7b0-f746133fe820}:projects
 i:{6be7e65d-5330-4a0c-85e3-3a14a54cb455}:projects
 ++Microsoft.CodeAnalysis.CSharp.NetAnalyzers
@@ -156,6 +161,7 @@ i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\program files\dotnet\sdk\6.0.101\sdk
 i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\program files\dotnet\sdk\6.0.101\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
 i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:c:\program files\dotnet\sdk\6.0.101\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
 i:{f2d52a85-d7db-40e9-909a-c798aac61b90}:c:\program files\dotnet\sdk\6.0.101\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{c5fdaca0-ae08-49d4-84ca-f0e3f4db7a22}:c:\program files\dotnet\sdk\6.0.101\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
 i:{c648effd-8a2d-448f-b7b0-f746133fe820}:c:\program files\dotnet\sdk\6.0.101\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
 i:{6be7e65d-5330-4a0c-85e3-3a14a54cb455}:c:\program files\dotnet\sdk\6.0.101\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
 ++Microsoft.CodeAnalysis.NetAnalyzers
@@ -179,6 +185,7 @@ i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\program files\dotnet\sdk\6.0.101\sdk
 i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\program files\dotnet\sdk\6.0.101\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
 i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:c:\program files\dotnet\sdk\6.0.101\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
 i:{f2d52a85-d7db-40e9-909a-c798aac61b90}:c:\program files\dotnet\sdk\6.0.101\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{c5fdaca0-ae08-49d4-84ca-f0e3f4db7a22}:c:\program files\dotnet\sdk\6.0.101\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
 i:{c648effd-8a2d-448f-b7b0-f746133fe820}:c:\program files\dotnet\sdk\6.0.101\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
 i:{6be7e65d-5330-4a0c-85e3-3a14a54cb455}:c:\program files\dotnet\sdk\6.0.101\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
 ++System.Text.Json.SourceGeneration
@@ -202,7 +209,8 @@ i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\users\emily\.nuget\packages\system.t
 i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\emily\.nuget\packages\system.text.json\7.0.0-preview.1.22076.8\analyzers\dotnet\roslyn4.0\cs\system.text.json.sourcegeneration.dll
 i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:c:\users\emily\.nuget\packages\system.text.json\7.0.0-preview.1.22076.8\analyzers\dotnet\roslyn4.0\cs\system.text.json.sourcegeneration.dll
 i:{f2d52a85-d7db-40e9-909a-c798aac61b90}:c:\users\emily\.nuget\packages\system.text.json\7.0.0-preview.1.22076.8\analyzers\dotnet\roslyn4.0\cs\system.text.json.sourcegeneration.dll
-i:{c648effd-8a2d-448f-b7b0-f746133fe820}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.1\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{c5fdaca0-ae08-49d4-84ca-f0e3f4db7a22}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.1\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{c648effd-8a2d-448f-b7b0-f746133fe820}:c:\users\emily\.nuget\packages\system.text.json\7.0.0-preview.1.22076.8\analyzers\dotnet\roslyn4.0\cs\system.text.json.sourcegeneration.dll
 i:{6be7e65d-5330-4a0c-85e3-3a14a54cb455}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.1\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
 ++Microsoft.NETCore.App
 i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.bitohealth.servicelayer\microsoft.netcore.app
@@ -225,11 +233,13 @@ i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\users\emily\source\repos\cecs-491a-s
 i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\tests\the6bits.bitohealth.servicelayer.test\microsoft.netcore.app
 i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\tests\the6bits.authentication.tests\microsoft.netcore.app
 i:{f2d52a85-d7db-40e9-909a-c798aac61b90}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\tests\the6bits.hashandsaltservice.tests\microsoft.netcore.app
+i:{c5fdaca0-ae08-49d4-84ca-f0e3f4db7a22}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.bitohealth.controller.tests\microsoft.netcore.app
 i:{c648effd-8a2d-448f-b7b0-f746133fe820}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.foodapi.tests\microsoft.netcore.app
 i:{6be7e65d-5330-4a0c-85e3-3a14a54cb455}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\api\microsoft.netcore.app
 ++Microsoft.AspNetCore.Http.Features (5.0.15)
-i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:>4752
-i:{445216f7-730f-4498-9e75-fc687bea775f}:>4695
+i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:>5639
+i:{445216f7-730f-4498-9e75-fc687bea775f}:>5647
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:>5687
 ++The6Bits.API
 i:{54b24c94-87dc-4b48-b133-2e9e29ff1b81}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\api\the6bits.api.csproj
 i:{00000000-0000-0000-0000-000000000000}:The6Bits.API
@@ -274,6 +284,7 @@ i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\emily\source\repos\cecs-491a-s
 i:{00000000-0000-0000-0000-000000000000}:The6Bits.BitOHealth.ControllerLayer
 i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.bitohealth.controllerlayer\the6bits.bitohealth.controllerlayer.csproj
 i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.bitohealth.controllerlayer\the6bits.bitohealth.controllerlayer.csproj
+i:{c5fdaca0-ae08-49d4-84ca-f0e3f4db7a22}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.bitohealth.controllerlayer\the6bits.bitohealth.controllerlayer.csproj
 ++AccountController.cs
 i:{d7327072-6523-48c9-8198-f4b48c666604}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.bitohealth.controllerlayer\accountcontroller.cs
 ++ArchivingController.cs
@@ -295,17 +306,17 @@ i:{d7327072-6523-48c9-8198-f4b48c666604}:c:\users\emily\source\repos\cecs-491a-s
 ++WeightManagementController.cs
 i:{d7327072-6523-48c9-8198-f4b48c666604}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.bitohealth.controllerlayer\weightmanagementcontroller.cs
 ++Microsoft.AspNet.Mvc (5.2.7)
-i:{d7327072-6523-48c9-8198-f4b48c666604}:>4670
+i:{d7327072-6523-48c9-8198-f4b48c666604}:>5644
 ++Microsoft.AspNetCore.Http.Extensions (2.2.0)
-i:{d7327072-6523-48c9-8198-f4b48c666604}:>4667
+i:{d7327072-6523-48c9-8198-f4b48c666604}:>5643
 ++Microsoft.AspNetCore.Mvc.Core (2.2.5)
-i:{d7327072-6523-48c9-8198-f4b48c666604}:>4671
+i:{d7327072-6523-48c9-8198-f4b48c666604}:>5645
 ++Microsoft.AspNetCore.Routing (2.2.2)
-i:{d7327072-6523-48c9-8198-f4b48c666604}:>4661
+i:{d7327072-6523-48c9-8198-f4b48c666604}:>5641
 ++System.IdentityModel.Tokens.Jwt (6.15.1)
-i:{d7327072-6523-48c9-8198-f4b48c666604}:>4664
-i:{cc1e728b-e33d-45d5-999b-55acd879391c}:>4654
-i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:>4662
+i:{d7327072-6523-48c9-8198-f4b48c666604}:>5642
+i:{cc1e728b-e33d-45d5-999b-55acd879391c}:>5794
+i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:>5760
 ++The6Bits.Authentication
 i:{d7327072-6523-48c9-8198-f4b48c666604}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.authentication\the6bits.authentication.csproj
 i:{445216f7-730f-4498-9e75-fc687bea775f}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.authentication\the6bits.authentication.csproj
@@ -355,12 +366,20 @@ i:{7cdba9f0-fa15-4208-b10b-fbba352fe18c}:FoodAPI
 i:{c648effd-8a2d-448f-b7b0-f746133fe820}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\foodapi\foodapi.csproj
 ++WeightManagement
 i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\models\weightmanagement\
+++CalorieCounterModel.cs
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\models\weightmanagement\caloriecountermodel.cs
 ++EdamamModel.cs
 i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\models\weightmanagement\edamammodel.cs
+++FoodDaoModel.cs
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\models\weightmanagement\fooddaomodel.cs
 ++FoodModel.cs
 i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\models\weightmanagement\foodmodel.cs
 ++GoalWeightModel.cs
 i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\models\weightmanagement\goalweightmodel.cs
+++IWeightManagerResponse.cs
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\models\weightmanagement\iweightmanagerresponse.cs
+++WeightManagerResponse.cs
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\models\weightmanagement\weightmanagerresponse.cs
 ++AccountRecoveryModel.cs
 i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\models\accountrecoverymodel.cs
 ++ClaimsDBModel.cs
@@ -371,6 +390,8 @@ i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\emily\source\repos\cecs-491a-s
 i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\models\dietr.cs
 ++druginfo.cs
 i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\models\druginfo.cs
+++drugInfoResponse.cs
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\models\druginforesponse.cs
 ++DrugName.cs
 i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\models\drugname.cs
 ++FailedAttemptsModel.cs
@@ -379,16 +400,32 @@ i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\emily\source\repos\cecs-491a-s
 i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\models\favoritedrug.cs
 ++FavoriteRecipe.cs
 i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\models\favoriterecipe.cs
+++FindDrugResponse.cs
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\models\finddrugresponse.cs
+++HealthRecorderExportModel.cs
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\models\healthrecorderexportmodel.cs
+++HealthRecorderRecordModel.cs
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\models\healthrecorderrecordmodel.cs
+++HealthRecorderRequestModel.cs
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\models\healthrecorderrequestmodel.cs
+++HealthRecorderResponseModel.cs
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\models\healthrecorderresponsemodel.cs
+++HealthRecorderViewRecordModel.cs
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\models\healthrecorderviewrecordmodel.cs
 ++JwtModel.cs
 i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\models\jwtmodel.cs
 ++LoginModel.cs
 i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\models\loginmodel.cs
+++openFDAConfig.cs
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\models\openfdaconfig.cs
 ++OTPModel.cs
 i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\models\otpmodel.cs
 ++ReminderModel.cs
 i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\models\remindermodel.cs
 ++User.cs
 i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\models\user.cs
+++ViewFavoriteRequest.cs
+i:{341827c8-53ae-4f45-a74d-27e2efcf1c73}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\models\viewfavoriterequest.cs
 ++Contract
 i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.bitohealth.dal\contract\
 i:{cc1e728b-e33d-45d5-999b-55acd879391c}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.authentication\contract\
@@ -416,6 +453,8 @@ i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\emily\source\repos\cecs-491a-s
 i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.bitohealth.dal\contract\irepositoryum.cs
 ++IRepositoryWeightManagementDao.cs
 i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.bitohealth.dal\contract\irepositoryweightmanagementdao.cs
+++IRepositoryWeightManagementImageDao.cs
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.bitohealth.dal\contract\irepositoryweightmanagementimagedao.cs
 ++Implementations
 i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.bitohealth.dal\implementations\
 i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.bitohealth.dal\implementations\implementations\
@@ -444,20 +483,22 @@ i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\emily\source\repos\cecs-491a-s
 i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.bitohealth.dal\implementations\sqlarchivingdao.cs
 ++WeightManagementMsSqlDao.cs
 i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.bitohealth.dal\implementations\weightmanagementmssqldao.cs
+++WeightManagementWindowsDao.cs
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.bitohealth.dal\implementations\weightmanagementwindowsdao.cs
 ++WindowsArchivingDAO.cs
 i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.bitohealth.dal\implementations\windowsarchivingdao.cs
 ++Dapper (2.0.123)
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:>4840
-i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:>4665
-i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:>4818
-i:{56ab64f0-28a5-4502-bced-414a4476ec77}:>4663
-i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:>4653
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:>5688
+i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:>5762
+i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:>5843
+i:{56ab64f0-28a5-4502-bced-414a4476ec77}:>5890
+i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:>5704
 ++System.Data.SqlClient (4.8.3)
-i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:>4842
-i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:>4669
-i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:>4819
-i:{56ab64f0-28a5-4502-bced-414a4476ec77}:>4666
-i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:>4655
+i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:>5689
+i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:>5763
+i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:>5845
+i:{56ab64f0-28a5-4502-bced-414a4476ec77}:>5891
+i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:>5705
 ++The6Bits.Logging.Models
 i:{af19ac61-c862-4a74-8caf-b92cf6a99452}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.logging.models\the6bits.logging.models.csproj
 i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.logging.models\the6bits.logging.models.csproj
@@ -465,7 +506,7 @@ i:{d8459be7-a930-4b65-b2be-42a22bf68c8f}:The6Bits.Logging.Models
 ++.DS_Store
 i:{cc1e728b-e33d-45d5-999b-55acd879391c}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.authentication\.ds_store
 i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\webappapi\keys\.ds_store
-i:{fa5bfc28-6e48-4a14-8698-79ca6508d73a}:C:\Users\emily\source\repos\CECS-491A-Senior-Project\Backend\The6Bits.BitOHealth\Tests\.DS_Store
+i:{fa5bfc28-6e48-4a14-8698-79ca6508d73a}:C:\Users\emily\Source\Repos\CECS-491A-Senior-Project\Backend\The6Bits.BitOHealth\Tests\.DS_Store
 i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\tests\the6bits.bitohealh.dal.tests\.ds_store
 i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\tests\the6bits.bitohealh.dal.tests\keys\.ds_store
 i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\tests\the6bits.bitohealth.servicelayer.test\keys\.ds_store
@@ -474,13 +515,13 @@ i:{cc1e728b-e33d-45d5-999b-55acd879391c}:c:\users\emily\source\repos\cecs-491a-s
 ++JWTAuthenticationService.cs
 i:{cc1e728b-e33d-45d5-999b-55acd879391c}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.authentication\implementations\jwtauthenticationservice.cs
 ++Microsoft.Extensions.Configuration.Abstractions (6.0.0)
-i:{cc1e728b-e33d-45d5-999b-55acd879391c}:>4652
+i:{cc1e728b-e33d-45d5-999b-55acd879391c}:>5793
 ++Newtonsoft.Json (13.0.1)
-i:{cc1e728b-e33d-45d5-999b-55acd879391c}:>4659
+i:{cc1e728b-e33d-45d5-999b-55acd879391c}:>5795
 ++WebAppAPI
 i:{00000000-0000-0000-0000-000000000000}:WebAppAPI
 ++Connected Services 
-i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:>4623
+i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:>5621
 ++Properties
 i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\webappapi\properties\
 ++Controllers
@@ -493,10 +534,13 @@ i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\users\emily\source\repos\cecs-491a-s
 i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\tests\the6bits.bitohealth.servicelayer.test\keys\
 ++appsettings.json
 i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\webappapi\appsettings.json
+i:{6baa515f-55e7-4ba9-9150-a36b473de2c1}:C:\Users\emily\Source\Repos\CECS-491A-Senior-Project\Backend\The6Bits.BitOHealth\Tests\TestData\appsettings.json
 i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\tests\the6bits.authorization.tests\appsettings.json
 i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\tests\the6bits.bitohealh.dal.tests\appsettings.json
 i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\tests\the6bits.bitohealth.servicelayer.test\appsettings.json
 i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\tests\the6bits.authentication.tests\appsettings.json
+i:{c5fdaca0-ae08-49d4-84ca-f0e3f4db7a22}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.bitohealth.controller.tests\appsettings.json
+i:{c648effd-8a2d-448f-b7b0-f746133fe820}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.foodapi.tests\appsettings.json
 ++Program.cs
 i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\webappapi\program.cs
 ++secrets.json
@@ -504,7 +548,9 @@ i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\emily\source\repos\cecs-491a-s
 ++WeatherForecast.cs
 i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\webappapi\weatherforecast.cs
 ++No service dependencies discovered
-i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:>4624
+i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:>5622
+++PublishProfiles
+i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\webappapi\properties\publishprofiles\
 ++launchSettings.json
 i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\webappapi\properties\launchsettings.json
 ++WeatherForecastController.cs
@@ -525,6 +571,8 @@ i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\users\emily\source\repos\cecs-491a-s
 i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\tests\the6bits.bitohealth.servicelayer.test\keys\public-key.pem
 ++appsettings.Development.json
 i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\webappapi\appsettings.development.json
+++appsettings.Production.json
+i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\webappapi\appsettings.production.json
 ++Microsoft.AspNetCore.Analyzers
 i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\program files\dotnet\sdk\6.0.101\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.analyzers.dll
 ++Microsoft.AspNetCore.App.Analyzers
@@ -544,15 +592,19 @@ i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\program files\dotnet\sdk\6.0.101\sdk
 ++Microsoft.AspNetCore.App
 i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\webappapi\microsoft.aspnetcore.app
 ++Swashbuckle.AspNetCore (6.2.3)
-i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:>4875
-++AuthorizationService.cs
-i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.authorization\authorizationservice.cs
-++IAuthorizationDao.cs
-i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.authorization\contract\iauthorizationdao.cs
+i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:>5877
+++FolderProfile.pubxml
+i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\webappapi\properties\publishprofiles\folderprofile.pubxml
+++FolderProfile1.pubxml
+i:{132f4ef6-f6af-4a9b-8c30-ba5a0e912648}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\webappapi\properties\publishprofiles\folderprofile1.pubxml
 ++DESAuthorizationService.cs
 i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.authorization\implementations\desauthorizationservice.cs
 ++MsSqlRoleAuthorizationDao.cs
 i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.authorization\implementations\mssqlroleauthorizationdao.cs
+++AuthorizationService.cs
+i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.authorization\authorizationservice.cs
+++IAuthorizationDao.cs
+i:{5c85ca0c-9442-4807-b053-5a7825cd83eb}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.authorization\contract\iauthorizationdao.cs
 ++Contracts
 i:{dd54b656-0f37-4227-8469-f21c9d44dd52}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.dberrors\contracts\
 i:{2aa2ffcb-096e-48f8-a272-c611ec9a39e1}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.emailservice\contracts\
@@ -561,29 +613,29 @@ i:{6f5aee68-f998-4a26-8aa8-ac2a7bf0c423}:c:\users\emily\source\repos\cecs-491a-s
 ++Implementation
 i:{dd54b656-0f37-4227-8469-f21c9d44dd52}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.dberrors\implementation\
 i:{2aa2ffcb-096e-48f8-a272-c611ec9a39e1}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.emailservice\implementation\
-++IDBErrors.cs
-i:{dd54b656-0f37-4227-8469-f21c9d44dd52}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.dberrors\contracts\idberrors.cs
 ++MsSqlDerrorService.cs
 i:{dd54b656-0f37-4227-8469-f21c9d44dd52}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.dberrors\implementation\mssqlderrorservice.cs
+++IDBErrors.cs
+i:{dd54b656-0f37-4227-8469-f21c9d44dd52}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.dberrors\contracts\idberrors.cs
 ++Microsoft.Extensions.Configuration (7.0.0-preview.1.22076.8)
-i:{dd54b656-0f37-4227-8469-f21c9d44dd52}:>4795
-i:{2aa2ffcb-096e-48f8-a272-c611ec9a39e1}:>4794
-i:{56ab64f0-28a5-4502-bced-414a4476ec77}:>4668
-i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:>4660
-i:{d79c8cd7-e325-41e1-bd71-5ffcefff0b6d}:>4864
-i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:>4802
+i:{dd54b656-0f37-4227-8469-f21c9d44dd52}:>5740
+i:{2aa2ffcb-096e-48f8-a272-c611ec9a39e1}:>5728
+i:{56ab64f0-28a5-4502-bced-414a4476ec77}:>5892
+i:{10305673-fc2b-45ca-a4ab-4684ebe6afb4}:>5706
+i:{d79c8cd7-e325-41e1-bd71-5ffcefff0b6d}:>5670
+i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:>5779
 ++ISMTPEmailService.cs
 i:{2aa2ffcb-096e-48f8-a272-c611ec9a39e1}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.emailservice\contracts\ismtpemailservice.cs
 ++AWSSesService.cs
 i:{2aa2ffcb-096e-48f8-a272-c611ec9a39e1}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.emailservice\implementation\awssesservice.cs
 ++SESConfig.cs
 i:{2aa2ffcb-096e-48f8-a272-c611ec9a39e1}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.emailservice\implementation\sesconfig.cs
+++MsSqlHashDao.cs
+i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.hashandsaltservice\implementations\mssqlhashdao.cs
 ++HashAndSaltService.cs
 i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.hashandsaltservice\hashandsaltservice.cs
 ++IHashDao.cs
 i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.hashandsaltservice\contract\ihashdao.cs
-++MsSqlHashDao.cs
-i:{97955ffb-21d4-44b1-94d2-0527fc0d1db5}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.hashandsaltservice\implementations\mssqlhashdao.cs
 ++Logging
 i:{00000000-0000-0000-0000-000000000000}:Logging
 ++LogService.cs
@@ -610,21 +662,33 @@ i:{6f5aee68-f998-4a26-8aa8-ac2a7bf0c423}:c:\users\emily\source\repos\cecs-491a-s
 ++Tests
 i:{00000000-0000-0000-0000-000000000000}:Tests
 ++TestAccountData.json
-i:{fa5bfc28-6e48-4a14-8698-79ca6508d73a}:C:\Users\emily\source\repos\CECS-491A-Senior-Project\Backend\The6Bits.BitOHealth\Tests\TestAccountData.json
+i:{fa5bfc28-6e48-4a14-8698-79ca6508d73a}:C:\Users\emily\Source\Repos\CECS-491A-Senior-Project\Backend\The6Bits.BitOHealth\Tests\TestAccountData.json
 ++TestData
 i:{fa5bfc28-6e48-4a14-8698-79ca6508d73a}:TestData
 ++AccountTestData.csv
-i:{6baa515f-55e7-4ba9-9150-a36b473de2c1}:C:\Users\emily\source\repos\CECS-491A-Senior-Project\Backend\The6Bits.BitOHealth\Tests\TestData\AccountTestData.csv
+i:{6baa515f-55e7-4ba9-9150-a36b473de2c1}:C:\Users\emily\Source\Repos\CECS-491A-Senior-Project\Backend\The6Bits.BitOHealth\Tests\TestData\AccountTestData.csv
 ++AccountTestData.json
-i:{6baa515f-55e7-4ba9-9150-a36b473de2c1}:C:\Users\emily\source\repos\CECS-491A-Senior-Project\Backend\The6Bits.BitOHealth\Tests\TestData\AccountTestData.json
+i:{6baa515f-55e7-4ba9-9150-a36b473de2c1}:C:\Users\emily\Source\Repos\CECS-491A-Senior-Project\Backend\The6Bits.BitOHealth\Tests\TestData\AccountTestData.json
 ++FailedAttemptsData.json
-i:{6baa515f-55e7-4ba9-9150-a36b473de2c1}:C:\Users\emily\source\repos\CECS-491A-Senior-Project\Backend\The6Bits.BitOHealth\Tests\TestData\FailedAttemptsData.json
+i:{6baa515f-55e7-4ba9-9150-a36b473de2c1}:C:\Users\emily\Source\Repos\CECS-491A-Senior-Project\Backend\The6Bits.BitOHealth\Tests\TestData\FailedAttemptsData.json
+++FoodModelTestData.json
+i:{6baa515f-55e7-4ba9-9150-a36b473de2c1}:C:\Users\emily\Source\Repos\CECS-491A-Senior-Project\Backend\The6Bits.BitOHealth\FoodModelTestData.json
 ++InvalidUsernameTestData.json
-i:{6baa515f-55e7-4ba9-9150-a36b473de2c1}:C:\Users\emily\source\repos\CECS-491A-Senior-Project\Backend\The6Bits.BitOHealth\Tests\TestData\InvalidUsernameTestData.json
+i:{6baa515f-55e7-4ba9-9150-a36b473de2c1}:C:\Users\emily\Source\Repos\CECS-491A-Senior-Project\Backend\The6Bits.BitOHealth\Tests\TestData\InvalidUsernameTestData.json
 ++OTPModelTestData.json
-i:{6baa515f-55e7-4ba9-9150-a36b473de2c1}:C:\Users\emily\source\repos\CECS-491A-Senior-Project\Backend\The6Bits.BitOHealth\Tests\TestData\OTPModelTestData.json
+i:{6baa515f-55e7-4ba9-9150-a36b473de2c1}:C:\Users\emily\Source\Repos\CECS-491A-Senior-Project\Backend\The6Bits.BitOHealth\Tests\TestData\OTPModelTestData.json
 ++WeightGoalModelTestData.json
-i:{6baa515f-55e7-4ba9-9150-a36b473de2c1}:C:\Users\emily\source\repos\CECS-491A-Senior-Project\Backend\The6Bits.BitOHealth\Tests\TestData\WeightGoalModelTestData.json
+i:{6baa515f-55e7-4ba9-9150-a36b473de2c1}:C:\Users\emily\Source\Repos\CECS-491A-Senior-Project\Backend\The6Bits.BitOHealth\Tests\TestData\WeightGoalModelTestData.json
+++TestResource
+i:{6baa515f-55e7-4ba9-9150-a36b473de2c1}:TestResource
+++document.pdf
+i:{7b48b8b4-e155-4e7f-9471-4f1cb96b2710}:C:\Users\Downloads\document.pdf
+++dummy.pdf
+i:{7b48b8b4-e155-4e7f-9471-4f1cb96b2710}:C:\Users\emily\Source\Repos\CECS-491A-Senior-Project\Backend\The6Bits.BitOHealth\dummy.pdf
+++TextFile1.txt
+i:{7b48b8b4-e155-4e7f-9471-4f1cb96b2710}:C:\Users\emily\Source\Repos\CECS-491A-Senior-Project\Backend\The6Bits.BitOHealth\TextFile1.txt
+++TextFile2.jpg
+i:{7b48b8b4-e155-4e7f-9471-4f1cb96b2710}:C:\Users\emily\Source\Repos\CECS-491A-Senior-Project\Backend\The6Bits.BitOHealth\TextFile2.jpg
 ++The6Bits.Authorization.Tests
 i:{fa5bfc28-6e48-4a14-8698-79ca6508d73a}:The6Bits.Authorization.Tests
 ++DESAuthorizationShould.cs
@@ -637,36 +701,38 @@ i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\users\emily\.nuget\packages\xunit.an
 i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\emily\.nuget\packages\xunit.analyzers\0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll
 i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:c:\users\emily\.nuget\packages\xunit.analyzers\0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll
 i:{f2d52a85-d7db-40e9-909a-c798aac61b90}:c:\users\emily\.nuget\packages\xunit.analyzers\0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll
+i:{c5fdaca0-ae08-49d4-84ca-f0e3f4db7a22}:c:\users\emily\.nuget\packages\xunit.analyzers\0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll
 i:{c648effd-8a2d-448f-b7b0-f746133fe820}:c:\users\emily\.nuget\packages\xunit.analyzers\0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll
 ++coverlet.collector (3.1.0)
-i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:>4769
-i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:>4806
-i:{119ce180-1661-4091-91e6-acbe39d37091}:>4847
-i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:>4740
-i:{c648effd-8a2d-448f-b7b0-f746133fe820}:>4739
+i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:>5759
+i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:>5781
+i:{119ce180-1661-4091-91e6-acbe39d37091}:>5730
+i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:>5849
+i:{c5fdaca0-ae08-49d4-84ca-f0e3f4db7a22}:>5864
 ++Microsoft.NET.Test.Sdk (17.0.0)
-i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:>4766
-i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:>4793
-i:{119ce180-1661-4091-91e6-acbe39d37091}:>4839
-i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:>4730
+i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:>5755
+i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:>5774
+i:{119ce180-1661-4091-91e6-acbe39d37091}:>5721
+i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:>5844
 ++xunit (2.4.1)
-i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:>4767
-i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:>4798
-i:{119ce180-1661-4091-91e6-acbe39d37091}:>4841
-i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:>4734
-i:{c648effd-8a2d-448f-b7b0-f746133fe820}:>4732
+i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:>5756
+i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:>5776
+i:{119ce180-1661-4091-91e6-acbe39d37091}:>5722
+i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:>5846
+i:{c5fdaca0-ae08-49d4-84ca-f0e3f4db7a22}:>5861
 ++xunit.runner.visualstudio (2.4.3)
-i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:>4768
-i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:>4804
-i:{119ce180-1661-4091-91e6-acbe39d37091}:>4843
-i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:>4737
-i:{c648effd-8a2d-448f-b7b0-f746133fe820}:>4736
+i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:>5757
+i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:>5780
+i:{119ce180-1661-4091-91e6-acbe39d37091}:>5727
+i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:>5847
+i:{c5fdaca0-ae08-49d4-84ca-f0e3f4db7a22}:>5863
 ++The6Bits.BitOHealth.DAL.Tests
 i:{b9e84952-e4b2-48bb-a7cd-89197f6b5a77}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\tests\the6bits.bitohealh.dal.tests\the6bits.bitohealth.dal.tests.csproj
 i:{fa5bfc28-6e48-4a14-8698-79ca6508d73a}:The6Bits.BitOHealth.DAL.Tests
 i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\tests\the6bits.bitohealh.dal.tests\the6bits.bitohealth.dal.tests.csproj
 i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\tests\the6bits.bitohealh.dal.tests\the6bits.bitohealth.dal.tests.csproj
 i:{f2d52a85-d7db-40e9-909a-c798aac61b90}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\tests\the6bits.bitohealh.dal.tests\the6bits.bitohealth.dal.tests.csproj
+i:{c648effd-8a2d-448f-b7b0-f746133fe820}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\tests\the6bits.bitohealh.dal.tests\the6bits.bitohealth.dal.tests.csproj
 ++AccountMsSqlDaoShould.cs
 i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\tests\the6bits.bitohealh.dal.tests\accountmssqldaoshould.cs
 ++CreateReminderShould.cs
@@ -675,6 +741,8 @@ i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\users\emily\source\repos\cecs-491a-s
 i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\tests\the6bits.bitohealh.dal.tests\dietrecommendationsmssqlshould.cs
 ++FailedAttemptsShould.cs
 i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\tests\the6bits.bitohealh.dal.tests\failedattemptsshould.cs
+++HealthRecorderMsSqlDAOShould.cs
+i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\tests\the6bits.bitohealh.dal.tests\healthrecordermssqldaoshould.cs
 ++MedicationMsSqlShould.cs
 i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\tests\the6bits.bitohealh.dal.tests\medicationmssqlshould.cs
 ++OpenFDADAOShould.cs
@@ -689,12 +757,16 @@ i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\users\emily\source\repos\cecs-491a-s
 i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\tests\the6bits.bitohealh.dal.tests\umdaoshould.cs
 ++WeightManagementMsSqlDaoShould.cs
 i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\tests\the6bits.bitohealh.dal.tests\weightmanagementmssqldaoshould.cs
+++WeightManagementWindowsDaoShould.cs
+i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\tests\the6bits.bitohealh.dal.tests\weightmanagementwindowsdaoshould.cs
 ++WindowsArchivingDAOShould.cs
 i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\tests\the6bits.bitohealh.dal.tests\windowsarchivingdaoshould.cs
 ++Microsoft.AspNetCore.Hosting.Abstractions (2.2.0)
-i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:>4797
+i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:>5775
+++Microsoft.AspNetCore.Http (2.2.2)
+i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:>5778
 ++Microsoft.Extensions.Configuration.Json (7.0.0-preview.1.22076.8)
-i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:>4801
+i:{2f46774b-4c38-4202-9ff8-522280b27b7a}:>5777
 ++The6Bits.BitOHealth.ServiceLayer.Test
 i:{fa5bfc28-6e48-4a14-8698-79ca6508d73a}:The6Bits.BitOHealth.ServiceLayer.Test
 ++AccountRecoveryShould.cs
@@ -707,6 +779,8 @@ i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\emily\source\repos\cecs-491a-s
 i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\tests\the6bits.bitohealth.servicelayer.test\dietrecommendationserviceshould.cs
 ++EmailServiceShould.cs
 i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\tests\the6bits.bitohealth.servicelayer.test\emailserviceshould.cs
+++HealthRecorderServiceShould.cs
+i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\tests\the6bits.bitohealth.servicelayer.test\healthrecorderserviceshould.cs
 ++HotTopicsTest.cs
 i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\tests\the6bits.bitohealth.servicelayer.test\hottopicstest.cs
 ++MedicationServiceShould.cs
@@ -716,7 +790,9 @@ i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\emily\source\repos\cecs-491a-s
 ++WeightManagementServiceShould.cs
 i:{119ce180-1661-4091-91e6-acbe39d37091}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\tests\the6bits.bitohealth.servicelayer.test\weightmanagementserviceshould.cs
 ++Moq (4.16.1)
-i:{119ce180-1661-4091-91e6-acbe39d37091}:>4844
+i:{119ce180-1661-4091-91e6-acbe39d37091}:>5729
+++System.Text.Json (7.0.0-preview.1.22076.8)
+i:{119ce180-1661-4091-91e6-acbe39d37091}:>5725
 ++The6Bits.Authentication.Tests
 i:{fa5bfc28-6e48-4a14-8698-79ca6508d73a}:The6Bits.Authentication.Tests
 ++JwtAuthenticationServiceShould.cs
@@ -725,13 +801,25 @@ i:{fe1cbe8e-4cfe-46e7-aeeb-0f2775d203b1}:c:\users\emily\source\repos\cecs-491a-s
 i:{fa5bfc28-6e48-4a14-8698-79ca6508d73a}:The6Bits.HashAndSaltService.Tests
 ++HashAndSaltServiceShould.cs
 i:{f2d52a85-d7db-40e9-909a-c798aac61b90}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\tests\the6bits.hashandsaltservice.tests\hashandsaltserviceshould.cs
+++The6Bits.BitOHealth.Controller.Tests
+i:{fa5bfc28-6e48-4a14-8698-79ca6508d73a}:The6Bits.BitOHealth.Controller.Tests
+++MedicationControllerShould.cs
+i:{c5fdaca0-ae08-49d4-84ca-f0e3f4db7a22}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.bitohealth.controller.tests\medicationcontrollershould.cs
+++WeightManagementControllerShould.cs
+i:{c5fdaca0-ae08-49d4-84ca-f0e3f4db7a22}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.bitohealth.controller.tests\weightmanagementcontrollershould.cs
+++Microsoft.Extensions.Configuration.Json (6.0.0)
+i:{c5fdaca0-ae08-49d4-84ca-f0e3f4db7a22}:>5862
+++Microsoft.NET.Test.Sdk (16.11.0)
+i:{c5fdaca0-ae08-49d4-84ca-f0e3f4db7a22}:>5860
 ++APITests
 i:{fa5bfc28-6e48-4a14-8698-79ca6508d73a}:APITests
 ++The6bits.FoodAPI.Tests
 i:{62678971-ad11-466a-a5fb-222abfc0b446}:The6bits.FoodAPI.Tests
 ++EdamamAPIServiceShould.cs
 i:{c648effd-8a2d-448f-b7b0-f746133fe820}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\the6bits.foodapi.tests\edamamapiserviceshould.cs
-++Microsoft.NET.Test.Sdk (16.11.0)
-i:{c648effd-8a2d-448f-b7b0-f746133fe820}:>4728
+++Microsoft.NET.Test.Sdk (17.1.0)
+i:{c648effd-8a2d-448f-b7b0-f746133fe820}:>5826
+++xunit (2.4.2-pre.12)
+i:{c648effd-8a2d-448f-b7b0-f746133fe820}:>5827
 ++EdmamAPIHelper.cs
 i:{6be7e65d-5330-4a0c-85e3-3a14a54cb455}:c:\users\emily\source\repos\cecs-491a-senior-project\backend\the6bits.bitohealth\api\edmamapihelper.cs

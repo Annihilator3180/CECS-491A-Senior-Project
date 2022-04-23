@@ -7,7 +7,9 @@
                 <div v-html="values.label.link(values.url)"></div>
                 <img v-bind:src="values.image" />
                 <p> Ingredients: </p>
-                <p> {{values.ingredientLines}}</p>
+                <ul v-for="(line,index) in values.ingredientLines" :key="index">
+                    <li>{{line}}</li>
+                </ul>
                 <p> Calories: </p>
                 <p> {{values.calories}}</p>
                 <button type="button" @click="deleteFavorite(values.recipeId, index)">Delete favorite</button>
@@ -48,10 +50,15 @@
                     })
                     .then((res) => {
                         console.log(res);
-                        res.forEach(x => {
-                            x.recipeId = x.uri.split('_')[1];
-                        });
-                        this.loadedRecepies = res;
+                        if (res.success === undefined) {
+                            res.forEach(x => {
+                                x.recipeId = x.uri.split('_')[1];
+                            });
+                            this.loadedRecepies = res;
+                        } else {
+                            this.message = res.message;
+                        }
+                        
                     }).catch((error) => {
                         this.message = "Error getting favorite list"
                     });
@@ -65,7 +72,7 @@
                     
                 };
                 fetch(
-                    process.env.VUE_APP_BACKEND+'DietRecommendation/DeleteFavorite?recipeId='+ this.recipeId,
+                    process.env.VUE_APP_BACKEND+'DietRecommendation/DeleteFavorite?recipeId='+ recipeId,
                     requestOptions
                 ).then((data) => {
                     return data.json();
@@ -75,6 +82,7 @@
                     } else {
                         this.message = data.message;
                     }
+                    alert(data.message);
                 })
             },
 

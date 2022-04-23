@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Dapper;
 using The6Bits.BitOHealth.DAL.Contract;
@@ -87,13 +88,13 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                         connection.Close();
                         if (linesAdded == 0)
                         {
-                            return "Failed to add meal to meal list";
+                            return JsonSerializer.Serialize(new { success = false, message = "Failed to add meal to meal list" });
                         }
-                        return "Added meal to meal list" ;
+                        return JsonSerializer.Serialize(new { success = true, message = "Added meal to meal list" });
                     }
                 } else
                 {
-                    return "You reached today's limit. Come back tommorow!";
+                    return JsonSerializer.Serialize(new { success = false, message = "You reached today's limit. Come back tommorow!" });
                 }
                 
             }
@@ -114,9 +115,9 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     connection.Close();
                     if (linesDeleted == 0)
                     {
-                        return "Failed to delete meal from meal list";
+                        return JsonSerializer.Serialize(new { success = false, message = "Failed to delete meal from meal list" });
                     }
-                    return "Deleted meal from meal list";
+                    return JsonSerializer.Serialize(new { success = true, message = "Deleted meal from meal list" }); ;
                 }
             }
             catch (SqlException ex)
@@ -145,11 +146,6 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                         }
                         connection.Close();
                     }
-                    else
-                    {
-                        favs.Add("Meal list is empty");
-                    }
-
                 }
             }
             catch (SqlException ex)

@@ -40,31 +40,31 @@ namespace The6Bits.BitOHealth.ControllerLayer
         [HttpGet("Create")]
         public async Task<string> CreateDietRecommendations([FromQuery] DietR userResponses)
         {
-            
-                string? token = "";
-                try
-                {
-                    token = Request.Headers["Authorization"];
-                    token = token.Split(' ')[1];
-                }
-                catch
-                {
-                    return "No Token";
-                }
 
-                _isValid = _auth.ValidateToken(token);
+            string? token = "";
+            try
+            {
+                token = Request.Headers["Authorization"];
+                token = token.Split(' ')[1];
+            }
+            catch
+            {
+                return JsonSerializer.Serialize(new { success = false, message = "No Token" });
+            }
 
-                if (!_isValid)
-                {
+            _isValid = _auth.ValidateToken(token);
 
-                    _ = _logService.Log("None", "Invalid Token - Diet Recommendations", "Info", "Business");
-                    return "Invalid Token";
-                }
+            if (!_isValid)
+            {
 
+                _ = _logService.Log("None", "Invalid Token - Diet Recommendations", "Info", "Business");
+                return JsonSerializer.Serialize(new { success = false, message = "Invalid Token" });
+            }
 
-             string username = _auth.getUsername(token);
-             string response =  _DRM.SaveDietRespones(userResponses, username);    
-             string recipes = await _DRM.getRecommendedRecipies(userResponses);
+            string username = _auth.getUsername(token);
+            string response = _DRM.SaveDietRespones(userResponses, username);
+            string recipes = await _DRM.getRecommendedRecipies(userResponses);
+
             // recipeList = JsonSerializer.Serialize(recipes);
             return recipes;
 
@@ -73,7 +73,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
         [HttpGet("GetRecipes")]
         public async Task<string> GetRecipeWithIds()
         {
-            
+
             string? token = "";
             try
             {
@@ -82,7 +82,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
             }
             catch
             {
-                return "No Token";
+                return JsonSerializer.Serialize(new { success = false, message = "No Token" });
             }
 
             _isValid = _auth.ValidateToken(token);
@@ -91,20 +91,24 @@ namespace The6Bits.BitOHealth.ControllerLayer
             {
 
                 _ = _logService.Log("None", "Invalid Token - Diet Recommendations", "Info", "Business");
-                return "Invalid Token";
+                return JsonSerializer.Serialize(new { success = false, message = "Invalid Token" });
             }
 
             string username = _auth.getUsername(token);
             List<string> recipeIds = _DRM.GetFavorites(username);
-            string recipes = await _DRM.getRecommendedRecipiesWithId(recipeIds);
-            return recipes;
+            if (recipeIds.Count > 0)
+            {
+                return await _DRM.getRecommendedRecipiesWithId(recipeIds);
+
+            }
+            return JsonSerializer.Serialize(new { success = false, message = "Meal List is empty!" });
 
         }
 
         [HttpGet("AddFavorite")]
         public string AddtoFavorite(string recipeId)
         {
-           
+
             string? token = "";
             try
             {
@@ -113,7 +117,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
             }
             catch
             {
-                return "No Token";
+                return JsonSerializer.Serialize(new { success = false, message = "No Token" });
             }
 
             _isValid = _auth.ValidateToken(token);
@@ -122,20 +126,20 @@ namespace The6Bits.BitOHealth.ControllerLayer
             {
 
                 _ = _logService.Log("None", "Invalid Token - Diet Recommendations", "Info", "Business");
-                return "Invalid Token";
+                return JsonSerializer.Serialize(new { success = false, message = "Invalid Token" });
             }
 
             string username = _auth.getUsername(token);
-           
+
             FavoriteRecipe favoriteRecipe = new FavoriteRecipe(recipeId);
-            string favoriteResult =  _DRM.AddToFavorite(favoriteRecipe,username);
+            string favoriteResult = _DRM.AddToFavorite(favoriteRecipe, username);
             return favoriteResult;
         }
 
         [HttpGet("DeleteFavorite")]
         public string DeleteFavorite(string recipeId)
         {
-            
+
             string? token = "";
             try
             {
@@ -144,7 +148,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
             }
             catch
             {
-                return "No Token";
+                return JsonSerializer.Serialize(new { success = false, message = "No Token" });
             }
 
             _isValid = _auth.ValidateToken(token);
@@ -153,27 +157,28 @@ namespace The6Bits.BitOHealth.ControllerLayer
             {
 
                 _ = _logService.Log("None", "Invalid Token - Diet Recommendations", "Info", "Business");
-                return "Invalid Token";
+                return JsonSerializer.Serialize(new { success = false, message = "Invalid Token" });
             }
-           
+            string username = _auth.getUsername(token);
+
             FavoriteRecipe favoriteRecipe = new FavoriteRecipe(recipeId);
-            string favoriteResult =  _DRM.DeleteFavorite(favoriteRecipe);
-            return  favoriteResult;
+            string favoriteResult = _DRM.DeleteFavorite(favoriteRecipe);
+            return favoriteResult;
         }
 
         [HttpGet("GetFavorites")]
         public List<string> GetFavorites()
         {
-            
+            List<string> emptyList = new List<string>();
             string? token = "";
-            /*
             try
             {
-               
+                token = Request.Headers["Authorization"];
+                token = token.Split(' ')[1];
             }
             catch
             {
-                return "No Token";
+                return emptyList;
             }
 
             _isValid = _auth.ValidateToken(token);
@@ -182,12 +187,9 @@ namespace The6Bits.BitOHealth.ControllerLayer
             {
 
                 _ = _logService.Log("None", "Invalid Token - Diet Recommendations", "Info", "Business");
-                return "Invalid Token";
+                return emptyList;
             }
 
-            */
-            token = Request.Headers["Authorization"];
-            token = token.Split(' ')[1];
             string username = _auth.getUsername(token);
             return _DRM.GetFavorites(username);
         }

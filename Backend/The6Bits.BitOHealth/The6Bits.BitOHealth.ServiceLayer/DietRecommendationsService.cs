@@ -51,7 +51,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
                 }
                 else
                 {
-                    return "No recipies found, please try again!";
+                    return JsonSerializer.Serialize(new { success = false, message = "No recipies found, please try again!" }) ;
                 }
 
             }
@@ -82,7 +82,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
             if (favs.Contains(favoriteRecipe.Recipe_id))
             {
-                  return "Recipe already added";
+                  return JsonSerializer.Serialize(new { success = false, message = "Reciple already added!" });
             }
             else
             {

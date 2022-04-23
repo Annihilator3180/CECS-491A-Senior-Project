@@ -16,7 +16,6 @@ namespace The6Bits.API
             var responseString = await response.Content.ReadAsStringAsync();
 
             var result = JsonSerializer.Deserialize<EdamamResponseRoot>(responseString);
-
             return result;
         }
 
