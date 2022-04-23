@@ -18,14 +18,14 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             _connectionString = connectionString;
         }
-        public async Task<string> SaveDietResponses(DietR diet, string username)
+        public string SaveDietResponses(DietR diet, string username)
         {
             try
             {
                 string query = "INSERT INTO Diet(Username,Diet,Health, Ingr, DishType, Calories, CuisineType, Excluded, MealType) values ( @Username, @Diet, @Health, @Ingr, @DishType,@Calories ,@CuisineType,@Excluded,@MealType) ";
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
-                    int linesAdded = await connection.ExecuteAsync(query,
+                    int linesAdded =  connection.Execute(query,
                         new
                         {
                             Username = username,
@@ -53,29 +53,29 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 
         }
 
-        public async Task<String> AddToFavorite(FavoriteRecipe recipe, string username)
+        public string AddToFavorite(FavoriteRecipe recipe, string username)
         {
             try
             {
                 int todayFavCount = 0;
-                string favCheckQuery = "select COUNT(Recipe_id) from FavoriteRecipe where Username='" + username + "' AND CONVERT(date, DateAdded) = CONVERT(date, GETDATE())";
+                string favCheckQuery = "select COUNT(Recipe_id) from FavoriteRecipe where Username='" + username + "' AND DateAdded = CONVERT(date, GETDATE())";
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
                     SqlCommand sqlCommand = new SqlCommand(favCheckQuery, connection);
-                    todayFavCount = Convert.ToInt32(await sqlCommand.ExecuteScalarAsync());
+                    //convert object to string
+                    todayFavCount = Convert.ToInt32(sqlCommand.ExecuteScalar());
 
                     connection.Close();
-
                 }
 
-                if(todayFavCount <= 5)
+                if(todayFavCount <= 4)
                 {
                     string query = "INSERT INTO FavoriteRecipe (Username, Recipe_id, DateAdded) values (@Username, @Recipe_id, @DateAdded)";
                     using (SqlConnection connection = new SqlConnection(_connectionString))
                     {
                         connection.Open();
-                        int linesAdded = await connection.ExecuteAsync(query,
+                        int linesAdded = connection.Execute(query,
                             new
                             {
                                 Username = username,
@@ -87,37 +87,36 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                         connection.Close();
                         if (linesAdded == 0)
                         {
-                            return "{\"success\": false, \"message\": \"Favorite Failed\"}";
+                            return "Failed to add meal to meal list";
                         }
-                        return "{\"success\": true, \"message\": \"Recipe Favorited\"}"; ;
+                        return "Added meal to meal list" ;
                     }
                 } else
                 {
-                    return "{\"success\": false, \"message\": \"Today's Limit Reached\"}";
+                    return "You reached today's limit. Come back tommorow!";
                 }
                 
-
             }
             catch (SqlException ex)
             {
-                throw new Exception(ex.Number.ToString());
+                throw new Exception(ex.Message);
             }
         }
-        public async Task<string> DeleteFavorite(string recipeid)
+        public string DeleteFavorite(FavoriteRecipe favoriteRecipe)
         {
             try
             {
-                string query = "DELETE FROM FavoriteRecipe WHERE Recipe_id = '" + recipeid + "'";
+                string query = "DELETE FROM FavoriteRecipe WHERE Recipe_id = '" + favoriteRecipe.Recipe_id + "'";
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
-                    int linesDeleted = await connection.ExecuteAsync(query);
+                    int linesDeleted = connection.Execute(query);
                     connection.Close();
                     if (linesDeleted == 0)
                     {
-                        return linesDeleted.ToString();
+                        return "Failed to delete meal from meal list";
                     }
-                    return "1";
+                    return "Deleted meal from meal list";
                 }
             }
             catch (SqlException ex)
@@ -125,7 +124,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 throw new Exception(ex.Number.ToString());
             }
         }
-        public async Task<List<string>> GetFavorites(string username)
+        public List<string> GetFavorites(string username)
         {
             List<string> favs = new List<string>();
             try
@@ -135,13 +134,21 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 {
                     connection.Open();
                     SqlCommand sqlCommand = new SqlCommand(query, connection);
-                    SqlDataReader reader = await sqlCommand.ExecuteReaderAsync();
+                    //multiple results (ExecuteReader)
+                    SqlDataReader r =  sqlCommand.ExecuteReader();
                     // retrieve recipe ids of the user 
-                    while (reader.Read())
+                    if (r.HasRows)
                     {
-                        favs.Add((string)reader["Recipe_id"]);
+                        while (r.Read())
+                        {
+                            favs.Add((string)r["Recipe_id"]);
+                        }
+                        connection.Close();
                     }
-                    connection.Close();
+                    else
+                    {
+                        favs.Add("Meal list is empty");
+                    }
 
                 }
             }

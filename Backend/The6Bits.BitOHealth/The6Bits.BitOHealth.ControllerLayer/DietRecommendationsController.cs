@@ -40,6 +40,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
         [HttpGet("Create")]
         public async Task<string> CreateDietRecommendations([FromQuery] DietR userResponses)
         {
+            /*
                 string? token = "";
                 try
                 {
@@ -62,7 +63,9 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
 
              string username = _auth.getUsername(token);
-             string response = await _DRM.SaveDietRespones(userResponses, username);    
+            */
+            string username = "Emily";
+             string response =  _DRM.SaveDietRespones(userResponses, username);    
              string recipes = await _DRM.getRecommendedRecipies(userResponses);
             // recipeList = JsonSerializer.Serialize(recipes);
             return recipes;
@@ -72,6 +75,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
         [HttpGet("GetRecipes")]
         public async Task<string> GetRecipeWithIds()
         {
+            /*
             string? token = "";
             try
             {
@@ -93,15 +97,18 @@ namespace The6Bits.BitOHealth.ControllerLayer
             }
 
             string username = _auth.getUsername(token);
-            List<string> recipeIds = await _DRM.GetFavorites(username);
+            */
+            string username = "Emily";
+            List<string> recipeIds = _DRM.GetFavorites(username);
             string recipes = await _DRM.getRecommendedRecipiesWithId(recipeIds);
             return recipes;
 
         }
 
         [HttpGet("AddFavorite")]
-        public async Task<string> AddtoFavorite(string recipeId)
+        public string AddtoFavorite(string recipeId)
         {
+            /*
             string? token = "";
             try
             {
@@ -123,14 +130,17 @@ namespace The6Bits.BitOHealth.ControllerLayer
             }
 
             string username = _auth.getUsername(token);
+            */
+            string username = "Emily";
             FavoriteRecipe favoriteRecipe = new FavoriteRecipe(recipeId);
-            string favoriteResult = await _DRM.AddToFavorite(favoriteRecipe,username);
+            string favoriteResult =  _DRM.AddToFavorite(favoriteRecipe,username);
             return favoriteResult;
         }
 
         [HttpGet("DeleteFavorite")]
-        public async Task<string> DeleteFavorite(string recipeId)
+        public string DeleteFavorite(string recipeId)
         {
+            /*
             string? token = "";
             try
             {
@@ -150,14 +160,16 @@ namespace The6Bits.BitOHealth.ControllerLayer
                 _ = _logService.Log("None", "Invalid Token - Diet Recommendations", "Info", "Business");
                 return "Invalid Token";
             }
-
-            string favoriteResult = await _DRM.DeleteFavorite(recipeId);
-            return "{\"success\": true, \"message\": \""+ favoriteResult + "\"}";
+            */
+            FavoriteRecipe favoriteRecipe = new FavoriteRecipe(recipeId);
+            string favoriteResult =  _DRM.DeleteFavorite(favoriteRecipe);
+            return  favoriteResult;
         }
 
         [HttpGet("GetFavorites")]
-        public async Task<dynamic> GetFavorites()
+        public List<string> GetFavorites()
         {
+            /*
             string? token = "";
             try
             {
@@ -179,7 +191,9 @@ namespace The6Bits.BitOHealth.ControllerLayer
             }
 
             string username = _auth.getUsername(token);
-            return await _DRM.GetFavorites(username);
+            */
+            string username = "Emily";
+            return  _DRM.GetFavorites(username);
         }
     }
 }

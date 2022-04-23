@@ -28,50 +28,48 @@ namespace The6Bits.BitOHealth.ManagerLayer
             _DRS = new DietRecommendationsService(DietDao, dbError);
             
         }
-        public async Task<string>  SaveDietRespones(DietR d, string username)
+        public string SaveDietRespones(DietR d, string username)
         {
-            return await _DRS.SaveDietResponses(d, username);
+            return _DRS.SaveDietResponses(d, username);
         }
 
         public async Task<string> getRecommendedRecipies(DietR responses)
         {
             return await _DRS.getRecommendedRecipies(responses);
         }
-        public async Task<string> AddToFavorite(FavoriteRecipe recipe, string username)
+        public string AddToFavorite(FavoriteRecipe favoriteRecipe, string username)
         {
             try
             {
                              
-                 return await _DRS.AddToFavorite(recipe, username);
-            }
-            catch (Exception ex)
-            {
-                return "{\"success\": false, \"message\": \""+ ex.Message + "\"}";
-            }
-
-
-        }
-
-        public async Task<string> DeleteFavorite(string recipeId)
-        {
-            try
-            {
-               await _DRS.DeleteFavorite(recipeId);
+                 return _DRS.AddToFavorite(favoriteRecipe, username);
             }
             catch (Exception ex)
             {
                 return ex.Message;
             }
-            return "Recipe Deleted from Favorite List";
-            //return await Task.FromResult("Hello");
+
+
         }
 
-        public async Task<List<string>> GetFavorites( string username)
+        public string DeleteFavorite(FavoriteRecipe favoriteRecipe)
+        {
+            try
+            {
+               return _DRS.DeleteFavorite(favoriteRecipe);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        public List<string> GetFavorites( string username)
         {
             List<string> favs = new List<string>();
             try
             {
-                return await _DRS.GetFavorites(username);
+                return _DRS.GetFavorites(username);
             }
             catch (Exception ex)
             {

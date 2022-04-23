@@ -23,9 +23,9 @@ namespace The6Bits.BitOHealth.ServiceLayer
             _DBErrors = DbError;
         }
 
-        public async Task<string> SaveDietResponses(DietR d, string username)
+        public string SaveDietResponses(DietR d, string username)
         {
-            string saveStatus = await _DietDao.SaveDietResponses(d,username);
+            string saveStatus = _DietDao.SaveDietResponses(d,username);
             if (saveStatus == "0")
             {
                 return _DBErrors.DBErrorCheck(int.Parse(saveStatus));
@@ -39,68 +39,66 @@ namespace The6Bits.BitOHealth.ServiceLayer
         public async Task<string> getRecommendedRecipies(DietR responses)
         {
             EdmamAPIHelper helper = new EdmamAPIHelper();
-            //contains found edamamirootresponse (including the hits)
             var result = await helper.GetRecommenedRecipes(responses);
             try
             {
-                // List containing all the recipes retrieved from the api
                 List<Recipe> recipe = result.hits.Select(_ => _.recipe).ToList();
+
                 if(recipe.Count>0)
                 {
                     string recipeList = JsonSerializer.Serialize(recipe);
                     return recipeList;
-
                 }
-                // convert json to string
                 else
                 {
-                    return "{\"success\": false, \"message\": \"No recipies found, please try again!\"}";
+                    return "No recipies found, please try again!";
                 }
 
             }
             catch (Exception e)
             {
-                return "{\"success\": false, \"message\": \""+ e.Message + "\"}";
+                return e.Message;
             }
 
 
         }
         public async Task<string> getRecommendedRecipiesWithId(List<string> recipeIds)
         {
-            EdmamAPIHelper helper = new EdmamAPIHelper();
-            //contains found edamamirootresponse (including the hits)
-            List<Recipe> recipeList = new List<Recipe>();
-            foreach (string item in recipeIds)
+          
+                EdmamAPIHelper helper = new EdmamAPIHelper();
+                List<Recipe> recipeList = new List<Recipe>();
+                foreach (string recipe in recipeIds)
+                {
+                    var result = await helper.GetRecommenedRecipeWithId(recipe);
+                    recipeList.Add(result.recipe);
+
+                }
+                return JsonSerializer.Serialize(recipeList);
+        }
+
+        public string AddToFavorite(FavoriteRecipe favoriteRecipe, string username)  
+        {
+            List<string> favs = GetFavorites(username);
+
+            if (favs.Contains(favoriteRecipe.Recipe_id))
             {
-                var result = await helper.GetRecommenedRecipeWithId(item);
-                recipeList.Add(result.recipe);
+                  return "Recipe already added";
+            }
+            else
+            {
+                return _DietDao.AddToFavorite(favoriteRecipe, username);
             }
 
-            return JsonSerializer.Serialize(recipeList);
-
         }
 
-        public async Task<String> AddToFavorite(FavoriteRecipe recipe, string username)  
+        public string DeleteFavorite(FavoriteRecipe favoriteRecipe)
         {
-            return await _DietDao.AddToFavorite(recipe, username);
-            //var favs = GetFavorites(username);
-
-            //if (favs.Result.Contains(recipe.Recipe_id))
-            //{
-            //    return "Recipe already added";
-            //}
-
-
+            return _DietDao.DeleteFavorite(favoriteRecipe);
         }
 
-        public async Task<string> DeleteFavorite(string recipeId)
+        public List<string> GetFavorites(string username)
         {
-            return await _DietDao.DeleteFavorite(recipeId);
-        }
-
-        public async Task<List<string>> GetFavorites(string username)
-        {
-            return await _DietDao.GetFavorites(username);
+            return  _DietDao.GetFavorites(username);
         }
 
     }
