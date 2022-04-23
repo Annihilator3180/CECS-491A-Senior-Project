@@ -40,7 +40,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         public string CreateReminder(int count, string username, string name, string description, string date, string time, string repeat)
         {
             //FIX ME: if description has '.' leave alone, else add '.' to end
-            description = description + ".";
+            //description = description + ".";
             //insert into table
             try
             {

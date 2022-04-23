@@ -55,6 +55,8 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
             string username = _authentication.getUsername(token);
 
+
+
             string res = _RM.CreateReminder(username, name, description, date, time, repeat);
 
             if (res.Contains("Database"))
@@ -114,6 +116,10 @@ namespace The6Bits.BitOHealth.ControllerLayer
             {
                 if (counter == Int32.Parse(reminderID))
                 {
+                    if (sub == "")
+                    {
+                        return "Incorrect index";
+                    }
                     return sub;
                 }
                 else
