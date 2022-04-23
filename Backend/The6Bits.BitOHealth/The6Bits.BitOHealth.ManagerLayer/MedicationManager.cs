@@ -14,7 +14,6 @@ namespace The6Bits.BitOHealth.ManagerLayer;
 
 public class MedicationManager
 {
-    private IAuthenticationService _auth;
     private MedicationService _MS;
     private IDBErrors _iDBErrors;
     private LogService _log;
@@ -22,13 +21,12 @@ public class MedicationManager
 
 
 
-    public MedicationManager(IRepositoryMedication<string> MedicationDao, IDrugDataSet _drugDataSet, IAuthenticationService authenticationService, 
-        IDBErrors dbError, IConfiguration config, ILogDal logDao, ReminderManager rm)
+    public MedicationManager(IRepositoryMedication<string> MedicationDao, IDrugDataSet _drugDataSet,  
+        IDBErrors dbError, ILogDal logDao, ReminderManager rm)
     {
         _iDBErrors = dbError;
-        _auth = authenticationService;
         _log= new LogService(logDao); ;
-        _MS = new MedicationService(MedicationDao, _drugDataSet, dbError);
+        _MS = new MedicationService(MedicationDao, _drugDataSet);
         _reminderManager = rm;
     }
 
@@ -42,9 +40,10 @@ public class MedicationManager
         {
             drugResponse.success = false;
             drugResponse.error = "no drugs found";
+            _ = _log.Log(username, "Searched for" + drugName, "Front End", "Business");
             return drugResponse;
         }
-        _ =_log.Log(username, "Searched for", "Front End", "Business");
+        _ =_log.Log(username, "Searched for"+ drugName, "Front End", "Business");
         drugResponse.success = true;
         drugResponse.data = drugNames;
         return drugResponse;
@@ -54,14 +53,18 @@ public class MedicationManager
     {
         try
         {
-            _MS.addFavorite(username, drug);
-            _ = _log.Log(username, "Add Favorite drug" + drug.brand_name, "Data Store", "Error");
-            return "Favorited";
+            if(!_MS.isFavorited(username, drug.generic_name)){
+                _MS.addFavorite(username, drug);
+                _ = _log.Log(username, "Add Favorite drug" + drug.brand_name, "Data Store", "Business");
+                return "Favorited";
+            }
+            _ = _log.Log(username, "Already Favorite drug" + drug.brand_name, "Data Store", "Business");
+            return "already favorited";
         }
         catch (Exception ex)
         {
             string dbError = _iDBErrors.DBErrorCheck(int.Parse(ex.Message));
-            _ =_log.Log(username, "FavoriteDrugs Database Error " + dbError, "Data Store", "Error");
+            _ =_log.Log(username, "Favorite Drug Database Error " + dbError, "Data Store", "Error");
             return "Database Error";
         }
         
@@ -74,6 +77,7 @@ public class MedicationManager
         {
             requestResult.data= _MS.ViewFavorites(username);
             requestResult.isSuccess = true;
+            _ = _log.Log(username, "FavoriteDrugs viewed list " , "Data Store", "Business");
             return requestResult;
 
          }
@@ -88,7 +92,7 @@ public class MedicationManager
             else
             {
                 string dbError = _iDBErrors.DBErrorCheck(int.Parse(ex.Message));
-                _log.Log(username, "FavoriteDrugs Database Error " + dbError, "Data Store", "Error");
+                _= _log.Log(username, "FavoriteDrugs Database Error " + dbError, "Data Store", "Error");
                 requestResult.Error = "Database Error";
             }
             return requestResult;
@@ -96,18 +100,18 @@ public class MedicationManager
         
     }
 
-    public string RemoveFavorite(string drugProductID, string username)
+    public string RemoveFavorite(string product_ndc, string username)
     {
         try
         {
-            string favoriteRemoved= _MS.RemoveFavorite(drugProductID, username);
-            _ = _log.Log(username, favoriteRemoved +drugProductID, "Data Store", "Business");
+            string favoriteRemoved= _MS.RemoveFavorite(product_ndc, username);
+            _ = _log.Log(username, favoriteRemoved + product_ndc, "Data Store", "Business");
             return favoriteRemoved;
         }
         catch (Exception ex)
         {
             string dbError = _iDBErrors.DBErrorCheck(int.Parse(ex.Message));
-            _log.Log(username, "Delete Favorite Drugs Database Error " + dbError, "Data Store", "Error");
+            _ = _log.Log(username, "Delete Favorite Drugs Database Error " + dbError, "Data Store", "Error");
             return "Database Error";
         }
     }
@@ -116,24 +120,29 @@ public class MedicationManager
     {
         if (!_MS.ValidateLocation(favoriteMedication.lowestPriceLocation))
         {
-            _log.Log(username, "Invalid Location", "Front End", "Business");
+            _ = _log.Log(username, "Invalid Location", "Front End", "Business");
             return "Invalid Location";
         }
         if (!_MS.ValidatePrice(favoriteMedication.lowestprice))
         {
-            _log.Log(username, "Invalid Price", "Front End", "Business");
+            _ = _log.Log(username, "Invalid Price", "Front End", "Business");
             return "Invalid Price";
+        }
+        if (!_MS.validateDescription(favoriteMedication.description))
+        {
+            _ = _log.Log(username, "Invalid Description", "Front End", "Business");
+            return "Invalid Description";
         }
         try
         {
             string updatedFavorite = _MS.updateFavorite(username, favoriteMedication);
-            _log.Log(username, updatedFavorite +" "+ favoriteMedication.generic_name, "Front End", "Business");
+            _ =_log.Log(username, updatedFavorite +" "+ favoriteMedication.generic_name, "Front End", "Business");
             return updatedFavorite;
         }
         catch( Exception ex)
         {
             string dbError = _iDBErrors.DBErrorCheck(int.Parse(ex.Message));
-            _log.Log(username, "Favorite Medicine Database Error" + dbError, "Data Store", "Error");
+            _ =_log.Log(username, "Favorite Medicine Database Error" + dbError, "Data Store", "Error");
             return "Database Error";
         }
 
@@ -142,12 +151,16 @@ public class MedicationManager
 
     }
 
-    public drugInfoResponse ViewDrug(string username, string generic_name)
+    public drugInfoResponse ViewDrug(string username, string brand_name)
     {
         drugInfoResponse infoResponse = new drugInfoResponse();
         try
         {
-            drugInfo drug = _MS.ViewDrug(generic_name);
+
+            drugInfo? drug = _MS.ViewDrug(brand_name);
+            if (drug.openfda is null){
+                drug = _MS.ViewDrugGeneric(brand_name);
+                    }
             try
             {
 
@@ -159,8 +172,9 @@ public class MedicationManager
             catch (Exception ex)
             {
                 string dbError = _iDBErrors.DBErrorCheck(int.Parse(ex.Message));
-                _log.Log(username, "FavoriteDrugs Database Error " + dbError, "Data Store", "Error");
+                _ =_log.Log(username, "FavoriteDrugs Database Error " + dbError, "Data Store", "Error");
             }
+            _ = _log.Log(username, "FavoriteDrugs viewed" + brand_name, "Front End", "Business");
             infoResponse.isSuccess = true;
             infoResponse.data = drug;
             return infoResponse;
@@ -168,7 +182,7 @@ public class MedicationManager
         }
         catch( Exception ex)
         {
-                _ = _log.Log(username, ex.Message, "Back End", "Business");
+                _ = _log.Log(username, "FavoriteDrugs couldn't view" + brand_name, "Front End", "Error");
                 infoResponse.isSuccess = false;
                 infoResponse.Error = ex.Message;
                 return infoResponse;
@@ -177,9 +191,11 @@ public class MedicationManager
 
     public string RefillMedication(string username, string name, string description, string date, string time, string repeat)
     {
+        
         name = _MS.CreateTitle(name);
-        description = _MS.CreateDescrption(description);
+        description = _MS.CreateDescription(description);
         string reminderSuccess=_reminderManager.CreateReminder(username, name, description, date, time, repeat);
+        _ = _log.Log(username, "Medication Reminder" + name, "Front End", "Business");
         return reminderSuccess;
     }
 }

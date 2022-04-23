@@ -106,8 +106,8 @@ public class AccountController : ControllerBase
     [HttpPost("getTLogs")]
     public string getTrackerLogs()
     {
-        
-        string token = "";
+        /*
+        String token = "";
         try
         {
             token = Request.Cookies["token"];
@@ -122,7 +122,7 @@ public class AccountController : ControllerBase
             _ = logService.Log("None", "Invalid Token - Get Tracker Logs", "Info", "Business");
             return "Invalid Token";
         }
-        
+        */
         string s = logService.getAllTrackerLogs();
         string[] subs = s.Split(' ');
         string holder = "";
@@ -177,7 +177,8 @@ public class AccountController : ControllerBase
     [HttpPost("Delete")]
     public string DeleteAccount()
     {
-        string token = Request.Cookies["token"];
+        string token = Request.Headers["Authorization"];
+            token = token.Split(' ')[1];
         string username = _auth.getUsername(token);
         string status = _AM.DeleteAccount(token);
 

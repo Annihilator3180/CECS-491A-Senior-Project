@@ -185,11 +185,11 @@ public class AccountManager
         }
         if (code != StoredCode)
         {
-            _AS.DeleteCode(username, "Registration");
+            _= _AS.DeleteCode(username, "Registration");
             return "Invalid Code";
         }
         String DateCheck = _AS.VerifySameDay(code, username, DateTime.Now);
-        _AS.DeleteCode(username, "Registration");
+        _= _AS.DeleteCode(username, "Registration");
         if (DateCheck != "True")
         {
             return DateCheck;
@@ -423,7 +423,6 @@ public class AccountManager
            return "Invalid Token";
         }
         string username = _auth.getUsername(token);
-        return username;
         string user = _AS.UsernameExists(username);
         if (user != "username exists")
         {

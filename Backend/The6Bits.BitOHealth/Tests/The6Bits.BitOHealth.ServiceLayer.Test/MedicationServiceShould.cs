@@ -15,11 +15,13 @@ namespace The6Bits.BitOHealth.ServiceLayer.Test
 {
     public class MedicationServiceShould : TestsBase
     {
-        MedicationService _MS;
-        HttpClient httpClient;
+        private MedicationService _MS;
+        private IRepositoryMedication<string> _dao;
         public MedicationServiceShould()
         {
-            _MS = new MedicationService(new MsSqlMedicationDAO(conn), new OpenFDADAO(httpClient));
+            _dao = new MsSqlMedicationDAO(conn);
+            //_MS = new MedicationService();
+            _MS = new MedicationService(_dao, new OpenFDADAO(new HttpClient(), _openFDA));
         }
         [Fact]
         public void ViewEmptyFavoritesTest()
@@ -163,6 +165,17 @@ namespace The6Bits.BitOHealth.ServiceLayer.Test
 
         }
         [Fact]
+        public void validDescription()
+        {
+            //arrange
+            string description = "this is a sample";
+            //act
+            bool isValid=_MS.validateDescription(description);
+            //assert
+            Assert.True(isValid);
+        }
+        [Fact]
+
         public void invalidLocation()
         {
             //arrange
@@ -178,9 +191,9 @@ namespace The6Bits.BitOHealth.ServiceLayer.Test
         public void DescriptionValid()
         {
             //arrange
-            string description = "cvs+100";
+            string description = "cvs/100";
             //act
-            string descriptionResult = _MS.CreateDescrption(description);
+            string descriptionResult = _MS.CreateDescription(description);
             //assert
             Assert.Equal("Cheapest reported price is 100 Found at cvs", descriptionResult);
         }
@@ -190,7 +203,7 @@ namespace The6Bits.BitOHealth.ServiceLayer.Test
             //arrange
             string description = "coffee";
             //act
-            string descriptionResult = _MS.CreateDescrption(description);
+            string descriptionResult = _MS.CreateTitle(description);
             //assert
             Assert.Equal("Reminder: coffee refill", descriptionResult);
         }

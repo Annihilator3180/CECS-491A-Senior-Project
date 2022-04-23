@@ -12,7 +12,7 @@ namespace The6Bits.BitOHealth.Models
 
     public class Food
     {
-        public string foodId { get; set; }
+        public string? foodId { get; set; }
         public string label { get; set; }
         public Nutrients nutrients { get; set; }
         public string category { get; set; }

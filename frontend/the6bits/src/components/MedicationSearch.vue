@@ -9,11 +9,13 @@
                 <button @click = "FindDrug">Search</button> {{this.formData.FindDrugResponse.error}}
             </div>
        <div v-if="formData.FindDrugResponse.success==true">
+           
         <th>brand name</th>
          <tr v-for="f in formData.FindDrugResponse.data" :key="f">
-         <td>{{f.brand_name}}</td>
-        <button @click = "$router.push({name:'ViewDrug',params:{id: f.brand_name}})">View Drug</button>
+         <td v-if="f.brand_name">{{f.brand_name}}</td>
+        <button v-if="f.brand_name!=''" @click = "$router.push({name:'ViewDrug',params:{id: f.brand_name}})">View Drug</button>
          </tr>
+         
 
     </div>
 </div>
@@ -36,12 +38,16 @@
             const requestOptions = {
                 method: "get",
                 credentials: 'include',
+                headers : {"Authorization" :`Bearer ${sessionStorage.getItem('token')}`}
 
             };
+            if (this.drugName!=""){
             
             fetch(process.env.VUE_APP_BACKEND+'Medication/Search?drugName='+this.drugName,requestOptions)
-                .then(response => response.text())
-                .then(body =>this.formData.FindDrugResponse = JSON.parse(body))
+                .then(response => response.json())
+                .then(body =>this.formData.FindDrugResponse = body)
+            }
+
         }
     }
 }
@@ -52,8 +58,6 @@
         margin: 0 auto
     }
  td:nth-child(odd){
-    border-style: solid;
-    border-color: grey;
     padding: 20px;
 }
 
@@ -65,12 +69,13 @@ tr:nth-child(odd) {
     background-color: white;
     color: black
 }
-td,th {
-    border: 1px solid rgb(190, 190, 190);
+td {
+
     padding: 10px;
 }
 
 th {
+    padding: 10px;
     background-color: #696969;
     color: #fff;
 }

@@ -11,25 +11,36 @@
     <router-link :to="{ name: 'MedSearch' }"> MedSearch</router-link>|
     <router-link :to="{ name: 'HotTopics' }"> HotTopics</router-link>|
     <router-link :to="{name: 'SearchFood'}"> SearchFood</router-link>|
-    <router-link :to="{name: 'HealthRecorder'}"> HealthRecorder</router-link>|
    <router-link :to="{name: 'FavoriteDrugListPost'}"> Favorite Drugs List </router-link>| 
     <router-link :to="{name: 'getTLogs'}"> TrackingLog</router-link>|
     <router-link :to="{name: 'SearchFood'}"> SearchFood</router-link> |
    <router-link :to="{name: 'FavoriteDrugListPost'}"> Favorite Drugs List </router-link> |
     <router-link :to="{name: 'DietRecommendation'}"> Diet Recommendation</router-link>|
     <router-link :to="{name: 'DeleteAccount'}"> Delete </router-link>|
-    <router-link :to="{name: 'ViewReminder'}"> ViewReminder </router-link>
+    <router-link :to="{name: 'viewReminder'}"> ViewReminder </router-link>|
+    <router-link :to="{name: 'FoodLog'}"> FoodLog </router-link>|
+    <router-link :to="{name: 'logout'}"> Log Out </router-link>|
+    <router-link :to ="{name: 'HealthRecorderHome'}"> HealthRecorderHome </router-link> |
+
+    
 
   </nav>
     <router-view />
 </template>
 
 <script>
+import router from './router/index'
 export default {
-  mounted(){
-    console.log(process.env.VUE_APP_NOT_SECRET_CODE)
-  },
   name: "app",
   components: {},
+  //CHECKS EVERY 1000 MS REROUTS TO LOGIN IF NOT LOGGED IN
+  mounted: function () {
+  window.setInterval(() => {
+    if(router.currentRoute.value.meta.requiresAuth==true && sessionStorage.getItem('token') == null){
+          router.push("login")
+    }
+  }, 1000)
+},
 };
+
 </script>

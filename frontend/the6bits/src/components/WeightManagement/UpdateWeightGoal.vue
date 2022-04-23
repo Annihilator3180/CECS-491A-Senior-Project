@@ -3,14 +3,22 @@
 
             <div >
                 <H1>Update Weight Goal</H1>
-                <label for="lbs">Weight Goal in Lbs: </label>
-                <input type="int" id="username" v-model ="formData.weight" />
+
+                <label for="lbs">Current Weight in Lbs: 
+                    <input type="int" id="username" v-model ="formData.currentWeight" />
+                </label>
 
 
-                <label for="lbs">Goal Date:</label>
-                <input type="date" id="start" name="goal-date"  min=Date.now() v-model ="formData.goaldate">
+                <label for="lbs">Weight Goal in Lbs: 
+                    <input type="int" id="username" v-model ="formData.weight" />
+                </label>
 
-                <label for="lbs">Exercise Level: </label>
+
+                <label for="lbs">Goal Date:
+                    <input type="date" id="start" name="goal-date"  min=Date.now() v-model ="formData.goaldate">
+                </label>
+
+                <label for="lbs">Exercise Level: 
                 <select name="cars" id="cars" @change="checkvalue($event)" v-model="formData.calories">
                     <option value=1800>No Exercise : 1800 Calories burned per day</option>
                     <option value=2000>Low : 2000 Calories burned per day</option>
@@ -18,6 +26,7 @@
                     <option value=3000>High : 3000 Calories burned per day</option>
                     <option value=0>Custom </option>
                 </select>
+                </label>
 
                 <input type="int" name="custom-exercise" id="custom-exercise" style='display:none' v-model="formData.calories"/>
 
@@ -39,6 +48,7 @@ import { GoalRequest }  from './WeightManagement'
         data() {
         return {
             formData :{ 
+                currentWeight:0,
                 weight: 0,
                 goaldate: '',
                 calories: 0,

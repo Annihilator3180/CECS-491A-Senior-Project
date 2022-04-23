@@ -14,5 +14,6 @@ namespace The6Bits.Authentication.Contract
         public bool ValidateToken(string token);
         public string getUsername(string token);
 
+
     }
 }

@@ -83,7 +83,7 @@
                      }),
             
             };
-            fetch('https://localhost:7011/UM/CreateAccount' ,requestOptions)
+            fetch(process.env.VUE_APP_BACKEND+'UM/CreateAccount' ,requestOptions)
                 .then(response => console.log(response))
         },
         UMUpdate(){
@@ -103,7 +103,7 @@
                      }),
             
             };
-            fetch('https://localhost:7011/UM/UpdateAccount' ,requestOptions)
+            fetch(process.env.VUE_APP_BACKEND+'UM/UpdateAccount' ,requestOptions)
                 .then(response => console.log(response))
         }
     }

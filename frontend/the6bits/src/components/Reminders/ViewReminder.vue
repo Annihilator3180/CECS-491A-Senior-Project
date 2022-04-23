@@ -4,7 +4,6 @@
             <div >
                 <label   for="userId">Tracker </label>
             </div>
-            <button>View Reminder</button>
                             {{message}}
         </form>
     </div>
@@ -13,6 +12,9 @@
 <script>
     export default {
         name : 'ViewReminder',
+        created(){
+            this.TrackerPost()
+        },
         data() {
         return {
             formData :{ 
@@ -26,8 +28,9 @@
             const requestOptions = {
                 method: "POST",
                 credentials: 'include',
+                headers:{"Authorization" :`Bearer ${sessionStorage.getItem('token')}`}
             };
-            fetch('https://localhost:7011/Reminder/ViewReminder', requestOptions)
+            fetch(process.env.VUE_APP_BACKEND+'Reminder/ViewAllReminders', requestOptions)
                 .then(response =>  response.text())
                 .then(body => this.message = body)
             
