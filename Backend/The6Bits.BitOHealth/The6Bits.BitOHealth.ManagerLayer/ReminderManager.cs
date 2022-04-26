@@ -33,9 +33,9 @@ namespace The6Bits.BitOHealth.ManagerLayer
             return res;
         }
 
-        public async Task<string> ViewHelper(string username)
+        public async Task<string> ViewHelper(string username, string reminderID)
         {
-            return await _RS.ViewHelper(username);
+            return await _RS.ViewHelper(username, reminderID);
         }
 
         public async Task<string> ViewAllHelper(string username)

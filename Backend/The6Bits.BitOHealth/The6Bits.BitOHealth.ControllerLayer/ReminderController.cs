@@ -107,23 +107,11 @@ namespace The6Bits.BitOHealth.ControllerLayer
         public async Task<string> ViewHelper(string username, string reminderID)
         {
 
-            string holder = await _RM.ViewHelper(username);
-            string[] subs = holder.Split("ENDING");
-            int counter = 1;
-            foreach (var sub in subs)
+            string holder = await _RM.ViewHelper(username, reminderID);
+            if (holder != "")
             {
-                if (counter == Int32.Parse(reminderID))
-                {
-                    if (sub == "")
-                    {
-                        return "Incorrect index";
-                    }
-                    return sub;
-                }
-                else
-                {
-                    counter += 1;
-                }
+                return holder;
+
             }
             return "Incorrect index";
 

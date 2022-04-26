@@ -116,18 +116,18 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
         }
 
-        public async Task<string> ViewHelper(string username)
+        public async Task<string> ViewHelper(string username, string reminderID)
         {
             try
             {
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
-                    IEnumerable<ReminderModel> str = connection.Query<ReminderModel>($"select * from Reminders where username = '{username}';");
+                    IEnumerable<ReminderModel> str = connection.Query<ReminderModel>($"select * from Reminders where username = '{username}' AND R_SK = '{reminderID}';");
                     string s = "";
                     foreach (ReminderModel remindermodel in str)
                     {
-                        s += $"{remindermodel.name} {remindermodel.description} {remindermodel.date} {remindermodel.time} {remindermodel.repeat}{"ENDING"}";
+                        s += $"{remindermodel.name} {remindermodel.description} {remindermodel.date} {remindermodel.time} {remindermodel.repeat}";
 
                     }
 
@@ -197,7 +197,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 {
                     connection.Open();
                     int s = connection.Execute(query);
-                    if (s == 1)
+                    if (s != 0)
                     {
                         return "Reminder Edited";
                     }

@@ -37,9 +37,9 @@ namespace The6Bits.BitOHealth.ServiceLayer
             return await _Rdao.ViewAllReminders(username);
         }
 
-        public async Task<string> ViewHelper(string username)
+        public async Task<string> ViewHelper(string username, string reminderID)
         {
-            return await _Rdao.ViewHelper(username);
+            return await _Rdao.ViewHelper(username, reminderID);
         }
 
         public async Task<string> ViewAllHelper(string username)
