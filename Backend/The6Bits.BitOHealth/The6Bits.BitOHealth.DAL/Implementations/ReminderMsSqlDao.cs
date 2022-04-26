@@ -18,7 +18,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             _connectString = connectstring;
         }
-        public int GetCount(string username)
+        public async Task<int> GetCount(string username)
         {
             int res = 0;
             try
@@ -37,7 +37,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 return res;
             }
         }
-        public string CreateReminder(int count, string username, string name, string description, string date, string time, string repeat)
+        public async Task<string> CreateReminder(int count, string username, string name, string description, string date, string time, string repeat)
         {
             //FIX ME: if description has '.' leave alone, else add '.' to end
             //description = description + ".";
@@ -50,7 +50,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
-                    int s = connection.Execute(query);
+                    int s = await connection.ExecuteAsync(query);
                     if (s == 1)
                     {
                         return "Reminder Created";
@@ -65,7 +65,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 
         }
 
-        public string ViewAllReminders(string username)
+        public async Task<string> ViewAllReminders(string username)
         {
 
             try
@@ -91,7 +91,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
         }
 
-        public string ViewAllHelper(string username)
+        public async Task<string> ViewAllHelper(string username)
         {
             try
             {
@@ -116,7 +116,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
         }
 
-        public string ViewHelper(string username)
+        public async Task<string> ViewHelper(string username)
         {
             try
             {
@@ -161,7 +161,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 
         }
 
-        public string DeleteReminder(string username, string reminderID)
+        public async Task<string> DeleteReminder(string username, string reminderID)
         {
             try
             {
@@ -185,7 +185,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
         }
 
-        public string EditReminder(string username, string reminderID, string name, string description, string date, string time, string repeat)
+        public async Task<string> EditReminder(string username, string reminderID, string name, string description, string date, string time, string repeat)
         {
             try
             {

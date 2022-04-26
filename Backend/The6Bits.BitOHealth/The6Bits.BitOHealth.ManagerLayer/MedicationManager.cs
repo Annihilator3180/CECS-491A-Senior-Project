@@ -189,12 +189,12 @@ public class MedicationManager
         }
     }
 
-    public string RefillMedication(string username, string name, string description, string date, string time, string repeat)
+    public async Task<string> RefillMedication(string username, string name, string description, string date, string time, string repeat)
     {
         
         name = _MS.CreateTitle(name);
         description = _MS.CreateDescription(description);
-        string reminderSuccess=_reminderManager.CreateReminder(username, name, description, date, time, repeat);
+        string reminderSuccess= await _reminderManager.CreateReminder(username, name, description, date, time, repeat);
         _ = _log.Log(username, "Medication Reminder" + name, "Front End", "Business");
         return reminderSuccess;
     }

@@ -9,13 +9,13 @@ namespace The6Bits.BitOHealth.DAL.Contract
 {
     public interface IReminderDatabase
     {
-        string CreateReminder(int count, string username, string name, string description, string date, string time, string repeat);
-        public int GetCount(string username);
-        string ViewAllReminders(string username);
-        string ViewHelper(string username);
-        string ViewAllHelper(string username);
-        string EditReminder(string username, string reminderID, string name, string description, string date, string time, string repeat);
-        string DeleteReminder(string username, string reminderID);
+        Task<string> CreateReminder(int count, string username, string name, string description, string date, string time, string repeat);
+        Task<int> GetCount(string username);
+        Task<string> ViewAllReminders(string username);
+        Task<string> ViewHelper(string username);
+        Task<string> ViewAllHelper(string username);
+        Task<string> EditReminder(string username, string reminderID, string name, string description, string date, string time, string repeat);
+        Task<string> DeleteReminder(string username, string reminderID);
         public List<string> EditHelper(string username, string reminderID);
     }
 }
