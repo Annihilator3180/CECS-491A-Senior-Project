@@ -9,6 +9,7 @@ namespace The6Bits.BitOHealth.DAL.Contract
 {
     public interface IRepositoryAuth<T>
     {
+
         string UsernameExists(string username);
         string UserRole(string username);
         string CheckPassword(string username, string password);
@@ -62,6 +63,11 @@ namespace The6Bits.BitOHealth.DAL.Contract
         public string RemoveRecoveryAttempts(string username);
 
         public string DeleteAccount(string username);
-        string ActivateUser(string username);
+        public string ActivateUser(string username);
+        public int ViewExists(string view);
+        public bool AddTime(string view, float time);
+        public bool MakeView(string view, float time);
+        public List<timeTotal> BiggestTime();
+        public List<timeTotal> AvgTime();
     }
 }

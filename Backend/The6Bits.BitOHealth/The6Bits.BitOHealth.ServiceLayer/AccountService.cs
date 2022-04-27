@@ -392,6 +392,33 @@ namespace The6Bits.BitOHealth.ServiceLayer
             return _DBErrors.DBErrorCheck(int.Parse(res));
         }
 
+        public List<timeTotal> AvgTime()
+        {
+            return _AD.AvgTime();
+        }
+
+        public List<timeTotal> BiggestTime()
+        {
+            return _AD.BiggestTime();
+        }
+
+        public bool MakeView(string view, float time)
+        {
+            return _AD.MakeView(view, time);
+        }
+
+        public bool AddTime(string view, float time)
+        {
+            return _AD.AddTime(view, time);
+        }
+
+        public bool ViewExists(string view)
+        {
+            return _AD.ViewExists(view) > 0;
+        }
+
+
+
         public string DeleteFailedAttempts(string username)
         {
             string res = _AD.DeleteFailedAttempts(username);

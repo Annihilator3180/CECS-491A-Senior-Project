@@ -131,6 +131,23 @@ namespace WebAppMVC.Development
 
 
         }
+
+        public bool buildViewTime(string connStr)
+        {
+            var FavoriteStr = "If not exists (select name from sysobjects where name = 'viewTime') " +
+                "CREATE TABLE viewTime (viewName VARCHAR(50), occurences int, seconds float)";
+            var conn = new SqlConnection(connStr);
+            using (SqlCommand command = new SqlCommand(FavoriteStr, conn))
+            {
+                conn.Open();
+                command.ExecuteNonQuery();
+            }
+            return false;
+
+
+
+        }
+
         public bool buildDiet(string connStr)
         {
             var RecoveryStr = "If not exists (select name from sysobjects where name = 'Diet')" + "CREATE TABLE Diet ( Diet VARCHAR(30), Health VARCHAR(30), Ingr Int, DishType VARCHAR(30),Calories int, CuisineType VARCHAR(30), Excluded VARCHAR(30), MealType VARCHAR(30))";

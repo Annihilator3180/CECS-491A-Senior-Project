@@ -380,6 +380,43 @@ public class AccountManager
         
         return "Recovery Link Sent To Email: " + arm.Email;
     }
+
+    public List<timeTotal> getAvgTime()
+    {
+        List<timeTotal> time= _AS.AvgTime();
+        foreach(timeTotal occ in time)
+        {
+            occ.seconds /= occ.occurences;
+        }
+        return time;
+    }
+
+    public List<timeTotal> getTotalTime()
+    {
+        return _AS.BiggestTime();
+    }
+
+    public string ViewTime(float time, string view)
+    {
+        try
+        {
+            if (_AS.ViewExists(view))
+            {
+                _AS.AddTime(view, time);
+            }
+            else
+            {
+                _AS.MakeView(view, time);
+            }
+            return "updated "+view+"by "+time+" seconds";
+        }
+        catch (Exception ex)
+        {
+            return "error addding view " + ex.Message;
+        }
+    }
+        
+
     public string ResetPassword(string username, string randomString, string password)
     {
         if (!_AS.ValidatePassword(password))

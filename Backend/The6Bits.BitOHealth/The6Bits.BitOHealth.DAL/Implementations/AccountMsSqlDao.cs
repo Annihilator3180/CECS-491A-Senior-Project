@@ -136,7 +136,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 
                 using (SqlConnection conn = new SqlConnection(_connectString))
                 {
-                    int lines = conn.Execute(query, new { Username = username, recoveryAttempt = recoveryAttempt });;
+                    int lines = conn.Execute(query, new { Username = username, recoveryAttempt = recoveryAttempt }); ;
                     conn.Close();
 
                     return lines.ToString();
@@ -149,7 +149,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 return e.Number.ToString();
             }
         }
-        
+
 
 
         public User Read(User user)
@@ -247,11 +247,11 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 
         public string ValidateOTP(string username, string code)
         {
-            
+
             try
             {
-                string query = "select count(username) from VerifyCodes where username = @Username "+
-                "AND code = @Code " ;
+                string query = "select count(username) from VerifyCodes where username = @Username " +
+                "AND code = @Code ";
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
@@ -389,7 +389,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                             Password = user.Password,
                             FirstName = user.FirstName,
                             LastName = user.LastName,
-                            privOption=user.privOption
+                            privOption = user.privOption
                         });
                     connection.Close();
 
@@ -541,13 +541,116 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     return linesEdited.ToString();
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return e.Message;
             }
         }
-        
+        public List<timeTotal> AvgTime()
+        {
 
+            string query = "select top 5 *  from viewTime order by seconds/occurences desc";
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_connectString))
+                {
+                    conn.Open();
+                    IEnumerable<timeTotal> viewCount = conn.Query<timeTotal>(query);
+                    return viewCount.ToList();
+
+                }
+            }
+
+            catch (SqlException ex)
+            {
+                throw new Exception(ex.Number.ToString());
+            }
+        }
+        public List<timeTotal> BiggestTime()
+        {
+            string query = "select top 5 viewName,seconds from viewTime order by seconds desc";
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_connectString))
+                {
+                    conn.Open();
+                    IEnumerable<timeTotal> viewCount = conn.Query<timeTotal>(query);
+                    return viewCount.ToList();
+
+                }
+            }
+
+            catch (SqlException ex)
+            {
+                throw new Exception(ex.Number.ToString());
+            }
+        }
+        public bool MakeView(string view, float time)
+        {
+            string query = "INSERT viewTime (viewName,occurences,seconds) " +
+                                " values (@viewName, 1, @seconds)";
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_connectString))
+                {
+                    conn.Open();
+                    int viewCount = conn.ExecuteScalar<int>(query, new
+                    {
+                        viewName = view,
+                        seconds = time
+                    });
+                    return true;
+
+                }
+            }
+
+            catch (SqlException ex)
+            {
+                throw new Exception(ex.Number.ToString());
+            }
+        }
+
+
+        public bool AddTime(string view, float time)
+        {
+            try
+            {
+                string query = $"update viewTime set seconds=seconds+@time, occurences=occurences+1 where viewName = @viewName";
+                using (SqlConnection conn = new SqlConnection(_connectString))
+                {
+                    conn.Open();
+                    int viewCount = conn.ExecuteScalar<int>(query, new {
+                        viewName = view, 
+                        time=time
+                    });
+                    return true;
+
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception(ex.Number.ToString());
+            }
+        }
+        public int ViewExists(string view)
+        {
+            try
+            {
+                
+                string query = $"select Count(*) from viewTime where viewName = @viewName";
+                using (SqlConnection conn = new SqlConnection(_connectString))
+                {
+                    conn.Open();
+                    int viewCount = conn.ExecuteScalar<int>(query, new { viewName = view });
+                    return viewCount;
+
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception(ex.Number.ToString());
+            }
+        }
         public string AcceptEULA(string username)
         {
             try

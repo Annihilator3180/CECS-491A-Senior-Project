@@ -126,6 +126,7 @@ if (app.Environment.IsDevelopment())
     b.addBossAdmin(connstring);
     b.BuildHealthRecorder(connstring);
     b.buildDiet(connstring);
+    b.buildViewTime(connstring);
     b.buildRemiders(connstring);
     //app.UseSwagger();
     //app.UseSwaggerUI();

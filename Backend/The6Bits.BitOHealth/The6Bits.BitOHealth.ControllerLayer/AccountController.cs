@@ -311,6 +311,43 @@ public class AccountController : ControllerBase
         return reset;
     }
 
+    [HttpPost("ViewTime")]
+    public string ViewTime(float time, string view)
+    {
+        string updated = _AM.ViewTime(time, view);
+        _ = logService.Log("admin", updated, "Business", "Information");
+
+        return updated;
+    }
+    [HttpPost("getTotalTime")]
+    public List<timeTotal> getTotalTime()
+    {
+        try
+        {
+            List<timeTotal> updated = _AM.getTotalTime();
+            _ = logService.Log("admin", "viewed totalTime", "Business", "Information");
+            return updated;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+    [HttpPost("getAvgTime")]
+    public List<timeTotal> getAvgTime()
+    {
+        try
+        {
+            List<timeTotal> updated = _AM.getAvgTime();
+            _ = logService.Log("admin", "viewed average time", "Business", "Information");
+            return updated;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
 }
 
 
