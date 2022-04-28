@@ -15,8 +15,13 @@ using The6Bits.Logging.DAL.Implementations;
 using Xunit;
 namespace The6Bits.BitOHealth.Controller.Tests
 {
-    internal class ReminderControllerShould : ControllerBase
+    public class ReminderControllerShould : ControllerBase
     {
 
+        [Fact]
+        public async void StoreFoodLogShould()
+        {
+
+        }
     }
 }

@@ -18,25 +18,31 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             _connectString = connectstring;
         }
-        public async Task<int> GetCount(string username)
-        {
-            int res = 0;
-            try
-            {
 
-                string query = $"SELECT count(username) FROM Reminders WHERE username = '{username}';";
-                using (SqlConnection connection = new SqlConnection(_connectString))
-                {
-                    connection.Open();
-                    res = connection.ExecuteScalar<int>(query);
-                    return (res + 1);
-                }
-            }
-            catch
+        public string DBErrorCheck(int ErrorNumber)
+        {
+            if (ErrorNumber == -2)
             {
-                return res;
+                return "Database Time Out Error";
+            }
+            else if (ErrorNumber == 1105)
+            {
+                return "Database Full";
+            }
+            else if (ErrorNumber == 4060)
+            {
+                return "Database Offline";
+            }
+            else if (ErrorNumber == 2627)
+            {
+                return "Duplicate Record Name";
+            }
+            else
+            {
+                return ErrorNumber.ToString() + "Database Other Error ";
             }
         }
+
         public async Task<string> CreateReminder(int count, string username, string name, string description, string date, string time, string repeat)
         {
             //FIX ME: if description has '.' leave alone, else add '.' to end
@@ -60,7 +66,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
             catch (SqlException ex)
             {
-                return ex.Number.ToString();
+                return DBErrorCheck(ex.Number);
             }
 
         }
@@ -85,9 +91,9 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 
                 }
             }
-            catch
+            catch (SqlException ex)
             {
-                return "";
+                return DBErrorCheck(ex.Number);
             }
         }
 
@@ -110,9 +116,9 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 
                 }
             }
-            catch
+            catch (SqlException ex)
             {
-                return "";
+                return DBErrorCheck(ex.Number);
             }
         }
 
@@ -135,9 +141,9 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 
                 }
             }
-            catch
+            catch (SqlException ex)
             {
-                return "";
+                return DBErrorCheck(ex.Number);
             }
         }
 
@@ -181,7 +187,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
             catch (SqlException ex)
             {
-                return ex.Number.ToString();
+                return DBErrorCheck(ex.Number);
             }
         }
 
@@ -204,9 +210,28 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                     return "Reminder NOT Edited";
                 }
             }
-            catch
+            catch (SqlException ex)
             {
-                return "Edit failed";
+                return DBErrorCheck(ex.Number);
+            }
+        }
+        public async Task<int> GetCount(string username)
+        {
+            int res = 0;
+            try
+            {
+
+                string query = $"SELECT count(username) FROM Reminders WHERE username = '{username}';";
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    res = connection.ExecuteScalar<int>(query);
+                    return (res + 1);
+                }
+            }
+            catch (SqlException ex)
+            {
+                return ex.Number;
             }
         }
 
