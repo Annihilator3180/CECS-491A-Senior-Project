@@ -17,9 +17,36 @@ namespace The6Bits.BitOHealth.Controller.Tests
 {
     public class ReminderControllerShould : ControllerBase
     {
+        private string _id;
+        private string _key;
+        private string _conn;
+        private string _keyPath;
+        private string _testingToken;
+        private WeightManagementMsSqlDao _dao;
 
-        [Fact]
-        public async void StoreFoodLogShould()
+        public void testingInfo()
+        {
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+                .SetBasePath(System.IO.Path.Combine(AppContext.BaseDirectory, @"..\..\..\"))
+                .AddJsonFile("appsettings.json")
+                .AddJsonFile("secrets.json")
+                .Build();
+            _conn = configuration.GetConnectionString("DefaultConnection");
+            _keyPath = configuration.GetSection("PK")["jwt"];
+            _testingToken = configuration.GetSection("PK")["TestingToken"];
+            _id = configuration.GetSection("Edamam")["Id"];
+            _key = configuration.GetSection("Edamam")["Key"];
+        }
+
+        public ReminderController reminderContext()
+        {
+            testingInfo();
+
+        }
+
+
+
+        public async void createReminder()
         {
 
         }
