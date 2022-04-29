@@ -22,7 +22,8 @@ namespace The6Bits.BitOHealth.Controller.Tests
         private string _conn;
         private string _keyPath;
         private string _testingToken;
-        private WeightManagementMsSqlDao _dao;
+        private ReminderMsSqlDao _dao;
+        private string username = "bossadmin12";
 
         public void testingInfo()
         {
@@ -38,17 +39,60 @@ namespace The6Bits.BitOHealth.Controller.Tests
             _key = configuration.GetSection("Edamam")["Key"];
         }
 
+
         public ReminderController reminderContext()
         {
             testingInfo();
+            _dao = new ReminderMsSqlDao(_conn);
+            ReminderController controller = new ReminderController(new ReminderMsSqlDao(_conn), new JWTAuthenticationService(_keyPath),
+                new SQLLogDAO(), new MsSqlDerrorService());
+            DefaultHttpContext context = new DefaultHttpContext();
+            context.Request.Headers.Add("Authorization", _testingToken);
+            controller.ControllerContext.HttpContext = context;
+            return controller;
 
         }
 
-
-
+        [Fact]
         public async void createReminder()
         {
+            string name = "HW", description = "Do 342 hw", date = "03-16-2022", time = "04:00 pm", repeat = "weekly";
+            ReminderController reminderController = reminderContext();
+            string res = await reminderController.CreateReminder(name, description, date, time, repeat);
+            Assert.Equal("Reminder Created", res);
+            await reminderController.DeleteReminder("1");
+        }
 
+        [Fact]
+        public async void viewReminder()
+        {
+            string name = "HW", description = "Do 342 hw", date = "03-16-2022", time = "04:00 pm", repeat = "weekly";
+            ReminderController reminderController = reminderContext();
+            await reminderController.CreateReminder(name, description, date, time, repeat);
+            string res = await reminderController.ViewReminder("1");
+            Assert.NotNull(res);
+            await reminderController.DeleteReminder("1");
+        }
+
+        [Fact]
+        public async void editReminder()
+        {
+            string name = "HW", description = "Do 342 hw", date = "03-16-2022", time = "04:00 pm", repeat = "weekly";
+            ReminderController reminderController = reminderContext();
+            await reminderController.CreateReminder(name, description, date, time, repeat);
+            string res = await reminderController.EditReminder("1", name, description, date, time, repeat);
+            Assert.Equal("Reminder Edited", res);
+            await reminderController.DeleteReminder("1");
+        }
+
+        [Fact]
+        public async void deleteReminder()
+        {
+            string name = "HW", description = "Do 342 hw", date = "03-16-2022", time = "04:00 pm", repeat = "weekly";
+            ReminderController reminderController = reminderContext();
+            string res = await reminderController.CreateReminder(name, description, date, time, repeat);
+            Assert.Equal("Reminder Created", res);
+            await reminderController.DeleteReminder("1");
         }
     }
 }
