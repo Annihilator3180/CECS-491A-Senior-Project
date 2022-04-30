@@ -45,15 +45,6 @@ namespace The6Bits.BitOHealth.ServiceLayer.Test
         }
 
         [Fact]
-        public async void deleteReminder()
-        {
-            string name = "HW", description = "Do 342 hw", date = "03-16-2022", time = "04:00 pm", repeat = "weekly";
-            await _reminderService.CreateReminder(username, name, description, date, time, repeat);
-            string holder = await _dao.DeleteReminder(username, "1");
-            Assert.Equal("Reminder Deleted", holder);
-        }
-
-        [Fact]
         public async void createReminder()
         {
             string name = "HW", description = "Do 342 hw", date = "03-16-2022", time = "04:00 pm", repeat = "weekly";
@@ -61,6 +52,15 @@ namespace The6Bits.BitOHealth.ServiceLayer.Test
             string should = await _reminderService.CreateReminder(username, name, description, date, time, repeat);
             Assert.Equal("Reminder Created", should);
             await _reminderService.DeleteReminder(username, "1");
+        }
+
+        [Fact]
+        public async void deleteReminder()
+        {
+            string name = "HW", description = "Do 342 hw", date = "03-16-2022", time = "04:00 pm", repeat = "weekly";
+            await _reminderService.CreateReminder(username, name, description, date, time, repeat);
+            string holder = await _dao.DeleteReminder(username, "1");
+            Assert.Equal("Reminder Deleted", holder);
         }
 
     }

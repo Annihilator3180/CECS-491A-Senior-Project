@@ -88,11 +88,11 @@ namespace The6Bits.BitOHealth.Controller.Tests
         [Fact]
         public async void deleteReminder()
         {
-            string name = "HW", description = "Do 342 hw", date = "03-16-2022", time = "04:00 pm", repeat = "weekly";
+            string name = "HW", description = "342 hw", date = "03-16-2022", time = "04:00 pm", repeat = "weekly";
             ReminderController reminderController = reminderContext();
-            string res = await reminderController.CreateReminder(name, description, date, time, repeat);
-            Assert.Equal("Reminder Created", res);
-            await reminderController.DeleteReminder("1");
+            await reminderController.CreateReminder(name, description, date, time, repeat);
+            string res = await reminderController.DeleteReminder("1");
+            Assert.Equal("Reminder NOT Deleted", res);
         }
     }
 }
