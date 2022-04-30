@@ -71,10 +71,18 @@ namespace The6Bits.BitOHealth.ServiceLayer
                 }
                 else
                 {
-                    edit.Add(input.ElementAt(i));
+                    if (i == 1)
+                    {
+                        edit.Add(input.ElementAt(i) + ".");
+                    }
+                    else
+                    {
+                        edit.Add(input.ElementAt(i));
+
+                    }
                 }
             }
-            return await _Rdao.EditReminder(username, reminderID, edit.ElementAt(0), (edit.ElementAt(1) + "."), edit.ElementAt(2), edit.ElementAt(3), edit.ElementAt(4));
+            return await _Rdao.EditReminder(username, reminderID, edit.ElementAt(0), (edit.ElementAt(1)), edit.ElementAt(2), edit.ElementAt(3), edit.ElementAt(4));
         }
 
         public async Task<string> DeleteReminder(string username, string reminderID)
