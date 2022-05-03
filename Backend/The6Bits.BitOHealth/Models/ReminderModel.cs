@@ -10,10 +10,10 @@ namespace The6Bits.BitOHealth.Models
     {
         public string R_SK { get; set; }
         public string name { get; set; }
-        public string description { get; set; }
-        public string date { get; set; }
-        public string time { get; set; }
-        public string repeat { get; set; }
+        public string? description { get; set; }
+        public string? date { get; set; }
+        public string? time { get; set; }
+        public string? repeat { get; set; }
 
     }
 }

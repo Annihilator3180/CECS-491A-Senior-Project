@@ -26,6 +26,9 @@ import FoodLogView from '@/components/WeightManagement/FoodLogView.vue'
 import ViewMedicalRecords from '@/components/HealthRecorder/ViewHealthRecord.vue'
 import EditMedicalRecords from '@/components/HealthRecorder/EditHealthRecord.vue'
 import HealthRecorderHome from '@/components/HealthRecorder/HealthRecorderHome.vue'
+import CreateReminder from '@/components/Reminders/CreateReminder.vue'
+import DeleteReminder from '@/components/Reminders/DeleteReminder.vue'
+import EditReminder from '@/components/Reminders/EditReminder.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -193,6 +196,31 @@ const routes: Array<RouteRecordRaw> = [
       name: "HealthRecorderHome",
       component: HealthRecorderHome
    },
+   {
+    path: "/CreateReminder",
+    name: "CreateReminder",
+    component: CreateReminder,
+    meta: {
+         requiresAuth: true,
+      },
+    },
+    {
+      path: "/DeleteReminder",
+      name: "DeleteReminder",
+      component: DeleteReminder,
+      meta: {
+           requiresAuth: true,
+        },
+      },
+      {
+        path: "/EditReminder",
+        name: "EditReminder",
+        component: EditReminder,
+        meta: {
+             requiresAuth: true,
+          },
+        },
+    
   
 
     {

@@ -21,40 +21,36 @@ namespace The6Bits.BitOHealth.ManagerLayer
             _RS = new ReminderService(dao);
         }
 
-        public string CreateReminder(string username, string name, string description, string date, string time, string repeat)
+        public async Task<string> CreateReminder(string username, string name, string description, string date, string time, string repeat)
         {
-            string res = _RS.CreateReminder(username, name, description, date, time, repeat);
-
-            if (res.Contains("Reminder")){
-                return res;
-            }
-            return _DBErrors.DBErrorCheck(int.Parse(res));
-
-        }
-        public string ViewAllReminders(string username)
-        {
-            string res = _RS.ViewAllReminders(username);
+            string res = await _RS.CreateReminder(username, name, description, date, time, repeat);
             return res;
         }
 
-        public string ViewHelper(string username)
+        public async Task<string> ViewAllReminders(string username)
         {
-            return _RS.ViewHelper(username);
+            string res = await _RS.ViewAllReminders(username);
+            return res;
         }
 
-        public string ViewAllHelper(string username)
+        public async Task<string> ViewHelper(string username, string reminderID)
         {
-            return _RS.ViewAllHelper(username);
+            return await _RS.ViewHelper(username, reminderID);
         }
 
-        public string EditReminder(string username, string reminderID, string name, string description, string date, string time, string repeat)
+        public async Task<string> ViewAllHelper(string username)
         {
-            return _RS.EditReminder(username, reminderID, name, description, date, time, repeat);
+            return await _RS.ViewAllHelper(username);
         }
 
-        public string DeleteReminder(string username, string reminderID)
+        public async Task<string> EditReminder(string username, string reminderID, string name, string description, string date, string time, string repeat)
         {
-            return _RS.DeleteReminder(username, reminderID);
+            return await _RS.EditReminder(username, reminderID, name, description, date, time, repeat);
+        }
+
+        public async Task<string> DeleteReminder(string username, string reminderID)
+        {
+            return await _RS.DeleteReminder(username, reminderID);
         }
     }
 }

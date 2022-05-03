@@ -245,7 +245,7 @@ namespace WebAppMVC.Development
             using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
             {
                 conn.Open();
-                //command.ExecuteScalar();
+                command.ExecuteScalar();
             }
             return false;
 

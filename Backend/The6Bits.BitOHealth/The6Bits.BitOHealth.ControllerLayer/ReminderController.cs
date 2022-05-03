@@ -23,6 +23,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
         private LogService logservice;
         private bool isValid;
 
+
         public ReminderController(IReminderDatabase dao, IAuthenticationService authentication, ILogDal logDal, IDBErrors db)
         {
             _dao = dao;
@@ -32,13 +33,16 @@ namespace The6Bits.BitOHealth.ControllerLayer
         }
 
         [HttpPost("CreateReminder")]
-        public string CreateReminder(string name, string description, string date, string time, string repeat)
+        public async Task<string> CreateReminder(string name, string description, string date, string time, string repeat)
         {
-            /*
-            String token = "";
+
+
+            string token = "";
             try
             {
-                token = Request.Cookies["token"];
+                token = Request.Headers["Authorization"];
+                token = token.Split(' ')[1];
+
             }
             catch
             {
@@ -50,11 +54,10 @@ namespace The6Bits.BitOHealth.ControllerLayer
                 _ = logservice.Log("None", "Invalid Token - Create Reminder", "Info", "Business");
                 return "Invalid Token";
             }
-            
-            String username = _authentication.getUsername(token);
-            */
-            String username = "bossadmin12";
-            string res = _RM.CreateReminder(username, name, description, date, time, repeat);
+
+            string username = _authentication.getUsername(token);
+
+            string res = await _RM.CreateReminder(username, name, description, date, time, repeat);
 
             if (res.Contains("Database"))
             {
@@ -73,60 +76,20 @@ namespace The6Bits.BitOHealth.ControllerLayer
         }
 
         [HttpPost("ViewReminder")]
-        public string ViewReminder(string reminderID)
-        {
-            string username = "bossadmin12";
-            if (reminderID != null)
-            {
-                return ViewHelper(username, reminderID);
-            }
-            else
-            {
-                return ViewAllHelper(username);
-
-            }
-        }
-
-        public string ViewHelper(string username, string reminderID)
+        public async Task<string> ViewReminder(string reminderID)
         {
 
-            string holder = _RM.ViewHelper(username);
-            string[] subs = holder.Split("ENDING");
-            int counter = 1;
-            foreach (var sub in subs)
-            {
-                if (counter == Int32.Parse(reminderID))
-                {
-                    return sub;
-                }
-                else
-                {
-                    counter += 1;
-                }
-            }
-            return "Incorrect index";
-
-        }
-
-        public string ViewAllHelper(string username)
-        {
-            return _RM.ViewAllHelper(username);
-        }
-
-        [HttpPost("ViewAllReminders")]
-        public string ViewAllReminders()
-        {
-
-            String token = "";
+            string token = "";
             try
             {
                 token = Request.Headers["Authorization"];
+                token = token.Split(' ')[1];
+
             }
             catch
             {
                 return "No token";
             }
-            token = token.Split(' ')[1];
             isValid = _authentication.ValidateToken(token);
             if (!isValid)
             {
@@ -134,8 +97,59 @@ namespace The6Bits.BitOHealth.ControllerLayer
                 return "Invalid Token";
             }
 
-            String username = _authentication.getUsername(token);
-            string s = _RM.ViewAllReminders(username);
+            string username = _authentication.getUsername(token);
+            if (reminderID != null)
+            {
+                return await ViewHelper(username, reminderID);
+            }
+            else
+            {
+                return await ViewAllHelper(username);
+
+            }
+        }
+        public async Task<string> ViewHelper(string username, string reminderID)
+        {
+
+            string holder = await _RM.ViewHelper(username, reminderID);
+            if (holder != "")
+            {
+                return holder;
+
+            }
+            return "Incorrect index";
+
+        }
+
+        public async Task<string> ViewAllHelper(string username)
+        {
+            return await _RM.ViewAllHelper(username);
+        }
+
+        [HttpPost("ViewAllReminders")]
+        public async Task<string> ViewAllReminders()
+        {
+            string token = "";
+            try
+            {
+                token = Request.Headers["Authorization"];
+                token = token.Split(' ')[1];
+
+            }
+            catch
+            {
+                return "No token";
+            }
+            isValid = _authentication.ValidateToken(token);
+            if (!isValid)
+            {
+                _ = logservice.Log("None", "Invalid Token - Create Reminder", "Info", "Business");
+                return "Invalid Token";
+            }
+
+            string username = _authentication.getUsername(token);
+
+            string s = await _RM.ViewAllReminders(username);
             string[] subs = s.Split('.');
             int counter = 1;
             string holder = "";
@@ -150,24 +164,76 @@ namespace The6Bits.BitOHealth.ControllerLayer
         }
 
         [HttpPost("DeleteReminder")]
-        public string DeleteReminder(string reminderID)
+        public async Task<string> DeleteReminder(string reminderID)
         {
-            string username = "bossadmin12";
-            if(reminderID != null)
+
+            string token = "";
+            try
             {
-                return _RM.DeleteReminder(username, reminderID);
-                
+                token = Request.Headers["Authorization"];
+                token = token.Split(' ')[1];
+
+            }
+            catch
+            {
+                return "No token";
+            }
+            isValid = _authentication.ValidateToken(token);
+            if (!isValid)
+            {
+                _ = logservice.Log("None", "Invalid Token - Create Reminder", "Info", "Business");
+                return "Invalid Token";
+            }
+
+            string username = _authentication.getUsername(token);
+
+            if (reminderID != null)
+            {
+                return await _RM.DeleteReminder(username, reminderID);
+
             }
             else
             {
-                return ViewAllHelper(username);
+                return await ViewAllHelper(username);
             }
         }
 
-        public string EditReminder(string reminderID, string name, string description, string date, string time, string repeat)
+        [HttpPost("EditReminder")]
+        public async Task<string> EditReminder(string reminderID, string name, string description, string date, string time, string repeat)
         {
-            string username = "bossadmin12";
-            return _RM.EditReminder(username, reminderID, name, description, date, time, repeat);
+            string token = "";
+            try
+            {
+                token = Request.Headers["Authorization"];
+                token = token.Split(' ')[1];
+
+            }
+            catch
+            {
+                return "No token";
+            }
+            isValid = _authentication.ValidateToken(token);
+            if (!isValid)
+            {
+                _ = logservice.Log("None", "Invalid Token - Create Reminder", "Info", "Business");
+                return "Invalid Token";
+            }
+            string username = _authentication.getUsername(token);
+
+            if (reminderID != null)
+            {
+
+                string holder = await _RM.EditReminder(username, reminderID, name, description, date, time, repeat);
+                if (holder == "Edit failed")
+                {
+                    _ = logservice.Log(username, " could not edit reminder", "Info", "Business");
+                }
+                return holder;
+            }
+            else
+            {
+                return await ViewAllHelper(username);
+            }
         }
     }
 }

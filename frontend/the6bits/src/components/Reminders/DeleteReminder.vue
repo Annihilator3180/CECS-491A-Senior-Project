@@ -1,13 +1,16 @@
 <template>
-    <div>
-            <div >
-                <label   for="userId">Reminders </label>
+    <div class="form">
+                <div >
+                <label   for="userId">Delete Reminder</label>
                 </div>
                 <div >
                 <label for="reminderID">Index </label>
-                <input type="text" id="userId" v-model ="reminderID" placeholder="index"/>
-                <button @click = "TrackerPost">view</button>
+                <input type="int" id="userId" v-model ="reminderID" placeholder="index"/>
+                </div>
+                <div >
+                <button @click = "TrackerPost">Delete</button>
             </div>
+            
             
                             {{message}}
     </div>
@@ -16,10 +19,7 @@
 
 <script>
     export default {
-        name : 'ViewReminder',
-        created(){
-            this.TrackerPost()
-        },
+        name : 'DeleteReminder',
         data() {
         return {
             formData :{ 
@@ -36,9 +36,10 @@
                 credentials: 'include',
                 headers:{"Authorization" :`Bearer ${sessionStorage.getItem('token')}`}
             };
-            fetch(process.env.VUE_APP_BACKEND+'Reminder/ViewReminder?reminderID=' + this.reminderID, requestOptions)
+            fetch(process.env.VUE_APP_BACKEND+'Reminder/DeleteReminder?reminderID='+this.reminderID,requestOptions)
                 .then(response =>  response.text())
                 .then(body => this.message = body)
+           
             
         }
     }

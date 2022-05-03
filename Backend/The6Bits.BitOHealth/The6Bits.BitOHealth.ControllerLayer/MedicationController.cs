@@ -217,7 +217,7 @@ public class MedicationController : ControllerBase
 
     }
     [HttpPost("Reminder")]
-    public string RefillMedication(string name, string description, string date, string time, string repeat)
+    public async Task<string> RefillMedication(string name, string description, string date, string time, string repeat)
     {
         string? token;
         
@@ -235,7 +235,7 @@ public class MedicationController : ControllerBase
             }
 
             string username = _auth.getUsername(token);
-            string RefillMedication = _MM.RefillMedication(username, name, description, date, time, repeat);
+            string RefillMedication = await _MM.RefillMedication(username, name, description, date, time, repeat);
             return RefillMedication;
         }
         catch
