@@ -17,6 +17,8 @@
                 const requestOptions = {
                     method: "POST",
                     credentials: 'include',
+                    headers: { "Authorization": `${sessionStorage.getItem('token')}` }
+
                 
                 };
                 fetch(process.env.VUE_APP_BACKEND+'Account/Delete', requestOptions)

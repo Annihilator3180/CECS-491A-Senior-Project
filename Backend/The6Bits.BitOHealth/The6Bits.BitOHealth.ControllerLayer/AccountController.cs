@@ -177,10 +177,8 @@ public class AccountController : ControllerBase
     [HttpPost("Delete")]
     public string DeleteAccount()
     {
-        string token = Request.Headers["Authorization"];
-            token = token.Split(' ')[1];
-        string username = _auth.getUsername(token);
-        string status = _AM.DeleteAccount(token);
+        string username = _auth.getUsername(Request.Headers["Authorization"]);
+        string status = _AM.DeleteAccount(Request.Headers["Authorization"]);
 
         if (status.Contains("Database"))
         {
