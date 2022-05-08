@@ -546,16 +546,18 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 return e.Message;
             }
         }
-        public List<timeTotal> AvgTime()
+        public List<searchItem> getSearchCount(string type)
         {
-
-            string query = "select top 5 *  from viewTime order by seconds/occurences desc";
+            string query = "select top 5 *  from searchAnalysis where AnalysisType=@type order by occurences desc";
             try
             {
                 using (SqlConnection conn = new SqlConnection(_connectString))
                 {
                     conn.Open();
-                    IEnumerable<timeTotal> viewCount = conn.Query<timeTotal>(query);
+                    IEnumerable<searchItem> viewCount = conn.Query<searchItem>(query, new
+                    {
+                        type = type
+                    });
                     return viewCount.ToList();
 
                 }
@@ -566,15 +568,35 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 throw new Exception(ex.Number.ToString());
             }
         }
-        public List<timeTotal> BiggestTime()
+        public async Task<List<timeTotal>> AvgTime()
+        {
+
+            string query = "select top 5 *  from viewTime order by seconds/occurences desc";
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_connectString))
+                {
+                    await conn.OpenAsync();
+                    IEnumerable<timeTotal> viewCount = await conn.QueryAsync<timeTotal>(query);
+                    return viewCount.ToList();
+
+                }
+            }
+
+            catch (SqlException ex)
+            {
+                throw new Exception(ex.Number.ToString());
+            }
+        }
+        public async Task<List<timeTotal>> BiggestTime()
         {
             string query = "select top 5 viewName,seconds from viewTime order by seconds desc";
             try
             {
                 using (SqlConnection conn = new SqlConnection(_connectString))
                 {
-                    conn.Open();
-                    IEnumerable<timeTotal> viewCount = conn.Query<timeTotal>(query);
+                    await conn.OpenAsync();
+                    IEnumerable<timeTotal> viewCount = await conn.QueryAsync<timeTotal>(query);
                     return viewCount.ToList();
 
                 }
@@ -620,8 +642,8 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 {
                     conn.Open();
                     int viewCount = conn.ExecuteScalar<int>(query, new {
-                        viewName = view, 
-                        time=time
+                        viewName = view,
+                        time = time
                     });
                     return true;
 
@@ -636,7 +658,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                
+
                 string query = $"select Count(*) from viewTime where viewName = @viewName";
                 using (SqlConnection conn = new SqlConnection(_connectString))
                 {
@@ -722,14 +744,14 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 using (SqlConnection conn = new SqlConnection(_connectString))
                 {
                     conn.Open();
-                    int recoveryAttempts = conn.ExecuteScalar<int>(query, new {username = username});
-                    
+                    int recoveryAttempts = conn.ExecuteScalar<int>(query, new { username = username });
+
                     if (recoveryAttempts < 5)
                     {
                         return "under";
                     }
                     return "over";
-                    
+
                     //return recoveryAttempts.ToString();
                 }
             }
@@ -834,14 +856,14 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         }
 
 
-        public string VerifyTwoMins(string username, string code){
+        public string VerifyTwoMins(string username, string code) {
             try
             {
-                
+
                 DateTime dt = DateTime.UtcNow;
                 dt = dt.AddMinutes(-2);
-                string query = "select count(username) from VerifyCodes where username = @Username "+
-                               "AND code = @Code AND CodeDate > @Dt" ;
+                string query = "select count(username) from VerifyCodes where username = @Username " +
+                               "AND code = @Code AND CodeDate > @Dt";
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
@@ -856,7 +878,30 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
         }
 
+        public string MakeNewUser(string permUsername, string oldUsername)
+            {
+            try
+            {
+                string query = "UPDATE Accounts SET IsEnabled = 1, Username=@permUsername WHERE Username = @oldUsername";
 
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int lines = connection.Execute(query, new
+                    {
+                        oldUsername = oldUsername,
+                        permUsername = permUsername
+                    });
+                }
+
+                return "activated";
+            }
+
+            catch (SqlException ex)
+            {
+                return ex.Number.ToString();
+            }
+        }
         public string ActivateUser(string username)
         {
             try
@@ -881,7 +926,55 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
 
         }
+        public List<Tracking> GetLogin(string Type, int months)
+        {
 
+            months *= -1;
+            string query = " SELECT* FROM TrackerLogs WHERE dateTime >= DATEADD(MONTH, @months, GETDATE()) and logType = @Type";
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_connectString))
+                {
+                    conn.Open();
+                    IEnumerable<Tracking> viewCount = conn.Query<Tracking>(query, new
+                    {
+                        Type = Type,
+                        months = months
+                    });
+                    return viewCount.ToList();
+
+                }
+            }
+
+            catch (SqlException ex)
+            {
+                throw new Exception(ex.Number.ToString());
+            }
+
+
+
+
+        }
+        public List<Tracking> GetReg() 
+        {
+            string query = " SELECT* FROM TrackerLogs WHERE dateTime >= DATEADD(MONTH, -3, GETDATE()) and logType = 'Registration'";
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_connectString))
+                {
+                    conn.Open();
+                    IEnumerable<Tracking> viewCount = conn.Query<Tracking>(query);
+                    return viewCount.ToList();
+
+                }
+            }
+
+            catch (SqlException ex)
+            {
+                throw new Exception(ex.Number.ToString());
+            }
+
+        }
 
 
 

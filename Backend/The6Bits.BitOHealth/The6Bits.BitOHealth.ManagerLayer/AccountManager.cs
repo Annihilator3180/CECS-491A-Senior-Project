@@ -176,30 +176,44 @@ public class AccountManager
         return _auth.generateToken(acc.Username,authentication.getClaims(acc.Username));
     }
 
-    public string VerifyAccount(string code, string username)
+    public verifyResponse VerifyAccount(string code, string username)
     {
+        verifyResponse response = new verifyResponse();
         String StoredCode = _AS.VerifyAccount(username);
         if (StoredCode.Contains("Database"))
         {
-            return _iDBErrors.DBErrorCheck(int.Parse(StoredCode));
+            response.isSuccess = 0;
+            response.ErrorMessage= StoredCode;
+            return response;
         }
         if (code != StoredCode)
         {
             _= _AS.DeleteCode(username, "Registration");
-            return "Invalid Code";
+            response.isSuccess = 0;
+            response.ErrorMessage = "Invalid Code";
+            return response;
         }
         String DateCheck = _AS.VerifySameDay(code, username, DateTime.Now);
         _= _AS.DeleteCode(username, "Registration");
         if (DateCheck != "True")
         {
-            return DateCheck;
+            response.isSuccess= 0;
+            response.ErrorMessage = DateCheck;
+            return response;
         }
-        string activated = _AS.ActivateUser(username);
+        string permUsername = _AS.MakeUsername(username);
+        string activated = _AS.MakeNewUserName(permUsername,username);
         if (activated.Contains("Database"))
         {
-            return activated;
+            response.isSuccess = 0;
+            response.ErrorMessage = activated;
+            return response;
         }
-        return "Account Verified";
+        response.isSuccess = 1;
+        response.data = "Account Verified";
+        response.username = permUsername;
+        return response;
+        
         
     }
 
@@ -279,7 +293,7 @@ public class AccountManager
         return _AS.DeclineEULA(username);
     }
 
-    public string CreateAccount(User user)
+    public string CreateAccount(User user, string url)
     {
         if (_AS.ValidateEmail(user.Email) == false)
         {
@@ -289,18 +303,19 @@ public class AccountManager
         {
             return "Invalid Password";
         }
-        string validUsername = _AS.ValidateUsername(user.Username);
-        if (validUsername != "new username")
+        string validUsername = _AS.CreateTempUserName();
+        if (validUsername[0] != ',')
         {
             return validUsername;
         }
+        user.Username = validUsername;
         user.Password= _hash.HashAndSalt(user.Password);
         String unactivated = _AS.SaveUnActivatedAccount(user);
         if (unactivated != "Saved")
         {
             return unactivated;
         }
-        String sentCode = _AS.VerifyEmail(user.Username, user.Email, DateTime.Now);
+        String sentCode = _AS.VerifyEmail(user.Username, user.Email, DateTime.Now, url);
         if (sentCode != "True")
         {
             _AS.EmailFailed(user);
@@ -381,19 +396,35 @@ public class AccountManager
         return "Recovery Link Sent To Email: " + arm.Email;
     }
 
-    public List<timeTotal> getAvgTime()
+    public List<searchItem> getSearchCount(string type)
     {
-        List<timeTotal> time= _AS.AvgTime();
-        foreach(timeTotal occ in time)
-        {
-            occ.seconds /= occ.occurences;
-        }
-        return time;
+        return _AS.getSearchCount(type);
     }
 
-    public List<timeTotal> getTotalTime()
+    public List<Tracking> loginTracker(string Type, int months)
     {
-        return _AS.BiggestTime();
+       List<Tracking> loginTracked= _AS.GetLogin(Type, months);
+       List<Tracking> includeEmptyDays = _AS.EmptyDays(loginTracked);
+       return includeEmptyDays;
+
+    }
+
+    public List<Tracking> regTracker()
+    {
+        return _AS.GetReg();
+    }
+
+    public async Task<List<timeTotal>> getAvgTime()
+    {
+        List<timeTotal> time= await _AS.AvgTime();
+        List<timeTotal> avg = _AS.makeAvgTime(time);
+
+        return avg;
+    }
+
+    public async Task<List<timeTotal>> GetTotalTime()
+    {
+        return await  _AS.BiggestTime();
     }
 
     public string ViewTime(float time, string view)

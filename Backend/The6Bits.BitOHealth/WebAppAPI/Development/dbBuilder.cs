@@ -90,7 +90,7 @@ namespace WebAppMVC.Development
 
         public bool buildTrackerLogs(string connStr)
         {
-            var RecoveryStr = "If not exists (select name from sysobjects where name = 'TrackerLogs') CREATE TABLE TrackerLogs ( count int, dateTime VARCHAR(30), logType VARCHAR(30))";
+            var RecoveryStr = "If not exists (select name from sysobjects where name = 'TrackerLogs') CREATE TABLE TrackerLogs ( count int, dateTime date, logType VARCHAR(30))";
             var conn = new SqlConnection(connStr);
             using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
             {
@@ -147,6 +147,21 @@ namespace WebAppMVC.Development
 
 
         }
+        public bool buildSearchAnalysis(string connStr)
+        {
+            var FavoriteStr = "If not exists (select name from sysobjects where name = 'searchAnalysis') " +
+                "CREATE TABLE searchAnalysis (itemSearched VARCHAR(100), occurences int, AnalysisType VARCHAR(50))";
+            var conn = new SqlConnection(connStr);
+            using (SqlCommand command = new SqlCommand(FavoriteStr, conn))
+            {
+                conn.Open();
+                command.ExecuteNonQuery();
+            }
+            return false;
+
+
+
+        }
 
         public bool buildDiet(string connStr)
         {
@@ -180,7 +195,7 @@ namespace WebAppMVC.Development
             return false;
 
         }
-
+       
 
 
         public bool addBossAdmin(string connStr)

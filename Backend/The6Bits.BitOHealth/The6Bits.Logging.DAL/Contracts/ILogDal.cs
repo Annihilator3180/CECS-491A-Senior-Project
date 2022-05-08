@@ -19,5 +19,8 @@ namespace The6Bits.Logging.DAL.Contracts
         bool LoginChecker(string username, string description, string logLevel, string logCategory);
         bool LoginLog(string username, string description, string logLevel, string logCategory);
         bool LoginInsert(string username, string description, string logLevel, string logCategory);
+        bool AlreadySearched(string searchedItem, string AnalysisType);
+        bool IncreaseSearchCount(string item, string type);
+        bool AddSearchItem(string item, string type);
     }
 }

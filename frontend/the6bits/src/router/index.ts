@@ -20,7 +20,8 @@ import DietRecommendation from '@/components/DietRecommendation.vue'
 import logOut from '@/components/logout.vue'
 import SaveFoodLog from '@/components/WeightManagement/SaveFoodLog.vue'
 import viewReminder from '@/components/Reminders/ViewReminder.vue'
-
+import analysisDash from '@/components/analysisDash.vue'
+import VerifyAccount from '@/components/VerifyAccount.vue'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -131,6 +132,11 @@ const routes: Array<RouteRecordRaw> = [
       },
   },
   {
+    path: '/VerifyAccount/:token:/:id',
+    name: 'VerifyAccount',
+    component: VerifyAccount
+  },
+  {
       path: "/SaveFoodLog",
     name: "SaveFoodLog",
     component: SaveFoodLog,
@@ -138,6 +144,15 @@ const routes: Array<RouteRecordRaw> = [
          requiresAuth: true,
       },
   },
+  {
+    path: "/analysis",
+  name: "Analysis Dash",
+  component: analysisDash,
+  meta: {
+       requiresAuth: true,
+    },
+},
+  
   {
   path: "/viewReminder",
   name: "viewReminder",

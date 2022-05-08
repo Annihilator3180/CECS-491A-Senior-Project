@@ -209,23 +209,23 @@ public class AccountController : ControllerBase
 
 
     [HttpPost("Register")]
-    public string CreateAccount(User user)
+    public string CreateAccount(User user, String url)
     {
-
-        string creationStatus = _AM.CreateAccount(user);
+        
+        string creationStatus = _AM.CreateAccount(user,url);
         if (creationStatus.Contains("Database"))
         {
-            _= logService.RegistrationLog(user.Username, "Registration- " + creationStatus, "Data Store", "Error");
+            _= logService.Log(user.Username, "Registration- " + creationStatus, "Data Store", "Error");
             return "Database Error";
         }
         else if (creationStatus == "Email Failed To Send")
         {
-            _ = logService.RegistrationLog(user.Username, "Registration- Email Failed To Send", "Business", "Error");
+            _ = logService.Log(user.Username, "Registration- Email Failed To Send", "Business", "Error");
             return "Email Failed To Send";
         }
         else if (creationStatus != "Email Pending Confirmation")
         {
-            _ = logService.RegistrationLog(user.Username, "Registration- " + creationStatus, "Business", "Information");
+            _ = logService.Log(user.Username, "Registration- " + creationStatus, "Business", "Information");
         }
         else
         {
@@ -234,22 +234,23 @@ public class AccountController : ControllerBase
         return creationStatus;
     }
 
-    [HttpGet("VerifyAccount")]
-    public string VerifyAccount(String Code, String Username)
+    [HttpPost("VerifyAccount")]
+    public verifyResponse VerifyAccount(String Code, String Username)
     {
 
-        String verfied = _AM.VerifyAccount(Code, Username);
-        if (verfied.Contains("Database"))
+        verifyResponse verfied = _AM.VerifyAccount(Code, Username);
+        if (verfied.ErrorMessage.Contains("Database"))
         {
             _ = logService.Log(Username, "Registration- " + verfied, "Data Store", "Error");
-            return "Database Error";
+            verfied.ErrorMessage = "Database Error";
+            return verfied;
         }
-        if (verfied == "Account Verified")
+        if (verfied.data == "Account Verified")
         {
             _ = logService.Log(Username, "Registration- Email Verified ", "Business", "Information");
             return verfied;
         }
-        _ = logService.Log(Username, "Registration- " + verfied, "Business", "Information");
+        _ = logService.Log(Username, "Registration- " + verfied.ErrorMessage, "Business", "Information");
         return verfied;
     }
 
@@ -320,13 +321,13 @@ public class AccountController : ControllerBase
         return updated;
     }
     [HttpPost("getTotalTime")]
-    public List<timeTotal> getTotalTime()
+    public async Task<List<timeTotal>> GetTotalTime()
     {
         try
         {
-            List<timeTotal> updated = _AM.getTotalTime();
+            List<timeTotal> total = await _AM.GetTotalTime();
             _ = logService.Log("admin", "viewed totalTime", "Business", "Information");
-            return updated;
+            return total;
         }
         catch (Exception)
         {
@@ -334,12 +335,55 @@ public class AccountController : ControllerBase
         }
     }
     [HttpPost("getAvgTime")]
-    public List<timeTotal> getAvgTime()
+    public async Task<List<timeTotal>> GetAvgTime()
     {
         try
         {
-            List<timeTotal> updated = _AM.getAvgTime();
+            List<timeTotal> average = await _AM.getAvgTime();
             _ = logService.Log("admin", "viewed average time", "Business", "Information");
+            return average;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    [HttpPost("getSearchCount")]
+    public List<searchItem> getSearchCount(string type)
+    {
+        try
+        {
+            List<searchItem> updated = _AM.getSearchCount(type);
+            _ = logService.Log("admin", "viewed search count for " +type, "Business", "Information");
+            return updated;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+    [HttpPost("timeTracker")]
+    public List<Tracking> timeTracker(string Type, int months)
+    {
+        try
+        {
+            List<Tracking> updated = _AM.loginTracker(Type, months);
+            _ = logService.Log("admin", "viewed" +Type+" total in "+months +"month", "Business", "Information");
+            return updated;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+    [HttpPost("regTracker")]
+    public List<Tracking> regTracker()
+    {
+        try
+        {
+            List<Tracking> updated = _AM.regTracker();
+            _ = logService.Log("admin", "viewed registration total", "Business", "Information");
             return updated;
         }
         catch (Exception)

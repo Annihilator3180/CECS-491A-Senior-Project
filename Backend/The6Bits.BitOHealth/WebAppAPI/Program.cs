@@ -128,6 +128,7 @@ if (app.Environment.IsDevelopment())
     b.buildDiet(connstring);
     b.buildViewTime(connstring);
     b.buildRemiders(connstring);
+    b.buildSearchAnalysis(connstring);
     //app.UseSwagger();
     //app.UseSwaggerUI();
 }

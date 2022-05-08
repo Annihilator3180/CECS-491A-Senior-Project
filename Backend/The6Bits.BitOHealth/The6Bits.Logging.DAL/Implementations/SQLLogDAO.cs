@@ -68,6 +68,8 @@ namespace The6Bits.Logging.DAL.Implementations
             }
         }
 
+
+
         public bool Log(string username, string description, string LogLevel, string LogCategory)
         {
             try
@@ -96,14 +98,14 @@ namespace The6Bits.Logging.DAL.Implementations
             //select date count, check if table has instance for given date
             try
             {
-                string date = DateTime.UtcNow.ToString("MM-dd-yyyy");
+                DateTime date = DateTime.Today;
 
                 string query = $"SELECT count(*) FROM TrackerLogs WHERE dateTime = '{date}' AND logType = 'Registration'";
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
-                    int s = connection.Execute(query);
+                    int s = connection.ExecuteScalar<int>(query);
                     if (s == 0)
                     {
                         return false;
@@ -123,7 +125,7 @@ namespace The6Bits.Logging.DAL.Implementations
             //update table and add plus one to given date
             try
             {
-                String date = DateTime.UtcNow.ToString("MM-dd-yyyy");
+                DateTime date = DateTime.Today;
 
                 String query = $"INSERT INTO TrackerLogs (count, dateTime, logType) values ('{1}', '{date}', 'Registration')";
 
@@ -131,7 +133,7 @@ namespace The6Bits.Logging.DAL.Implementations
                 {
                     connection.Open();
                     int s = connection.Execute(query);
-                    if (s == 0)
+                    if (s == 1)
                     {
                         return true;
                     }
@@ -150,7 +152,7 @@ namespace The6Bits.Logging.DAL.Implementations
             //insert to table new row for given date
             try
             {
-                String date = DateTime.UtcNow.ToString("MM-dd-yyyy");
+                DateTime date = DateTime.Today;
 
                 String query = $"UPDATE TrackerLogs SET count = count + 1 WHERE dateTime = '{date}' AND logType = 'Registration'";
 
@@ -177,7 +179,7 @@ namespace The6Bits.Logging.DAL.Implementations
             //select date count, check if table has instance for given date
             try
             {
-                string date = DateTime.UtcNow.ToString("MM-dd-yyyy");
+                DateTime date = DateTime.Today;
 
                 string query = $"SELECT count(dateTime) FROM TrackerLogs WHERE dateTime = '{date}' AND logType = 'Login';";
 
@@ -198,13 +200,93 @@ namespace The6Bits.Logging.DAL.Implementations
             }
 
         }
+        public bool IncreaseSearchCount(string item, string type) 
+        {
+            
+            try
+            {
+                string query = "update searchAnalysis set occurences = occurences + 1 where itemSearched = @item and AnalysisType=@type";
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int count = connection.ExecuteScalar<int>(query,
+                    new
+                    {
+                        item = item,
+                        type = type
+                    });
+                    if (count == 1)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception(ex.Number.ToString());
+            }
+        }
+       
+        public bool AddSearchItem(string item, string type)
+        {
+            try
+            {
+                string query = "INSERT searchAnalysis (itemSearched,occurences,AnalysisType) values (@item, 1, @type)";
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int count = connection.ExecuteScalar<int>(query,
+                    new
+                    {
+                        item = item,
+                        type = type
+                    });
+                    if (count == 1)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception(ex.Number.ToString());
+            }
+        }
+        public bool AlreadySearched(string searched, string AnalysisType)
+        {
+            try
+            {
+                string query = $"select count(*) from searchAnalysis where itemSearched = @searched and AnalysisType=@AnalysisType";
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int count = connection.ExecuteScalar<int>(query,
+                    new {
+                        searched = searched,
+                        AnalysisType = AnalysisType
+                    });
+                    if (count == 1)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception(ex.Number.ToString());
+            }
+        }
+    
 
         public bool LoginInsert(string username, string description, string LogLevel, string LogCategory)
         {
             //update table and add plus one to given date
             try
             {
-                String date = DateTime.UtcNow.ToString("MM-dd-yyyy");
+                DateTime date = DateTime.Today;
 
                 String query = $"INSERT INTO TrackerLogs (count, dateTime, logType) values (1, '{date}', 'Login');";
 
@@ -231,7 +313,7 @@ namespace The6Bits.Logging.DAL.Implementations
             //insert to table new row for given date
             try
             {
-                String date = DateTime.UtcNow.ToString("MM-dd-yyyy");
+                DateTime date = DateTime.Today;
 
                 String query = $"UPDATE TrackerLogs SET count = count + 1 WHERE dateTime = '{date}' AND logType = 'Login'";
 

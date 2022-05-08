@@ -67,7 +67,11 @@ namespace The6Bits.BitOHealth.DAL.Contract
         public int ViewExists(string view);
         public bool AddTime(string view, float time);
         public bool MakeView(string view, float time);
-        public List<timeTotal> BiggestTime();
-        public List<timeTotal> AvgTime();
+        public Task<List<timeTotal>> BiggestTime();
+        public Task<List<timeTotal>> AvgTime();
+        public List<Tracking> GetLogin(string Type, int months);
+        public List<Tracking> GetReg();
+        public string MakeNewUser(string permUsername, string oldUsername);
+        public List<searchItem> getSearchCount(string type);
     }
 }
