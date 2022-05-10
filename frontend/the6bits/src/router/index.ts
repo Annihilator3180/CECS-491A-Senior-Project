@@ -6,7 +6,7 @@ import UM from '@/components/UM.vue'
 import GoalView from '@/components/WeightManagement/WeightGoalView.vue'
 import ResetPassword from '@/components/ResetPassword.vue'
 import TrackingLog from '@/components/TrackingLog.vue'
-import HealthRecorder from '@/components/HealthRecorder.vue'
+import CreateHealthRecord from '@/components/HealthRecorder/CreateHealthRecord.vue'
 import FavoriteDrugListPost from '@/components/FavoriteList.vue'
 import RegistrationPost from '@/components/Registration.vue'
 import MedSearch from '@/components/MedicationSearch.vue'
@@ -22,6 +22,14 @@ import SaveFoodLog from '@/components/WeightManagement/SaveFoodLog.vue'
 import viewReminder from '@/components/Reminders/ViewReminder.vue'
 import analysisDash from '@/components/analysisDash.vue'
 import VerifyAccount from '@/components/VerifyAccount.vue'
+import FoodLogView from '@/components/WeightManagement/FoodLogView.vue'
+import ViewMedicalRecords from '@/components/HealthRecorder/ViewHealthRecord.vue'
+import EditMedicalRecords from '@/components/HealthRecorder/EditHealthRecord.vue'
+import HealthRecorderHome from '@/components/HealthRecorder/HealthRecorderHome.vue'
+import CreateReminder from '@/components/Reminders/CreateReminder.vue'
+import DeleteReminder from '@/components/Reminders/DeleteReminder.vue'
+import EditReminder from '@/components/Reminders/EditReminder.vue'
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -61,7 +69,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/WeightManagement',
     name: 'WeightManagement',
-    component: GoalView
+    component: GoalView,
+    meta: {
+      requiresAuth: true,
+   },
   },
   {
     path: '/ResetPassword',
@@ -103,9 +114,12 @@ const routes: Array<RouteRecordRaw> = [
     component: DietRecommendation
   },
   {
-    path: '/HealthRecorder',
-    name: 'HealthRecorder',
-    component: HealthRecorder
+    path: '/CreateHealthRecord',
+    name: 'CreateHealthRecord',
+    component: CreateHealthRecord,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
       path: "/FavoriteDrugs",
@@ -160,7 +174,66 @@ const routes: Array<RouteRecordRaw> = [
   meta: {
        requiresAuth: true,
     },
-  }
+  },
+  {
+  path: "/FoodLog",
+  name: "FoodLog",
+  component: FoodLogView,
+  meta: {
+       requiresAuth: true,
+    },
+  },
+  {
+    path: "/ViewMedicalRecords",
+    name: "ViewMedicalRecords",
+    component: ViewMedicalRecords,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/EditMedicalRecords",
+    name: "EditMedicalRecords",
+    component: EditMedicalRecords,
+    meta: {
+      requiresAuth: true,
+    }
+  },
+    {
+      path: "/HealthRecorderHome",
+      name: "HealthRecorderHome",
+      component: HealthRecorderHome
+   },
+   {
+    path: "/CreateReminder",
+    name: "CreateReminder",
+    component: CreateReminder,
+    meta: {
+         requiresAuth: true,
+      },
+    },
+    {
+      path: "/DeleteReminder",
+      name: "DeleteReminder",
+      component: DeleteReminder,
+      meta: {
+           requiresAuth: true,
+        },
+      },
+      {
+        path: "/EditReminder",
+        name: "EditReminder",
+        component: EditReminder,
+        meta: {
+             requiresAuth: true,
+          },
+        },
+    
+  
+
+
+
+
 
 ]
 

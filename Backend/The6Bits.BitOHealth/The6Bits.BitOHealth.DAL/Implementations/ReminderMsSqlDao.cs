@@ -18,29 +18,35 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             _connectString = connectstring;
         }
-        public int GetCount(string username)
-        {
-            int res = 0;
-            try
-            {
 
-                string query = $"SELECT count(username) FROM Reminders WHERE username = '{username}';";
-                using (SqlConnection connection = new SqlConnection(_connectString))
-                {
-                    connection.Open();
-                    res = connection.ExecuteScalar<int>(query);
-                    return (res + 1);
-                }
-            }
-            catch
+        public string DBErrorCheck(int ErrorNumber)
+        {
+            if (ErrorNumber == -2)
             {
-                return res;
+                return "Database Time Out Error";
+            }
+            else if (ErrorNumber == 1105)
+            {
+                return "Database Full";
+            }
+            else if (ErrorNumber == 4060)
+            {
+                return "Database Offline";
+            }
+            else if (ErrorNumber == 2627)
+            {
+                return "Duplicate Record Name";
+            }
+            else
+            {
+                return ErrorNumber.ToString() + "Database Other Error ";
             }
         }
-        public string CreateReminder(int count, string username, string name, string description, string date, string time, string repeat)
+
+        public async Task<string> CreateReminder(int count, string username, string name, string description, string date, string time, string repeat)
         {
             //FIX ME: if description has '.' leave alone, else add '.' to end
-            description = description + ".";
+            //description = description + ".";
             //insert into table
             try
             {
@@ -50,7 +56,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
-                    int s = connection.Execute(query);
+                    int s = await connection.ExecuteAsync(query);
                     if (s == 1)
                     {
                         return "Reminder Created";
@@ -60,12 +66,12 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
             catch (SqlException ex)
             {
-                return ex.Number.ToString();
+                return DBErrorCheck(ex.Number);
             }
 
         }
 
-        public string ViewAllReminders(string username)
+        public async Task<string> ViewAllReminders(string username)
         {
 
             try
@@ -85,13 +91,13 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 
                 }
             }
-            catch
+            catch (SqlException ex)
             {
-                return "";
+                return DBErrorCheck(ex.Number);
             }
         }
 
-        public string ViewAllHelper(string username)
+        public async Task<string> ViewAllHelper(string username)
         {
             try
             {
@@ -110,24 +116,24 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 
                 }
             }
-            catch
+            catch (SqlException ex)
             {
-                return "";
+                return DBErrorCheck(ex.Number);
             }
         }
 
-        public string ViewHelper(string username)
+        public async Task<string> ViewHelper(string username, string reminderID)
         {
             try
             {
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
-                    IEnumerable<ReminderModel> str = connection.Query<ReminderModel>($"select * from Reminders where username = '{username}';");
+                    IEnumerable<ReminderModel> str = connection.Query<ReminderModel>($"select * from Reminders where username = '{username}' AND R_SK = '{reminderID}';");
                     string s = "";
                     foreach (ReminderModel remindermodel in str)
                     {
-                        s += $"{remindermodel.name} {remindermodel.description} {remindermodel.date} {remindermodel.time} {remindermodel.repeat}{"ENDING"}";
+                        s += $"{remindermodel.name} {remindermodel.description} {remindermodel.date} {remindermodel.time} {remindermodel.repeat}";
 
                     }
 
@@ -135,13 +141,33 @@ namespace The6Bits.BitOHealth.DAL.Implementations
 
                 }
             }
-            catch
+            catch (SqlException ex)
             {
-                return "";
+                return DBErrorCheck(ex.Number);
             }
         }
 
-        public string DeleteReminder(string username, string reminderID)
+        public List<string> EditHelper(string username, string reminderID)
+        {
+            string aR_SK = "", aname = "", adescription = "", adate = "", atime = "", arepeat = "";
+            using (SqlConnection connection = new SqlConnection(_connectString))
+            {
+                connection.Open();
+                IEnumerable<ReminderModel> str = connection.Query<ReminderModel>($"select * from Reminders where username = '{username}';");
+                string s = "";
+                foreach (ReminderModel remindermodel in str)
+                {
+
+                    aR_SK = remindermodel.R_SK; aname = remindermodel.name; adescription = remindermodel.description; adate = remindermodel.date; atime = remindermodel.time; arepeat = remindermodel.repeat;
+                }
+            }
+            List<string> edit = new List<string> { aname, adescription, adate, atime, arepeat };
+
+            return edit;
+
+        }
+
+        public async Task<string> DeleteReminder(string username, string reminderID)
         {
             try
             {
@@ -161,17 +187,52 @@ namespace The6Bits.BitOHealth.DAL.Implementations
             }
             catch (SqlException ex)
             {
-                return ex.Number.ToString();
+                return DBErrorCheck(ex.Number);
             }
         }
 
-        public string EditReminder(string username, string reminderID, List<string> edit)
+        public async Task<string> EditReminder(string username, string reminderID, string name, string description, string date, string time, string repeat)
         {
-            for(int i = 0; i < edit.Count; i++)
+            try
             {
-                //
+                //Edit Reminder
+                String query = $"Update Reminders SET name = '{name}', description = '{description}', date = '{date}', time = '{time}', " +
+                    $"repeat = '{repeat}' WHERE R_SK = '{reminderID}' AND username = '{username}'";
+
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    int s = connection.Execute(query);
+                    if (s != 0)
+                    {
+                        return "Reminder Edited";
+                    }
+                    return "Reminder NOT Edited";
+                }
             }
-            return "";
+            catch (SqlException ex)
+            {
+                return DBErrorCheck(ex.Number);
+            }
+        }
+        public async Task<int> GetCount(string username)
+        {
+            int res = 0;
+            try
+            {
+
+                string query = $"SELECT count(username) FROM Reminders WHERE username = '{username}';";
+                using (SqlConnection connection = new SqlConnection(_connectString))
+                {
+                    connection.Open();
+                    res = connection.ExecuteScalar<int>(query);
+                    return (res + 1);
+                }
+            }
+            catch (SqlException ex)
+            {
+                return ex.Number;
+            }
         }
 
     }

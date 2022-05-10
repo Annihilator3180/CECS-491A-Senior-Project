@@ -1,12 +1,17 @@
 <template>
-    <div  class="form">
-        <form  @submit.prevent="TrackerPost">
+    <div>
             <div >
-                <label   for="userId">Tracker </label>
+                <label   for="userId">Reminders </label>
+                </div>
+                <div >
+                <label for="reminderID">Index </label>
+                <input type="text" id="userId" v-model ="reminderID" placeholder="index"/>
+                <button @click = "TrackerPost">view</button>
             </div>
+            
                             {{message}}
-        </form>
     </div>
+    
 </template>
 
 <script>
@@ -21,6 +26,7 @@
                 userId: '',
             },
             message : '',
+            reminderID : ''
         }
     },
     methods:{
@@ -30,7 +36,7 @@
                 credentials: 'include',
                 headers:{"Authorization" :`Bearer ${sessionStorage.getItem('token')}`}
             };
-            fetch(process.env.VUE_APP_BACKEND+'Reminder/ViewAllReminders', requestOptions)
+            fetch(process.env.VUE_APP_BACKEND+'Reminder/ViewReminder?reminderID=' + this.reminderID, requestOptions)
                 .then(response =>  response.text())
                 .then(body => this.message = body)
             

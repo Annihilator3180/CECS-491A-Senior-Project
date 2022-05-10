@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using The6Bits.BitOHealth.DAL.Contract;
 using The6Bits.BitOHealth.DAL.Implementations;
+using The6Bits.BitOHealth.Models;
 
 namespace The6Bits.BitOHealth.ServiceLayer
 {
@@ -16,26 +17,34 @@ namespace The6Bits.BitOHealth.ServiceLayer
         {
             _Rdao = dao;
         }
-        public string CreateReminder(string username, string name, string description, string date, string time, string repeat)
+        public async Task<string> CreateReminder(string username, string name, string description, string date, string time, string repeat)
         {
 
-            int count = _Rdao.GetCount(username);
-            return _Rdao.CreateReminder(count, username, name, description, date, time, repeat);
+
+            int count = await _Rdao.GetCount(username);
+            //big error, if reminder gets deleted then a new one added, the same count is
+            //going to be added as reminderID, take last reminder ID and plus one  it
+            //so same reminderID is never added
+            if (count < 99)
+            {
+                return await _Rdao.CreateReminder(count, username, name, (description + "."), date, time, repeat);
+            }
+            return "Limit of 99 Reminders Created";
         }
 
-        public string ViewAllReminders(string username)
+        public async Task<string> ViewAllReminders(string username)
         {
-            return _Rdao.ViewAllReminders(username);
+            return await _Rdao.ViewAllReminders(username);
         }
 
-        public string ViewHelper(string username)
+        public async Task<string> ViewHelper(string username, string reminderID)
         {
-            return _Rdao.ViewHelper(username);
+            return await _Rdao.ViewHelper(username, reminderID);
         }
 
-        public string ViewAllHelper(string username)
+        public async Task<string> ViewAllHelper(string username)
         {
-            string s = _Rdao.ViewAllHelper(username);
+            string s = await _Rdao.ViewAllHelper(username);
             string[] subs = s.Split('.');
             int counter = 1;
             string holder = "";
@@ -49,15 +58,36 @@ namespace The6Bits.BitOHealth.ServiceLayer
             return holder;
         }
 
-        public string EditReminder(string username, string reminderID, string name, string description, string date, string time, string repeat)
+        public async Task<string> EditReminder(string username, string reminderID, string name, string description, string date, string time, string repeat)
         {
-            List<string> edit = new List<string> { name, description, date, time, repeat };
-            return _Rdao.EditReminder(username, reminderID, edit);
+            List<string> old = _Rdao.EditHelper(username, reminderID);
+            List<string> input = new List<string> { name, description, date, time, repeat };
+            List<string> edit = new List<string>();
+            for (int i = 0; i < old.Count; i++)
+            {
+                if (input.ElementAt(i) == null)
+                {
+                    edit.Add(old[i]);
+                }
+                else
+                {
+                    if (i == 1)
+                    {
+                        edit.Add(input.ElementAt(i) + ".");
+                    }
+                    else
+                    {
+                        edit.Add(input.ElementAt(i));
+
+                    }
+                }
+            }
+            return await _Rdao.EditReminder(username, reminderID, edit.ElementAt(0), (edit.ElementAt(1)), edit.ElementAt(2), edit.ElementAt(3), edit.ElementAt(4));
         }
 
-        public string DeleteReminder(string username, string reminderID)
+        public async Task<string> DeleteReminder(string username, string reminderID)
         {
-            return _Rdao.DeleteReminder(username, reminderID);
+            return await _Rdao.DeleteReminder(username, reminderID);
         }
     }
 }
