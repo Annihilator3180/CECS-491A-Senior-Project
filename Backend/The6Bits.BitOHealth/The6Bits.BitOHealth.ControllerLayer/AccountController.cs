@@ -18,6 +18,7 @@ using Microsoft.Extensions.Configuration;
 using The6Bits.EmailService;
 using The6Bits.HashAndSaltService;
 using The6Bits.HashAndSaltService.Contract;
+using Microsoft.AspNetCore.Mvc;
 using System.Data.SqlClient;
 using Dapper;
 
@@ -27,7 +28,7 @@ namespace The6Bits.BitOHealth.ControllerLayer;
 public class AccountController : ControllerBase
 {
     private IAuthenticationService authenticationService1;
-    private AccountManager _AM;
+    private AccountManager _AccountManager;
     private LogService logService;
     private IDBErrors _dbErrors;
     private ISMTPEmailService _EmailService;
@@ -39,7 +40,7 @@ public class AccountController : ControllerBase
     public AccountController(IRepositoryAuth<string> authdao, ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors,
         ISMTPEmailService emailService, IConfiguration config, IHashDao hashDao)
     {
-        _AM = new AccountManager(authdao, authenticationService, dbErrors, emailService, config, hashDao, config.GetSection("jwt").Value);
+        _AccountManager = new AccountManager(authdao, authenticationService, dbErrors, emailService, config, hashDao, config.GetSection("jwt").Value);
         logService = new LogService(logDao);
         _dbErrors = dbErrors;
         _EmailService = emailService;
@@ -66,7 +67,7 @@ public class AccountController : ControllerBase
 
 
 
-        var jwt = _AM.Login(acc);
+        var jwt = _AccountManager.Login(acc);
         var parts = jwt.Split('.');
 
         if (parts.Length == 3)
@@ -155,7 +156,7 @@ public class AccountController : ControllerBase
     public string SendOTP(string username)
     {
 
-        var otp = _AM.SendOTP(username);
+        var otp = _AccountManager.SendOTP(username);
         if (otp.Contains("Database"))
         {
             _ = logService.Log(username, otp, "OTP Error " + "Error", "Data Store");
@@ -180,7 +181,7 @@ public class AccountController : ControllerBase
         string token = Request.Headers["Authorization"];
             token = token.Split(' ')[1];
         string username = _auth.getUsername(token);
-        string status = _AM.DeleteAccount(token);
+        string status = _AccountManager.DeleteAccount(token);
 
         if (status.Contains("Database"))
         {
@@ -212,7 +213,7 @@ public class AccountController : ControllerBase
     public string CreateAccount(User user, String url)
     {
         
-        string creationStatus = _AM.CreateAccount(user,url);
+        string creationStatus = _AccountManager.CreateAccount(user,url);
         if (creationStatus.Contains("Database"))
         {
             _= logService.Log(user.Username, "Registration- " + creationStatus, "Data Store", "Error");
@@ -238,7 +239,7 @@ public class AccountController : ControllerBase
     public verifyResponse VerifyAccount(String Code, String Username)
     {
 
-        verifyResponse verfied = _AM.VerifyAccount(Code, Username);
+        verifyResponse verfied = _AccountManager.VerifyAccount(Code, Username);
         if (verfied.ErrorMessage.Contains("Database"))
         {
             _ = logService.Log(Username, "Registration- " + verfied, "Data Store", "Error");
@@ -261,7 +262,7 @@ public class AccountController : ControllerBase
 
         if (isValid)
         {
-            return _AM.AcceptEULA(username);
+            return _AccountManager.AcceptEULA(username);
         }
         return "invalid token";
     }
@@ -273,7 +274,7 @@ public class AccountController : ControllerBase
 
         if (isValid)
         {
-            return _AM.DeclineEULA(username);
+            return _AccountManager.DeclineEULA(username);
         }
         return "invalid token";
     }
@@ -282,9 +283,17 @@ public class AccountController : ControllerBase
     [HttpPost("Recovery")]
     [Consumes("application/json")]
 
-    public string AccountRecovery(AccountRecoveryModel arm)
-    {
-        string start = _AM.RecoverAccount(arm);
+    public string AccountRecovery(AccountRecoveryModel arm) {
+
+        string? token;
+
+        token = Request.Headers["Authorization"];
+        if (token != null)
+        {
+            return "must be logged out";
+        }
+
+        string start = _AccountManager.RecoverAccount(arm);
 
         if (start.Contains("Database"))
         {
@@ -300,7 +309,7 @@ public class AccountController : ControllerBase
     [HttpPost("ResetPassword")]
     public string ResetPassword(string randomString, string username, string password)
     {
-        string reset = _AM.ResetPassword(username, randomString, password);
+        string reset = _AccountManager.ResetPassword(username, randomString, password);
 
         if (reset.Contains("Database"))
         {
@@ -315,7 +324,7 @@ public class AccountController : ControllerBase
     [HttpPost("ViewTime")]
     public string ViewTime(float time, string view)
     {
-        string updated = _AM.ViewTime(time, view);
+        string updated = _AccountManager.ViewTime(time, view);
         _ = logService.Log("admin", updated, "Business", "Information");
 
         return updated;
@@ -325,7 +334,7 @@ public class AccountController : ControllerBase
     {
         try
         {
-            List<timeTotal> total = await _AM.GetTotalTime();
+            List<timeTotal> total = await _AccountManager.GetTotalTime();
             _ = logService.Log("admin", "viewed totalTime", "Business", "Information");
             return total;
         }
@@ -339,7 +348,7 @@ public class AccountController : ControllerBase
     {
         try
         {
-            List<timeTotal> average = await _AM.getAvgTime();
+            List<timeTotal> average = await _AccountManager.getAvgTime();
             _ = logService.Log("admin", "viewed average time", "Business", "Information");
             return average;
         }
@@ -354,7 +363,7 @@ public class AccountController : ControllerBase
     {
         try
         {
-            List<searchItem> updated = _AM.getSearchCount(type);
+            List<searchItem> updated = _AccountManager.getSearchCount(type);
             _ = logService.Log("admin", "viewed search count for " +type, "Business", "Information");
             return updated;
         }
@@ -368,7 +377,7 @@ public class AccountController : ControllerBase
     {
         try
         {
-            List<Tracking> updated = _AM.loginTracker(Type, months);
+            List<Tracking> updated = _AccountManager.loginTracker(Type, months);
             _ = logService.Log("admin", "viewed" +Type+" total in "+months +"month", "Business", "Information");
             return updated;
         }
@@ -382,7 +391,7 @@ public class AccountController : ControllerBase
     {
         try
         {
-            List<Tracking> updated = _AM.regTracker();
+            List<Tracking> updated = _AccountManager.regTracker();
             _ = logService.Log("admin", "viewed registration total", "Business", "Information");
             return updated;
         }

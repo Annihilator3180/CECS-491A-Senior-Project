@@ -432,7 +432,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = "Delete FROM VerifyCodes WHERE Username = @Username amd codeType =@codeType ";
+                string query = "Delete FROM VerifyCodes WHERE Username = @Username and codeType =@codeType ";
 
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
