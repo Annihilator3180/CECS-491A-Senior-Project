@@ -72,6 +72,7 @@ builder.Services.AddTransient<HashNSaltService>(provider => new HashNSaltService
 
 builder.Services.AddScoped<IAuthorizationDao>(provider => new MsSqlRoleAuthorizationDao(connstring));
 builder.Services.AddScoped<IHashDao>(provider=> new MsSqlHashDao(connstring));
+builder.Services.AddScoped<IRepositoryNutritionAnalysis, NutritionAnalysisMsSqlDao>(provider => new NutritionAnalysisMsSqlDao(connstring));
 
 
 
@@ -131,6 +132,7 @@ recoveryReset.ResetRecovery(connstring);
     b.buildFoodLog(connstring);
     b.buildWeightGoalImageDB(connstring);
     b.buildFavoriteRecipe(connstring);
+    b.buildNutritionAnalysis(connstring);
     //app.UseSwagger();
     //app.UseSwaggerUI();
 

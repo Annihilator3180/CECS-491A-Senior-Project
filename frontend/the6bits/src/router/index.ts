@@ -29,6 +29,8 @@ import HealthRecorderHome from '@/components/HealthRecorder/HealthRecorderHome.v
 import CreateReminder from '@/components/Reminders/CreateReminder.vue'
 import DeleteReminder from '@/components/Reminders/DeleteReminder.vue'
 import EditReminder from '@/components/Reminders/EditReminder.vue'
+import NutritionAnalysis from '@/components/NutritionAnalysis.vue'
+
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -220,8 +222,15 @@ const routes: Array<RouteRecordRaw> = [
              requiresAuth: true,
           },
         },
-    
-  
+
+    {
+        path: '/NutritionAnalysis',
+        name: 'NutritionAnalysis',
+        component: NutritionAnalysis,
+         meta: {
+            requiresAuth: true,
+        },
+    },
 
     {
         path: "/RecipeFavorite",
@@ -231,6 +240,7 @@ const routes: Array<RouteRecordRaw> = [
         requiresAuth: true,
         }
     }
+
 
 
 ]

@@ -53,7 +53,18 @@ namespace The6Bits.BitOHealth.Models
         public double weight { get; set; }
         public string foodId { get; set; }
     }
-
+    public class Ingredients
+    {
+        public String[] ingr { get; set; }
+        public Ingredients()
+        {
+            ingr = new String[0];   
+        }
+        public Ingredients(String[] ing)
+        {
+            ingr = ing;
+        }
+    }
     public class Recipe
     {
 

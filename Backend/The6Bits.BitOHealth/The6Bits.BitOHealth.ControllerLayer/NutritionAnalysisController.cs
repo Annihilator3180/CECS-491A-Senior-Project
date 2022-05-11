@@ -1,35 +1,74 @@
-﻿/*
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using The6Bits.BitOHealth.ManagerLayer;
+using The6Bits.BitOHealth.ServiceLayer;
 using The6Bits.DBErrors;
 using The6Bits.Logging.DAL.Contracts;
 using The6Bits.Logging.Implementations;
+using The6Bits.Authentication.Contract;
+using The6Bits.BitOHealth.Models;
+using System.Text.Json;
+using The6Bits.BitOHealth.DAL.Contract;
 
 namespace The6Bits.BitOHealth.ControllerLayer
 {
     [ApiController]
-    [Route("NutritionalAnalysis")]
-    public class NutritionAnalysisController
+    [Route("NutritionAnalysis")]
+    public class NutritionAnalysisController : ControllerBase
     {
-       // private NutritionalAnalysisManager _DRM;
+        private NutritionAnalysisManager _NIM;
         private LogService _logService;
         private IDBErrors _dBErrors;
         private IConfiguration _config;
         private IAuthenticationService _auth;
-        public NutritionalAnalysisController(IRepositoryNutritionalAnalysis DietDao, ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors)
+        private bool _isValid;
+
+        public NutritionAnalysisController(IRepositoryNutritionAnalysis NADAO, ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors)
         {
-            _DRM = new DietRecommendationsManager(DietDao, authenticationService, dbErrors);
+            _NIM = new NutritionAnalysisManager(NADAO, authenticationService, dbErrors);
             _logService = new LogService(logDao);
             _dBErrors = dbErrors;
             _auth = authenticationService;
         }
-        private bool _isValid;
+
+        [HttpPost("Create")]
+        public async Task<object> CreateNutritionAnalysis([FromBody] Ingredients iingredients)
+        {
+            
+            string? token = "";
+            try
+            {
+                token = Request.Headers["Authorization"];
+                token = token.Split(' ')[1];
+            }
+            catch
+            {
+                return JsonSerializer.Serialize(new { success = false, message = "No Token" });
+            }
+
+            _isValid = _auth.ValidateToken(token);
+
+            if (!_isValid)
+            {
+
+                _ = _logService.Log("None", "Invalid Token - Diet Recommendations", "Info", "Business");
+                return JsonSerializer.Serialize(new { success = false, message = "Invalid Token" });
+            }
+                        string username = _auth.getUsername(token);
+
+            string rec = _NIM.SaveRecipeRespones(username,iingredients);
+            object response = await _NIM.GetNutritionAnalysis(iingredients);
+
+            //var stringPayload = JsonSerializer.Deserialize<object>(response);
+            return response;
+
+        }
+
+
     }
 }
-*/

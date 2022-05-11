@@ -180,15 +180,6 @@ namespace WebAppMVC.Development
 
 
 
-
-
-
-
-
-
-
-
-
         public bool buildFoodLog(string connStr)
         {
             var RecoveryStr = "If not exists (select name from sysobjects where name = 'FoodLog') CREATE TABLE FoodLog (Username  VARCHAR(30) foreign key references Accounts(username) on delete cascade, FoodName VARCHAR(100), Description  VARCHAR(255), Calories float, FoodLogDate DateTime,Carbs float, Protein float, Fat float, DateAdded DateTime,  Id INT IDENTITY(1,1) )";
@@ -204,10 +195,6 @@ namespace WebAppMVC.Development
 
         }
 
-
-
-
-
         public bool buildWeightGoalImageDB(string connStr)
         {
             var RecoveryStr = "If not exists (select name from sysobjects where name = 'WeightGoalImages') CREATE TABLE WeightGoalImages (Username VARCHAR(30) foreign key references Accounts(username) on delete cascade , Path VARCHAR(1000), ImageDate DateTime, Id INT IDENTITY(1,1) )";
@@ -219,18 +206,20 @@ namespace WebAppMVC.Development
             }
             return false;
 
-
-
         }
 
+        public bool buildNutritionAnalysis(string connStr)
+        {
+            var NutritionAnalysis = "If not exists (select name from sysobjects where name = 'NutritionAnalysis')" + "CREATE TABLE NutritionAnalysis (Username VARCHAR(30) foreign key references Accounts(username) on delete cascade, ingr VARCHAR(500))";
+            var conn = new SqlConnection(connStr);
+            using (SqlCommand command = new SqlCommand(NutritionAnalysis, conn))
+            {
+                conn.Open();
+                command.ExecuteNonQuery();
+            }
+            return false;
 
-
-
-
-
-
-
-
+        }
 
 
 

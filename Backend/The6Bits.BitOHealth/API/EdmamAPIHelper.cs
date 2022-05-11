@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Text;
+using System.Text.Json;
 using The6Bits.BitOHealth.Models;
 
 namespace The6Bits.API
@@ -32,6 +33,22 @@ namespace The6Bits.API
 
             return result;
         }
+        public async Task<object> GetNutritionAnalysis(Ingredients request)
+        {
+            var httpClient = new HttpClient();
+            var stringPayload = JsonSerializer.Serialize(request);
+            var httpContent = new StringContent(stringPayload, Encoding.UTF8, "application/json");
+
+            var endpoint = "https://api.edamam.com/api/nutrition-details?app_id=9e288fed&app_key=93c2dd810b37d66d1a66ae2ff1f36261";
+            var response = await httpClient.PostAsync(endpoint, httpContent);
+
+            var responseString = await response.Content.ReadAsStringAsync();
+            //var dic = JsonConvert.DeserializeObject<Dictionary<String, object>>(responseString);
+            //var result = JsonSerializer.Deserialize<String>(responseString);
+            return responseString;
+        }
+
+
 
 
 
