@@ -4,6 +4,7 @@
      <canvas id="loginChart"></canvas>
      <canvas id="RegChart"></canvas>
      <canvas id="medChart"></canvas>
+     <canvas id="foodchart"></canvas>
 
 </template>
 
@@ -16,7 +17,8 @@ import Chart from 'chart.js'
             this.getTime(),
             this.getLoginGraph(),
             this.getRegGraph(),
-            this.getMed()
+            this.getMed(),
+            this.getFood()
         },
         data() {
         return {
@@ -41,7 +43,11 @@ import Chart from 'chart.js'
             medMessage:[],
             medSearched:[],
             medAmount:[],
-            medView:{}
+            medView:{},
+            foodMessage:{},
+            foodSearched:[],
+            foodAmount:[],
+            foodView:{},
         }
     },
     methods:{
@@ -255,6 +261,51 @@ import Chart from 'chart.js'
       var barGraph = new Chart(ctx, {
         type: 'bar',
         data: this.medView,
+        options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    stepSize: 1,
+                    beginAtZero: true
+                }
+            }]
+        }
+
+                }
+  
+      });
+        },
+        async getFood(){
+            const requestOptions = {
+                method: "post",
+                credentials: 'include',
+                headers: { "Content-Type": "application/json"},
+
+            };
+            const response= await fetch(process.env.VUE_APP_BACKEND+'Account/getSearchCount/?type=food',requestOptions)                
+                .then(response =>  response.json())
+                .then(body=> this.foodMessage= body)
+            
+            for( var i in this.foodMessage){
+                this.foodSearched[i]=this.foodMessage[i].itemSearched
+                this.foodAmount[i]=this.foodMessage[i].occurences
+            }
+        this.foodView= {
+        labels: this.foodSearched,
+        datasets : [
+          {
+            label: 'Most Searched Foods',
+            backgroundColor: 'rgba(0, 0, 255, 0.75)',
+            hoverBackgroundColor: 'rgb(0, 0, 200)',
+            data: this.foodAmount,
+          }
+        ]
+      };
+      var ctx = document.getElementById('foodchart');
+
+      var barGraph = new Chart(ctx, {
+        type: 'bar',
+        data: this.foodView,
         options: {
         scales: {
             yAxes: [{

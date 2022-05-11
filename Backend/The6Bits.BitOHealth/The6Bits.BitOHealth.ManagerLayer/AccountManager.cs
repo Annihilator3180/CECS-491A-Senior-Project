@@ -328,6 +328,10 @@ public class AccountManager
 
     public string RecoverAccount(AccountRecoveryModel arm)
     {
+        if (arm.Username[0] == ',')
+        {
+            return "Account Recovery Error";
+        }
         if (_AS.ValidateEmail(arm.Email) == false || _AS.ValidateUsername(arm.Username) == "Invalid Username")
         {
             return "Account Recovery Error";
@@ -343,13 +347,6 @@ public class AccountManager
         }
 
 
-
-        string enabled = _AS.IsEnabled(arm.Username);
-        if (enabled != "enabled")
-        {
-            return "Account Recovery Error";
-        }
-
         string recoveryValidation = _AS.ValidateRecoveryAttempts(arm.Username);
         if (recoveryValidation != "under")
         {
@@ -361,7 +358,7 @@ public class AccountManager
         const string subject = "Bit O Health Recovery";
 
         string body = "Please click this link within 24 hours to recover your account "+
-                "http://localhost:8080/ResetPassword?randomString=" + randomString + "&username=" + arm.Username;
+                "http://localhost:8080/ResetPassword/" + randomString + "/" + arm.Username;
         
         
         string email = _AS.SendEmail(arm.Email, subject, body);
