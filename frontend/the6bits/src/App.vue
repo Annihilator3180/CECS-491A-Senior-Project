@@ -15,8 +15,6 @@
     <router-link to="/">Home</router-link> |
     <router-link :to="{ name: 'UM' }">User Management</router-link> |
     <router-link :to="{ name: 'WeightManagement' }">Weight Management</router-link>|
-    <router-link :to="{ name: 'ResetPassword' }">ResetPassword</router-link>|
-
     <router-link :to="{ name: 'MedSearch' }"> MedSearch</router-link>|
     <router-link :to="{ name: 'HotTopics' }"> HotTopics</router-link>|
     <router-link :to="{name: 'SearchFood'}"> SearchFood</router-link>|
@@ -55,7 +53,6 @@ export default {
           router.push("login")
     }
   }, 1000)
-    console.log(sessionStorage.getItem('token'))
   },
   data(){
     return{
