@@ -412,8 +412,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
             const string SUBJECT = "Verify your account";
             string Body = "Please use this link to verify your account " +
-                url + "VerifyAccount?Code=" + code +
-                "&&Username=" + username;
+            "http://localhost:8080/#/VerifyAccount/" + code+ "/" +  username;
             String EmailStatus = _EmailService.SendEmailNoReply(email, SUBJECT, Body);
             if (EmailStatus != "email sent")
             {

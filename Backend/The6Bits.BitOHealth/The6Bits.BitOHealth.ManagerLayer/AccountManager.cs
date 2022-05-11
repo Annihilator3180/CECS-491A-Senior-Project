@@ -358,7 +358,7 @@ public class AccountManager
         const string subject = "Bit O Health Recovery";
 
         string body = "Please click this link within 24 hours to recover your account "+
-                "http://localhost:8080/ResetPassword/" + randomString + "/" + arm.Username;
+                "http://localhost:8080/#/ResetPassword/" + randomString + "/" + arm.Username;
         
         
         string email = _AS.SendEmail(arm.Email, subject, body);
@@ -377,7 +377,7 @@ public class AccountManager
 
         if (updateRecoveryAttempts != "1")
         {
-            return _iDBErrors.DBErrorCheck(int.Parse(updateRecoveryAttempts));
+            return updateRecoveryAttempts;
         }
         string saveCode = _AS.SaveActivationCode(arm.Username, dateTime, randomString, "Recovery");
         if (saveCode != "saved")
@@ -467,7 +467,11 @@ public class AccountManager
             return sameDay;
         }
         string hashPassword = _hash.HashAndSalt(password);
-        
+        string activated = _AS.ActivateUser(username);
+        if (activated.Contains("database"))
+        {
+            return "Database Error";
+        }
         string reset = _AS.ResetPassword(hashPassword, username);
         if (reset.Contains("Database"))
         {

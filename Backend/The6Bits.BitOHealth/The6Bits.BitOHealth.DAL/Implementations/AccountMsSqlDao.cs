@@ -740,7 +740,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = "select count(recoveryAttempt) from Recovery where username = @username";
+                string query = "select count(*) from Recovery where username = @username";
                 using (SqlConnection conn = new SqlConnection(_connectString))
                 {
                     conn.Open();
