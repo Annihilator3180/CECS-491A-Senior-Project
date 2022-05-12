@@ -9,7 +9,7 @@
                 <label for="password">Password </label>
                 <input type="text" id="password" v-model ="formData.password" />
             </div>
-            <div>
+            <div v-if="passGood">
                 <label for="otp">OTP </label>
                 <input type="text" id="otp" v-model ="formData.otp" />
             </div>
@@ -29,6 +29,7 @@
                 password: '',
                 otp: '',
             },
+            passGood:false,
             message:''
         }
     },
