@@ -42,7 +42,7 @@
                 method: "post",
                 headers: { "Content-Type": "application/json",}
             };
-            fetch(process.env,VUE_APP_BACKEND+'Account/ViewTime?time=' + this.timer + '&view=View+Reminder', requestOptions)
+            fetch(process.env.VUE_APP_BACKEND+'Account/ViewTime?time=' + this.timer + '&view=View+Reminder', requestOptions)
         },
         TrackerPost(){
             const requestOptions = {
