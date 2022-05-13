@@ -36,6 +36,13 @@ import UploadProgressImage from './WMComponents/UploadProgressImage.vue'
 import LoadWeightImages from './WMComponents/LoadWeightImages.vue'
     export default {
         name : 'GoalView',
+        created(){
+            window.setInterval(()=>{this.timer+=1}, 1000)
+        },
+        beforeUnmount(){
+            this.TimerTime(),
+            this.timer=0
+        },
         data() {
         return {
             activeTab:'SaveFoodLog',
@@ -48,6 +55,7 @@ import LoadWeightImages from './WMComponents/LoadWeightImages.vue'
             message : '',
             editWeight:false,
             hasSavedWeightGoal:true,
+            timer:0
         }
     },
     components: {
@@ -62,7 +70,7 @@ import LoadWeightImages from './WMComponents/LoadWeightImages.vue'
         JsonLogToCSVString,
         getCookie() {
              console.log(document.cookie);
-    },
+        },
         onChildLoad(value){
             if(value.goalWeight!=null){
                 this.hasSavedWeightGoal = true;
@@ -71,6 +79,13 @@ import LoadWeightImages from './WMComponents/LoadWeightImages.vue'
                 this.hasSavedWeightGoal = false;
             }
         },
+      TimerTime(){
+        const requestOptions = {
+          method:"post",
+          headers: {"Content-Type": "application/json"},
+        };
+        fetch(process.ENV.VUE_APP_BACKEND+'Account/ViewTime?time='+this.timer+'&view=Weight+Goal+View', requestOptions)
+      }
 
     }
     

@@ -28,6 +28,9 @@
             const requestOptions = {
                 method: "POST",
                 credentials: 'include',
+                headers:{
+                      "Authorization" : `Bearer ${sessionStorage.getItem('token')}`
+                    },
             
             };
             fetch(process.env.VUE_APP_BACKEND+'UM/DeleteAccount?username=' +this.formData.username ,requestOptions)
@@ -37,6 +40,9 @@
             const requestOptions = {
                 method: "POST",
                 credentials: 'include',
+                headers:{
+                      "Authorization" : `Bearer ${sessionStorage.getItem('token')}`
+                    },
             
             };
             fetch(process.env.VUE_APP_BACKEND+'UM/EnableAccount?username=' +this.formData.username ,requestOptions)
@@ -46,7 +52,9 @@
             const requestOptions = {
                 method: "POST",
                 credentials: 'include',
-            
+                headers:{
+                      "Authorization" : `Bearer ${sessionStorage.getItem('token')}`
+                    },
             };
             fetch(process.env.VUE_APP_BACKEND+'UM/DisableAccount?username=' +this.formData.username ,requestOptions)
                 .then(response => console.log(response))

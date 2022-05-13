@@ -99,7 +99,7 @@ public class AccountManager
             else
             {
                 //still disabled
-                return isenabled;
+                return "Account disabled. Perform account recovery or contact system admin";
             }
 
         }
@@ -113,11 +113,11 @@ public class AccountManager
             string deletePastOtp = _AS.DeletePastOTP(acc.Username, "OTP");
         }
 
-        acc.Password = _hash.HashAndSalt(acc.Password, _hash.GetSalt(acc.Username));
-
-        string checkPassword = _AS.CheckPassword(acc.Username, acc.Password);
+       
         
-        if (otp != "valid" || checkPassword != "credentials found")
+
+        //IMPLEMENTATION OF FAILED ATTEMPTS
+        if (otp != "valid" )
         {
             //UPDATE FAILED ATTEMPT
             string attempts = _AS.CheckFailedAttempts(acc.Username);
@@ -147,7 +147,7 @@ public class AccountManager
                         string disabled = _AS.UpdateIsEnabled(acc.Username, 0);
                         if (disabled == "account updated")
                         {
-                            return "account disabled";
+                            return "Account disabled. Perform account recovery or contact system admin";
                         }
                         //db error 
                         return disabled;
@@ -169,7 +169,7 @@ public class AccountManager
 
             //DB ERRORS && INVALID PASS AND OTP RETURN
 
-            return otp != "valid" ? otp : checkPassword;
+            return otp ;
         }
         AuthorizationService authentication = new AuthorizationService(new MsSqlRoleAuthorizationDao(_config.GetConnectionString("DefaultConnection")));
 
@@ -219,13 +219,13 @@ public class AccountManager
             return "Token Not Found";
     }
 
-    public string SendOTP(string username)
+    public string SendOTP(string username, string password)
     {
         string usernameExists = _AS.UsernameExists(username);
 
         if (usernameExists != "username exists")
         {
-            return usernameExists;
+            return "Invalid username or password provided. Retry again or contact system administrator";
         }
 
         string email = _AS.GetEmail(username);
@@ -233,10 +233,20 @@ public class AccountManager
         {
             return email;
         }
-        //TODO:SEND CODE
+
+        password = _hash.HashAndSalt(password, _hash.GetSalt(username));
+
+        string checkPassword = _AS.CheckPassword(username, password);
+
+        if (checkPassword != "credentials found")
+        {
+            return "Invalid username or password provided. Retry again or contact system admin";
+        }
+
+        //GEN CODE
         Random rnd = new Random();
         string code = "";
-        var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
+        var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz.,@!";
 
         foreach (var i in Enumerable.Range(0, 10))
         {

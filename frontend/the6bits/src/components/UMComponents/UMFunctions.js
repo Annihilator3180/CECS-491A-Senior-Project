@@ -3,6 +3,9 @@ var test = {
             const requestOptions = {
                 method: "POST",
                 credentials: 'include',
+                headers: { 
+                            "Authorization" : `Bearer ${sessionStorage.getItem('token')}`
+                                      },
             
             };
             fetch(process.env.VUE_APP_BACKEND+'UM/DeleteAccount?username=' +username ,requestOptions)
@@ -12,6 +15,9 @@ var test = {
             const requestOptions = {
                 method: "POST",
                 credentials: 'include',
+                headers: { 
+                            "Authorization" : `Bearer ${sessionStorage.getItem('token')}`
+                                      },
             
             };
             fetch(process.env.VUE_APP_BACKEND+'UM/EnableAccount?username=' +username ,requestOptions)
@@ -21,6 +27,9 @@ var test = {
             const requestOptions = {
                 method: "POST",
                 credentials: 'include',
+                    headers: { 
+                            "Authorization" : `Bearer ${sessionStorage.getItem('token')}`
+                                      },
             
             };
             fetch(process.env.VUE_APP_BACKEND+'UM/DisableAccount?username=' +username ,requestOptions)
@@ -30,7 +39,9 @@ UMCreate(Username,Password,Email,FirstName,LastName,isAdmin,isEnabled,privOption
             const requestOptions = {
                 method: "POST",
                 credentials: 'include',
-                headers: { "Content-Type": "application/json"},
+                headers: { "Content-Type": "application/json",
+                        "Authorization" : `Bearer ${sessionStorage.getItem('token')}`
+                        },
                 body: JSON.stringify(
                     {Username : Username,
                      Password : Password,
@@ -49,7 +60,10 @@ UMUpdate(Username,Password,Email,FirstName,LastName,isAdmin,isEnabled,privOption
             const requestOptions = {
                 method: "POST",
                 credentials: 'include',
-                headers: { "Content-Type": "application/json"},
+                headers: { "Content-Type": "application/json",
+                    "Authorization" : `Bearer ${sessionStorage.getItem('token')}`
+                },
+                
                 body: JSON.stringify(
                     {Username : Username,
                      Password : Password,
@@ -93,7 +107,12 @@ parseLine(line){
             
         }
 
-    }
+    },
+
+bulk(){
+
+
+}
 }
 
 export default test

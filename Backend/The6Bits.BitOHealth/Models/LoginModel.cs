@@ -10,7 +10,6 @@ namespace The6Bits.BitOHealth.Models
         // optional for future use for updating users
         
         public string Username { get; set; }
-        public string Password { get; set; }
         public string Code { get; set; }
 
         public LoginModel()
@@ -21,7 +20,6 @@ namespace The6Bits.BitOHealth.Models
         {
 
             Username = username;
-            Password = password;
             Code = code;
 
         }

@@ -53,15 +53,6 @@ public class AccountController : ControllerBase
         var remoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
 
 
-        //HASH
-        //DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
-        //string p = di.Parent.ToString();
-        //string mySecret = System.IO.File.ReadAllText(Path.GetFullPath(p + _config.GetSection("PKs")["JWT"]));
-        //byte[] keyBytes = Encoding.UTF8.GetBytes(mySecret);
-        //var bytesToSign = Encoding.UTF8.GetBytes(acc.Password);
-        //var sha = new HMACSHA256(keyBytes);
-        //byte[] signature = sha.ComputeHash(bytesToSign);
-        //acc.Password = Convert.ToBase64String(signature);
 
 
 
@@ -152,10 +143,10 @@ public class AccountController : ControllerBase
     }
 
     [HttpPost("OTP")]
-    public string SendOTP(string username)
+    public string SendOTP(string username, string password)
     {
 
-        var otp = _AM.SendOTP(username);
+        var otp = _AM.SendOTP(username,password);
         if (otp.Contains("Database"))
         {
             _ = logService.Log(username, otp, "OTP Error " + "Error", "Data Store");
