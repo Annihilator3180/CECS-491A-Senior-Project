@@ -309,6 +309,12 @@ public class AccountController : ControllerBase
     [HttpPost("ResetPassword")]
     public string ResetPassword(string randomString, string username, string password)
     {
+        string? token;
+        token = Request.Headers["Authorization"];
+        if (token != null)
+        {
+            return "Account Recovery Error";
+        }
         string reset = _AccountManager.ResetPassword(username, randomString, password);
 
         if (reset.Contains("Database"))
