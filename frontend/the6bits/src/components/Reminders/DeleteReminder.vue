@@ -21,7 +21,6 @@
     export default {
         name : 'DeleteReminder',
         created(){
-            this.DeleteReminder(),
             window.setInterval(() => { this.timer+=1}
             , 100)
         },

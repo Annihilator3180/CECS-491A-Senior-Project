@@ -18,7 +18,6 @@
     export default {
         name : 'ViewReminder',
         created(){
-            this.ViewReminder(),
             window.setInterval(() => { this.timer+=1}
             , 100)
         },

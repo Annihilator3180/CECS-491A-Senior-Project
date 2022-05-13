@@ -37,7 +37,6 @@
     export default {
         name : 'CreateReminder',
         created(){
-            this.CreateReminder(),
             window.setInterval(() => { this.timer+=1}
             , 100)
         },

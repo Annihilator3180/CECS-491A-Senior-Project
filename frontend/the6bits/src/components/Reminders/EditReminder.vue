@@ -41,7 +41,6 @@
     export default {
         name : 'EditReminder',
         created(){
-            this.EditReminder(),
             window.setInterval(() => { this.timer+=1}
             , 100)
         },
