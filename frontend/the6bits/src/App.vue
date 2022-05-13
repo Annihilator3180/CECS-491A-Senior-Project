@@ -33,10 +33,13 @@
     <router-link :to="{name: 'FoodLog'}"> FoodLog </router-link>|
     <router-link :to="{name: 'logout'}"> Log Out </router-link>|
     <router-link :to ="{name: 'HealthRecorderHome'}"> HealthRecorderHome </router-link> |
+      <router-link :to="{name: 'NutritionAnalysis'}"> Nutrition Analysis</router-link>|
+      <router-link :to="{name: 'RecipeFavorite'}"> RecipeFavorite </router-link>
 
-    
 
-  </nav>
+
+
+    </nav>
     <router-view />
         </div>
 </template>

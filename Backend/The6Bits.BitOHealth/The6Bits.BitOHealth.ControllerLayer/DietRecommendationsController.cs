@@ -14,6 +14,7 @@ using The6Bits.Authentication.Contract;
 using The6Bits.BitOHealth.Models;
 using System.Text.Json;
 using The6Bits.BitOHealth.DAL.Contract;
+using The6Bits.BitOHealth.DAL.Implementations;
 
 namespace The6Bits.BitOHealth.ControllerLayer
 {
@@ -33,44 +34,164 @@ namespace The6Bits.BitOHealth.ControllerLayer
             _dBErrors = dbErrors;
             _auth = authenticationService;
         }
+        private bool _isValid;
+
 
         [HttpGet("Create")]
         public async Task<string> CreateDietRecommendations([FromQuery] DietR userResponses)
         {
-            string token = "";
+
+            string? token = "";
             try
             {
-                token = Request.Cookies["token"];
+                token = Request.Headers["Authorization"];
+                token = token.Split(' ')[1];
             }
             catch
             {
-                return "NoToken";
+                return JsonSerializer.Serialize(new { success = false, message = "No Token" });
             }
-            bool isValid = _auth.ValidateToken(token);
-            if (isValid != true)
+
+            _isValid = _auth.ValidateToken(token);
+
+            if (!_isValid)
             {
-                _logService.Log("None", "Invalid Token - Create Diet Recommendation", "Info", "Bussiness");
-                return "Invalid Token";
+
+                _ = _logService.Log("None", "Invalid Token - Diet Recommendations", "Info", "Business");
+                return JsonSerializer.Serialize(new { success = false, message = "Invalid Token" });
+            }
+
+            string username = _auth.getUsername(token);
+            string response = _DRM.SaveDietRespones(userResponses, username);
+            string recipes = await _DRM.getRecommendedRecipies(userResponses);
+
+            // recipeList = JsonSerializer.Serialize(recipes);
+            return recipes;
+
+        }
+
+        [HttpGet("GetRecipes")]
+        public async Task<string> GetRecipeWithIds()
+        {
+
+            string? token = "";
+            try
+            {
+                token = Request.Headers["Authorization"];
+                token = token.Split(' ')[1];
+            }
+            catch
+            {
+                return JsonSerializer.Serialize(new { success = false, message = "No Token" });
+            }
+
+            _isValid = _auth.ValidateToken(token);
+
+            if (!_isValid)
+            {
+
+                _ = _logService.Log("None", "Invalid Token - Diet Recommendations", "Info", "Business");
+                return JsonSerializer.Serialize(new { success = false, message = "Invalid Token" });
+            }
+
+            string username = _auth.getUsername(token);
+            List<string> recipeIds = _DRM.GetFavorites(username);
+            if (recipeIds.Count > 0)
+            {
+                return await _DRM.getRecommendedRecipiesWithId(recipeIds);
+
+            }
+            return JsonSerializer.Serialize(new { success = false, message = "Meal List is empty!" });
+
+        }
+
+        [HttpGet("AddFavorite")]
+        public string AddtoFavorite(string recipeId)
+        {
+
+            string? token = "";
+            try
+            {
+                token = Request.Headers["Authorization"];
+                token = token.Split(' ')[1];
+            }
+            catch
+            {
+                return JsonSerializer.Serialize(new { success = false, message = "No Token" });
+            }
+
+            _isValid = _auth.ValidateToken(token);
+
+            if (!_isValid)
+            {
+
+                _ = _logService.Log("None", "Invalid Token - Diet Recommendations", "Info", "Business");
+                return JsonSerializer.Serialize(new { success = false, message = "Invalid Token" });
+            }
+
+            string username = _auth.getUsername(token);
+
+            FavoriteRecipe favoriteRecipe = new FavoriteRecipe(recipeId);
+            string favoriteResult = _DRM.AddToFavorite(favoriteRecipe, username);
+            return favoriteResult;
+        }
+
+        [HttpGet("DeleteFavorite")]
+        public string DeleteFavorite(string recipeId)
+        {
+
+            string? token = "";
+            try
+            {
+                token = Request.Headers["Authorization"];
+                token = token.Split(' ')[1];
+            }
+            catch
+            {
+                return JsonSerializer.Serialize(new { success = false, message = "No Token" });
+            }
+
+            _isValid = _auth.ValidateToken(token);
+
+            if (!_isValid)
+            {
+
+                _ = _logService.Log("None", "Invalid Token - Diet Recommendations", "Info", "Business");
+                return JsonSerializer.Serialize(new { success = false, message = "Invalid Token" });
             }
             string username = _auth.getUsername(token);
-            string response = _DRM.SaveDietRespones(userResponses);
-            if (response.Contains("Database"))
+
+            FavoriteRecipe favoriteRecipe = new FavoriteRecipe(recipeId);
+            string favoriteResult = _DRM.DeleteFavorite(favoriteRecipe);
+            return favoriteResult;
+        }
+
+        [HttpGet("GetFavorites")]
+        public List<string> GetFavorites()
+        {
+            List<string> emptyList = new List<string>();
+            string? token = "";
+            try
             {
-                _logService.Log("NO", "Save User Diet " + response, "DataStore", "Error");
+                token = Request.Headers["Authorization"];
+                token = token.Split(' ')[1];
+            }
+            catch
+            {
+                return emptyList;
             }
 
-                _logService.Log("NO", "Save User Diet", "Info", "Business");
+            _isValid = _auth.ValidateToken(token);
 
-            List<Recipe> recipes = await _DRM.getRecommendedRecipies(userResponses);
-            string recipeList = JsonSerializer.Serialize(recipes);
-            return recipeList;
-            bool isEmpty = !recipeList.Any();
-            if (isEmpty)
+            if (!_isValid)
             {
-                return "No search results found";
+
+                _ = _logService.Log("None", "Invalid Token - Diet Recommendations", "Info", "Business");
+                return emptyList;
             }
 
-
+            string username = _auth.getUsername(token);
+            return _DRM.GetFavorites(username);
         }
     }
 }
