@@ -283,14 +283,16 @@ public class AccountController : ControllerBase
     [HttpPost("Recovery")]
     [Consumes("application/json")]
 
-    public string AccountRecovery(AccountRecoveryModel arm) {
+    public ActionResult AccountRecovery(AccountRecoveryModel arm) {
+        AccountResponseModel response = new AccountResponseModel();
 
         string? token;
 
         token = Request.Headers["Authorization"];
         if (token != null)
         {
-            return "must be logged out";
+            response.ErrorMessage = "must be logged out";
+            return BadRequest(response);
         }
 
         string start = _AccountManager.RecoverAccount(arm);
@@ -298,33 +300,40 @@ public class AccountController : ControllerBase
         if (start.Contains("Database"))
         {
             _ = logService.Log(arm.Username, " Account Recovery ", start, "Error");
-            return "Database Error";
+            response.ErrorMessage = start;
+            return StatusCode(500, response);
         }
         _ = logService.Log(arm.Username, " Account Recovery ", "Recovery Email Sent", "Information");
 
-        return start;
+        response.Data = start;
+        return Ok(response);
 
 
     }
     [HttpPost("ResetPassword")]
-    public string ResetPassword(string randomString, string username, string password)
+    public ActionResult ResetPassword(string randomString, string username, string password)
     {
+        AccountResponseModel response = new AccountResponseModel();
+
         string? token;
         token = Request.Headers["Authorization"];
         if (token != null)
         {
-            return "Account Recovery Error";
+            response.ErrorMessage = "Account Recovery Error";
+            return BadRequest(response);
         }
         string reset = _AccountManager.ResetPassword(username, randomString, password);
 
         if (reset.Contains("Database"))
         {
             _ = logService.Log(username, " Password Reset ", reset, "Error");
-            return "Database Error";
+            response.ErrorMessage = reset;
+            return StatusCode(500, response);
         }
         _ = logService.Log(username, " Password Reset ", "Password Change ", "Information");
 
-        return reset;
+        response.Data= reset;
+        return Ok(response);
     }
 
     [HttpPost("ViewTime")]
