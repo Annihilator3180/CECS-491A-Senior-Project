@@ -38,7 +38,6 @@
                 ViewFavoriteRequest: [],
             },
             message : '',
-            timer:0
         }
         },
     

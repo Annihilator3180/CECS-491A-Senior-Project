@@ -74,7 +74,7 @@ export default {
           method:"post",
           headers: {"Content-Type": "application/json"},
         };
-        fetch(process.ENV.VUE_APP_BACKEND+'Account/ViewTime?time='+this.timer+'&view=UM', requestOptions)
+        fetch(process.env.VUE_APP_BACKEND+'Account/ViewTime?time='+this.timer+'&view=UM', requestOptions)
       }
   }
 }
