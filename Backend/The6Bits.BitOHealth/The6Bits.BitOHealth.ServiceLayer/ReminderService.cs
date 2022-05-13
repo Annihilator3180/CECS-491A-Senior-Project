@@ -17,19 +17,11 @@ namespace The6Bits.BitOHealth.ServiceLayer
         {
             _Rdao = dao;
         }
-        public async Task<string> CreateReminder(string username, string name, string description, string date, string time, string repeat)
+        public async Task<string> CreateReminder(int count, string username, string name, string description, string date, string time, string repeat)
         {
 
+            return await _Rdao.CreateReminder(count, username, name, (description + "."), date, time, repeat);
 
-            int count = await _Rdao.GetCount(username);
-            //big error, if reminder gets deleted then a new one added, the same count is
-            //going to be added as reminderID, take last reminder ID and plus one  it
-            //so same reminderID is never added
-            if (count < 99)
-            {
-                return await _Rdao.CreateReminder(count, username, name, (description + "."), date, time, repeat);
-            }
-            return "Limit of 99 Reminders Created";
         }
 
         public async Task<string> ViewAllReminders(string username)

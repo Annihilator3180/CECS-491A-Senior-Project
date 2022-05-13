@@ -23,7 +23,27 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
         public async Task<string> CreateReminder(string username, string name, string description, string date, string time, string repeat)
         {
-            string res = await _RS.CreateReminder(username, name, description, date, time, repeat);
+            if (name == null || name.Length > 100)
+            {
+                return "Invalid name";
+            }
+            else if (description != null)
+            {
+                if (description.Length > 1000)
+                {
+                    return "Invalid Description";
+                }
+            }
+
+            int count = await _dao.GetCount(username);
+            //big error, if reminder gets deleted then a new one added, the same count is
+            //going to be added as reminderID, take last reminder ID and plus one  it
+            //so same reminderID is never added
+            if (count > 99)
+            {
+                return "Limit of 100 Reminders Created";
+            }
+            string res = await _RS.CreateReminder(count, username, name, description, date, time, repeat);
             return res;
         }
 
@@ -45,6 +65,17 @@ namespace The6Bits.BitOHealth.ManagerLayer
 
         public async Task<string> EditReminder(string username, string reminderID, string name, string description, string date, string time, string repeat)
         {
+            if (name != null && name.Length > 100)
+            {
+                return "Invalid name";
+            }
+            else if (description != null)
+            {
+                if (description.Length > 1000)
+                {
+                    return "Invalid Description";
+                }
+            }
             return await _RS.EditReminder(username, reminderID, name, description, date, time, repeat);
         }
 
