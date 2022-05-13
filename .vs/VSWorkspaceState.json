@@ -1,15 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\Backend",
-    "\\Backend\\The6Bits.BitOHealth",
-    "\\Backend\\The6Bits.BitOHealth\\The6Bits.BitOHealth.DAL",
-    "\\Backend\\The6Bits.BitOHealth\\The6Bits.BitOHealth.DAL\\Implementations",
-    "\\Backend\\The6Bits.BitOHealth\\The6Bits.HashAndSaltService",
-    "\\Backend\\The6Bits.BitOHealth\\The6Bits.HashAndSaltService\\Contract",
-    "\\Backend\\The6Bits.BitOHealth\\The6Bits.HashAndSaltService\\Implementations",
-    "\\Backend\\The6Bits.BitOHealth\\The6Bits.Logging.DAL",
-    "\\Backend\\The6Bits.BitOHealth\\The6Bits.Logging.DAL\\Implementations"
+    ""
   ],
+  "SelectedNode": "\\The6Bits.BitOHealth.sln",
   "PreviewInSolutionExplorer": false
 }

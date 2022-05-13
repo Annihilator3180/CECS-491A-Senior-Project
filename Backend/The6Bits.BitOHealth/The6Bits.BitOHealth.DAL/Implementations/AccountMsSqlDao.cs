@@ -72,6 +72,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
+              // password = "Password1!";
                 string query = "select Count(@Username) from Accounts where Username = @Username AND Password = @Password";
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
@@ -527,7 +528,23 @@ namespace The6Bits.BitOHealth.DAL.Implementations
         {
             try
             {
-                string query = $"DELETE FROM Accounts WHERE Username = @Username";
+                string query = @"DELETE FROM Accounts WHERE Username = @Username;
+                                DELETE FROM diet WHERE Username = @Username;
+                                DELETE FROM nutritionanalysis WHERE Username =@Username;
+                                DELETE FROM favoriterecipe WHERE Username = @Username;
+                                DELETE FROM WMGoals WHERE Username = @Username;
+                                DELETE FROM favoriteMedication WHERE Username = @Username;
+                                DELETE FROM failedAttempts WHERE Username = @Username;
+                                DELETE FROM foodlog WHERE Username = @Username; 
+                                DELETE FROM healthrecorder WHERE Username = @Username;
+                                DELETE FROM recovery WHERE Username = @Username;
+                                DELETE FROM reminders WHERE Username = @Username; 
+                                DELETE FROM verifycodes WHERE Username = @Username;
+                                DELETE FROM weightgoalimages WHERE Username = @Username;";
+
+
+
+
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
