@@ -19,7 +19,6 @@
   export default{
     name : 'AccountRecovery',
     created(){
-      this.AccountRecovery(),
       window.setInterval(() => {this.timer += 1}, 1000)
     },
     data(){

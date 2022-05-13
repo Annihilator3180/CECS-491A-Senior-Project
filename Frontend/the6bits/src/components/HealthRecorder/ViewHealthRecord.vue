@@ -38,7 +38,6 @@ import { GetRecord, ExportRecord, DeleteRecord, SearchRecord } from '@/component
 export default {
    name: 'ViewMedicalRecords',
    created(){
-       this.ViewMedicalRecords(),
        window.setInterval(() => {this.timer += 1}, 1000)
    },
    data(){

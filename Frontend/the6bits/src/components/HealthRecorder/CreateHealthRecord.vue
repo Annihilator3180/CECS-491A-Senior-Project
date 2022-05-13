@@ -26,7 +26,6 @@
   export default {
     name: 'CreateHealthRecord',
     created(){
-      this.CreateHealthRecord(),
      window.setInterval(() => {this.timer += 1}, 1000)
     },
     /*

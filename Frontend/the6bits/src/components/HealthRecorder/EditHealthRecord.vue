@@ -25,7 +25,6 @@
 export default {
     name: 'EditMedicalRecords',
     created(){
-      this.EditMedicalRecords(),
       window.setInterval(() => {this.timer += 1}, 1000)
     },
     data(){

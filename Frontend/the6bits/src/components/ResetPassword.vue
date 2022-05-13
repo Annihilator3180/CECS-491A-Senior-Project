@@ -18,7 +18,6 @@
   export default{
     name : 'PasswordReset',
     created(){
-      this.PasswordReset(),
       window.setInterval(() => {this.timer += 1}, 1000)
     },
     data(){
