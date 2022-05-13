@@ -17,6 +17,8 @@ import ViewDrug from '@/components/WeightManagement/viewDrug.vue'
 import EditFavoriteDrug from '@/components/EditFavoriteDrug.vue'
 import DeleteAccount from '@/components/DeleteAccount.vue'
 import DietRecommendation from '@/components/DietRecommendation.vue'
+import FavoriteList from '@/components/FavoriteList.vue'
+import RecipeFavorite from '@/components/RecipeFavorite.vue'
 import logOut from '@/components/logout.vue'
 import SaveFoodLog from '@/components/WeightManagement/SaveFoodLog.vue'
 import viewReminder from '@/components/Reminders/ViewReminder.vue'
@@ -29,6 +31,8 @@ import HealthRecorderHome from '@/components/HealthRecorder/HealthRecorderHome.v
 import CreateReminder from '@/components/Reminders/CreateReminder.vue'
 import DeleteReminder from '@/components/Reminders/DeleteReminder.vue'
 import EditReminder from '@/components/Reminders/EditReminder.vue'
+import NutritionAnalysis from '@/components/NutritionAnalysis.vue'
+
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -106,13 +110,19 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/DeleteAccount',
     name: 'DeleteAccount',
-    component: DeleteAccount
+    component: DeleteAccount,
+    meta: {
+    requiresAuth: true,
+      },
   },
 
   {
     path: '/DietRecommendation',
     name: 'DietRecommendation',
-    component: DietRecommendation
+    component: DietRecommendation,
+    meta: {
+          requiresAuth: true,
+      },
   },
   {
     path: '/CreateHealthRecord',
@@ -229,10 +239,24 @@ const routes: Array<RouteRecordRaw> = [
              requiresAuth: true,
           },
         },
-    
-  
 
+    {
+        path: '/NutritionAnalysis',
+        name: 'NutritionAnalysis',
+        component: NutritionAnalysis,
+         meta: {
+            requiresAuth: true,
+        },
+    },
 
+    {
+        path: "/RecipeFavorite",
+        name: "RecipeFavorite",
+        component: RecipeFavorite,
+        meta: {
+        requiresAuth: true,
+        }
+    }
 
 
 

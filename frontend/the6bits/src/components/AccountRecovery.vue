@@ -18,15 +18,31 @@
 <script>
   export default{
     name : 'AccountRecovery',
+    created(){
+      this.AccountRecovery(),
+      window.setInterval(() => {this.timer += 1}, 1000)
+    },
     data(){
     return {
       formData : {
         email: '',
         username: '',
+        timer : 0
       },
     }
   },
+   beforeUnmount(){
+       this.TimerTime(),
+       this.timer = 0
+   },
   methods:{
+    TimerTime(){
+            const requestOptions = {
+                method: "post",
+                headers: { "Content-Type": "application/json"}
+            };
+            fetch(process.env.VUE_APP_BACKEND+'Account/ViewTime?time='+this.timer+'&view=Account+Recovery',requestOptions)
+        },
     AccountRecovery(){
       const requestOptions = {
         method: "POST",

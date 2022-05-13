@@ -22,7 +22,7 @@ namespace WebAppMVC.Development
         
         public bool buildLogDB(string connStr)
         {
-            var AccountsStr = "If not exists (select name from sysobjects where name = 'Logs') CREATE TABLE Logs ( username VARCHAR(30) NOT NULL, description VARCHAR(255), LogLevel VARCHAR(30), LogCategory VARCHAR(30), Date_Time DateTime)";
+            var AccountsStr = "If not exists (select name from sysobjects where name = 'Logs') CREATE TABLE Logs ( username VARCHAR(30), description VARCHAR(255), LogLevel VARCHAR(30), LogCategory VARCHAR(30), Date_Time DateTime)";
             var conn = new SqlConnection(connStr);
             using (SqlCommand command = new SqlCommand(AccountsStr, conn))
             {
@@ -34,7 +34,7 @@ namespace WebAppMVC.Development
         
         public bool buildVerifyCodes(string connStr)
         {
-            var AccountsStr = "If not exists (select name from sysobjects where name = 'VerifyCodes') CREATE TABLE VerifyCodes ( username VARCHAR(30) NOT NULL, " +
+            var AccountsStr = "If not exists (select name from sysobjects where name = 'VerifyCodes') CREATE TABLE VerifyCodes ( username VARCHAR(30), " +
                 "CodeDate DateTime, code VARCHAR(40), codeType VARCHAR(30))";
             var conn = new SqlConnection(connStr);
             using (SqlCommand command = new SqlCommand(AccountsStr, conn))
@@ -47,7 +47,7 @@ namespace WebAppMVC.Development
         
         public bool buildFailedAttempts(string connStr)
         {
-            var AccountsStr = "If not exists (select name from sysobjects where name = 'FailedAttempts') CREATE TABLE FailedAttempts ( Username VARCHAR(30) NOT NULL, Attempts int, Date_Time DateTime)";
+            var AccountsStr = "If not exists (select name from sysobjects where name = 'FailedAttempts') CREATE TABLE FailedAttempts ( Username VARCHAR(30) , Attempts int, Date_Time DateTime)";
             var conn = new SqlConnection(connStr);
             using (SqlCommand command = new SqlCommand(AccountsStr, conn))
             {
@@ -59,7 +59,7 @@ namespace WebAppMVC.Development
         
         public bool buildRecovery(string connStr)
         {
-            var RecoverysStr = "If not exists (select name from sysobjects where name = 'Recovery') CREATE TABLE Recovery ( Username VARCHAR(30) NOT NULL," +
+            var RecoverysStr = "If not exists (select name from sysobjects where name = 'Recovery') CREATE TABLE Recovery ( Username VARCHAR(30) ," +
                 " email varchar(100), recoveryAttempt DateTime, primary key (username, recoveryAttempt))";
             var conn = new SqlConnection(connStr);
             using (SqlCommand command = new SqlCommand(RecoverysStr, conn))
@@ -165,7 +165,7 @@ namespace WebAppMVC.Development
 
         public bool buildDiet(string connStr)
         {
-            var RecoveryStr = "If not exists (select name from sysobjects where name = 'Diet')" + "CREATE TABLE Diet ( Diet VARCHAR(30), Health VARCHAR(30), Ingr Int, DishType VARCHAR(30),Calories int, CuisineType VARCHAR(30), Excluded VARCHAR(30), MealType VARCHAR(30))";
+            var RecoveryStr = "If not exists (select name from sysobjects where name = 'Diet')" + "CREATE TABLE Diet (Username VARCHAR(30), Diet VARCHAR(30), Health VARCHAR(30), Ingr Int, DishType VARCHAR(30),Calories int, CuisineType VARCHAR(30), Excluded VARCHAR(30), MealType VARCHAR(30))";
             var conn = new SqlConnection(connStr);
             using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
             {
@@ -177,7 +177,18 @@ namespace WebAppMVC.Development
 
 
         }
+        public bool buildFavoriteRecipe(string connStr)
+        {
+            var RecoveryStr = "If not exists (select name from sysobjects where name = 'FavoriteRecipe')" + "CREATE TABLE FavoriteRecipe (Username VARCHAR(30), Recipe_id VARCHAR(255), DateAdded DateTime)";
+            var conn = new SqlConnection(connStr);
+            using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
+            {
+                conn.Open();
+                command.ExecuteNonQuery();
+            }
+            return false; 
 
+        }
 
 
 
@@ -201,18 +212,9 @@ namespace WebAppMVC.Development
 
 
 
-
-
-
-
-
-
-
-
-
         public bool buildFoodLog(string connStr)
         {
-            var RecoveryStr = "If not exists (select name from sysobjects where name = 'FoodLog') CREATE TABLE FoodLog (Username  VARCHAR(100), FoodName VARCHAR(100), Description  VARCHAR(255), Calories float, FoodLogDate DateTime,Carbs float, Protein float, Fat float, DateAdded DateTime,  Id INT IDENTITY(1,1) )";
+            var RecoveryStr = "If not exists (select name from sysobjects where name = 'FoodLog') CREATE TABLE FoodLog (Username  VARCHAR(30), FoodName VARCHAR(100), Description  VARCHAR(255), Calories float, FoodLogDate DateTime,Carbs float, Protein float, Fat float, DateAdded DateTime,  Id INT IDENTITY(1,1) )";
             var conn = new SqlConnection(connStr);
             using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
             {
@@ -224,10 +226,6 @@ namespace WebAppMVC.Development
 
 
         }
-
-
-
-
 
         public bool buildWeightGoalImageDB(string connStr)
         {
@@ -240,18 +238,20 @@ namespace WebAppMVC.Development
             }
             return false;
 
-
-
         }
 
+        public bool buildNutritionAnalysis(string connStr)
+        {
+            var NutritionAnalysis = "If not exists (select name from sysobjects where name = 'NutritionAnalysis')" + "CREATE TABLE NutritionAnalysis (Username VARCHAR(30), ingr VARCHAR(500))";
+            var conn = new SqlConnection(connStr);
+            using (SqlCommand command = new SqlCommand(NutritionAnalysis, conn))
+            {
+                conn.Open();
+                command.ExecuteNonQuery();
+            }
+            return false;
 
-
-
-
-
-
-
-
+        }
 
 
 
@@ -266,7 +266,7 @@ namespace WebAppMVC.Development
             using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
             {
                 conn.Open();
-                command.ExecuteScalar();
+                //command.ExecuteScalar();
             }
             return false;
 

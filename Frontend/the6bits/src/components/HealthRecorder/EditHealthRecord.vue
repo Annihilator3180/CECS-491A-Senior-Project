@@ -24,16 +24,32 @@
 
 export default {
     name: 'EditMedicalRecords',
+    created(){
+      this.EditMedicalRecords(),
+      window.setInterval(() => {this.timer += 1}, 1000)
+    },
     data(){
        return{
            oldRecordName : null,
            newRecordName: null,
            categoryName:null,
            files:[null],
-           oldRecord:[]
+           oldRecord:[],
+           timer : 0
        }
    },
+    beforeUnmount(){
+       this.TimerTime(),
+       this.timer = 0
+   },
    methods:{
+     TimerTime(){
+            const requestOptions = {
+                method: "post",
+                headers: { "Content-Type": "application/json"}
+            };
+            fetch(process.env.VUE_APP_BACKEND+'Account/ViewTime?time='+this.timer+'&view=Edit+Health+Record',requestOptions)
+        },
    LoadMedicalRecord(lastRecordIndex){
            this.GetRecord(lastRecordIndex).then(value =>{
            this.MedicalRecords = value.records;

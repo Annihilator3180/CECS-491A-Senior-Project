@@ -41,7 +41,7 @@
             this.timer = 0
         },
         createdd: function () {
-        this.GetFavorites();
+            this.GetFavorites();
         },
         methods: {
             TimerTime() {
@@ -58,6 +58,7 @@
                     credentials: "include",
                     headers: { "Authorization": `Bearer ${sessionStorage.getItem('token')}` }
                     
+
                 };
                 fetch(
                     process.env.VUE_APP_BACKEND+ 'DietRecommendation/GetRecipes',
