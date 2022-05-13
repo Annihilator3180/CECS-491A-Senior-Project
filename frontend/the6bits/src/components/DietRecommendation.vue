@@ -128,6 +128,12 @@
 
     export default {
         name: "DietRecommendation",
+        created() {
+            this.FavoriteDrugListPost(),
+                window.setInterval(() => {
+                    this.timer += 1
+                }, 1000)
+        },
         data() {
             return {
                 filters: {
@@ -150,10 +156,23 @@
                 message: "",
                 allRecipes: [],
                 loadedRecepies: [],
-                favRecipes: []
+                favRecipes: [],
+                timer: 0
+
             };
         },
+        beforeUnmount() {
+            this.TimerTime(),
+                this.timer = 0
+        },
         methods: {
+            TimerTime() {
+                const requestOptions = {
+                    method: "post",
+                    headers: { "Content-Type": "application/json", }
+                };
+                fetch(process.env.VUE_APP_BACKEND + 'Account/ViewTime?time=' + this.timer + '&view=Diet+Recommendation', requestOptions)
+            },
             filterResults() {
                 this.loadedRecepies = [];
                 if (this.filters.mealType == "" && this.filters.health == "") {

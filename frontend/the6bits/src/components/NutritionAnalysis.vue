@@ -16,16 +16,32 @@
 <script>
 
 export default {
-  name: "NutritionAnalysis",
+ name: "NutritionAnalysis",
+ created() {
+ this.NutritionAnalysis(),
+ window.setInterval(() => {this.timer += 1 }, 1000)
+        },
   data() {
     return {
       formData: {
         ingr: "",
       },
       msg: "",
-    };
+      timer: 0
+    }
+        },
+  beforeUnmount() {
+  this.TimerTime(),
+  this.timer = 0
   },
-  methods: {
+   methods: {
+   TimerTime() {
+   const requestOptions = {
+   method: "post",
+   headers: { "Content-Type": "application/json", }
+   };
+   fetch(process.env.VUE_APP_BACKEND + 'Account/ViewTime?time=' + this.timer + '&view=Nutrition+Analysis', requestOptions)
+   },
 
     NutritionAnalysis() {
       var ingredientsArray = this.formData.ingr.split("\n");
