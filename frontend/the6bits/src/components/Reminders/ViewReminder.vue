@@ -18,7 +18,9 @@
     export default {
         name : 'ViewReminder',
         created(){
-            this.TrackerPost()
+            this.ViewReminder(),
+            window.setInterval(() => { this.timer+=1}
+            , 100)
         },
         data() {
         return {
@@ -26,10 +28,22 @@
                 userId: '',
             },
             message : '',
-            reminderID : ''
+            reminderID : '',
+            time:0
         }
     },
+    beforeUnmount(){
+        this.TimerTime(),
+        this.timer = 0
+    },
     methods:{
+        TimerTime(){
+            const requestOptions = {
+                method: "post",
+                headers: { "Content-Type": "application/json",}
+            };
+            fetch(process.env,VUE_APP_BACKEND+'Account/ViewTime?time=' + this.timer + '&view=View+Reminder', requestOptions)
+        },
         TrackerPost(){
             const requestOptions = {
                 method: "POST",

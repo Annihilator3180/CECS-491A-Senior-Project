@@ -20,16 +20,33 @@
 <script>
     export default {
         name : 'DeleteReminder',
+        created(){
+            this.DeleteReminder(),
+            window.setInterval(() => { this.timer+=1}
+            , 100)
+        },
         data() {
         return {
             formData :{ 
                 userId: '',
             },
             message : '',
-            reminderID : ''
+            reminderID : '',
+            timer:0
         }
     },
+    beforeUnmount(){
+        this.TimerTime(),
+        this.timer = 0
+    },
     methods:{
+        TimerTime(){
+            const requestOptions = {
+                method: "post",
+                headers: { "Content-Type": "application/json",}
+            };
+            fetch(process.env,VUE_APP_BACKEND+'Account/ViewTime?time=' + this.timer + '&view=Delete+Reminder', requestOptions)
+        },
         TrackerPost(){
             const requestOptions = {
                 method: "POST",
