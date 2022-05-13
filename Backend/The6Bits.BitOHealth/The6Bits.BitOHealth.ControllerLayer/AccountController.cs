@@ -201,10 +201,10 @@ public class AccountController : ControllerBase
 
 
     [HttpPost("Register")]
-    public string CreateAccount(User user, String url)
+    public string CreateAccount(User user)
     {
         
-        string creationStatus = _AccountManager.CreateAccount(user,url);
+        string creationStatus = _AccountManager.CreateAccount(user);
         if (creationStatus.Contains("Database"))
         {
             _= logService.Log(user.Username, "Registration- " + creationStatus, "Data Store", "Error");
