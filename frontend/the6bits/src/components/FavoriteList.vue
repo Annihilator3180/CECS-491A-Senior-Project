@@ -17,6 +17,7 @@
         <button @click = "$router.push({name:'EditDrug',params:{id: f.brand_name}})">Edit Favorite</button>
         </tr> 
         {{formData.ViewFavoriteRequest.data?.length}}/100
+        {{timer}}
           </div>
     </div>
 
@@ -26,8 +27,10 @@
     export default {
         name: 'FavoriteDrugListPost',
         created(){
-            this.FavoriteDrugListPost()
-        },
+            this.FavoriteDrugListPost(),
+            window.setInterval(() => { this.timer+=1
+  }, 1000)
+},
         data() {
         return {
             formData :{
@@ -35,9 +38,22 @@
                 ViewFavoriteRequest: [],
             },
             message : '',
+            timer:0
         }
+        },
+    
+    beforeUnmount(){
+            this.TimerTime(),
+            this.timer=0
     },
     methods:{
+        TimerTime(){
+            const requestOptions = {
+                method: "post",
+                headers: { "Content-Type": "application/json",}
+            };
+            fetch(process.env.VUE_APP_BACKEND+'Account/ViewTime?time='+this.timer+'&view=Favorite+Drug+List',requestOptions)
+        },
          FavoriteDrugListPost(){
             const requestOptions = {
                 method: "post",

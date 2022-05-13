@@ -90,7 +90,7 @@ namespace WebAppMVC.Development
 
         public bool buildTrackerLogs(string connStr)
         {
-            var RecoveryStr = "If not exists (select name from sysobjects where name = 'TrackerLogs') CREATE TABLE TrackerLogs ( count int, dateTime VARCHAR(30), logType VARCHAR(30))";
+            var RecoveryStr = "If not exists (select name from sysobjects where name = 'TrackerLogs') CREATE TABLE TrackerLogs ( count int, dateTime date, logType VARCHAR(30))";
             var conn = new SqlConnection(connStr);
             using (SqlCommand command = new SqlCommand(RecoveryStr, conn))
             {
@@ -131,6 +131,38 @@ namespace WebAppMVC.Development
 
 
         }
+
+        public bool buildViewTime(string connStr)
+        {
+            var FavoriteStr = "If not exists (select name from sysobjects where name = 'viewTime') " +
+                "CREATE TABLE viewTime (viewName VARCHAR(50), occurences int, seconds float)";
+            var conn = new SqlConnection(connStr);
+            using (SqlCommand command = new SqlCommand(FavoriteStr, conn))
+            {
+                conn.Open();
+                command.ExecuteNonQuery();
+            }
+            return false;
+
+
+
+        }
+        public bool buildSearchAnalysis(string connStr)
+        {
+            var FavoriteStr = "If not exists (select name from sysobjects where name = 'searchAnalysis') " +
+                "CREATE TABLE searchAnalysis (itemSearched VARCHAR(100), occurences int, AnalysisType VARCHAR(50))";
+            var conn = new SqlConnection(connStr);
+            using (SqlCommand command = new SqlCommand(FavoriteStr, conn))
+            {
+                conn.Open();
+                command.ExecuteNonQuery();
+            }
+            return false;
+
+
+
+        }
+
         public bool buildDiet(string connStr)
         {
             var RecoveryStr = "If not exists (select name from sysobjects where name = 'Diet')" + "CREATE TABLE Diet (Username VARCHAR(30), Diet VARCHAR(30), Health VARCHAR(30), Ingr Int, DishType VARCHAR(30),Calories int, CuisineType VARCHAR(30), Excluded VARCHAR(30), MealType VARCHAR(30))";
@@ -174,7 +206,7 @@ namespace WebAppMVC.Development
             return false;
 
         }
-
+       
 
 
 

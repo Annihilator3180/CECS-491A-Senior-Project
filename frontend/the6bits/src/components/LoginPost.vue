@@ -57,6 +57,7 @@
                 .then(data=> {
                     if(data.split('.').length == 3){
                         sessionStorage.setItem('token', data)
+                        this.$router.push({name:'home'})
                         this.message = "Logged In."
                     }
                     })

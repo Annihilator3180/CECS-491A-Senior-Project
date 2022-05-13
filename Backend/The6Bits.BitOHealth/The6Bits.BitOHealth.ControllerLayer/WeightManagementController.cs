@@ -130,7 +130,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
                     //USER ERROR
                     if (res.UserError is true) return BadRequest(res.Result);
 
-
+                    _ = _logService.searchTracker(queryString, "food");
                     return Ok(res.Result);
                 }
                 catch (Exception ex)

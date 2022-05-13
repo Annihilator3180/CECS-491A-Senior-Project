@@ -44,6 +44,7 @@ public class MedicationManager
             return drugResponse;
         }
         _ =_log.Log(username, "Searched for"+ drugName, "Front End", "Business");
+        _ = _log.searchTracker(drugName,"drug");
         drugResponse.success = true;
         drugResponse.data = drugNames;
         return drugResponse;

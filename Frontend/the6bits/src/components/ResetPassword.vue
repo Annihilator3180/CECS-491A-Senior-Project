@@ -21,8 +21,8 @@
     return {
       formData : {
         password: '',
-        username: this.$route.query.username,
-        randomString: this.$route.query.randomString
+        username: this.$route.params.id,
+        randomString: this.$route.params.token
       },
       message:"",
     }

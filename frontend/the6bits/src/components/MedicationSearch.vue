@@ -23,6 +23,11 @@
 <script>
     export default {
         name: 'MedSearch',
+        created(){
+        this.FavoriteDrugListPost(),
+        window.setInterval(() => { this.timer+=1
+        }, 1000)
+    },
         data() {
         return {
             drugName:"",
@@ -31,9 +36,21 @@
                
             },
              message : '',
+             timer : 0
         }
     },
+    beforeUnmount(){
+            this.TimerTime(),
+            this.timer=0
+    },
     methods:{
+        TimerTime(){
+            const requestOptions = {
+                method: "post",
+                headers: { "Content-Type": "application/json",}
+            };
+            fetch(process.env.VUE_APP_BACKEND+'Account/ViewTime?time='+this.timer+'&view=Medication+Search',requestOptions)
+        },
         FindDrug(){
             const requestOptions = {
                 method: "get",
