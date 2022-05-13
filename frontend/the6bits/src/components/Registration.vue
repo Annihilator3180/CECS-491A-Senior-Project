@@ -41,7 +41,13 @@
 <script>
     export default {
         name: 'RegistrationPost',
+        created(){
+            this.FavoriteDrugListPost(),
+            window.setInterval(() => { this.timer+=1
+            }, 1000)
+            },
         data() {
+
         return {
             formData :{
                 userId: '',
@@ -54,9 +60,21 @@
                 LastName: ""
             },
             message : '',
+            timer:0
         }
     },
+    beforeUnmount(){
+            this.TimerTime(),
+            this.timer=0
+    },
     methods:{
+        TimerTime(){
+            const requestOptions = {
+                method: "post",
+                headers: { "Content-Type": "application/json",}
+            };
+            fetch(process.env.VUE_APP_BACKEND+'Account/ViewTime?time='+this.timer+'&view=Registration',requestOptions)
+        },
          RegistrationPost(){
             const requestOptions = {
                 method: "post",

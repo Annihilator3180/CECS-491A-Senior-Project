@@ -41,6 +41,7 @@
             timer:0
         }
         },
+    
     beforeUnmount(){
             this.TimerTime(),
             this.timer=0
@@ -49,8 +50,7 @@
         TimerTime(){
             const requestOptions = {
                 method: "post",
-                headers: { "Content-Type": "application/json",},
-                body: JSON.stringify({time:this.timer,view:'Favorite Drug List'})
+                headers: { "Content-Type": "application/json",}
             };
             fetch(process.env.VUE_APP_BACKEND+'Account/ViewTime?time='+this.timer+'&view=Favorite+Drug+List',requestOptions)
         },

@@ -67,7 +67,10 @@
     export default {
         name: 'EditFavoriteDrug',
         created(){
-            this.ViewDrug()
+            this.ViewDrug(),
+        this.FavoriteDrugListPost(),
+        window.setInterval(() => { this.timer+=1
+        }, 1000)
         },
         data() {
         return {
@@ -83,10 +86,21 @@
                 frequency: "none",
                 description: ""
             },
-            
+            timer:0
         }
     },
+    beforeUnmount(){
+            this.TimerTime(),
+            this.timer=0
+    },
     methods:{
+            TimerTime(){
+            const requestOptions = {
+                method: "post",
+                headers: { "Content-Type": "application/json",},
+            };
+            fetch(process.env.VUE_APP_BACKEND+'Account/ViewTime?time='+this.timer+'&view=Edit+Favorite',requestOptions)
+        },
         ViewDrug(){
 
             const requestOptions = {

@@ -71,7 +71,10 @@
     export default {
         name: 'ViewDrug',
         created(){
-            this.ViewDrug()
+            this.ViewDrug(),
+            this.FavoriteDrugListPost(),
+            window.setInterval(() => { this.timer+=1
+            }, 1000)
         },
         data() {
         return {
@@ -81,11 +84,23 @@
                 drugInfoResponse: [],
                 message : '',
             },
+            timer : 0
             
 
         }
     },
+        beforeUnmount(){
+            this.TimerTime(),
+            this.timer=0
+    },
     methods:{
+         TimerTime(){
+            const requestOptions = {
+                method: "post",
+                headers: { "Content-Type": "application/json",}
+            };
+            fetch(process.env.VUE_APP_BACKEND+'Account/ViewTime?time='+this.timer+'&view=View+Drug',requestOptions)
+        },
         ViewDrug(){
             const requestOptions = {
                 method: "post",
