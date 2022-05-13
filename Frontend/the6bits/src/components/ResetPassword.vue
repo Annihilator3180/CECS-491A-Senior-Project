@@ -17,6 +17,9 @@
 
   export default{
     name : 'PasswordReset',
+    created(){
+      window.setInterval(() => {this.timer += 1}, 1000)
+    },
     data(){
     return {
       formData : {
@@ -25,9 +28,21 @@
         randomString: this.$route.params.token
       },
       message:"",
+      timer : 0
     }
   },
+  beforeUnmount(){
+       this.TimerTime(),
+       this.timer = 0
+   },
   methods:{
+    TimerTime(){
+            const requestOptions = {
+                method: "post",
+                headers: { "Content-Type": "application/json"}
+            };
+            fetch(process.env.VUE_APP_BACKEND+'Account/ViewTime?time='+this.timer+'&view=Password+Reset',requestOptions)
+        },
     PasswordReset(){
       const requestOptions = {
         method: "POST",
