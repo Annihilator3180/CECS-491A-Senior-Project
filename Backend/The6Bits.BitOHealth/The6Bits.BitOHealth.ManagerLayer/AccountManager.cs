@@ -303,15 +303,15 @@ public class AccountManager
         return _AS.DeclineEULA(username);
     }
 
-    public string CreateAccount(User user, string url)
+    public string CreateAccount(User user)
     {
         if (_AS.ValidateEmail(user.Email) == false)
         {
-            return "Invalid Email";
+            return "Account creation error. Retry again or contact system administrator";
         }
         else if (_AS.ValidatePassword(user.Password) == false)
         {
-            return "Invalid Password";
+            return "Account creation error. Retry again or contact system administrator";
         }
         string validUsername = _AS.CreateTempUserName();
         if (validUsername[0] != ',')
@@ -325,11 +325,10 @@ public class AccountManager
         {
             return unactivated;
         }
-        String sentCode = _AS.VerifyEmail(user.Username, user.Email, DateTime.Now, url);
+        String sentCode = _AS.VerifyEmail(user.Username, user.Email, DateTime.Now);
         if (sentCode != "True")
         {
             _AS.EmailFailed(user);
-            return sentCode;
         }
         return "Email Pending Confirmation";
 
