@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory, createWebHistory, RouteRecordRaw } from 'vue-router'
-import homeShit from '@/components/Home.vue'
+import HomeHome from '@/components/Home.vue'
 import LoginPost from '@/components/LoginPost.vue'
 import OTPPost from '@/components/OneTimePass.vue'
 import UM from '@/components/UM.vue'
@@ -32,7 +32,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'home',
-    component: homeShit
+    component: HomeHome
   },
   {
     path: '/login',

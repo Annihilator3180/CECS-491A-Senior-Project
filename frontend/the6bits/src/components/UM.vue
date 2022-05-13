@@ -16,11 +16,19 @@ import UMUsername from './UMComponents/UMUsername.vue'
 
 export default {
   name: 'UM',
+  created(){
+    window.setInterval(()=>{this.timer+=1}, 1000)
+  },
+  beforeUnmount(){
+    this.TimerTime(),
+    this.timer=0
+  },
   data() {
         return {
             file: '',
             FoodLogs : [],
-            message :''
+            message :'',
+            timer:0
         }
     },
   components: {
@@ -60,6 +68,13 @@ export default {
         handleFileUpload(){
         //references the file object based on input from html
         this.file = this.$refs.file.files[0];
+      },
+      TimerTime(){
+        const requestOptions = {
+          method:"post",
+          headers: {"Content-Type": "application/json"},
+        };
+        fetch(process.ENV.VUE_APP_BACKEND+'Account/ViewTime?time='+this.timer+'&view=UM', requestOptions)
       }
   }
 }

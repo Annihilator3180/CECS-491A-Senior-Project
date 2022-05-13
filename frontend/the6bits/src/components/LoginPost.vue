@@ -24,6 +24,13 @@
 <script>
     export default {
         name : 'LoginPost',
+        created(){
+            window.setInterval(()=>{this.timer+=1}, 1000)
+        },
+        beforeUnmount(){
+            this.TimerTime(),
+            this.timer=0
+        },
         data() {
         return {
             formData :{ 
@@ -33,7 +40,8 @@
             },
             passGood:false,
             message:'',
-            otpMessage:''
+            otpMessage:'',
+            timer:0,
         }
     },
     methods:{
@@ -69,7 +77,15 @@
                     this.otpMessage = data
 
                     })
-        }
+        },
+        TimerTime(){
+        const requestOptions = {
+          method:"post",
+          headers: {"Content-Type": "application/json"},
+        };
+        fetch(process.ENV.VUE_APP_BACKEND+'Account/ViewTime?time='+this.timer+'&view=Login', requestOptions)
+      }
+    
     }
 }
 </script>
