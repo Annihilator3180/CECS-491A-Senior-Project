@@ -238,7 +238,7 @@ public class AccountManager
 
         string checkPassword = _AS.CheckPassword(username, password);
 
-        if (checkPassword != "valid")
+        if (checkPassword != "credentials found")
         {
             return "Invalid username or password provided. Retry again or contact system admin";
         }
@@ -246,7 +246,7 @@ public class AccountManager
         //GEN CODE
         Random rnd = new Random();
         string code = "";
-        var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
+        var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz.,@!";
 
         foreach (var i in Enumerable.Range(0, 10))
         {
