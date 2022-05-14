@@ -468,10 +468,14 @@ public class AccountManager
                 return validateOTP;
 
             }
+            else
+            {
+                return "Invalid Reset Link";
+            }
             
         }
         string sameDay = _AS.VerifySameDay(username, randomString);
-        if (sameDay != "1")
+        if (sameDay != "same day")
         {
             return sameDay;
         }
@@ -485,6 +489,10 @@ public class AccountManager
         if (reset.Contains("Database"))
         {
             return reset;
+        }
+        string deleteOTP = _AS.DeletePastOTP(username, "Recovery");
+        if (deleteOTP.Contains("Database")){
+            return deleteOTP;
         }
         return "Account Recovery Completed Successfully";
 

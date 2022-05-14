@@ -789,7 +789,11 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 {
                     conn.Open();
                     int time = conn.ExecuteScalar<int>(query, new { Username = username, Code = code });
-                    return time.ToString();
+                    if (time == 1)
+                    {
+                        return "same day";
+                    }
+                    return "Expired Link";
                 }
             }
             catch (SqlException e)
