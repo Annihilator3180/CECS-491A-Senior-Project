@@ -24,7 +24,6 @@
     export default {
         name: 'MedSearch',
         created(){
-        this.FavoriteDrugListPost(),
         window.setInterval(() => { this.timer+=1
         }, 1000)
     },

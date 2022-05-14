@@ -112,8 +112,14 @@ namespace The6Bits.BitOHealth.ControllerLayer
                     return "InvalidClaims";
                 }
 
+                if (username == "bossadmin12")
+                {
+                    return "Cannot delete user.";
+                }
+
 
                 string res = _UMM.DeleteAccount(username);
+
 
                 if (res != "username exists")
                 {

@@ -4,9 +4,10 @@
     
     <router-link to="/">Home</router-link> |
     <router-link :to="{ name: 'login' }">login</router-link> |
-    <router-link :to="{ name: 'otp' }">otp</router-link> |
     <router-link :to="{ name: 'AccountRecovery' }">Account Recovery</router-link>|
     <router-link :to="{ name: 'Registration' }"> Registration</router-link> |
+    <router-link :to="{name: 'FAQ'}">FAQ</router-link>
+
     </nav>
     <router-view />
     </div>
@@ -38,8 +39,7 @@
     <router-link :to="{name: 'logout'}"> Log Out </router-link>|
     <router-link :to ="{name: 'HealthRecorderHome'}"> HealthRecorderHome </router-link> |
       <router-link :to="{name: 'NutritionAnalysis'}"> Nutrition Analysis</router-link>|
-      <router-link :to="{name: 'RecipeFavorite'}"> RecipeFavorite </router-link>
-
+      <router-link :to="{name: 'RecipeFavorite'}"> RecipeFavorite </router-link>|
 
 
 
