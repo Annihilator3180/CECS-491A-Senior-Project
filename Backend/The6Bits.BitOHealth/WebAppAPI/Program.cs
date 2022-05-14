@@ -75,6 +75,7 @@ builder.Services.AddScoped<IHashDao>(provider=> new MsSqlHashDao(connstring));
 builder.Services.AddScoped<IRepositoryNutritionAnalysis, NutritionAnalysisMsSqlDao>(provider => new NutritionAnalysisMsSqlDao(connstring));
 builder.Services.AddScoped<IRepositoryBMICalculator, BMICalculatorMsSqlDao>(provider => new BMICalculatorMsSqlDao(connstring));
 
+builder.Services.AddSingleton<ILogDal>(provider => new SQLLogDAO(){_connectString =  connstring});
 
 
 //Weight Management
@@ -136,7 +137,8 @@ recoveryReset.ResetRecovery(connstring);
     b.buildWeightGoalImageDB(connstring);
     b.buildFavoriteRecipe(connstring);
     b.buildNutritionAnalysis(connstring);
-    //app.UseSwagger();
+    b.buildLogDB(connstring);
+//app.UseSwagger();
     //app.UseSwaggerUI();
 
 
