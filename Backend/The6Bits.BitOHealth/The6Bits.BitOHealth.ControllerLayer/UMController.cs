@@ -314,12 +314,12 @@ namespace The6Bits.BitOHealth.ControllerLayer
                     var arr = line.Split(' ');
                     if (line.Contains("create"))
                     {
-                        _UMM.CreateAccount(new User(arr[1], arr[2], arr[3], arr[4], arr[5], Int32.Parse(arr[6]), Int32.Parse(arr[7]), Int32.Parse(arr[7])));
+                        _UMM.CreateAccount(new User(arr[1], arr[2], arr[3], arr[4], arr[5], Int32.Parse(arr[6]), Int32.Parse(arr[7]), Int32.Parse(arr[8])));
                     }
 
                     if (line.Contains("update"))
                     {
-                        _UMM.UpdateAccount(new User(arr[1], arr[2], arr[3], arr[4], arr[5], Int32.Parse(arr[6]), Int32.Parse(arr[7]), Int32.Parse(arr[7])));
+                        _UMM.UpdateAccount(new User(arr[1], arr[2], arr[3], arr[4], arr[5], Int32.Parse(arr[6]), Int32.Parse(arr[7]), Int32.Parse(arr[8])));
 
                     }
 

@@ -102,7 +102,7 @@ label {
   display: inline;
   margin: 30px;
   padding: 7px 35px;
-  font: 300 150% langdon;
+  font: 300 1 150% langdon;
   border: 3px solid black;
   cursor: pointer;
 } 
