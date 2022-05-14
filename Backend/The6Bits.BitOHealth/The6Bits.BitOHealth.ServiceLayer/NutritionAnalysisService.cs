@@ -35,11 +35,17 @@ namespace The6Bits.BitOHealth.ServiceLayer
         }
         public async Task<object> GetNutritionAnalysis(Ingredients responses)
         {
+            try
+            {
+                var helper = new EdmamAPIHelper();
 
-            var helper = new EdmamAPIHelper();
-
-            var result = await helper.GetNutritionAnalysis(responses);
-            return result;
+                var result = await helper.GetNutritionAnalysis(responses);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
 
         }
 

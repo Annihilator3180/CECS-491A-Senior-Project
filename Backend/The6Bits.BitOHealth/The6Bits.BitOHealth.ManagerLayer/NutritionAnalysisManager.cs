@@ -30,15 +30,27 @@ namespace The6Bits.BitOHealth.ManagerLayer
         }
         public string SaveRecipeRespones(string username, Ingredients ingredients)
         {
-            return _NAS.SaveRecipeResponse(username, ingredients);
+            try
+            {
+                return _NAS.SaveRecipeResponse(username, ingredients);
+
+            }catch (Exception ex)
+            {
+                return ex.Message;
+            }
         }
 
 
 
         public async Task<object> GetNutritionAnalysis(Ingredients responses)
         {
-            var result = await _NAS.GetNutritionAnalysis(responses);
-            return result;
+            try
+            {
+                return await _NAS.GetNutritionAnalysis(responses);
+            }catch(Exception ex)
+            {
+                return ex.Message;
+            }
 
         }
 
