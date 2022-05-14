@@ -325,7 +325,7 @@ public class AccountManager
         {
             return unactivated;
         }
-        String sentCode = _AS.VerifyEmail(user.Username, user.Email, DateTime.Now);
+        String sentCode = _AS.VerifyEmail(user.Username, user.Email, DateTime.Now, "");
         if (sentCode != "True")
         {
             _AS.EmailFailed(user);
