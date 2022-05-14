@@ -56,13 +56,17 @@
       };
       fetch(process.env.VUE_APP_BACKEND+'Account/Recovery',requestOptions)
       
-                .then((response) => {
-                   return response.json();
+                .then(response => response.json()) 
+                .then (data =>{
+          
+                  if (data.errorMessage != null){
+                    window.alert(data.errorMessage)
+                  }
+                  else{
+                    window.alert(data.data)
+                  }
+
                 })
-                .then ((myJson) => {
-                  console.log(myJson)
-                  window.alert(myJson)
-                });
     }
   }
 }

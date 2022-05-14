@@ -303,15 +303,15 @@ public class AccountManager
         return _AS.DeclineEULA(username);
     }
 
-    public string CreateAccount(User user, string url)
+    public string CreateAccount(User user)
     {
         if (_AS.ValidateEmail(user.Email) == false)
         {
-            return "Invalid Email";
+            return "Account creation error. Retry again or contact system administrator";
         }
         else if (_AS.ValidatePassword(user.Password) == false)
         {
-            return "Invalid Password";
+            return "Account creation error. Retry again or contact system administrator";
         }
         string validUsername = _AS.CreateTempUserName();
         if (validUsername[0] != ',')
@@ -325,11 +325,10 @@ public class AccountManager
         {
             return unactivated;
         }
-        String sentCode = _AS.VerifyEmail(user.Username, user.Email, DateTime.Now, url);
+        String sentCode = _AS.VerifyEmail(user.Username, user.Email, DateTime.Now);
         if (sentCode != "True")
         {
             _AS.EmailFailed(user);
-            return sentCode;
         }
         return "Email Pending Confirmation";
 
@@ -469,10 +468,14 @@ public class AccountManager
                 return validateOTP;
 
             }
+            else
+            {
+                return "Invalid Reset Link";
+            }
             
         }
         string sameDay = _AS.VerifySameDay(username, randomString);
-        if (sameDay != "1")
+        if (sameDay != "same day")
         {
             return sameDay;
         }
@@ -486,6 +489,10 @@ public class AccountManager
         if (reset.Contains("Database"))
         {
             return reset;
+        }
+        string deleteOTP = _AS.DeletePastOTP(username, "Recovery");
+        if (deleteOTP.Contains("Database")){
+            return deleteOTP;
         }
         return "Account Recovery Completed Successfully";
 
