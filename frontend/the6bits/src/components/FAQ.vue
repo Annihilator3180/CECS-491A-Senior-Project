@@ -26,8 +26,10 @@
         </text>
     <H2>Account Recovery</H2>
         <text>
-        Q: "How do i recover my account if i lost my password or if my account is disabled?" A:make sure you're logged out and navigate to the account recovery tab to recover your account<br/>
-        Q: "Why can't I recover my account anymore?" A:  we have a limit of 5 account recoveries per month. At the end of the month, this will reset and you can recover your account once again<br/>
+        Q: "How do I recover my account if I lost my password or if my account is disabled?" A: Make sure you're logged out and navigate to the account recovery tab to recover your account<br/>
+        Q: "Why can't I recover my account anymore?" A: We have a limit of 5 account recoveries per month. At the end of the month, this will reset and you can recover your account once again<br/>
+        Q: "What if I forgot my email or username" A: Currently working on addressing this but as of now please contact an administrator for further support <br/>
+
         </text>
     <H2>Reminders</H2>
         <text>
