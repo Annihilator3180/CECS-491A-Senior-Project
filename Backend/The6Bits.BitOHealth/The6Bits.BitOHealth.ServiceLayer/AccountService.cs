@@ -631,11 +631,11 @@ namespace The6Bits.BitOHealth.ServiceLayer
         {
 
             string sd = _AD.VerifySameDay(username, code);
-            if (sd != "1")
+            if (sd == "same day" || sd == "Invalid Reset Link")
             {
-                return _DBErrors.DBErrorCheck(int.Parse(sd));
+                return sd;
             }
-            return sd;
+            return _DBErrors.DBErrorCheck(int.Parse(sd));
 
         }
         public string ResetPassword(string password, string username)

@@ -50,8 +50,17 @@
       };
       fetch(process.env.VUE_APP_BACKEND+'Account/ResetPassword?randomString=' + this.formData.randomString + '&username=' + this.formData.username + '&password=' +  this.formData.password,requestOptions)
       
-              .then(response =>  response.text())
-              .then(body => this.message = body) 
+              .then(response => response.json()) 
+                .then (data =>{
+          
+                  if (data.errorMessage != null){
+                    this.message = data.errorMessage
+                  }
+                  else{
+                    this.message = data.data
+                  }
+
+                })
                  }
   
   }
