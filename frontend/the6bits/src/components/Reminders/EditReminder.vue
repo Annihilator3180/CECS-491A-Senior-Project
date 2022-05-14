@@ -28,7 +28,7 @@
                 <input type="text" id="userId" v-model ="repeat" placeholder="repeat"/>
                 </div>
                 <div >
-                <button @click = "TrackerPost">Edit</button>
+                <button @click = "TrackerPost">Edit/View all</button>
             </div>
             
             
