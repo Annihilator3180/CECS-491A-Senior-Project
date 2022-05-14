@@ -99,7 +99,7 @@ public class AccountManager
             else
             {
                 //still disabled
-                return isenabled;
+                return "Account disabled. Perform account recovery or contact system admin";
             }
 
         }
@@ -113,11 +113,11 @@ public class AccountManager
             string deletePastOtp = _AS.DeletePastOTP(acc.Username, "OTP");
         }
 
-        acc.Password = _hash.HashAndSalt(acc.Password, _hash.GetSalt(acc.Username));
-
-        string checkPassword = _AS.CheckPassword(acc.Username, acc.Password);
+       
         
-        if (otp != "valid" || checkPassword != "credentials found")
+
+        //IMPLEMENTATION OF FAILED ATTEMPTS
+        if (otp != "valid" )
         {
             //UPDATE FAILED ATTEMPT
             string attempts = _AS.CheckFailedAttempts(acc.Username);
@@ -147,7 +147,7 @@ public class AccountManager
                         string disabled = _AS.UpdateIsEnabled(acc.Username, 0);
                         if (disabled == "account updated")
                         {
-                            return "account disabled";
+                            return "Account disabled. Perform account recovery or contact system admin";
                         }
                         //db error 
                         return disabled;
@@ -169,37 +169,51 @@ public class AccountManager
 
             //DB ERRORS && INVALID PASS AND OTP RETURN
 
-            return otp != "valid" ? otp : checkPassword;
+            return otp ;
         }
         AuthorizationService authentication = new AuthorizationService(new MsSqlRoleAuthorizationDao(_config.GetConnectionString("DefaultConnection")));
 
         return _auth.generateToken(acc.Username,authentication.getClaims(acc.Username));
     }
 
-    public string VerifyAccount(string code, string username)
+    public verifyResponse VerifyAccount(string code, string username)
     {
+        verifyResponse response = new verifyResponse();
         String StoredCode = _AS.VerifyAccount(username);
         if (StoredCode.Contains("Database"))
         {
-            return _iDBErrors.DBErrorCheck(int.Parse(StoredCode));
+            response.isSuccess = 0;
+            response.ErrorMessage= StoredCode;
+            return response;
         }
         if (code != StoredCode)
         {
             _= _AS.DeleteCode(username, "Registration");
-            return "Invalid Code";
+            response.isSuccess = 0;
+            response.ErrorMessage = "Invalid Code";
+            return response;
         }
         String DateCheck = _AS.VerifySameDay(code, username, DateTime.Now);
         _= _AS.DeleteCode(username, "Registration");
         if (DateCheck != "True")
         {
-            return DateCheck;
+            response.isSuccess= 0;
+            response.ErrorMessage = DateCheck;
+            return response;
         }
-        string activated = _AS.ActivateUser(username);
+        string permUsername = _AS.MakeUsername(username);
+        string activated = _AS.MakeNewUserName(permUsername,username);
         if (activated.Contains("Database"))
         {
-            return activated;
+            response.isSuccess = 0;
+            response.ErrorMessage = activated;
+            return response;
         }
-        return "Account Verified";
+        response.isSuccess = 1;
+        response.data = "Account Verified";
+        response.username = permUsername;
+        return response;
+        
         
     }
 
@@ -219,13 +233,13 @@ public class AccountManager
             return "Token Not Found";
     }
 
-    public string SendOTP(string username)
+    public string SendOTP(string username, string password)
     {
         string usernameExists = _AS.UsernameExists(username);
 
         if (usernameExists != "username exists")
         {
-            return usernameExists;
+            return "Invalid username or password provided. Retry again or contact system administrator";
         }
 
         string email = _AS.GetEmail(username);
@@ -233,10 +247,20 @@ public class AccountManager
         {
             return email;
         }
-        //TODO:SEND CODE
+
+        password = _hash.HashAndSalt(password, _hash.GetSalt(username));
+
+        string checkPassword = _AS.CheckPassword(username, password);
+
+        if (checkPassword != "credentials found")
+        {
+            return "Invalid username or password provided. Retry again or contact system admin";
+        }
+
+        //GEN CODE
         Random rnd = new Random();
         string code = "";
-        var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
+        var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz.,@!";
 
         foreach (var i in Enumerable.Range(0, 10))
         {
@@ -283,28 +307,28 @@ public class AccountManager
     {
         if (_AS.ValidateEmail(user.Email) == false)
         {
-            return "Invalid Email";
+            return "Account creation error. Retry again or contact system administrator";
         }
         else if (_AS.ValidatePassword(user.Password) == false)
         {
-            return "Invalid Password";
+            return "Account creation error. Retry again or contact system administrator";
         }
-        string validUsername = _AS.ValidateUsername(user.Username);
-        if (validUsername != "new username")
+        string validUsername = _AS.CreateTempUserName();
+        if (validUsername[0] != ',')
         {
             return validUsername;
         }
+        user.Username = validUsername;
         user.Password= _hash.HashAndSalt(user.Password);
         String unactivated = _AS.SaveUnActivatedAccount(user);
         if (unactivated != "Saved")
         {
             return unactivated;
         }
-        String sentCode = _AS.VerifyEmail(user.Username, user.Email, DateTime.Now);
+        String sentCode = _AS.VerifyEmail(user.Username, user.Email, DateTime.Now, "");
         if (sentCode != "True")
         {
             _AS.EmailFailed(user);
-            return sentCode;
         }
         return "Email Pending Confirmation";
 
@@ -313,6 +337,10 @@ public class AccountManager
 
     public string RecoverAccount(AccountRecoveryModel arm)
     {
+        if (arm.Username[0] == ',')
+        {
+            return "Account Recovery Error";
+        }
         if (_AS.ValidateEmail(arm.Email) == false || _AS.ValidateUsername(arm.Username) == "Invalid Username")
         {
             return "Account Recovery Error";
@@ -328,13 +356,6 @@ public class AccountManager
         }
 
 
-
-        string enabled = _AS.IsEnabled(arm.Username);
-        if (enabled != "enabled")
-        {
-            return "Account Recovery Error";
-        }
-
         string recoveryValidation = _AS.ValidateRecoveryAttempts(arm.Username);
         if (recoveryValidation != "under")
         {
@@ -346,7 +367,7 @@ public class AccountManager
         const string subject = "Bit O Health Recovery";
 
         string body = "Please click this link within 24 hours to recover your account "+
-                "http://localhost:8080/ResetPassword?randomString=" + randomString + "&username=" + arm.Username;
+                "http://localhost:8080/#/ResetPassword/" + randomString + "/" + arm.Username;
         
         
         string email = _AS.SendEmail(arm.Email, subject, body);
@@ -365,7 +386,7 @@ public class AccountManager
 
         if (updateRecoveryAttempts != "1")
         {
-            return _iDBErrors.DBErrorCheck(int.Parse(updateRecoveryAttempts));
+            return updateRecoveryAttempts;
         }
         string saveCode = _AS.SaveActivationCode(arm.Username, dateTime, randomString, "Recovery");
         if (saveCode != "saved")
@@ -380,6 +401,59 @@ public class AccountManager
         
         return "Recovery Link Sent To Email: " + arm.Email;
     }
+
+    public List<searchItem> getSearchCount(string type)
+    {
+        return _AS.getSearchCount(type);
+    }
+
+    public List<Tracking> loginTracker(string Type, int months)
+    {
+       List<Tracking> loginTracked= _AS.GetLogin(Type, months);
+       List<Tracking> includeEmptyDays = _AS.EmptyDays(loginTracked);
+       return includeEmptyDays;
+
+    }
+
+    public List<Tracking> regTracker()
+    {
+        return _AS.GetReg();
+    }
+
+    public async Task<List<timeTotal>> getAvgTime()
+    {
+        List<timeTotal> time= await _AS.AvgTime();
+        List<timeTotal> avg = _AS.makeAvgTime(time);
+
+        return avg;
+    }
+
+    public async Task<List<timeTotal>> GetTotalTime()
+    {
+        return await  _AS.BiggestTime();
+    }
+
+    public string ViewTime(float time, string view)
+    {
+        try
+        {
+            if (_AS.ViewExists(view))
+            {
+                _AS.AddTime(view, time);
+            }
+            else
+            {
+                _AS.MakeView(view, time);
+            }
+            return "updated "+view+"by "+time+" seconds";
+        }
+        catch (Exception ex)
+        {
+            return "error addding view " + ex.Message;
+        }
+    }
+        
+
     public string ResetPassword(string username, string randomString, string password)
     {
         if (!_AS.ValidatePassword(password))
@@ -394,19 +468,31 @@ public class AccountManager
                 return validateOTP;
 
             }
+            else
+            {
+                return "Invalid Reset Link";
+            }
             
         }
         string sameDay = _AS.VerifySameDay(username, randomString);
-        if (sameDay != "1")
+        if (sameDay != "same day")
         {
             return sameDay;
         }
         string hashPassword = _hash.HashAndSalt(password);
-        
+        string activated = _AS.ActivateUser(username);
+        if (activated.Contains("database"))
+        {
+            return "Database Error";
+        }
         string reset = _AS.ResetPassword(hashPassword, username);
         if (reset.Contains("Database"))
         {
             return reset;
+        }
+        string deleteOTP = _AS.DeletePastOTP(username, "Recovery");
+        if (deleteOTP.Contains("Database")){
+            return deleteOTP;
         }
         return "Account Recovery Completed Successfully";
 

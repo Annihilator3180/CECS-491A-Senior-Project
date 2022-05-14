@@ -18,6 +18,7 @@ using Microsoft.Extensions.Configuration;
 using The6Bits.EmailService;
 using The6Bits.HashAndSaltService;
 using The6Bits.HashAndSaltService.Contract;
+using Microsoft.AspNetCore.Mvc;
 using System.Data.SqlClient;
 using Dapper;
 
@@ -27,7 +28,7 @@ namespace The6Bits.BitOHealth.ControllerLayer;
 public class AccountController : ControllerBase
 {
     private IAuthenticationService authenticationService1;
-    private AccountManager _AM;
+    private AccountManager _AccountManager;
     private LogService logService;
     private IDBErrors _dbErrors;
     private ISMTPEmailService _EmailService;
@@ -39,7 +40,7 @@ public class AccountController : ControllerBase
     public AccountController(IRepositoryAuth<string> authdao, ILogDal logDao, IAuthenticationService authenticationService, IDBErrors dbErrors,
         ISMTPEmailService emailService, IConfiguration config, IHashDao hashDao)
     {
-        _AM = new AccountManager(authdao, authenticationService, dbErrors, emailService, config, hashDao, config.GetSection("jwt").Value);
+        _AccountManager = new AccountManager(authdao, authenticationService, dbErrors, emailService, config, hashDao, config.GetSection("jwt").Value);
         logService = new LogService(logDao);
         _dbErrors = dbErrors;
         _EmailService = emailService;
@@ -53,20 +54,11 @@ public class AccountController : ControllerBase
         var remoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
 
 
-        //HASH
-        //DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
-        //string p = di.Parent.ToString();
-        //string mySecret = System.IO.File.ReadAllText(Path.GetFullPath(p + _config.GetSection("PKs")["JWT"]));
-        //byte[] keyBytes = Encoding.UTF8.GetBytes(mySecret);
-        //var bytesToSign = Encoding.UTF8.GetBytes(acc.Password);
-        //var sha = new HMACSHA256(keyBytes);
-        //byte[] signature = sha.ComputeHash(bytesToSign);
-        //acc.Password = Convert.ToBase64String(signature);
 
 
 
 
-        var jwt = _AM.Login(acc);
+        var jwt = _AccountManager.Login(acc);
         var parts = jwt.Split('.');
 
         if (parts.Length == 3)
@@ -152,10 +144,10 @@ public class AccountController : ControllerBase
     }
 
     [HttpPost("OTP")]
-    public string SendOTP(string username)
+    public string SendOTP(string username, string password)
     {
 
-        var otp = _AM.SendOTP(username);
+        var otp = _AccountManager.SendOTP(username,password);
         if (otp.Contains("Database"))
         {
             _ = logService.Log(username, otp, "OTP Error " + "Error", "Data Store");
@@ -177,8 +169,10 @@ public class AccountController : ControllerBase
     [HttpPost("Delete")]
     public string DeleteAccount()
     {
-        string username = _auth.getUsername(Request.Headers["Authorization"]);
-        string status = _AM.DeleteAccount(Request.Headers["Authorization"]);
+        string token = Request.Headers["Authorization"];
+            token = token.Split(' ')[1];
+        string username = _auth.getUsername(token);
+        string status = _AccountManager.DeleteAccount(token);
 
         if (status.Contains("Database"))
         {
@@ -209,21 +203,21 @@ public class AccountController : ControllerBase
     [HttpPost("Register")]
     public string CreateAccount(User user)
     {
-
-        string creationStatus = _AM.CreateAccount(user);
+        
+        string creationStatus = _AccountManager.CreateAccount(user);
         if (creationStatus.Contains("Database"))
         {
-            _= logService.RegistrationLog(user.Username, "Registration- " + creationStatus, "Data Store", "Error");
+            _= logService.Log(user.Username, "Registration- " + creationStatus, "Data Store", "Error");
             return "Database Error";
         }
         else if (creationStatus == "Email Failed To Send")
         {
-            _ = logService.RegistrationLog(user.Username, "Registration- Email Failed To Send", "Business", "Error");
+            _ = logService.Log(user.Username, "Registration- Email Failed To Send", "Business", "Error");
             return "Email Failed To Send";
         }
         else if (creationStatus != "Email Pending Confirmation")
         {
-            _ = logService.RegistrationLog(user.Username, "Registration- " + creationStatus, "Business", "Information");
+            _ = logService.Log(user.Username, "Registration- " + creationStatus, "Business", "Information");
         }
         else
         {
@@ -232,22 +226,23 @@ public class AccountController : ControllerBase
         return creationStatus;
     }
 
-    [HttpGet("VerifyAccount")]
-    public string VerifyAccount(String Code, String Username)
+    [HttpPost("VerifyAccount")]
+    public verifyResponse VerifyAccount(String Code, String Username)
     {
 
-        String verfied = _AM.VerifyAccount(Code, Username);
-        if (verfied.Contains("Database"))
+        verifyResponse verfied = _AccountManager.VerifyAccount(Code, Username);
+        if (verfied.ErrorMessage.Contains("Database"))
         {
             _ = logService.Log(Username, "Registration- " + verfied, "Data Store", "Error");
-            return "Database Error";
+            verfied.ErrorMessage = "Database Error";
+            return verfied;
         }
-        if (verfied == "Account Verified")
+        if (verfied.data == "Account Verified")
         {
             _ = logService.Log(Username, "Registration- Email Verified ", "Business", "Information");
             return verfied;
         }
-        _ = logService.Log(Username, "Registration- " + verfied, "Business", "Information");
+        _ = logService.Log(Username, "Registration- " + verfied.ErrorMessage, "Business", "Information");
         return verfied;
     }
 
@@ -258,7 +253,7 @@ public class AccountController : ControllerBase
 
         if (isValid)
         {
-            return _AM.AcceptEULA(username);
+            return _AccountManager.AcceptEULA(username);
         }
         return "invalid token";
     }
@@ -270,7 +265,7 @@ public class AccountController : ControllerBase
 
         if (isValid)
         {
-            return _AM.DeclineEULA(username);
+            return _AccountManager.DeclineEULA(username);
         }
         return "invalid token";
     }
@@ -279,34 +274,137 @@ public class AccountController : ControllerBase
     [HttpPost("Recovery")]
     [Consumes("application/json")]
 
-    public string AccountRecovery(AccountRecoveryModel arm)
-    {
-        string start = _AM.RecoverAccount(arm);
+    public ActionResult AccountRecovery(AccountRecoveryModel arm) {
+        AccountResponseModel response = new AccountResponseModel();
+
+        string? token;
+
+        token = Request.Headers["Authorization"];
+        if (token != null)
+        {
+            response.ErrorMessage = "must be logged out";
+            return BadRequest(response);
+        }
+
+        string start = _AccountManager.RecoverAccount(arm);
 
         if (start.Contains("Database"))
         {
             _ = logService.Log(arm.Username, " Account Recovery ", start, "Error");
-            return "Database Error";
+            response.ErrorMessage = start;
+            return StatusCode(500, response);
         }
         _ = logService.Log(arm.Username, " Account Recovery ", "Recovery Email Sent", "Information");
 
-        return start;
+        response.Data = start;
+        return Ok(response);
 
 
     }
     [HttpPost("ResetPassword")]
-    public string ResetPassword(string randomString, string username, string password)
+    public ActionResult ResetPassword(string randomString, string username, string password)
     {
-        string reset = _AM.ResetPassword(username, randomString, password);
+        AccountResponseModel response = new AccountResponseModel();
+
+        string? token;
+        token = Request.Headers["Authorization"];
+        if (token != null)
+        {
+            response.ErrorMessage = "Account Recovery Error";
+            return BadRequest(response);
+        }
+        string reset = _AccountManager.ResetPassword(username, randomString, password);
 
         if (reset.Contains("Database"))
         {
             _ = logService.Log(username, " Password Reset ", reset, "Error");
-            return "Database Error";
+            response.ErrorMessage = reset;
+            return StatusCode(500, response);
         }
         _ = logService.Log(username, " Password Reset ", "Password Change ", "Information");
 
-        return reset;
+        response.Data= reset;
+        return Ok(response);
+    }
+
+    [HttpPost("ViewTime")]
+    public string ViewTime(float time, string view)
+    {
+        string updated = _AccountManager.ViewTime(time, view);
+        _ = logService.Log("admin", updated, "Business", "Information");
+
+        return updated;
+    }
+    [HttpPost("getTotalTime")]
+    public async Task<List<timeTotal>> GetTotalTime()
+    {
+        try
+        {
+            List<timeTotal> total = await _AccountManager.GetTotalTime();
+            _ = logService.Log("admin", "viewed totalTime", "Business", "Information");
+            return total;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+    [HttpPost("getAvgTime")]
+    public async Task<List<timeTotal>> GetAvgTime()
+    {
+        try
+        {
+            List<timeTotal> average = await _AccountManager.getAvgTime();
+            _ = logService.Log("admin", "viewed average time", "Business", "Information");
+            return average;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    [HttpPost("getSearchCount")]
+    public List<searchItem> getSearchCount(string type)
+    {
+        try
+        {
+            List<searchItem> updated = _AccountManager.getSearchCount(type);
+            _ = logService.Log("admin", "viewed search count for " +type, "Business", "Information");
+            return updated;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+    [HttpPost("timeTracker")]
+    public List<Tracking> timeTracker(string Type, int months)
+    {
+        try
+        {
+            List<Tracking> updated = _AccountManager.loginTracker(Type, months);
+            _ = logService.Log("admin", "viewed" +Type+" total in "+months +"month", "Business", "Information");
+            return updated;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+    [HttpPost("regTracker")]
+    public List<Tracking> regTracker()
+    {
+        try
+        {
+            List<Tracking> updated = _AccountManager.regTracker();
+            _ = logService.Log("admin", "viewed registration total", "Business", "Information");
+            return updated;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
     }
 
 }

@@ -70,7 +70,8 @@
             const requestOptions = {
                 method: "POST",
                 credentials: 'include',
-                headers: { "Content-Type": "application/json"},
+                headers: { "Content-Type": "application/json",
+                            "Authorization" : `Bearer ${sessionStorage.getItem('token')}`},
                 body: JSON.stringify(
                     {Username : this.formData.username,
                      Password : this.formData.password,
@@ -90,7 +91,9 @@
             const requestOptions = {
                 method: "POST",
                 credentials: 'include',
-                headers: { "Content-Type": "application/json"},
+                headers: { "Content-Type": "application/json",
+                            "Authorization" : `Bearer ${sessionStorage.getItem('token')}`
+                                      },
                 body: JSON.stringify(
                     {Username : this.formData.username,
                      Password : this.formData.password,

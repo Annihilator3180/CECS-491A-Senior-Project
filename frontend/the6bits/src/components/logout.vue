@@ -10,12 +10,19 @@
     export default {
         name: 'logOut',
         created(){
-            this.logout()
+            this.logout(),
+            this.$router.push({name:'home'})
         },
     methods:{
         logout(){
             sessionStorage.removeItem('token')
+            sessionStorage.removeItem('IsAdmin')
+
+            
+            
         },
+        
 }
+
     }
 </script>

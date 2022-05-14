@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.26.1",
+    "chart.js": "^2.9.4",
     "package.json": "^2.0.1",
     "vue": "^3.2.13",
     "vue-router": "^4.0.14"

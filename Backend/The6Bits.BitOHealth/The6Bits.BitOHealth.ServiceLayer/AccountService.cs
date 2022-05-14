@@ -165,7 +165,28 @@ namespace The6Bits.BitOHealth.ServiceLayer
                 return false;
             }
         }
-
+        public string CreateTempUserName()
+        {
+            string usernameTest = ",";
+            Random rand=new Random();
+            usernameTest += rand.Next(100, 10000000).ToString();
+            while (true)
+            {
+                String daoResult = _AD.UsernameExists(usernameTest);
+                if (daoResult == "username exists")
+                {
+                    usernameTest = "," + rand.Next(100, 10000000).ToString();
+                }
+                else if(daoResult == "username not found")
+                {
+                    return usernameTest;
+                }
+                else
+                {
+                    return _DBErrors.DBErrorCheck(int.Parse(daoResult));
+                }
+            }
+        }
 
         public string ValidateUsername(string username)
         {
@@ -185,6 +206,37 @@ namespace The6Bits.BitOHealth.ServiceLayer
             }
 
             return "new username";
+        }
+
+        public string MakeUsername(string username)
+        {
+            Random random = new Random();
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefhijklmnopqrstuvwxyz0123456789.,@!";
+            const string firstchar = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefhijklmnopqrstuvwxyz0123456789.@!";
+            var builder = new StringBuilder();
+            char c = chars[random.Next(firstchar.Length)];
+            builder.Append(c);
+            for (int i = 0; i < 10; i++)
+            {
+                c = chars[random.Next(chars.Length)];
+                builder.Append(c);
+
+            }
+
+            return builder.ToString();
+        }
+
+        public string MakeNewUserName(string permUsername,string oldUsername)
+        {
+            String activated = _AD.MakeNewUser(permUsername, oldUsername);
+            if (activated == "activated")
+            {
+                return "activated";
+            }
+            else
+            {
+                return _DBErrors.DBErrorCheck(int.Parse(activated));
+            }
         }
 
         public string ActivateUser(string username)
@@ -348,26 +400,87 @@ namespace The6Bits.BitOHealth.ServiceLayer
             return "True";
         }
 
-  
-        public string VerifyEmail(string username, string email, DateTime now)
+
+        public string VerifyEmail(string username, string email, DateTime now, string url)
         {
-            string code=Guid.NewGuid().ToString("N");
-            string saveStatus=_AD.SaveActivationCode(username, now, code, "Registration");
+            string code = Guid.NewGuid().ToString("N");
+            string saveStatus = _AD.SaveActivationCode(username, now, code, "Registration");
             if (saveStatus != "Saved")
             {
                 return _DBErrors.DBErrorCheck(int.Parse(saveStatus));
             }
 
             const string SUBJECT = "Verify your account";
-            string Body = "Please use this link to verify your account "+ 
-                _config.GetSection("URL")["url"] + "/Account/VerifyAccount?Code=" + code +
-                "&&Username=" + username;
-            String EmailStatus = _EmailService.SendEmailNoReply(email,SUBJECT,Body);
+            string Body = "Please use this link to verify your account " +
+            "http://localhost:8080/#/VerifyAccount/" + code+ "/" +  username;
+            String EmailStatus = _EmailService.SendEmailNoReply(email, SUBJECT, Body);
             if (EmailStatus != "email sent")
             {
                 return EmailStatus;
             }
             return "True";
+        }
+        public List<Tracking> EmptyDays(List<Tracking> trackedList)
+        {
+            //last 3 month
+            //if day doesnt exist add in with count of 0
+            //use map
+            DateTime beginning = DateTime.Now.AddMonths(-3).Date;
+            List<Tracking> addedEmptyDays = new List<Tracking>();
+            int i = 0;
+            
+            for(DateTime day = beginning; day.Date <= DateTime.Now.Date; day = day.AddDays(1))
+            {
+
+                if (addedEmptyDays.Count == 0)
+                {
+                    if (trackedList.Count > 0 && beginning < trackedList[0].dateTime.Date)
+                    {
+                        addedEmptyDays.Add(new Tracking(beginning));
+
+                    }
+                }
+                if (trackedList.Count > i)
+                {
+                    if (day.Date < trackedList[i].dateTime.Date)
+                    {
+                        addedEmptyDays.Add(new Tracking(day));
+                    }
+                    //4/30
+                    //trackedlist[0] 4/30
+                    else
+                    {
+                        trackedList[i].date = trackedList[i].dateTime.ToString("MM/dd/yyyy");
+                        addedEmptyDays.Add(trackedList[i]);
+                        i++;
+                    }
+                }
+                else
+                {
+                    addedEmptyDays.Add(new Tracking(day));
+                }
+
+            }
+
+            return addedEmptyDays;
+        }
+            
+
+
+            public List<timeTotal> makeAvgTime(List<timeTotal> time)
+        {
+            
+
+            foreach (timeTotal occ in time)
+            {
+                occ.seconds /= occ.occurences;
+            }
+            return time;
+        }
+
+        public List<searchItem> getSearchCount(string type)
+        {
+            return _AD.getSearchCount(type);
         }
 
         public string SaveUnActivatedAccount(User user)
@@ -391,6 +504,49 @@ namespace The6Bits.BitOHealth.ServiceLayer
 
             return _DBErrors.DBErrorCheck(int.Parse(res));
         }
+
+        public List<Tracking> GetReg()
+        {
+            List<Tracking> register = _AD.GetReg();
+            foreach (Tracking r in register)
+            {
+                r.date = r.dateTime.ToString("MM/dd/yyyy");
+            }
+            return register;
+        }
+
+        public List<Tracking> GetLogin(string Type, int months)
+        {
+            return _AD.GetLogin(Type, months);
+        }
+
+        public async Task<List<timeTotal>> AvgTime()
+        {
+            return await _AD.AvgTime();
+
+        }
+
+        public async Task<List<timeTotal>> BiggestTime()
+        {
+            return await _AD.BiggestTime();
+        }
+
+        public bool MakeView(string view, float time)
+        {
+            return _AD.MakeView(view, time);
+        }
+
+        public bool AddTime(string view, float time)
+        {
+            return _AD.AddTime(view, time);
+        }
+
+        public bool ViewExists(string view)
+        {
+            return _AD.ViewExists(view) > 0;
+        }
+
+
 
         public string DeleteFailedAttempts(string username)
         {
@@ -475,11 +631,11 @@ namespace The6Bits.BitOHealth.ServiceLayer
         {
 
             string sd = _AD.VerifySameDay(username, code);
-            if (sd != "1")
+            if (sd == "same day" || sd == "Invalid Reset Link")
             {
-                return _DBErrors.DBErrorCheck(int.Parse(sd));
+                return sd;
             }
-            return sd;
+            return _DBErrors.DBErrorCheck(int.Parse(sd));
 
         }
         public string ResetPassword(string password, string username)

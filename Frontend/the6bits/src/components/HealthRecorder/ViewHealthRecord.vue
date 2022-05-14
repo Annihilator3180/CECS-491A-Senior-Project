@@ -37,12 +37,21 @@ import { GetRecord, ExportRecord, DeleteRecord, SearchRecord } from '@/component
 
 export default {
    name: 'ViewMedicalRecords',
+   created(){
+       window.setInterval(() => {this.timer += 1}, 1000)
+   },
    data(){
        return{
            MedicalRecords: [],
            ExportMessage: [],
            DeleteMessage:[],
+           timer : 0
        }
+      
+   },
+   beforeUnmount(){
+       this.TimerTime(),
+       this.timer = 0
    },
    methods:{
        GetRecord,
@@ -56,6 +65,13 @@ export default {
        })
        
    },
+   TimerTime(){
+            const requestOptions = {
+                method: "post",
+                headers: { "Content-Type": "application/json"}
+            };
+            fetch(process.env.VUE_APP_BACKEND+'Account/ViewTime?time='+this.timer+'&view=View+Health+Record',requestOptions)
+        },
     ExportMedicalRecord(recordName, categoryName, recordNumber){
         this.ExportRecord(recordName, categoryName, recordNumber).then(value =>{
            this.ExportMessage = value.records;

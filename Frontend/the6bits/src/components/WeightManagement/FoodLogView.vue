@@ -25,6 +25,13 @@ import SaveFoodLog from './SaveFoodLog.vue'
 import FoodLogs from './WMComponents/FoodLogRow.vue'
     export default {
         name : 'FoodLogView',
+        created(){
+            window.setInterval(()=>{this.timer+=1}, 1000)
+        },
+        beforeUnmount(){
+            this.TimerTime(),
+            this.timer=0
+        },
         data() {
         return {
             activeTab:'SaveFoodLog',
@@ -33,6 +40,7 @@ import FoodLogs from './WMComponents/FoodLogRow.vue'
             editWeight:false,
             hasSavedWeightGoal:true,
             foodLogs:[],
+            timer:0,
         }
     },
     components: {
@@ -56,7 +64,14 @@ import FoodLogs from './WMComponents/FoodLogRow.vue'
             var logString = await JsonLogToCSVString(this.foodLogs)
             var encodedUri =  encodeURI(logString);
             window.open(encodedUri);
-        }
+        },
+        TimerTime(){
+        const requestOptions = {
+          method:"post",
+          headers: {"Content-Type": "application/json"},
+        };
+        fetch(process.env.VUE_APP_BACKEND+'Account/ViewTime?time='+this.timer+'&view=Food+Log+View', requestOptions)
+      }
     
     }
     

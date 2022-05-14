@@ -2,15 +2,6 @@
                
 
     <div class="form">
-            <div>
-
-                <label for="Enter a username">Username </label>
-                <input type="text" id="userId" v-model="formData.userId"/>
-            </div>
-            <div className="username-description">
-                    <p> Enter a usernameMust be 7-15 characters may contain 
-                    lowercase letters, uppercase letters, numbers, . , @ !  </p>
-            </div>
              <div className="user-name">    
                 <div class="user-name-labels">
                     <label for="First name">First name </label>
@@ -50,7 +41,12 @@
 <script>
     export default {
         name: 'RegistrationPost',
+        created(){
+            window.setInterval(() => { this.timer+=1
+            }, 1000)
+            },
         data() {
+
         return {
             formData :{
                 userId: '',
@@ -63,9 +59,21 @@
                 LastName: ""
             },
             message : '',
+            timer:0
         }
     },
+    beforeUnmount(){
+            this.TimerTime(),
+            this.timer=0
+    },
     methods:{
+        TimerTime(){
+            const requestOptions = {
+                method: "post",
+                headers: { "Content-Type": "application/json",}
+            };
+            fetch(process.env.VUE_APP_BACKEND+'Account/ViewTime?time='+this.timer+'&view=Registration',requestOptions)
+        },
          RegistrationPost(){
             const requestOptions = {
                 method: "post",
@@ -73,9 +81,10 @@
                 headers: { "Content-Type": "application/json"},
                 body: JSON.stringify({Username : this.formData.userId, password : this.formData.password, 
                 Email: this.formData.Email, PrivOption: this.formData.PrivOption,isEnabled:0,isAdmin:0,FirstName:this.formData.FirstName, 
-                LastName: this.formData.LastName  })
+                LastName: this.formData.LastName })
             };
-            const response= fetch(process.env.VUE_APP_BACKEND+'Account/Register',requestOptions)                
+            const response= fetch(process.env.VUE_APP_BACKEND+'Account/Register/'+ window.location.origin,requestOptions)                
+
                 .then(response =>  response.text())
                 .then(body => this.message = body)
         }

@@ -10,6 +10,7 @@ using The6Bits.Authorization.Contract;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Encodings.Web;
 using System.Diagnostics;
+using System.Text;
 using System.Web;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -50,13 +51,14 @@ namespace The6Bits.BitOHealth.ControllerLayer
         //specify form body
         public string CreateAccount(User u)
         {
-            isValid = _authentication.ValidateToken(Request.Cookies["token"]);
+            isValid = _authentication.ValidateToken(Request.Headers["Authorization"]);
 
 
             if (isValid)
             {
 
-                string token = Request.Cookies["token"];
+                string token = Request.Headers["Authorization"];
+                token = token.Split(' ')[1];
 
                 string adminUsername = _authentication.getUsername(token);
                 if (!_authorization.VerifyClaim(token, "IsAdmin"))
@@ -85,7 +87,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
             }
 
 
-                logService.Log("None", "Account Creation -"+"InvalidToken", "Info", "Business");
+            logService.Log("None", "Account Creation -"+"InvalidToken", "Info", "Business");
             
             
             return Request.Cookies["token"];
@@ -94,13 +96,14 @@ namespace The6Bits.BitOHealth.ControllerLayer
         [HttpPost("DeleteAccount")]
         public string DeleteAccount(string username)
         {
-            isValid = _authentication.ValidateToken(Request.Cookies["token"]);
+            isValid = _authentication.ValidateToken(Request.Headers["Authorization"]);
 
 
             if (isValid)
             {
 
-                string token = Request.Cookies["token"];
+                string token = Request.Headers["Authorization"];
+                token = token.Split(' ')[1];
 
                 string adminUsername = _authentication.getUsername(token);
                 if (!_authorization.VerifyClaim(token, "IsAdmin"))
@@ -138,13 +141,14 @@ namespace The6Bits.BitOHealth.ControllerLayer
 
         public string UpdateAccount(User user)
         {
-            isValid = _authentication.ValidateToken(Request.Cookies["token"]);
+            isValid = _authentication.ValidateToken(Request.Headers["Authorization"]);
 
 
             if (isValid)
             {
 
-                string token = Request.Cookies["token"];
+                string token = Request.Headers["Authorization"];
+                token = token.Split(' ')[1];
 
                 string adminUsername = _authentication.getUsername(token);
                 if (!_authorization.VerifyClaim(token, "IsAdmin"))
@@ -187,25 +191,14 @@ namespace The6Bits.BitOHealth.ControllerLayer
         [HttpPost("EnableAccount")]
         public string EnableAccount(string username)
         {
-            string token = "";
-            try
-            {
-                token = Request.Cookies["token"];
-
-            }
-
-            catch
-            {
-                return "LoggedOut";
-            }
-
-            isValid = _authentication.ValidateToken(token);
+            isValid = _authentication.ValidateToken(Request.Headers["Authorization"]);
 
 
             if (isValid)
             {
 
-
+                string token = Request.Headers["Authorization"];
+                token = token.Split(' ')[1];
                 string adminUsername = _authentication.getUsername(token);
                 if (!_authorization.VerifyClaim(token, "IsAdmin"))
                 {
@@ -240,13 +233,14 @@ namespace The6Bits.BitOHealth.ControllerLayer
         public string DisableAccount(string username)
         {
 
-            isValid = _authentication.ValidateToken(Request.Cookies["token"]);
+            isValid = _authentication.ValidateToken(Request.Headers["Authorization"]);
 
 
             if (isValid)
             {
 
-                string token = Request.Cookies["token"];
+                string token = Request.Headers["Authorization"];
+                token = token.Split(' ')[1];
 
                 string adminUsername = _authentication.getUsername(token);
                 if (!_authorization.VerifyClaim(token, "IsAdmin"))
@@ -276,22 +270,73 @@ namespace The6Bits.BitOHealth.ControllerLayer
             
             return "InvalidToken";
         }
-        [HttpPost("UploadFiles")]
-        public string Post()
+        [HttpPost("UploadFile")]
+        public async Task<string> UploadFile(IFormFile file)
         {
-            using (var reader = new StreamReader(Request.Body))
-            {
-                var body = reader.ReadToEnd();
-                return body;
+            isValid = _authentication.ValidateToken(Request.Headers["Authorization"]);
 
-                // Do something
+
+            if (!isValid) return "Invalid Token";
+
+
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
+
+
+
+            string token = Request.Headers["Authorization"];
+            token = token.Split(' ')[1];
+
+
+            string adminUsername = _authentication.getUsername(token);
+
+            if (!_authorization.VerifyClaim(token, "IsAdmin"))
+            {
+                logService.Log(adminUsername, "BULK -Claims Denied", "Info", "Business");
+                return "InvalidClaims";
             }
 
+            using (var reader = new StreamReader(file.OpenReadStream()))
+            {
+                while (reader.Peek() >= 0)
+                {
+                    string? line = await reader.ReadLineAsync();
+                    if (line == null)
+                    {
+                        continue;
+                    }
+                    var arr = line.Split(' ');
+                    if (line.Contains("create"))
+                    {
+                        _UMM.CreateAccount(new User(arr[1], arr[2], arr[3], arr[4], arr[5], Int32.Parse(arr[6]), Int32.Parse(arr[7]), Int32.Parse(arr[7])));
+                    }
 
+                    if (line.Contains("update"))
+                    {
+                        _UMM.UpdateAccount(new User(arr[1], arr[2], arr[3], arr[4], arr[5], Int32.Parse(arr[6]), Int32.Parse(arr[7]), Int32.Parse(arr[7])));
 
+                    }
 
-            // process uploaded files
-            // Don't rely on or trust the FileName property without validation.
+                    if (line.Contains("enable"))
+                    {
+                        _UMM.EnableAccount(arr[1]);
+                    }
+
+                    if (line.Contains("disable"))
+                    {
+                        _UMM.DisableAccount(arr[1]);
+                    }
+
+                }
+
+            }
+            stopWatch.Stop();
+            TimeSpan ts = stopWatch.Elapsed;
+
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                ts.Hours, ts.Minutes, ts.Seconds,
+                ts.Milliseconds / 10);
+            return elapsedTime;
 
         }
 

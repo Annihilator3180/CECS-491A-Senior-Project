@@ -40,6 +40,10 @@
 <script>
     export default {
         name : 'EditReminder',
+        created(){
+            window.setInterval(() => { this.timer+=1}
+            , 100)
+        },
         data() {
         return {
             formData :{ 
@@ -51,10 +55,22 @@
             description: '',
             date: '',
             time: '',
-            repeat: ''
+            repeat: '',
+            timer:0
         }
     },
+    beforeUnmount(){
+        this.TimerTime(),
+        this.timer = 0
+    },
     methods:{
+        TimerTime(){
+            const requestOptions = {
+                method: "post",
+                headers: { "Content-Type": "application/json",}
+            };
+            fetch(process.env.VUE_APP_BACKEND+'Account/ViewTime?time=' + this.timer + '&view=Edit+Reminder', requestOptions)
+        },
         TrackerPost(){
             const requestOptions = {
                 method: "POST",

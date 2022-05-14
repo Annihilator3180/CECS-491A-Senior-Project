@@ -24,6 +24,10 @@
 
 <script>
   export default {
+    name: 'CreateHealthRecord',
+    created(){
+     window.setInterval(() => {this.timer += 1}, 1000)
+    },
     /*
       Defines the data used by the component
     */
@@ -32,10 +36,22 @@
         files: '',
         recordName:'',
         categoryName:'',
+        timer : 0
       }
     },
+    beforeUnmount(){
+       this.TimerTime(),
+       this.timer = 0
+   },
 
     methods: {
+      TimerTime(){
+            const requestOptions = {
+                method: "post",
+                headers: { "Content-Type": "application/json"}
+            };
+            fetch(process.env.VUE_APP_BACKEND+'Account/ViewTime?time='+this.timer+'&view=Create+Health+Record',requestOptions)
+        },
     
       /*
         Submits all of the files to the server

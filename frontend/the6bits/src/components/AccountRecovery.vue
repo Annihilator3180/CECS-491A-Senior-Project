@@ -18,15 +18,31 @@
 <script>
   export default{
     name : 'AccountRecovery',
+    created(){
+      window.setInterval(() => {this.timer += 1}, 1000)
+    },
     data(){
     return {
       formData : {
         email: '',
         username: '',
       },
+      timer : 0
+
     }
   },
+   beforeUnmount(){
+       this.TimerTime(),
+       this.timer = 0
+   },
   methods:{
+    TimerTime(){
+            const requestOptions = {
+                method: "post",
+                headers: { "Content-Type": "application/json"}
+            };
+            fetch(process.env.VUE_APP_BACKEND+'Account/ViewTime?time='+this.timer+'&view=Account+Recovery',requestOptions)
+        },
     AccountRecovery(){
       const requestOptions = {
         method: "POST",
@@ -40,13 +56,17 @@
       };
       fetch(process.env.VUE_APP_BACKEND+'Account/Recovery',requestOptions)
       
-                .then((response) => {
-                   return response.json();
+                .then(response => response.json()) 
+                .then (data =>{
+          
+                  if (data.errorMessage != null){
+                    window.alert(data.errorMessage)
+                  }
+                  else{
+                    window.alert(data.data)
+                  }
+
                 })
-                .then ((myJson) => {
-                  console.log(myJson)
-                  window.alert(myJson)
-                });
     }
   }
 }

@@ -261,31 +261,21 @@
       "DisplayName": "The6Bits.BitOHealth.API",
       "ColorIndex": 2
     },
-    "6be7e65d-5330-4a0c-85e3-3a14a54cb455": {
-      "ProjectGuid": "6be7e65d-5330-4a0c-85e3-3a14a54cb455",
-      "DisplayName": "The6Bits.API",
-      "ColorIndex": 3
-    },
-    "c648effd-8a2d-448f-b7b0-f746133fe820": {
-      "ProjectGuid": "c648effd-8a2d-448f-b7b0-f746133fe820",
-      "DisplayName": "The6bits.FoodAPI.Tests",
-      "ColorIndex": 4
-    },
     "5c85ca0c-9442-4807-b053-5a7825cd83eb": {
       "ProjectGuid": "5c85ca0c-9442-4807-b053-5a7825cd83eb",
       "DisplayName": "The6Bits.Authorization",
-      "ColorIndex": 5
-    },
-    "6f5aee68-f998-4a26-8aa8-ac2a7bf0c423": {
-      "ProjectGuid": "6f5aee68-f998-4a26-8aa8-ac2a7bf0c423",
-      "DisplayName": "FoodAPI",
-      "ColorIndex": 6
+      "ColorIndex": 3
     },
     "c5fdaca0-ae08-49d4-84ca-f0e3f4db7a22": {
       "ProjectGuid": "c5fdaca0-ae08-49d4-84ca-f0e3f4db7a22",
       "DisplayName": "The6Bits.BitOHealth.Controller.Tests",
-      "ColorIndex": 7
+      "ColorIndex": 4
+    },
+    "6f5aee68-f998-4a26-8aa8-ac2a7bf0c423": {
+      "ProjectGuid": "6f5aee68-f998-4a26-8aa8-ac2a7bf0c423",
+      "DisplayName": "FoodAPI",
+      "ColorIndex": 5
     }
   },
-  "NextColorIndex": 8
+  "NextColorIndex": 6
 }

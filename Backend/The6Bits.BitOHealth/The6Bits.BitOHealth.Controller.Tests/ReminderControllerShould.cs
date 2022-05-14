@@ -92,7 +92,7 @@ namespace The6Bits.BitOHealth.Controller.Tests
             ReminderController reminderController = reminderContext();
             await reminderController.CreateReminder(name, description, date, time, repeat);
             string res = await reminderController.DeleteReminder("1");
-            Assert.Equal("Reminder NOT Deleted", res);
+            Assert.Equal("Reminder Deleted", res);
         }
     }
 }

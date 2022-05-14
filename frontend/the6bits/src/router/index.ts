@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory, createWebHistory, RouteRecordRaw } from 'vue-router'
-import homeShit from '@/components/Home.vue'
+import HomeHome from '@/components/Home.vue'
 import LoginPost from '@/components/LoginPost.vue'
 import OTPPost from '@/components/OneTimePass.vue'
 import UM from '@/components/UM.vue'
@@ -22,6 +22,8 @@ import RecipeFavorite from '@/components/RecipeFavorite.vue'
 import logOut from '@/components/logout.vue'
 import SaveFoodLog from '@/components/WeightManagement/SaveFoodLog.vue'
 import viewReminder from '@/components/Reminders/ViewReminder.vue'
+import analysisDash from '@/components/analysisDash.vue'
+import VerifyAccount from '@/components/VerifyAccount.vue'
 import FoodLogView from '@/components/WeightManagement/FoodLogView.vue'
 import ViewMedicalRecords from '@/components/HealthRecorder/ViewHealthRecord.vue'
 import EditMedicalRecords from '@/components/HealthRecorder/EditHealthRecord.vue'
@@ -37,7 +39,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'home',
-    component: homeShit
+    component: HomeHome
   },
   {
     path: '/login',
@@ -78,10 +80,11 @@ const routes: Array<RouteRecordRaw> = [
    },
   },
   {
-    path: '/ResetPassword',
+    path: '/ResetPassword/:token:/:id',
     name: 'ResetPassword',
     component: ResetPassword
   },
+
   {
     path: '/Registration',
     name: 'Registration',
@@ -155,6 +158,11 @@ const routes: Array<RouteRecordRaw> = [
       },
   },
   {
+    path: '/VerifyAccount/:token:/:id',
+    name: 'VerifyAccount',
+    component: VerifyAccount
+  },
+  {
       path: "/SaveFoodLog",
     name: "SaveFoodLog",
     component: SaveFoodLog,
@@ -162,6 +170,15 @@ const routes: Array<RouteRecordRaw> = [
          requiresAuth: true,
       },
   },
+  {
+    path: "/analysis",
+  name: "Analysis Dash",
+  component: analysisDash,
+  meta: {
+       requiresAuth: true,
+    },
+},
+  
   {
   path: "/viewReminder",
   name: "viewReminder",
