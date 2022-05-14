@@ -468,7 +468,11 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                         codetype = codeType
                     }
                     );
-                    return lines.First().ToString();
+                    if (lines.Count() != 0)
+                    {
+                        return lines.First().ToString();
+                    }
+                    else return "nocode";
                 }
             }
             catch (SqlException ex)

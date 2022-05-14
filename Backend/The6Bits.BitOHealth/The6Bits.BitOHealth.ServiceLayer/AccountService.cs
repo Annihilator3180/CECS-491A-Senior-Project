@@ -310,7 +310,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
         {
 
            string codeInDB = _AD.getCode(username, "Registration");
-            if (codeInDB.Length < 10)
+            if (codeInDB.Length < 10 & codeInDB !="nocode")
             {
                 return _DBErrors.DBErrorCheck(int.Parse(codeInDB));
             }
