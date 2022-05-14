@@ -462,7 +462,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                 using (SqlConnection connection = new SqlConnection(_connectString))
                 {
                     connection.Open();
-                    var lines = connection.QuerySingle<string>(query, new
+                    var lines = connection.Query<string>(query, new
                     {
                         username = username,
                         codetype = codeType
