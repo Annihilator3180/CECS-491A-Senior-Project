@@ -18,7 +18,7 @@
                 <input type="text" id="password" v-model="formData.password" />
             </div>
                                 <div className="password-description">
-                <p> Enter a usernameMust be 7-15 characters must contain a
+                <p>Enter a password. Must be 7-15 characters must contain a
                 lowercase letter, uppercase letter, a number, and one of following symbols . , @ !  </p>
             </div>
             <div>
