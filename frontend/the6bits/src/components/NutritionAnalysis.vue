@@ -267,143 +267,103 @@
                             totalDailyK = "-";
                         }
                         this.msg =
-                            '		<h1>Nutrition Facts</h1>' +
-                            '		<p><span id="lnumser">0</span> servings per container</p>' +
-                            "	</div>" +
-                            '	<table class="performance-facts__table">' +
-                            "		<thead>" +
-                            "			<tr>" +
-                            '				<th colspan="3" class="amps">Amount Per Serving</th>' +
-                            "			</tr>" +
-                            "		</thead>" +
-                            "		<tbody>" +
-                            "			<tr>" +
-                            '				<th colspan="2" id="lkcal-val-cal"><b>Calories</b></th>' +
-                            '				<td class="nob">' +
-                            totalCal +
+                            '<h1>Nutrition Facts</h1>' +
+                            "</div>" +
+                            '<table class="table">' +
+                            "<thead>" +
+                            "<tr>" +
+                            '<th colspan="3" class="c">Amount Per Serving</th>' +
+                            "</tr>" +
+                            "</thead>" +
+                            "<tbody>" +
+                            "<tr>" +
+                            '<th colspan="2"><b>Calories</b></th>' +
+                            '<td class="nob">' + totalCal +
                             "</td>" +
-                            "			</tr>" +
-                            '			<tr class="thick-row">' +
-                            '				<td colspan="3" class="small-info"><b>% Daily Value*</b></td>' +
-                            "			</tr>" +
-                            "			<tr>" +
-                            '				<th colspan="2"><b>Total Fat</b> ' +
-                            FAT +
+                            "</tr>" +
+                            '<td colspan="3"><b>% Daily Value*</b></td>' +
+                            "</tr>" +
+                            "<tr>" +
+                            '<th colspan="2"><b>Total Fat</b> ' + FAT +
                             "</th>" +
-                            "				<td><b>" +
-                            totalDailyFAT +
+                            "<td><b>" + totalDailyFAT +
                             "</b></td>" +
-                            "			</tr>" +
-                            "			<tr>" +
-                            '				<td class="blank-cell"></td>' +
-                            "				<th>Saturated Fat " +
-                            FASAT +
+                            "</tr>" +
+                            "<tr>" +
+                            "<th>Saturated Fat " +  FASAT +
                             "</th>" +
-                            "				<td><b>" +
-                            totalDailyFASAT +
+                            "<td><b>" + totalDailyFASAT +
                             "</b></td>" +
-                            "			</tr>" +
-                            "			<tr>" +
-                            '				<td class="blank-cell"></td>' +
-                            "				<th>Trans Fat " +
-                            FATRN +
+                            "</tr>" +
+                            "<tr>" +
+                            "<th>Trans Fat " + FATRN +
                             "</th>" +
-                            "				<td></td>" +
-                            "			</tr>" +
-                            "			<tr>" +
-                            '				<th colspan="2"><b>Cholesterol</b> ' +
-                            CHOLE +
+                            "<td></td>" +
+                            "</tr>" +
+                            "<tr>" +
+                            '<th colspan="2"><b>Cholesterol</b> ' + CHOLE +
                             "</th>" +
-                            "				<td><b>" +
-                            totalDailyCHOLE +
+                            "<td><b>" + totalDailyCHOLE +
                             "</b></td>" +
-                            "			</tr>" +
-                            "			<tr>" +
-                            '				<th colspan="2"><b>Sodium</b> ' +
-                            NA +
+                            "</tr>" +
+                            "<tr>" +
+                            '<th colspan="2"><b>Sodium</b> ' + NA +
                             "</th>" +
-                            "				<td><b>" +
-                            totalDailyNA +
+                            "<td><b>" + totalDailyNA +
                             "</b></td>" +
-                            "			</tr>" +
-                            "			<tr>" +
-                            '				<th colspan="2"><b>Total Carbohydrate</b> ' +
-                            CHOCDF +
+                            "</tr>" +
+                            "<tr>" +
+                            '<th colspan="2"><b>Total Carbohydrate</b> ' + CHOCDF +
                             "</th>" +
-                            "				<td><b>" +
-                            totalDailyCHOCDF +
+                            "<td><b>" + totalDailyCHOCDF +
                             "</b></td>" +
-                            "			</tr>" +
-                            "			<tr>" +
-                            '				<td class="blank-cell"></td>' +
-                            "				<th>Dietary Fiber " +
-                            FIBTG +
+                            "</tr>" +
+                            "<tr>" +
+                            "<th>Dietary Fiber " + FIBTG +
                             "</th>" +
-                            "				<td><b>" +
-                            totalDailyFIBTG +
+                            "<td><b>" + totalDailyFIBTG +
                             "</b></td>" +
-                            "			</tr>" +
-                            "			<tr>" +
-                            '				<td class="blank-cell"></td>' +
-                            "				<th>Total Sugars " +
-                            SUGAR +
+                            "</tr>" +
+                            "<tr>" +
+                            "<th>Total Sugars " + SUGAR +
                             "</th>" +
-                            "				<td></td>" +
-                            "			</tr>" +
-                            "			<tr>" +
-                            '				<td class="blank-cell"></td>' +
-                            "				<th>Includes " +
-                            SUGARadded +
+                            "<td></td>" +
+                            "</tr>" +
+                            "<tr>" +
+                            "<th>Includes " +  SUGARadded +
                             " Added Sugars</th>" +
-                            "				<td></td>" +
-                            "			</tr>" +
-                            '			<tr class="thick-end">' +
-                            '				<th colspan="2"><b>Protein</b> ' +
-                            PROCNT +
+                            "<td></td>" +
+                            "</tr>" +
+                            '<th colspan="2"><b>Protein</b> ' + PROCNT +
                             "</th>" +
-                            "				<td><b>" +
-                            totalDailyPROCNT +
+                            "<td><b>" + totalDailyPROCNT +
                             "</b></td>" +
-                            "			</tr>" +
-                            "		</tbody>" +
-                            "	</table>" +
-                            '	<table class="performance-facts__table--grid">' +
-                            "		<tbody>" +
-                            "			<tr>" +
-                            "				<th>Vitamin D " +
-                            VITD +
+                            "</tr>" +
+                            "<tr>" +
+                            "<th>Vitamin D " + VITD +
                             "</th>" +
-                            "				<td><b>" +
-                            totalDailyVITD +
+                            "<td><b>" + totalDailyVITD +
                             "</b></td>" +
-                            "			</tr>" +
-                            "			<tr>" +
-                            "				<th>Calcium " +
-                            CA +
+                            "</tr>" +
+                            "<tr>" +
+                            "<th>Calcium " + CA +
                             "</th>" +
-                            "				<td><b>" +
-                            totalDailyCA +
+                            "<td><b>" + totalDailyCA +
                             "</b></td>" +
-                            "			</tr>" +
-                            "			<tr>" +
-                            "				<th>Iron " +
-                            FE +
+                            "</tr>" +
+                            "<tr>" +
+                            "<th>Iron " + FE +
                             "</th>" +
-                            "				<td><b>" +
-                            totalDailyFE +
+                            "<td><b>" + totalDailyFE +
                             "</b></td>" +
-                            "			</tr>" +
-                            '			<tr class="thin-end">' +
-                            "				<th>Potassium " +
-                            K +
+                            "</tr>" +
+                            '<tr class="thin-end">' +
+                            "<th>Potassium " + K +
                             "</th>" +
-                            "				<td><b>" +
-                            totalDailyK +
+                            "<td><b>" + totalDailyK +
                             "</b></td>" +
-                            "			</tr>" +
-                            "		</tbody>" +
-                            "	</table>" +
-                            '	<p class="small-info" id="small-nutrition-info">*Percent Daily Values are based on a 2000 calorie diet</p>' +
+                            "</tr>" +
+                            '<p class="small-info" id="small-nutrition-info">*Percent Daily Values are based on a 2000 calorie diet</p>' +
                             "</section>"
                             ;
 
