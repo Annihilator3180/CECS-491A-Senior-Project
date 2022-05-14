@@ -32,6 +32,7 @@ import CreateReminder from '@/components/Reminders/CreateReminder.vue'
 import DeleteReminder from '@/components/Reminders/DeleteReminder.vue'
 import EditReminder from '@/components/Reminders/EditReminder.vue'
 import NutritionAnalysis from '@/components/NutritionAnalysis.vue'
+import BMICalculator from '@/components/BMICalculator.vue'
 import FAQ from '@/components/FAQ.vue'
 
 const routes: Array<RouteRecordRaw> = [
@@ -245,6 +246,14 @@ const routes: Array<RouteRecordRaw> = [
         name: 'NutritionAnalysis',
         component: NutritionAnalysis,
          meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/BMICalculator',
+        name: 'BMICalculator',
+        component: BMICalculator,
+        meta: {
             requiresAuth: true,
         },
     },
