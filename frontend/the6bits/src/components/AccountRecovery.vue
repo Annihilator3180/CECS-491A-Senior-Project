@@ -26,8 +26,9 @@
       formData : {
         email: '',
         username: '',
-        timer : 0
       },
+      timer : 0
+
     }
   },
    beforeUnmount(){

@@ -56,8 +56,10 @@
                 .then(response => response.text())
                 .then(data=> {
                     if(data.split('.').length == 3){
+                        var obj = this.parseJwt(data)
+                        sessionStorage.setItem('IsAdmin', obj.IsAdmin)
                         sessionStorage.setItem('token', data)
-                        this.$router.push({name:'home'})
+                        this.$router.push({name:"home"})
                         this.message = "Logged In."
                     }
                     })
@@ -84,8 +86,15 @@
           method:"post",
           headers: {"Content-Type": "application/json"},
         };
-        fetch(process.ENV.VUE_APP_BACKEND+'Account/ViewTime?time='+this.timer+'&view=Login', requestOptions)
-      }
+        fetch(process.env.VUE_APP_BACKEND+'Account/ViewTime?time='+this.timer+'&view=Login', requestOptions)
+      },
+      parseJwt(token){
+        try {
+            return JSON.parse(atob(token.split('.')[1]));
+        } catch (e) {
+            return null;
+        }
+    }
     
     }
 }

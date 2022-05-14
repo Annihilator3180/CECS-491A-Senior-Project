@@ -84,7 +84,7 @@ import LoadWeightImages from './WMComponents/LoadWeightImages.vue'
           method:"post",
           headers: {"Content-Type": "application/json"},
         };
-        fetch(process.ENV.VUE_APP_BACKEND+'Account/ViewTime?time='+this.timer+'&view=Weight+Goal+View', requestOptions)
+        fetch(process.env.VUE_APP_BACKEND+'Account/ViewTime?time='+this.timer+'&view=Weight+Goal+View', requestOptions)
       }
 
     }

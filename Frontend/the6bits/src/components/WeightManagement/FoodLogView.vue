@@ -70,7 +70,7 @@ import FoodLogs from './WMComponents/FoodLogRow.vue'
           method:"post",
           headers: {"Content-Type": "application/json"},
         };
-        fetch(process.ENV.VUE_APP_BACKEND+'Account/ViewTime?time='+this.timer+'&view=Food+Log+View', requestOptions)
+        fetch(process.env.VUE_APP_BACKEND+'Account/ViewTime?time='+this.timer+'&view=Food+Log+View', requestOptions)
       }
     
     }

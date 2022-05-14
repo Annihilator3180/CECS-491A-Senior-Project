@@ -12,7 +12,12 @@
     </div>
     <div v-else>
         <nav>
-    <router-link to="/">Home</router-link> |
+    <div v-if="isAdmin==1">
+      <router-link to="/">Home</router-link> |
+      <router-link :to="{name: 'Analysis Dash'}"> Analysis </router-link>|
+    </div>
+
+
     <router-link :to="{ name: 'UM' }">User Management</router-link> |
     <router-link :to="{ name: 'WeightManagement' }">Weight Management</router-link>|
     <router-link :to="{ name: 'MedSearch' }"> MedSearch</router-link>|
@@ -27,7 +32,6 @@
     <router-link :to="{name: 'CreateReminder'}"> CreateReminder </router-link>|
     <router-link :to="{name: 'viewReminder'}"> ViewReminder </router-link>|
     <router-link :to="{name: 'logout'}"> Log Out </router-link> |
-    <router-link :to="{name: 'Analysis Dash'}"> Analysis </router-link>
     <router-link :to ="{name: 'EditReminder'}"> EditReminder </router-link> |
     <router-link :to ="{name: 'DeleteReminder'}"> DeleteReminder </router-link> |
     <router-link :to="{name: 'FoodLog'}"> FoodLog </router-link>|
@@ -59,7 +63,8 @@ export default {
   },
   data(){
     return{
-    sessionStorage:sessionStorage.getItem('token')
+    sessionStorage:sessionStorage.getItem('token'),
+    isAdmin:sessionStorage.getItem('IsAdmin')
     }
   },
 };

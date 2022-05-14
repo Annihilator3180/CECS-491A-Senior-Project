@@ -16,6 +16,7 @@
     methods:{
         logout(){
             sessionStorage.removeItem('token')
+            sessionStorage.removeItem('IsAdmin')
 
             
             

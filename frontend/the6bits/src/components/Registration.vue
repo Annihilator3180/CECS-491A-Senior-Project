@@ -42,7 +42,6 @@
     export default {
         name: 'RegistrationPost',
         created(){
-            this.FavoriteDrugListPost(),
             window.setInterval(() => { this.timer+=1
             }, 1000)
             },
