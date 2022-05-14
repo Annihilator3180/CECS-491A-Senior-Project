@@ -468,7 +468,7 @@ namespace The6Bits.BitOHealth.DAL.Implementations
                         codetype = codeType
                     }
                     );
-                    return lines.ToString();
+                    return lines.First().ToString();
                 }
             }
             catch (SqlException ex)
