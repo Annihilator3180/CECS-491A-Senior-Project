@@ -83,7 +83,7 @@
                 Email: this.formData.Email, PrivOption: this.formData.PrivOption,isEnabled:0,isAdmin:0,FirstName:this.formData.FirstName, 
                 LastName: this.formData.LastName })
             };
-            const response= fetch(process.env.VUE_APP_BACKEND+'Account/Register/'+ window.location.origin,requestOptions)                
+            const response= fetch(process.env.VUE_APP_BACKEND+'Account/Register/',requestOptions)                
 
                 .then(response =>  response.text())
                 .then(body => this.message = body)
