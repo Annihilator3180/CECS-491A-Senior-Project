@@ -14,6 +14,9 @@
 </template>
 
 <script>
+    var allData = [];
+    var skip = 0;
+    var take = 5;
 
     export default {
         name: "NutritionAnalysis",
@@ -26,6 +29,29 @@
             };
         },
         methods: {
+            onLoadMore() {
+                console.log("load more clicked");
+                if (allData.length === 0 || skip > allData.length) {
+                    return;
+                }
+                let data1 = "";
+                for (let i = skip; i < skip + take; i++) {
+                    var values = allData[i];
+                    data1 +=
+                        // clickable link removed  <p> Recipe Name: ${values.label}</p>
+                        `<div class = "DietRecommendation">
+                    <p> ${values.label.link(values.url)}</p>
+                    <img src =${values.image}
+                    <p> Ingredients: </p>
+                    <p> ${values.ingredientLines}</p>
+                    <p> Calories: </p>
+                    <p> ${values.calories}</p>
+                    <p> For more recipe details please click on the link. </p>
+                    </div>`;
+                }
+                skip += 5;
+                document.getElementById("DietRecommendation").innerHTML += data1;
+            },
 
             NutritionAnalysis() {
                 var ingredientsArray = this.formData.ingr.split("\n");
