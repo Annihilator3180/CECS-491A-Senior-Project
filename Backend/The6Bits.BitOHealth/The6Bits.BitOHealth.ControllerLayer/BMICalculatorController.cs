@@ -60,7 +60,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
             if (!_isValid)
             {
 
-                _ = _logService.Log("None", "Invalid Token - Nutrition Analysis", "Info", "Business");
+                _ = _logService.Log("None", "Invalid Token - BMI Calculator", "Info", "Business");
                 return JsonSerializer.Serialize(new { success = false, message = "Invalid Token" });
             }
             string username = _auth.getUsername(token);
