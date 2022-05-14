@@ -367,7 +367,7 @@ public class AccountManager
         const string subject = "Bit O Health Recovery";
 
         string body = "Please click this link within 24 hours to recover your account "+
-                "http://localhost:8080/#/ResetPassword/" + randomString + "/" + arm.Username;
+                "https://bitohealth.com/#/ResetPassword/" + randomString + "/" + arm.Username;
         
         
         string email = _AS.SendEmail(arm.Email, subject, body);

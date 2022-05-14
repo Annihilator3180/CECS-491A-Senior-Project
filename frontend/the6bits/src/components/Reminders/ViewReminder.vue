@@ -6,7 +6,7 @@
                 <div >
                 <label for="reminderID">Index </label>
                 <input type="text" id="userId" v-model ="reminderID" placeholder="index"/>
-                <button @click = "TrackerPost">view</button>
+                <button @click = "TrackerPost">view/all</button>
             </div>
             
                             {{message}}

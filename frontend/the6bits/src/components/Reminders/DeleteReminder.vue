@@ -8,7 +8,7 @@
                 <input type="int" id="userId" v-model ="reminderID" placeholder="index"/>
                 </div>
                 <div >
-                <button @click = "TrackerPost">Delete</button>
+                <button @click = "TrackerPost">Delete/View all</button>
             </div>
             
             
