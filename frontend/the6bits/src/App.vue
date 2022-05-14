@@ -14,12 +14,11 @@
     <div v-else>
         <nav>
             <div v-if="isAdmin==1">
-                <router-link to="/">Home</router-link> |
                 <router-link :to="{name: 'Analysis Dash'}"> Analysis </router-link>|
+                <router-link :to="{ name: 'UM' }">User Management</router-link> |
             </div>
 
 
-            <router-link :to="{ name: 'UM' }">User Management</router-link> |
             <router-link :to="{ name: 'WeightManagement' }">Weight Management</router-link>|
             <router-link :to="{ name: 'MedSearch' }"> MedSearch</router-link>|
             <router-link :to="{ name: 'HotTopics' }"> HotTopics</router-link>|
