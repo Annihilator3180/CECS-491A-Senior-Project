@@ -13,19 +13,19 @@
     </div>
     <div v-else>
         <nav>
+           <router-link to="/">Home</router-link> |
             <div v-if="isAdmin==1">
                 <router-link :to="{name: 'Analysis Dash'}"> Analysis </router-link>|
                 <router-link :to="{ name: 'UM' }">User Management</router-link> |
             </div>
 
+            
 
             <router-link :to="{ name: 'WeightManagement' }">Weight Management</router-link>|
             <router-link :to="{ name: 'MedSearch' }"> MedSearch</router-link>|
             <router-link :to="{ name: 'HotTopics' }"> HotTopics</router-link>|
-            <router-link :to="{name: 'SearchFood'}"> SearchFood</router-link>|
             <router-link :to="{name: 'FavoriteDrugListPost'}"> Favorite Drugs List </router-link>|
             <router-link :to="{name: 'getTLogs'}"> TrackingLog</router-link>|
-            <router-link :to="{name: 'SearchFood'}"> SearchFood</router-link> |
             <router-link :to="{name: 'FavoriteDrugListPost'}"> Favorite Drugs List </router-link> |
             <router-link :to="{name: 'DietRecommendation'}"> Diet Recommendation</router-link>|
             <router-link :to="{name: 'DeleteAccount'}"> Delete </router-link>|
@@ -40,6 +40,7 @@
             <router-link :to="{name: 'NutritionAnalysis'}"> Nutrition Analysis</router-link>|
             <router-link :to="{name: 'RecipeFavorite'}"> RecipeFavorite </router-link>|
             <router-link :to="{name: 'BMICalculator'}"> BMICalculator </router-link>|
+            <router-link :to="{name: 'FAQ'}">FAQ</router-link>|
 
 
 
