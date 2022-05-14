@@ -39,6 +39,21 @@
         Q: "What can I add in reminders? " A: You can add a name, description, time and date, as well as if it's supposed to repeat or not. <br/>
 
         </text>
+      <H2>Diet Recommendations</H2>
+      <text>
+        Q: "How many recipes can I favorite?" A: Limit of 5 per day <br/>
+        Q: "Do I have to provide an asnwer for every questions?" A: Yes every question must be answered <br/>
+        Q: "Am I only limited to input data from the example under the questions?" A: No
+     </text>
+      <H2> Nutrition Analysis </H2>
+      <text>
+       Q: "Is there a specific format I should follow?" A: No 
+       Q: "Does it have to be a recipe or can I input a single ingredient?" A: You are able to input a single ingredient
+      </text>
+      <h2>BMI Calculator</h2>
+      <text>
+       Q: "Can I input my height in ft and weight in lbs?" A: No it must be based on the metric system, cm and kg.
+      </text>
   </div>
 </template>
 

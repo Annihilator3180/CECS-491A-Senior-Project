@@ -28,7 +28,9 @@
                 msg: "",
             };
         },
+
         methods: {
+
             onLoadMore() {
                 console.log("load more clicked");
                 if (allData.length === 0 || skip > allData.length) {
@@ -65,13 +67,13 @@
                     body: JSON.stringify({ ingr: ingredientsArray }),
 
                 };
+
                 const response = fetch(
                     "https://localhost:7011/NutritionAnalysis/Create",
                     requestOptions
                 )
                     .then((response) => response.json())
                     .then((data) => {
-                        alert("Nutritional Facts Generated!");
 
                         if (typeof data.totalNutrients.ENERC_KCAL != "undefined") {
                             var totalCal = Math.round(data.totalNutrients.ENERC_KCAL.quantity);
