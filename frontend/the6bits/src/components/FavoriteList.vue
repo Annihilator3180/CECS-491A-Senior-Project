@@ -17,7 +17,6 @@
         <button @click = "$router.push({name:'EditDrug',params:{id: f.brand_name}})">Edit Favorite</button>
         </tr> 
         {{formData.ViewFavoriteRequest.data?.length}}/100
-        {{timer}}
           </div>
     </div>
 
