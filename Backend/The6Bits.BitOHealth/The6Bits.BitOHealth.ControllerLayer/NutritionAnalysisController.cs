@@ -56,7 +56,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
             if (!_isValid)
             {
 
-                _ = _logService.Log("None", "Invalid Token - Diet Recommendations", "Info", "Business");
+                _ = _logService.Log("None", "Invalid Token - Nutritional Analysis", "Info", "Business");
                 return JsonSerializer.Serialize(new { success = false, message = "Invalid Token" });
             }
                         string username = _auth.getUsername(token);
@@ -64,7 +64,6 @@ namespace The6Bits.BitOHealth.ControllerLayer
             string rec = _NIM.SaveRecipeRespones(username,iingredients);
             object response = await _NIM.GetNutritionAnalysis(iingredients);
 
-            //var stringPayload = JsonSerializer.Deserialize<object>(response);
             return response;
 
         }
