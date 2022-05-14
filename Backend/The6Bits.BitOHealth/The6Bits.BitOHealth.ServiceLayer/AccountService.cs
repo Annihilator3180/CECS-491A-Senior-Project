@@ -401,7 +401,7 @@ namespace The6Bits.BitOHealth.ServiceLayer
         }
 
 
-        public string VerifyEmail(string username, string email, DateTime now, string url)
+        public string VerifyEmail(string username, string email, DateTime now)
         {
             string code = Guid.NewGuid().ToString("N");
             string saveStatus = _AD.SaveActivationCode(username, now, code, "Registration");

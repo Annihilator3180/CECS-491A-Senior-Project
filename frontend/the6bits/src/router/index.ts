@@ -33,7 +33,7 @@ import DeleteReminder from '@/components/Reminders/DeleteReminder.vue'
 import EditReminder from '@/components/Reminders/EditReminder.vue'
 import NutritionAnalysis from '@/components/NutritionAnalysis.vue'
 import BMICalculator from '@/components/BMICalculator.vue'
-
+import FAQ from '@/components/FAQ.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -264,6 +264,14 @@ const routes: Array<RouteRecordRaw> = [
         component: RecipeFavorite,
         meta: {
         requiresAuth: true,
+        }
+    },
+    {
+        path: "/FAQ",
+        name: "FAQ",
+        component: FAQ,
+        meta: {
+        requiresAuth: false,
         }
     }
 

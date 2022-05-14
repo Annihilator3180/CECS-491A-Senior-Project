@@ -173,6 +173,10 @@ public class AccountController : ControllerBase
             token = token.Split(' ')[1];
         string username = _auth.getUsername(token);
         string status = _AccountManager.DeleteAccount(token);
+        if (username == "bossadmin12")
+        {
+            return "Cannot delete this user.";
+        }
 
         if (status.Contains("Database"))
         {
@@ -183,7 +187,6 @@ public class AccountController : ControllerBase
             _ = logService.Log(username, "Account Deletion- " + status, "Business", "Information");
         }
 
-        Response.Cookies.Delete("token");
         return status;
     }
 
