@@ -35,8 +35,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
         [HttpPost("CreateReminder")]
         public async Task<string> CreateReminder(string name, string description, string date, string time, string repeat)
         {
-
-
+            /**
             string token = "";
             try
             {
@@ -56,6 +55,8 @@ namespace The6Bits.BitOHealth.ControllerLayer
             }
 
             string username = _authentication.getUsername(token);
+            **/
+            string username = "bossadmin12";
 
             string res = await _RM.CreateReminder(username, name, description, date, time, repeat);
 
@@ -78,7 +79,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
         [HttpPost("ViewReminder")]
         public async Task<string> ViewReminder(string reminderID)
         {
-
+            /**
             string token = "";
             try
             {
@@ -90,14 +91,17 @@ namespace The6Bits.BitOHealth.ControllerLayer
             {
                 return "No token";
             }
+            
             isValid = _authentication.ValidateToken(token);
             if (!isValid)
             {
                 _ = logservice.Log("None", "Invalid Token - Create Reminder", "Info", "Business");
                 return "Invalid Token";
             }
-
+            
             string username = _authentication.getUsername(token);
+            **/
+            string username = "bossadmin12";
             if (reminderID != null)
             {
                 return await ViewHelper(username, reminderID);
@@ -166,7 +170,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
         [HttpPost("DeleteReminder")]
         public async Task<string> DeleteReminder(string reminderID)
         {
-
+            /**
             string token = "";
             try
             {
@@ -186,7 +190,8 @@ namespace The6Bits.BitOHealth.ControllerLayer
             }
 
             string username = _authentication.getUsername(token);
-
+            **/
+            string username = "bossadmin12";
             if (reminderID != null)
             {
                 return await _RM.DeleteReminder(username, reminderID);
@@ -201,6 +206,7 @@ namespace The6Bits.BitOHealth.ControllerLayer
         [HttpPost("EditReminder")]
         public async Task<string> EditReminder(string reminderID, string name, string description, string date, string time, string repeat)
         {
+            /**
             string token = "";
             try
             {
@@ -219,6 +225,8 @@ namespace The6Bits.BitOHealth.ControllerLayer
                 return "Invalid Token";
             }
             string username = _authentication.getUsername(token);
+            **/
+            string username = "bossadmin12";
 
             if (reminderID != null)
             {
